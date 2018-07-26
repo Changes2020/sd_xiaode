@@ -1,7 +1,11 @@
 import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
-import {getUrlParams,getLastUrlParams,setRouteUrlParams,setCurrentUrlParams} from './routerParams'
-
+import {
+  getUrlParams,
+  getLastUrlParams,
+  setRouteUrlParams,
+  setCurrentUrlParams,
+} from './routerParams';
 
 let routerDataCache;
 const modelNotExisted = (app, model) =>
@@ -41,8 +45,8 @@ const dynamicWrapper = (app, models, component) => {
       if (!routerDataCache) {
         routerDataCache = getRouterData(app);
       }
-      const urlParams=getUrlParams(app);
-      const lastUrlParams=getLastUrlParams(app);
+      const urlParams = getUrlParams(app);
+      const lastUrlParams = getLastUrlParams(app);
 
       return component().then(raw => {
         const Component = raw.default || raw;
@@ -53,7 +57,7 @@ const dynamicWrapper = (app, models, component) => {
             urlParams,
             lastUrlParams,
             setRouteUrlParams,
-            setCurrentUrlParams
+            setCurrentUrlParams,
           });
       });
     },
@@ -76,43 +80,42 @@ const dynamicWrapper = (app, models, component) => {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['global','index'], () => import('../layout/BaseLayout')),
+      component: dynamicWrapper(app, ['global', 'index'], () => import('../layout/BaseLayout')),
     },
     '/indexPage': {
-        component: dynamicWrapper(app, ['example'], () => import('../routes/Home/IndexPage')),
-      },
-      '/chartlist': {
-        component: dynamicWrapper(app, ['example'], () => import('../routes/Home/ChartList')),
-      },
-      '/details': {
-        component: dynamicWrapper(app, ['example'], () => import('../routes/Details/Details')),
-      },
-      '/demention': {
-        component: dynamicWrapper(app, ['example'], () => import('../routes/Demention/Demention')),
-      },
-      '/user': {
-        component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
-      },
-      '/user/wechart': {
-        component: dynamicWrapper(app, ['user'], () => import('../routes/Login/WeChartLogin')),
-      },
-      '/static': {
-        component: dynamicWrapper(app, ['user'], () => import('../layout/StaticLayout')),
-      },
-      '/exception': {
-        component: dynamicWrapper(app, [], () => import('../layout/Exception')),
-      },
-      '/exception/403': {
-        component: dynamicWrapper(app, [], () => import('../routes/Exception/Error403')),
-      },
-      '/exception/404': {
-        component: dynamicWrapper(app, [], () => import('../routes/Exception/Error404')),
-      },
-      '/exception/500': {
-        component: dynamicWrapper(app, [], () => import('../routes/Exception/Error500')),
-      },
-    
+      component: dynamicWrapper(app, ['example'], () => import('../routes/Home/IndexPage')),
+    },
+    '/chartlist': {
+      component: dynamicWrapper(app, ['example'], () => import('../routes/Home/ChartList')),
+    },
+    '/details': {
+      component: dynamicWrapper(app, ['Details'], () => import('../routes/Details/Details')),
+    },
+    '/demention': {
+      component: dynamicWrapper(app, ['example'], () => import('../routes/Demention/Demention')),
+    },
+    '/user': {
+      component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
+    },
+    '/user/wechart': {
+      component: dynamicWrapper(app, ['user'], () => import('../routes/Login/WeChartLogin')),
+    },
+    '/static': {
+      component: dynamicWrapper(app, ['user'], () => import('../layout/StaticLayout')),
+    },
+    '/exception': {
+      component: dynamicWrapper(app, [], () => import('../layout/Exception')),
+    },
+    '/exception/403': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Error403')),
+    },
+    '/exception/404': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Error404')),
+    },
+    '/exception/500': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Error500')),
+    },
   };
-  
+
   return routerConfig;
 };

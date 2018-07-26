@@ -1,0 +1,173 @@
+
+.normal {
+}
+
+.arrowDown{
+  position: absolute;
+  right: .4rem;
+  width: .18rem;
+  height: .1rem;
+  display: inline-block;
+}
+.arrowUp {
+  position: absolute;
+  right: .4rem;
+  width: .18rem;
+  height: .1rem;
+  display: inline-block;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.mylist{
+  width: 7.1rem;
+  /*height: 2.94rem;*/
+  margin-left: .2rem;
+  padding-bottom: .33rem
+}
+.ulCss{
+  width: 6.56rem;
+  /*height:2.6rem;*/
+  background-color: #fff;
+  box-sizing: border-box;
+  margin: 0 .22rem;
+  border: 1px solid #EBEBEB;
+  border-radius: .04rem;
+  overflow: hidden;
+}
+.ulCss li{
+  box-sizing: border-box;
+  height: .65rem;
+  display: flex;
+  align-items: center;
+  font-size:.18rem;
+  border-bottom: 1px solid #f7f2f2;
+}
+.ulCss li span{
+  display: flex;
+  border: 1px solid #f7f2f2;
+  border-width: 0 1px 0 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.row1{
+  width: 2.56rem;
+}
+.row2{
+  width: 1.98rem;
+}
+.row3{
+  width: 1.98rem;
+  font-size: .22rem;
+}
+.trCls{
+  border: 1px solid #f7f2f2;
+  border-width: 0 1px 0 0;
+}
+.ulCss li span:last-child,.ulCss li:last-child{
+  border-width: 0
+}
+.triImg{
+  width: .12rem;
+  height: .12rem;
+  margin:0 0 .03rem .08rem;
+}
+.seeAllCls{
+  width: 7.5rem;
+  height: .33rem;
+  font-size: .24rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #52C9C2;
+  background: #fff;
+  padding-top: .19rem;
+  padding-bottom: .2rem;
+}
+/*biao zhi*/
+.imgCls{
+  position: absolute;
+  top: 0;
+  left: .2rem;
+  display: inline-block;
+  width: .22rem;
+  height: .26rem;
+}
+/*列表样式*/
+.tableCss {
+  width: 7.1rem;
+  height: .8rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid #fff;
+  font-size: .2rem;
+}
+.leftCss{
+  width: 1.51rem;
+  padding-left: .1rem;
+  word-wrap:break-word;
+  margin:0 .09rem;
+  text-align: center;
+}
+.proCss{
+  width: .8rem;
+  margin:0 .09rem;
+  text-align: center;
+}
+.rankCss{
+  width: 1.04rem;
+  text-align: center;
+}
+.equableCss{
+  width: .88rem;
+  text-align: center;
+  margin:0 .09rem;
+}
+.ringRatioCss{
+  width: .9rem;
+  text-align: center;
+  margin:0 .09rem;
+}
+.rightCss{
+  width: .6rem;
+  margin:0 .09rem;
+  text-align: center;
+}
+.firRankBox{
+  height: 100%;
+}
+.firRankCls{
+  display: block;
+  height: .32rem!important;
+  line-height: .32rem!important;
+}
+/*allshow*/
+.allUpCls img{
+  width: .46rem;
+  height: .46rem;
+}
+.allUpCls{
+  width: .74rem;
+  height: .74rem;
+  position: fixed;
+  right: .12rem;
+  bottom: .6rem;
+  opacity: 0.8;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px 2px rgba(202,202,202,0.50);
+  border-radius: 3px;
+  text-align: center;
+  line-height: .96rem;
+  z-index: 10;
+}
+/*listView*/
+:global(.am-list-item .am-list-line .am-list-content){
+  padding: 0!important;
+}
+:global(.am-list-item){
+  min-height: .8rem!important;
+}
