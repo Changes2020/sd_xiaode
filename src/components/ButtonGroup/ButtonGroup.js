@@ -9,15 +9,11 @@
 * btnSelectedClass{非必传 Obj}:被选中button样式，对象格式
 *
 * */
-<<<<<<< HEAD
+
 import React, { Component } from "react";
 import { Button } from "antd-mobile";
 import styles from "./ButtonGroup.less";
-=======
-import React, { Component } from 'react';
-// import { Button } from "antd-mobile";
-// import styles from "./ButtonGroup.less";
->>>>>>> bb83097dd845dc15427afecbdc693af0b61a6151
+
 
 class ButtonGroup extends Component {
   constructor(props) {
@@ -68,20 +64,7 @@ class ButtonGroup extends Component {
       spanFunction = null,
       btnClass = null,
     } = this.props;
-<<<<<<< HEAD
-
     // console.log('子组件render时传入数据',dataSource,dataReturnFun,id)
-=======
-    console.log(
-      '刚进入页面时候',
-      dataSource,
-      dataReturnFun,
-      id,
-      isSelectFirst,
-      spanFunction,
-      btnClass
-    );
->>>>>>> bb83097dd845dc15427afecbdc693af0b61a6151
     return (
       <div>
         {this.buttonListItem(

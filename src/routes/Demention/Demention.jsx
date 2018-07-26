@@ -17,9 +17,9 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
         rankType: 3,       // 1:集团，2:院内，3:null
         dateType: 3,       // 1:周均,2:月均,3:自定义
         filteKeyID: null,  // 登录用户id
-        userId: null
+        userId: null,
       },
-       dementionId:4
+       dementionId:4,
      }
      this.state=assignUrlParams(initState,urlParams)
    }
@@ -41,7 +41,7 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
    fnClickGroupButton(item) {
      const dementionId = item.id
      this.setState({
-       dementionId
+       dementionId,
      })
    }
 
