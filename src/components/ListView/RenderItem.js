@@ -23,13 +23,13 @@ class RenderItem extends React.Component {
     return (
       <div className={styles.wrap}>
         {Object.keys(rowData).map((key, i) => {
-          if (i < array.length)
-            return (
-              <span key={key} className={styles.title} style={{ ...listData[i].style }}>
-                {rowData[array[i]]}
-              </span>
-            );
-          else return null;
+          return (
+            <span key={key} className={styles.title} style={{ ...listData[i].style }}>
+              {typeof rowData[array[i]] === 'number'
+                ? rowData[array[i]].toFixed(2)
+                : rowData[array[i]]}
+            </span>
+          );
         })}
       </div>
     );
