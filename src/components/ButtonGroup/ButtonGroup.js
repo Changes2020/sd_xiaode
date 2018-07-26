@@ -10,8 +10,8 @@
 *
 * */
 import React, { Component } from "react";
-// import { Button } from "antd-mobile";
-// import styles from "./ButtonGroup.less";
+import { Button } from "antd-mobile";
+import styles from "./ButtonGroup.less";
 
 class ButtonGroup extends Component {
   constructor(props) {
@@ -19,50 +19,39 @@ class ButtonGroup extends Component {
     this.state = {};
   }
 
-  // buttonListItem(
-  // dataSource = null,
-  // dataReturnFun = null,
-  // id = null,
-  // isSelectFirst = null,
-  // spanFunction = null,
-  // btnClass = null
-  // ) {
-  // console.log(
-  //   "进入到渲染button组件",
-  //   dataSource,
-  //   dataReturnFun,
-  //   id,
-  //   isSelectFirst,
-  //   spanFunction,
-  //   btnClass
-  // );
-  // const self = this;
-  // const data=data in dataSource?dataSource.data:[];
-  // if (!dataReturnFun || typeof dataReturnFun !== "function") {
-  //   console.warn("未传入dataReturnFun方法或传入的非function");
-  // }
-  // if (!spanFunction && typeof spanFunction !== "function") {
-  //   console.warn("传入的spanFunction非function");
-  // }
-  // const liList = data.map(function(item, index) {
-  //   return (
-  //     <Button
-  //       className={
-  //         !id
-  //           ? !isSelectFirst
-  //             ? styles.btnStyle
-  //             : index === 0 ? styles.btnSelected : styles.btnStyle
-  //           : item.id === id ? styles.btnSelected : styles.btnStyle
-  //       }
-  //       key={index}
-  //       onClick={() => dataReturnFun(item, index)}
-  //     >
-  //       {!spanFunction ? <span>{item.name}</span> : spanFunction(item, id)}
-  //     </Button>
-  //   );
-  // });
-  // return liList;
-  // }
+  buttonListItem=(dataSource = null,
+                  dataReturnFun = null,
+                  id = null,
+                  isSelectFirst = null,
+                  spanFunction = null
+                  // btnClass = null
+  )=>{
+    // console.log('子组件button数据',dataSource,dataReturnFun,id)
+    // console.log('data' in dataSource,dataSource.data)
+  const data='data' in dataSource?dataSource.data:[];
+  if (!dataReturnFun || typeof dataReturnFun !== "function") {
+    console.warn("未传入dataReturnFun方法或传入的非function");
+  }
+  if (!spanFunction && typeof spanFunction !== "function") {
+    console.warn("传入的spanFunction非function");
+  }
+  // console.log(data)
+  const liList = data.map((item, index)=> {
+    return (
+      <Button
+        className={!id ? !
+            (isSelectFirst ? styles.btnStyle :
+          (index === 0 ? styles.btnSelected : styles.btnStyle)) :
+          (item.id === id ? styles.btnSelected : styles.btnStyle)}
+        key={item.id}
+        onClick={() => dataReturnFun(item, index)}
+      >
+        {!spanFunction ? <span>{item.name}</span> : spanFunction(item, id)}
+      </Button>
+    );
+  });
+  return liList;
+  }
 
   render() {
     const {
@@ -73,25 +62,18 @@ class ButtonGroup extends Component {
       spanFunction = null,
       btnClass = null
     } = this.props;
-    console.log(
-      "刚进入页面时候",
-      dataSource,
-      dataReturnFun,
-      id,
-      isSelectFirst,
-      spanFunction,
-      btnClass
-    );
+
+    // console.log('子组件render时传入数据',dataSource,dataReturnFun,id)
     return (
       <div>
-        {/* {this.buttonListItem(
+        {this.buttonListItem(
           dataSource,
           dataReturnFun,
           id,
           isSelectFirst,
           spanFunction,
           btnClass
-        )} */}
+        )}
       </div>
     );
   }
