@@ -1,5 +1,9 @@
-import React from "react";
-import styles from "./RenderHeader.less";
+/*
+* listColumn -- 必传
+* sectionData -- 直接用
+* */
+import React from 'react';
+import styles from './RenderHeader.less';
 
 class RenderHeader extends React.Component {
   componentDidMount() {}
@@ -11,11 +15,7 @@ class RenderHeader extends React.Component {
       <div className={styles.tableHeader}>
         {Object.keys(listColumn).map(key => {
           return (
-            <span
-              key={key}
-              className={styles.title}
-              style={{ ...listColumn[key].style }}
-            >
+            <span key={key} className={styles.title} style={{ ...listColumn[key].style }}>
               {listColumn[key].name}
             </span>
           );

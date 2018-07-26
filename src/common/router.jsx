@@ -1,23 +1,23 @@
-import { createElement } from "react";
-import dynamic from "dva/dynamic";
+import { createElement } from 'react';
+import dynamic from 'dva/dynamic';
 import {
   getUrlParams,
   getLastUrlParams,
   setRouteUrlParams,
-  setCurrentUrlParams
-} from "./routerParams";
+  setCurrentUrlParams,
+} from './routerParams';
 
 let routerDataCache;
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line
   !app._models.some(({ namespace }) => {
-    return namespace === model.substring(model.lastIndexOf("/") + 1);
+    return namespace === model.substring(model.lastIndexOf('/') + 1);
   });
 // wrapper of dynamic
 const dynamicWrapper = (app, models, component) => {
   // () => require('module')
   // transformed by babel-plugin-dynamic-import-node-sync
-  if (component.toString().indexOf(".then(") < 0) {
+  if (component.toString().indexOf('.then(') < 0) {
     models.forEach(model => {
       if (modelNotExisted(app, model)) {
         // eslint-disable-next-line
@@ -31,7 +31,7 @@ const dynamicWrapper = (app, models, component) => {
       }
       return createElement(component().default, {
         ...props,
-        routerData: routerDataCache
+        routerData: routerDataCache,
       });
     };
   }
@@ -39,9 +39,7 @@ const dynamicWrapper = (app, models, component) => {
   return dynamic({
     app,
     models: () =>
-      models
-        .filter(model => modelNotExisted(app, model))
-        .map(m => import(`../models/${m}.js`)),
+      models.filter(model => modelNotExisted(app, model)).map(m => import(`../models/${m}.js`)),
     // add routerData prop
     component: () => {
       if (!routerDataCache) {
@@ -59,10 +57,10 @@ const dynamicWrapper = (app, models, component) => {
             urlParams,
             lastUrlParams,
             setRouteUrlParams,
-            setCurrentUrlParams
+            setCurrentUrlParams,
           });
       });
-    }
+    },
   });
 };
 
@@ -81,62 +79,42 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => {
   const routerConfig = {
-    "/": {
-      component: dynamicWrapper(app, ["global", "index"], () =>
-        import("../layout/BaseLayout")
-      )
+    '/': {
+      component: dynamicWrapper(app, ['global', 'index'], () => import('../layout/BaseLayout')),
     },
-    "/indexPage": {
-      component: dynamicWrapper(app, ["example"], () =>
-        import("../routes/Home/IndexPage")
-      )
+    '/indexPage': {
+      component: dynamicWrapper(app, ['example'], () => import('../routes/Home/IndexPage')),
     },
-    "/chartlist": {
-      component: dynamicWrapper(app, ["example"], () =>
-        import("../routes/Home/ChartList")
-      )
+    '/chartlist': {
+      component: dynamicWrapper(app, ['example'], () => import('../routes/Home/ChartList')),
     },
-    "/details": {
-      component: dynamicWrapper(app, ["Details"], () =>
-        import("../routes/Details/Details")
-      )
+    '/details': {
+      component: dynamicWrapper(app, ['Details'], () => import('../routes/Details/Details')),
     },
-    "/demention": {
-      component: dynamicWrapper(app, ["example"], () =>
-        import("../routes/Demention/Demention")
-      )
+    '/demention': {
+      component: dynamicWrapper(app, ['example'], () => import('../routes/Demention/Demention')),
     },
-    "/user": {
-      component: dynamicWrapper(app, [], () => import("../layout/UserLayout"))
+    '/user': {
+      component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
     },
-    "/user/wechart": {
-      component: dynamicWrapper(app, ["user"], () =>
-        import("../routes/Login/WeChartLogin")
-      )
+    '/user/wechart': {
+      component: dynamicWrapper(app, ['user'], () => import('../routes/Login/WeChartLogin')),
     },
-    "/static": {
-      component: dynamicWrapper(app, ["user"], () =>
-        import("../layout/StaticLayout")
-      )
+    '/static': {
+      component: dynamicWrapper(app, ['user'], () => import('../layout/StaticLayout')),
     },
-    "/exception": {
-      component: dynamicWrapper(app, [], () => import("../layout/Exception"))
+    '/exception': {
+      component: dynamicWrapper(app, [], () => import('../layout/Exception')),
     },
-    "/exception/403": {
-      component: dynamicWrapper(app, [], () =>
-        import("../routes/Exception/Error403")
-      )
+    '/exception/403': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Error403')),
     },
-    "/exception/404": {
-      component: dynamicWrapper(app, [], () =>
-        import("../routes/Exception/Error404")
-      )
+    '/exception/404': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Error404')),
     },
-    "/exception/500": {
-      component: dynamicWrapper(app, [], () =>
-        import("../routes/Exception/Error500")
-      )
-    }
+    '/exception/500': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Error500')),
+    },
   };
 
   return routerConfig;
