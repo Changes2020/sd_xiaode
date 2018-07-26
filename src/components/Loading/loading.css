@@ -1,0 +1,51 @@
+
+:global(.am-activity-indicator-content) {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 !important;
+    border-radius: .24rem;
+    background-clip: padding-box;
+    color: #fff !important;
+    background-color: rgba(41,42,50, 0.7) !important;
+    width: 2.4rem;
+    height: 2.4rem;
+  
+  }
+  :global(.am-activity-indicator-spinner-lg ){
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+  
+  
+  :global(.am-activity-indicator-toast){
+    width:2.24rem ;
+    font-family: PingFangSC-Regular;
+    font-size: .28rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+  }
+  
+  
+  
+  :global(.am-activity-indicator-spinner){
+    -webkit-animation: unset !important;
+    animation: unset !important;
+    background-image:url(http://bi-m.ministudy.com/staticFile/load.gif) !important;
+  }
+  

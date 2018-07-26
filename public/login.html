@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>login</title>
+  <!-- 此脚本用于预加载图片 -->
+  <script>function reloadImage(url,callback){var img=new Image();callback&&img.addEventListener("load",callback,false);img.src=url}var reloadImages=["http://bi-m.ministudy.com/staticFile/load.gif"];for(var i=0;i<reloadImages.length;i++){var callback=i===reloadImages.length-1?imageLoaded:null;reloadImage(reloadImages[i],callback)}function imageLoaded(){};</script>
+  <!-- 此脚本用于rem配置 -->
+  <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange" in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750);n<320&&(n=320);t.style.fontSize=n/d+"px"};if(!window.Promise){document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+">"+"<"+"/"+"script>")}e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+
+    #container {
+      display: table;
+      width: 100%;
+      height: 100%;
+    }
+
+    .content {
+      /*display: table-cell;*/
+      display: none;
+      vertical-align: middle;
+      width: 100%;
+    }
+
+    .imgCss {
+      display: block;
+      width: 2.54rem;
+      height: 2.46rem;
+      margin: 0 auto;
+    }
+
+    .wordStyle {
+      margin: 0.98rem auto 0 auto;
+      width: 6.08rem;
+      height: 3.50rem;
+    }
+
+    .wordStyle1 {
+      height: 0.8rem;
+      text-align: center;
+      line-height: 0.32rem;
+      font-size: 0.32rem;
+      color: #333333;
+      margin: 0 auto;
+      display: block;
+
+    }
+
+    .wordStyle2 {
+      height: 0.5rem;
+      line-height: 0.28rem;
+      text-align: center;
+      font-size: 0.28rem;
+      color: #999999;
+      margin: 0rem auto;
+      display: block;
+    }
+
+    .wordStyle3 {
+      height: 0.5rem;
+      text-align: center;
+      line-height: 0.28rem;
+      font-size: 0.28rem;
+      color: #999999;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <div style="width: 2px;height: 2px;background:url('http://bi-m.ministudy.com/staticFile/load.gif');"></div>
+  <div class="content">
+    <img class="imgCss" src='./error.png' alt='errorimg'/>
+    <div class="wordStyle">
+                <span class="wordStyle1">
+                  你没有权限访问此页面，或权限设置有误。
+                </span>
+      <span class="wordStyle2">
+                  请联系：运营中心-产研一部
+                </span>
+      <span class="wordStyle3">
+                  ganwenbin@sunlands.com
+                </span>
+    </div>
+  </div>
+</div>
+<script>
+
+  var params = getUrlParams();
+  if (params['userId'] && params['userType'] == 1) {
+    setItem('userInfo', params);
+    var urlObj = {
+      pro: 'http://bi-m.ministudy.com/',
+      dev: 'http://172.16.117.64:8081/'
+    }
+    var redit_url = urlObj[params['branch']] ? urlObj[params['branch']] : './';
+    var time=new Date().getTime();
+    window.location.href = `${redit_url}?v=${time}`;
+  } else if (JSON.stringify(params) !== '{}') {
+    var href = window.location.href;
+    var nextUrl = href.replace(window.location.search, '');
+    window.location.href = nextUrl;
+  } else {
+    document.querySelector('.content').style.display = 'table-cell';
+  }
+
+export function setItem(key) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var days = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+  if (value === null || days !== null && isNaN(days)) {
+    var error = new Error('localStorage存储请输入正确参数');
+    throw error;
+  } else {
+    var now = new Date();
+    var expries = !days && days !== 0 ? null : Number(now) + 24 * 3600000 * Number(days);
+    window.localStorage.removeItem(key);
+    window.localStorage.setItem(key, JSON.stringify({ value: value, expries: expries }));
+  }
+}
+  function getUrlParams() {
+    var url = window.location.search; //获取url中"?"符后的字串
+    var theRequest = {};
+    if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      var strs = str.split("&");
+      for (var i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+      }
+    }
+    return theRequest;
+  }
+</script>
+</body>
+</html>
