@@ -30,7 +30,8 @@
     "react-select": "^1.2.1",
     "react-sticky": "^6.0.2",
     "less": "2.7.2",
-    "qs": "^6.5.0"
+    "qs": "^6.5.0",
+    "classnames": "^2.2.5"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -40,14 +41,39 @@
     "eslint": "^4.14.0",
     "eslint-config-umi": "^0.1.1",
     "eslint-plugin-flowtype": "^2.34.1",
-    "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-compat": "^2.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "eslint-plugin-react": "^7.0.1",
     "lint-staged": "^6.0.0",
     "husky": "^0.12.0",
     "mockjs": "^1.0.1-beta3",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.0.0",
-    "roadhog-api-doc": "^0.3.4"
-  }
+    "roadhog-api-doc": "^0.3.4",
+    "prettier": "1.11.1",
+    "stylelint": "^8.4.0",
+    "stylelint-config-prettier": "^3.0.4",
+    "stylelint-config-standard": "^18.0.0"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,less}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{js,jsx}": "lint-staged:js",
+    "**/*.less": "stylelint --syntax less"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
 }
