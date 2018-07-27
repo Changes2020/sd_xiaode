@@ -44,6 +44,7 @@ class Details extends React.Component {
           rank: 1,
           id: 112,
           category: '睿博',
+          isCheck: true,
           children: {
             id: 1,
             parentid: 0,

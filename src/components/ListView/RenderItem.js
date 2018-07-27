@@ -9,7 +9,7 @@ class RenderItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowDetail: false,
+      isShowDetail: this.props.rowData.isCheck,
     };
   }
   componentDidMount() {}
@@ -55,7 +55,7 @@ class RenderItem extends React.Component {
           <div className={styles.rightCss}>
             <img
               alt="箭头"
-              className={rowData.isCheck ? styles.arrowUp : styles.arrowDown}
+              className={isShowDetail ? styles.arrowUp : styles.arrowDown}
               src={
                 rowData.familyType === 0
                   ? greenIcon
