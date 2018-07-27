@@ -28,7 +28,10 @@ class Details extends React.Component {
       endTime,
     });
   };
-
+  jump2Data = rowData => {
+    // 跳转至数据详情页
+    console.log(rowData);
+  };
   render() {
     const { paramsObj } = this.state;
     const dataList = {
@@ -371,7 +374,7 @@ class Details extends React.Component {
               {
                 id: 2,
                 parentid: 1,
-                project: '正面均分',
+                project: '正面均分1',
                 number: 0,
                 creditScore: 14.36,
                 unit: '',
@@ -379,7 +382,7 @@ class Details extends React.Component {
                   {
                     id: 3,
                     parentid: 2,
-                    project: '学术均分',
+                    project: '学术均分1',
                     number: 0,
                     creditScore: 13.97,
                     unit: '',
@@ -387,7 +390,7 @@ class Details extends React.Component {
                       {
                         id: 32,
                         parentid: 3,
-                        project: '预估分',
+                        project: '预估分1',
                         number: 74897,
                         creditScore: 10.84,
                         unit: '分',
@@ -397,7 +400,7 @@ class Details extends React.Component {
                       {
                         id: 4,
                         parentid: 3,
-                        project: '直播',
+                        project: '直播1',
                         number: 16153.86,
                         creditScore: 3.13,
                         unit: '小时',
@@ -410,7 +413,7 @@ class Details extends React.Component {
                   {
                     id: 8,
                     parentid: 2,
-                    project: '运营均分',
+                    project: '运营均分1',
                     number: 0,
                     creditScore: 0.39,
                     unit: '',

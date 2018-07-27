@@ -9,6 +9,18 @@ import yellowIcon from '../../assets/yellow.png';
 import styles from './CreditDetails.less';
 
 class SecDetails extends Component {
+  showChain = (n = null) => {
+    if (!n) {
+      return n === 0 ? n : 'N/A';
+    } else if (n > 1000) {
+      return '1000+';
+    } else if (n < -1000) {
+      return '-1000+';
+    } else {
+      return n;
+    }
+  };
+
   // 是否展示右侧箭头
   detailTmp = (data, rowData, isShowArrow) => {
     return (
@@ -62,14 +74,13 @@ class SecDetails extends Component {
       gro: 'rgba(97,155,222,0.15)',
       higColor: 'rgba(255,89,89,0.10)',
     };
-    const { rowData, jump2Data } = this.props;
-
+    const { rowData, jump2Data, isShowDetail } = this.props;
     return (
       <div
         id={`rowId${i}`}
         dataid={`${rowData.familyType}${rowData.id}`}
         key={rowData.id}
-        style={{ paddingBottom: '.14rem', fontSize: '.2rem' }}
+        style={{ fontSize: '.2rem', display: !isShowDetail ? 'none' : 'block' }}
       >
         <List
           className={styles.mylist}
@@ -88,7 +99,7 @@ class SecDetails extends Component {
                     return (
                       <li key={`fir${key}`} className={styles.liCssFir}>
                         <div className={styles.tableCss}>
-                          <div className={styles.leftCss}>{`${index}`}</div>
+                          <div className={styles.leftCss}>{`${index + 1}`}</div>
                           <div className={styles.proCss2}>{dataList.project}</div>
                           <div className={styles.equableCss}>{dataList.creditScore.toFixed(2)}</div>
                           <div className={styles.ringRatioCss}>
@@ -115,7 +126,7 @@ class SecDetails extends Component {
                             return (
                               <li key={`sec${key1}`} className={styles.liCssSec}>
                                 <div className={styles.tableCss}>
-                                  <div className={styles.leftCss}>{`${i}.${i1}`}</div>
+                                  <div className={styles.leftCss}>{`${i}.${i1 + 1}`}</div>
                                   <div className={styles.proCss2}>
                                     {dataList.data[key1].project}
                                   </div>
@@ -157,8 +168,7 @@ class SecDetails extends Component {
                                           </div>
                                         ) : (
                                           <div
-                                            onClick={jump2Data.bind(
-                                              this,
+                                            onClick={jump2Data(
                                               rowData,
                                               dataList,
                                               dataList.data[key1],

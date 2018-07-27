@@ -69,7 +69,11 @@ class MultipHeaderList extends Component {
             </Sticky>
           )}
           renderRow={rowData => {
-            return !customRenderItem ? <RenderItem rowData={rowData} /> : customRenderItem(rowData);
+            return !customRenderItem ? (
+              <RenderItem rowData={rowData} jump2Data={headerParam.jump2Data} />
+            ) : (
+              customRenderItem(rowData)
+            );
           }}
           pageSize={0}
           initialListSize={initialListSize || 500}

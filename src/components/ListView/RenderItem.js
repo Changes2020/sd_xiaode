@@ -1,16 +1,22 @@
 import React from 'react';
-// import CreditDetails from '../SecDetails/CreditDetails'
+import CreditDetails from '../SecDetails/CreditDetails';
 import greenIcon from '../../assets/green.png';
 import blueIcon from '../../assets/blue.png';
 import yellowIcon from '../../assets/yellow.png';
 import styles from './RenderItem.less';
 
 class RenderItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowDetail: false,
+    };
+  }
   componentDidMount() {}
 
   render() {
-    const { rowData } = this.props;
-
+    const { rowData, jump2Data } = this.props;
+    const { isShowDetail } = this.state;
     const rgb = {
       col: 'rgba(82,201,194,0.15)',
       fam: 'rgba(243,169,47,0.15)',
@@ -23,14 +29,18 @@ class RenderItem extends React.Component {
         style={{
           width: '7.1rem',
           color: '#333',
-          height: '.8rem',
           marginBottom: '0.14rem',
           background: rowData.lineHeight
             ? rgb.higColor
             : rowData.familyType === 0 ? rgb.col : rowData.familyType === 1 ? rgb.fam : rgb.gro,
         }}
       >
-        <div className={styles.tableCss}>
+        <div
+          className={styles.tableCss}
+          onClick={() => {
+            this.setState({ isShowDetail: !isShowDetail });
+          }}
+        >
           <div className={styles.leftCss}>{rowData.category}</div>
           <div className={styles.proCss}>{rowData.project}</div>
           <div className={styles.rankCss}>
@@ -54,6 +64,7 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
+        <CreditDetails rowData={rowData} jump2Data={jump2Data} isShowDetail={isShowDetail} />
       </div>
     );
   }
