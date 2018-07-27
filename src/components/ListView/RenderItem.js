@@ -8,7 +8,7 @@ class RenderItem extends React.Component {
   componentDidMount() {}
 
   render() {
-    const { rowData, listColumn } = this.props;
+    const { rowData } = this.props;
 
     const rgb = {
       col: 'rgba(82,201,194,0.15)',
@@ -16,16 +16,6 @@ class RenderItem extends React.Component {
       gro: 'rgba(97,155,222,0.15)',
       higColor: 'rgba(255,89,89,0.10)',
     };
-    const array = [];
-
-    listColumn.forEach(item => {
-      Object.keys(rowData).map(key => {
-        if (key === item.dataIndex) {
-          array.push(key);
-        }
-        return array;
-      });
-    });
     return (
       <div
         className="flex-container"
