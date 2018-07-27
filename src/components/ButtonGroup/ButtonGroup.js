@@ -12,41 +12,51 @@
 
 import React, { Component } from "react";
 import { Button } from "antd-mobile";
+import classNames from "classnames";
 import styles from "./ButtonGroup.less";
-
 
 class ButtonGroup extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const data= !this.props.dataSource?[]:!this.props.dataSource.data?[]:this.props.dataSource.data
+    const firstId= !this.props.isSelectFirst ? -1: (data.length>1?data[0].id:-1);
+    this.state = {
+      initId:firstId,
+    };
+  }
+
+  selectButton(item,index) {
+    if(this.state.initId!==item.id){
+      this.setState({
+        initId:item.id,
+      });
+    }
+    if (!this.props.dataReturnFun || typeof (this.props.dataReturnFun) !== "function") {
+      console.warn("未传入dataReturnFun方法或传入的非function");
+    }else{
+      this.props.dataReturnFun(item,index)
+    }
   }
 
   buttonListItem=(dataSource = null,
-                  dataReturnFun = null,
                   id = null,
-                  isSelectFirst = null,
-                  spanFunction = null
-                  // btnClass = null
+                  spanFunction = null,
+                  btnClass=null,
+                  btnSelectedClass=null,
   )=>{
-    // console.log('子组件button数据',dataSource,dataReturnFun,id)
-    // console.log('data' in dataSource,dataSource.data)
-  const data='data' in dataSource?dataSource.data:[];
-  if (!dataReturnFun || typeof dataReturnFun !== "function") {
-    console.warn("未传入dataReturnFun方法或传入的非function");
-  }
-  if (!spanFunction && typeof spanFunction !== "function") {
-    console.warn("传入的spanFunction非function");
-  }
-  // console.log(data)
-  const liList = data.map((item, index)=> {
+    const self = this;
+    const data=!dataSource?[]:'data' in dataSource?dataSource.data:[];
+    const list = Array.isArray(data) ?data:[]
+    if (spanFunction && typeof spanFunction !== "function") {
+      console.warn("传入的spanFunction非function");
+    }
+    const selectId =!id?self.state.initId:id
+    const liList = list.map((item, index)=> {
     return (
       <Button
-        className={!id ? !
-            (isSelectFirst ? styles.btnStyle :
-          (index === 0 ? styles.btnSelected : styles.btnStyle)) :
-          (item.id === id ? styles.btnSelected : styles.btnStyle)}
+        className={item.id === selectId ? btnSelectedClass : btnClass}
         key={item.id}
-        onClick={() => dataReturnFun(item, index)}
+        onClick={self.selectButton.bind(self,item, index)}
       >
         {!spanFunction ? <span>{item.name}</span> : spanFunction(item, id)}
       </Button>
@@ -58,22 +68,22 @@ class ButtonGroup extends Component {
   render() {
     const {
       dataSource = null,
-      dataReturnFun = null,
       id = null,
-      isSelectFirst = null,
       spanFunction = null,
       btnClass = null,
+      btnSelectedClass=null,
     } = this.props;
-    // console.log('子组件render时传入数据',dataSource,dataReturnFun,id)
+    // 获取父组件传入button选中和未选中样式补充到默认样式里面
+    const btnStyle = classNames(styles.btnStyle, btnClass);
+    const btnSelected = classNames(styles.btnSelected, btnSelectedClass);
     return (
       <div>
         {this.buttonListItem(
           dataSource,
-          dataReturnFun,
           id,
-          isSelectFirst,
           spanFunction,
-          btnClass
+          btnStyle,
+          btnSelected
         )}
       </div>
     );

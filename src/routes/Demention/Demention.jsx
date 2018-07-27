@@ -66,7 +66,8 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
             id={this.state.dementionId}
             isSelectFirst
             // spanFunction={(item,num) => {this.spanFun(item,num)}}
-            // btnClass='btnStyle'
+            btnClass={styles.btnStyle}
+            btnSelectedClass={styles.btnSelected}
           />
         </div>
       </div>
