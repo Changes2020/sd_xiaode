@@ -1,8 +1,13 @@
 const config = {
-  401: {
-    img: 'https://gw.alipayobjects.com/zos/rmsportal/wZcnGqRDyhPOEYFcZDnb.svg',
+  serverup: {
+    img: 'http://bi-m.ministudy.com/staticFile/bi_img/serverup.png',
     title: '403',
-    desc: '抱歉，你无权访问该页面',
+    desc: '抱歉，服务器正在升级',
+  },
+  timeout: {
+    img: 'http://bi-m.ministudy.com/staticFile/bi_img/timeout.png',
+    title: '403',
+    desc: '抱歉，请求超时',
   },
   403: {
     img: 'http://bi-m.ministudy.com/staticFile/bi_img/authorized.png',
@@ -15,7 +20,7 @@ const config = {
     desc: '抱歉，你访问的页面不存在',
   },
   500: {
-    img: 'https://gw.alipayobjects.com/zos/rmsportal/RVRUAYdCGeYNBWoKiIwB.svg',
+    img: 'http://bi-m.ministudy.com/staticFile/bi_img/serverdown.png',
     title: '500',
     desc: '抱歉，服务器出错了',
   },
