@@ -165,9 +165,10 @@
   z-index: 10;
 }
 /*listView*/
-:global(.am-list-item .am-list-line .am-list-content){
+:global(.am-list-item .am-list-line),:global(.am-list-item .am-list-line .am-list-content){
   padding: 0!important;
 }
 :global(.am-list-item){
   min-height: .8rem!important;
+  padding: 0!important;
 }

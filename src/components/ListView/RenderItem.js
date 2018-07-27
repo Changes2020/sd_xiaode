@@ -11,13 +11,14 @@ class RenderItem extends React.Component {
   render() {
     const { rowData, listData } = this.props;
     const array = [];
-    Object.keys(rowData).map(key => {
-      listData.forEach(item => {
+
+    listData.forEach(item => {
+      Object.keys(rowData).map(key => {
         if (key === item.name) {
           array.push(key);
         }
+        return array;
       });
-      return array;
     });
 
     return (
