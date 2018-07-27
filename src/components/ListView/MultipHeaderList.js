@@ -15,14 +15,7 @@ class MultipHeaderList extends Component {
   }
 
   render() {
-    const {
-      dataList,
-      groupName,
-      initialListSize,
-      otherCpmponent,
-      listColumn,
-      listData,
-    } = this.props;
+    const { dataList, groupName, tabKey, initialListSize, otherCpmponent, listColumn } = this.props;
 
     return (
       <div>
@@ -48,12 +41,14 @@ class MultipHeaderList extends Component {
                   }}
                   sectionData={sectionData}
                   listColumn={listColumn}
+                  tabKey={tabKey}
+                  groupName={groupName}
                 />
               )}
             </Sticky>
           )}
           renderRow={rowData => {
-            return <RenderItem rowData={rowData} listData={listData} />;
+            return <RenderItem rowData={rowData} listColumn={listColumn} />;
           }}
           pageSize={0}
           initialListSize={initialListSize}

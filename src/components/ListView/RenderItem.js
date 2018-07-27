@@ -1,37 +1,68 @@
-/*
-* listData -- 必传
-* rowData -- 每行数据直接用
-* */
 import React from 'react';
+import greenIcon from '../../assets/green.png';
+import blueIcon from '../../assets/blue.png';
+import yellowIcon from '../../assets/yellow.png';
 import styles from './RenderItem.less';
 
 class RenderItem extends React.Component {
   componentDidMount() {}
 
   render() {
-    const { rowData, listData } = this.props;
+    const { rowData, listColumn } = this.props;
+
+    const rgb = {
+      col: 'rgba(82,201,194,0.15)',
+      fam: 'rgba(243,169,47,0.15)',
+      gro: 'rgba(97,155,222,0.15)',
+      higColor: 'rgba(255,89,89,0.10)',
+    };
     const array = [];
 
-    listData.forEach(item => {
+    listColumn.forEach(item => {
       Object.keys(rowData).map(key => {
-        if (key === item.name) {
+        if (key === item.dataIndex) {
           array.push(key);
         }
         return array;
       });
     });
-
     return (
-      <div className={styles.wrap}>
-        {Object.keys(rowData).map((key, i) => {
-          return (
-            <span key={key} className={styles.title} style={{ ...listData[i].style }}>
-              {typeof rowData[array[i]] === 'number'
-                ? rowData[array[i]].toFixed(2)
-                : rowData[array[i]]}
-            </span>
-          );
-        })}
+      <div
+        className="flex-container"
+        style={{
+          width: '7.1rem',
+          color: '#333',
+          height: '.8rem',
+          marginBottom: '0.14rem',
+          background: rowData.lineHeight
+            ? rgb.higColor
+            : rowData.familyType === 0 ? rgb.col : rowData.familyType === 1 ? rgb.fam : rgb.gro,
+        }}
+      >
+        <div className={styles.tableCss}>
+          <div className={styles.leftCss}>{rowData.category}</div>
+          <div className={styles.proCss}>{rowData.project}</div>
+          <div className={styles.rankCss}>
+            {rowData.rank}/{rowData.total}
+          </div>
+          <div className={styles.equableCss}>{rowData.creditScore.toFixed(2)}</div>
+          <div className={styles.ringRatioCss}>
+            {/* {this.showChain(chain)} */}
+            {/* {chain||chain===0?<img className={styles.triImg} src={chain===0?yellowImg:chain<0?redImg:greenImg} />:<span className={styles.triImg}></span>} */}
+          </div>
+          <div className={styles.rightCss} />
+          <div className={styles.rightCss}>
+            <img
+              alt="箭头"
+              className={rowData.isCheck ? styles.arrowUp : styles.arrowDown}
+              src={
+                rowData.familyType === 0
+                  ? greenIcon
+                  : rowData.familyType === 1 ? yellowIcon : blueIcon
+              }
+            />
+          </div>
+        </div>
       </div>
     );
   }

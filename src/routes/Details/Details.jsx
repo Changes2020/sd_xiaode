@@ -133,66 +133,7 @@ class Details extends React.Component {
       0: { groupName: 'selfExam', arr: 'activeCS' },
       1: { groupName: 'barrier', arr: 'activeCS' },
     };
-    const listColumn = [
-      {
-        name: '学院',
-        style: { width: '100px', textAlign: 'left', marginLeft: '.08rem' },
-      },
-      {
-        name: '项目',
-        style: { width: '100px', textAlign: 'left' },
-      },
-      {
-        name: '排名/总数',
-        style: { width: '100px', textAlign: 'left' },
-      },
-      {
-        name: '均分',
-        style: { width: '100px', textAlign: 'right' },
-      },
-      {
-        name: '环比%',
-        style: { width: '100px', textAlign: 'right' },
-      },
-      {
-        name: '数量',
-        style: { width: '100px', textAlign: 'right' },
-      },
-      {
-        name: '操作',
-        style: { width: '80px', textAlign: 'right', marginRight: '.08rem' },
-      },
-    ];
-    const listData = [
-      {
-        name: 'category',
-        style: { width: '100px', textAlign: 'left', marginLeft: '.08rem' },
-      },
-      {
-        name: 'project',
-        style: { width: '100px', textAlign: 'left' },
-      },
-      {
-        name: 'rank',
-        style: { width: '100px', textAlign: 'center' },
-      },
-      {
-        name: 'creditScore',
-        style: { width: '100px', textAlign: 'right' },
-      },
-      {
-        name: 'chain',
-        style: { width: '100px', textAlign: 'right' },
-      },
-      {
-        name: 'num',
-        style: { width: '100px', textAlign: 'right' },
-      },
-      {
-        name: 'operate',
-        style: { width: '100px', textAlign: 'right', marginRight: '.08rem' },
-      },
-    ];
+
     return (
       <div>
         {/*
@@ -213,8 +154,6 @@ class Details extends React.Component {
                     dataList={dataList}
                     tabKey={1}
                     initialListSize={500}
-                    listColumn={listColumn}
-                    listData={listData}
                   />
                 )
               );
