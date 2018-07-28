@@ -19,17 +19,31 @@ export function getWeChart() {
   };
   return weChartUrlObj[NODE_ENV];
 }
-export async function getOrgMap(params) {
-  return request(`${HOST}/organization/findOrgMap?${stringify(params)}`, {
+/*
+*此接口获取时间空间是指可选日期
+*
+*/
+export async function getDisableTime(params) {
+  return request(`${HOST}/timeManagement/list?${stringify(params)}`, {
     method: 'GET',
+  });
+}
+
+/*
+*此接口用于获取用户登录信息
+* @params{userId}
+*/
+export async function getUserInfo(params) {
+  return request(`${HOST}/wechatLogin/getUserByCode`, {
+    method: 'POST',
     body: params,
   });
 }
 /*
-*此接口获取时间空间是指可选日期
+*此接口用于获取组织结构信息
 */
-export async function getDisableTime(params) {
-  return request(`${HOST}/timeManagement/list?${stringify(params)}`, {
+export async function getOrgMap() {
+  return request(`${HOST}/organization/findOrgMap`, {
     method: 'GET',
   });
 }

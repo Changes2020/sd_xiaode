@@ -48,7 +48,6 @@ class IndexPage extends React.Component {
     console.log(paramsObj.startTime);
     return (
       <div className={styles.normal}>
-        <div>{JSON.stringify(paramsObj)}</div>
         <div style={{ marginTop: '50px' }}>
           <Button onClick={this.randomParams}>随机出参数</Button>
           <Button onClick={this.toDetailPage}>点击跳转至详情页面</Button>

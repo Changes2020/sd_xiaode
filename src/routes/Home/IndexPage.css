@@ -1,11 +1,6 @@
 
 .normal {
-  margin-top: 3em;
-  text-align: center;
-  border: 1px solid red;
-  height:100px;
-  width: 7.5rem;
-  box-sizing: border-box;
+	position: relative;
 }
 
 .title {
