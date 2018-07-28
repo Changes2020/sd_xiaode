@@ -3,8 +3,7 @@ import { routerRedux } from 'dva/router';
 import { Toast } from 'antd-mobile';
 import { parse } from 'url';
 import store from '../index';
-import {getItem} from './localStorage'
-
+import { getItem } from './localStorage';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -46,14 +45,15 @@ function parseJSON(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
+  let newUrl = url;
   const defaultOptions = {
     credentials: 'include',
   };
-  const userInfo = getItem('userInfo')|{};
-  let value=userInfo.value||{};
-  const {userId=''}=value;
+  const userInfo = getItem('userInfo') || {};
+  const value = userInfo.value || {};
+  const { userId = '' } = value;
 
-  const newOptions = {...defaultOptions, ...options};
+  const newOptions = { ...defaultOptions, ...options };
   // 此区域待优化
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
     if (!(newOptions.body instanceof FormData)) {
@@ -62,7 +62,7 @@ export default function request(url, options) {
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
       };
-      newOptions.body = JSON.stringify({...newOptions.body, userId});
+      newOptions.body = JSON.stringify({ ...newOptions.body, userId });
     } else {
       // newOptions.body is FormData
       newOptions.headers = {
@@ -70,18 +70,20 @@ export default function request(url, options) {
         ...newOptions.headers,
       };
     }
-  } else if (newOptions.method === 'GET') {   //为get接口添加userId字段
-    const {search} = parse(url);
+  } else if (newOptions.method === 'GET') {
+    // 为get接口添加userId字段
+    const { search } = parse(url);
     if (search) {
       const urlParams = parse(url, true).query;
-      const newSearch = urlParams['userId'] ? search : `${search}&userId=${userId}`;
-      url = url.replace(search, newSearch);
+      const newSearch = urlParams.userId ? search : `${search}&userId=${userId}`;
+      newUrl = url.replace(search, newSearch);
     } else {
-      url = `${url}?userId=${userId}`;
+      newUrl = `${url}?userId=${userId}`;
     }
   }
-  return fetch(url, newOptions)
-    .then(checkStatus).then(parseJSON)
+  return fetch(newUrl, newOptions)
+    .then(checkStatus)
+    .then(parseJSON)
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
@@ -97,5 +99,4 @@ export default function request(url, options) {
         dispatch(routerRedux.push('/exception/404'));
       }
     });
-
 }

@@ -6,14 +6,12 @@ import styles from './select.less';
 export default class SelectPanle extends React.Component {
   onSelect = val => {
     if (this.props.onSelect) {
-      const { selectData } = this.props;
-      const index = selectData.findIndex(key => key === val);
-      this.props.onSelect(val, index + 1);
+      this.props.onSelect(val);
     }
   };
-  clickOption(index) {
+  clickOption(value) {
     if (this.props.clickOption) {
-      this.props.clickOption(index);
+      this.props.clickOption(value);
     }
   }
   checkType = (item, index) => {

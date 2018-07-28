@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar } from 'antd-mobile';
+import moment from 'moment';
 import './calender.less';
 
 export default class CalendarDate extends React.Component {
@@ -12,28 +13,38 @@ export default class CalendarDate extends React.Component {
   onCancel = () => {
     this.props.onCancel();
   };
-  onConfirm1 = (sTime, eTime) => {
+  onConfirm = (sTime, eTime) => {
     if (this.props.onConfirm) {
       this.props.onConfirm(sTime, eTime);
       this.onCancel();
     }
   };
   getDateExtra = date => {
-    if (this.props.getDateExtra) {
-      return this.props.getDateExtra(date);
-    }
+    const extra = this.getDisableDate();
+    const dateTime = moment(date).format('YYYY-MM-DD');
+    return extra[dateTime] || null;
+  };
+  getDisableDate = () => {
+    const [forMatStr, extra] = ['YYYY-MM-DD', {}];
+    const { disableDate = [] } = this.props;
+    disableDate.forEach(item => {
+      const pushDateObj = {};
+      const formatDate = moment(item).format(forMatStr);
+      pushDateObj[formatDate] = { info: '不可选', disable: true };
+      Object.assign(extra, pushDateObj);
+    });
+    return extra;
   };
   render() {
-    const { visible } = this.props;
-    const { minDate = null, maxDate = null } = this.props;
+    const { minDate = null, maxDate = null, visible } = this.props;
     return (
       <Calendar
         visible={visible}
         onCancel={this.onCancel}
         getDateExtra={this.getDateExtra}
-        minDate={minDate}
-        maxDate={maxDate}
-        onConfirm={this.onConfirm1}
+        minDate={new Date(minDate)}
+        maxDate={new Date(maxDate)}
+        onConfirm={this.onConfirm}
       />
     );
   }

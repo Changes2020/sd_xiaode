@@ -14,7 +14,7 @@ function fiexdDateType(now) {
 
 export function formatDate(timestamp) {
   // 设置时间转换格式
-  const dateTime = new Date(timestamp);
+  const dateTime = new Date(Number(timestamp));
   const y = dateTime.getFullYear(); // 获取年
   let m = dateTime.getMonth() + 1; // 获取月
   m = m < 10 ? `0${m}` : m; // 判断月是否大于10
@@ -78,7 +78,8 @@ export function custom(dateTime = null) {
 }
 
 export function checkoutNextDay() {
-  const [forMatStr, timeDate, nowTmp] = ['YYYY-MM-DD', getItem('timeDate'), Number(new Date())];
+  const [forMatStr, nowTmp] = ['YYYY-MM-DD', Number(new Date())];
+  const timeDate = getItem('timeDate').value || {};
   const { dateRange = {} } = timeDate || {};
   /*   默认日期为当月的一号,无截止时间 */
   const {
@@ -135,7 +136,7 @@ export function checkoutNextDay() {
 }
 
 export function defaultDateTime() {
-  const [forMatStr, timeDate] = ['YYYY-MM-DD', getItem('timeDate')];
+  const [forMatStr, timeDate] = ['YYYY-MM-DD', getItem('timeDate').value || null];
   const { dataExList = [] } = timeDate || {};
   const { startTime, endTime } = checkoutNextDay();
   for (let i = endTime; i >= startTime; i -= 86400000) {
@@ -156,7 +157,7 @@ export function defaultDateTime() {
   }
 }
 export function getExtraDate() {
-  const [timeDate] = [getItem('timeDate')];
+  const [timeDate] = [getItem('timeDate').value || {}];
   const { dateRange = {} } = timeDate || {};
   /*   默认日期为当月的一号,无截止时间 */
   const {

@@ -13,8 +13,8 @@ class IndexPage extends React.Component {
     const { urlParams = {} } = props;
     const initState = {
       paramsObj: {
-        startTime: null, // 过滤开始时间
-        endTime: null, // 过滤结束时间
+        startTime: 0, // 过滤开始时间
+        endTime: 0, // 过滤结束时间
         creditType: 1, // 均分类型1为学分均分2正面均分,3负面均分
         groupType: 1, // 1:学院，2:家族，3:小组
         rankType: 3, // 1:集团，2:院内，3:null
@@ -35,14 +35,17 @@ class IndexPage extends React.Component {
   };
   randomParams = () => {
     const startTime = new Date().valueOf();
+    // const endTime = this.state.paramsObj.endTime + 10000000;
     const paramsObj = { ...this.state.paramsObj, startTime };
-
-    this.setState({ paramsObj });
     this.props.setCurrentUrlParams({ startTime });
+    this.setState({ paramsObj });
+  };
+  selecteDate = dateObj => {
+    console.log(dateObj);
   };
   render() {
-    console.log(222);
     const { paramsObj } = this.state;
+    console.log(paramsObj.startTime);
     return (
       <div className={styles.normal}>
         <div>{JSON.stringify(paramsObj)}</div>
@@ -51,7 +54,12 @@ class IndexPage extends React.Component {
           <Button onClick={this.toDetailPage}>点击跳转至详情页面</Button>
           <Button onClick={this.toAllRankPage}>查看更多排名图页面</Button>
         </div>
-        <DatePanle />
+        <DatePanle
+          startTime={paramsObj.startTime}
+          endTime={paramsObj.endTime}
+          dateType={paramsObj.dateType}
+          selecteDate={dateObj => this.selecteDate(dateObj)}
+        />
         {/* <Loading/>  */}
       </div>
     );
