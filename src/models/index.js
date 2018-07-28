@@ -64,7 +64,6 @@ export default {
       return { ...state, isTimeData };
     },
     saveOrgMap(state, { payload }) {
-      console.log(payload);
       const isOrgMap = payload && payload.code === 2000;
       return { ...state, isOrgMap };
     },

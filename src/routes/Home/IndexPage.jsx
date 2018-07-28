@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Button } from 'antd-mobile';
 import styles from './IndexPage.css';
 import DatePanle from '../../components/DatePanle';
+import Banner from '../../components/Banner';
 // import Loading from 'components/Loading/Loading';
 // import { Toast } from 'antd-mobile';
 import { assignUrlParams } from '../../utils/routerUtils';
@@ -45,9 +46,10 @@ class IndexPage extends React.Component {
   };
   render() {
     const { paramsObj } = this.state;
-    console.log(paramsObj.startTime);
+
     return (
       <div className={styles.normal}>
+        <Banner />
         <div style={{ marginTop: '50px' }}>
           <Button onClick={this.randomParams}>随机出参数</Button>
           <Button onClick={this.toDetailPage}>点击跳转至详情页面</Button>
