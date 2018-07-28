@@ -6,27 +6,31 @@ import styles from './select.less';
 export default class SelectPanle extends React.Component {
   onSelect = val => {
     if (this.props.onSelect) {
-      this.props.onSelect(val);
+      const { selectData } = this.props;
+      const index = selectData.findIndex(key => key === val);
+      this.props.onSelect(val, index + 1);
+    }
+  };
+  clickOption(index) {
+    if (this.props.clickOption) {
+      this.props.clickOption(index);
+    }
+  }
+  checkType = (item, index) => {
+    if (typeof item === 'string' || typeof item === 'number') {
+      return (
+        <Option value={item} key={item} onClick={this.clickOption.bind(this, index + 1)}>
+          {item}
+        </Option>
+      );
     }
   };
   render() {
-    const dataSorce = ['周均数据', '月均数据', '自定义数据'];
-    const defaultValue = '周均数据';
+    const { selectData = [], defaultValue } = this.props;
     return (
       <div>
-        <Select
-          defaultValue={defaultValue}
-          className={styles.select}
-          onChange={val => {
-            this.onSelect(val);
-          }}
-          {...this.props}
-        >
-          {dataSorce.map((item, index) => (
-            <Option value={index + 1} key={item}>
-              {item}
-            </Option>
-          ))}
+        <Select defaultValue={defaultValue} className={styles.select} onChange={this.onSelect}>
+          {selectData.map(this.checkType)}
         </Select>
       </div>
     );

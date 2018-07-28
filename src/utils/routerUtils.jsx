@@ -26,42 +26,42 @@ function getRelation(str1, str2) {
   return 3;
 }
 export function getRoutes(path, routerData) {
-    let routes = Object.keys(routerData).filter(
-      routePath => routePath.indexOf(path) === 0 && routePath !== path
-    );
-    // Replace path to '' eg. path='user' /user/name => name
-    routes = routes.map(item => item.replace(path, ''));
-    // Get the route to be rendered to remove the deep rendering
-    const renderArr = getRenderArr(routes);
-    // Conversion and stitching parameters
-    const renderRoutes = renderArr.map(item => {
-      const exact = !routes.some(route => route !== item && getRelation(route, item) === 1);
-      return {
-        exact,
-        ...routerData[`${path}${item}`],
-        key: `${path}${item}`,
-        path: `${path}${item}`,
-      };
-    });
-    return renderRoutes;
-  }
-  /*
+  let routes = Object.keys(routerData).filter(
+    routePath => routePath.indexOf(path) === 0 && routePath !== path
+  );
+  // Replace path to '' eg. path='user' /user/name => name
+  routes = routes.map(item => item.replace(path, ''));
+  // Get the route to be rendered to remove the deep rendering
+  const renderArr = getRenderArr(routes);
+  // Conversion and stitching parameters
+  const renderRoutes = renderArr.map(item => {
+    const exact = !routes.some(route => route !== item && getRelation(route, item) === 1);
+    return {
+      exact,
+      ...routerData[`${path}${item}`],
+      key: `${path}${item}`,
+      path: `${path}${item}`,
+    };
+  });
+  return renderRoutes;
+}
+/*
   * 此方法用于过滤掉使用路由传递参数,过滤掉用不到的参数,并记录原始值
   * @params{paramsObj} Object  需要合并的参数集合
   *        {urlParams} Object  从url中获取的参数集合
   * return Object           
   */
-  export  function assignUrlParams(paramsObj={},urlParams={}){      // 过滤掉不需要的参数
-    console.log(paramsObj,urlParams)
-    const returnParams={};
-    Object.keys(paramsObj).forEach((key)=>{
-      const item=paramsObj[key];
-      // 判断是否还有下一级对象
-      if(item!==null&&typeof item==='object'&&isNaN(item.length)){
-        returnParams[key]=assignUrlParams(item,urlParams);
-      }else{
-        returnParams[key]=urlParams[key]||paramsObj[key]||null;
-      }
-    })
-    return returnParams
-   }
+export function assignUrlParams(paramsObj = {}, urlParams = {}) {
+  // 过滤掉不需要的参数
+  const returnParams = {};
+  Object.keys(paramsObj).forEach(key => {
+    const item = paramsObj[key];
+    // 判断是否还有下一级对象
+    if (item !== null && typeof item === 'object' && isNaN(item.length)) {
+      returnParams[key] = assignUrlParams(item, urlParams);
+    } else {
+      returnParams[key] = urlParams[key] || paramsObj[key] || null;
+    }
+  });
+  return returnParams;
+}
