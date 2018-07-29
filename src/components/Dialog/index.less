@@ -1,0 +1,84 @@
+.normal {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+}
+.flexContainer {
+  border: 1px solid red;
+  height: 80vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  .modalContentBottom {
+    height: 0.2rem;
+    background: yellow;
+  }
+}
+
+.groupModal {
+  width: 7.5rem !important;
+  height: 90vh !important;
+  overflow: hidden;
+}
+.gwrapRoupModal {
+  background: rgba(0, 0, 0, 0.6);
+  width: 7.5rem;
+}
+.modalHead {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 0.2rem;
+}
+.titleTxt {
+  font-size: 0.24rem;
+  color: #999;
+  text-align: left;
+}
+.modalHead > span:nth-last-of-type(1) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #333;
+  font-size: 0.26rem;
+}
+.dialogCloseBtn {
+  position: absolute;
+  top: 0;
+  right: 0.1rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  color: #c7c6c6;
+  font-size: 0.26rem;
+}
+:global(.am-modal) {
+  position: absolute !important;
+  bottom: 0;
+}
+:global(.am-button) {
+  padding-left: 0.26rem !important;
+  text-align: left !important;
+}
+:global(.am-button::before) {
+  content: '';
+  border: none !important;
+}
+:global(.am-modal-transparent .am-modal-content) {
+  padding-bottom: 0.8rem;
+}
+:global(.am-modal-transparent .am-modal-content .am-modal-body),
+:global(.am-modal-header) {
+  padding: 0 0.16rem 0.3rem 0.16rem !important;
+}
+
+.modeltitlediv {
+  margin: 0.1rem 0 0.24rem 0.05rem;
+}
+.modeltitle {
+  font-size: 0.26rem;
+  color: #333;
+  line-height: 0.37rem;
+  display: flex;
+}
+:global(.am-modal-mask) {
+  width: 7.5rem !important;
+}

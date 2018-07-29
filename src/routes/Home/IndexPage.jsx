@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Button } from 'antd-mobile';
-import styles from './IndexPage.css';
+import { Flex, Button } from 'antd-mobile';
+import styles from './IndexPage.less';
 import DatePanle from '../../components/DatePanle';
 import Banner from '../../components/Banner';
+import Dialog from '../../components/Dialog';
 // import Loading from 'components/Loading/Loading';
 // import { Toast } from 'antd-mobile';
 import { assignUrlParams } from '../../utils/routerUtils';
@@ -50,6 +51,15 @@ class IndexPage extends React.Component {
     return (
       <div className={styles.normal}>
         <Banner />
+        <div className={styles.filterCntainer}>
+          <Flex className={styles.hintContainer}>
+            <p className={styles.hintTitle}>数据中心</p>
+            <p className={styles.hintContent}>每天13:30发布昨日数据</p>
+          </Flex>
+        </div>
+
+        <Dialog />
+
         <div style={{ marginTop: '50px' }}>
           <Button onClick={this.randomParams}>随机出参数</Button>
           <Button onClick={this.toDetailPage}>点击跳转至详情页面</Button>

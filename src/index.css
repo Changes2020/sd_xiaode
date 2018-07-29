@@ -1,4 +1,5 @@
-
+/* 解决pc端浏览器警告 */
+* { touch-action: none; }
 html, body, :global(#root) {
   height: 100%;
   background-color: #F4F4F6;
