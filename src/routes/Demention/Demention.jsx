@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import {assignUrlParams} from 'utils/routerUtils'
 import styles from './Demention.less';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
+import SelfTab from '../../components/SelfTab/SelfTab';
 
  class Demention extends React.Component{
    constructor(props){
@@ -20,6 +21,7 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
         userId: null,
       },
        dementionId:4,
+       type:2,
      }
      this.state=assignUrlParams(initState,urlParams)
    }
@@ -44,6 +46,17 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
      })
    }
 
+   // tab点击切换
+   fnCLickTab(val = null) {
+     console.log('自己写的tab组件回调',val)
+     if (val.id !== this.state.type) {
+       this.setState({
+         type: val.id,
+       })
+     }
+   }
+
+
   render(){
     const {paramsObj}=this.state;
     const dataSource = {data:[
@@ -52,10 +65,21 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
         {name: "主帖", id: 33, rawDataDes: "主帖"},
         {name: "跟帖", id: 34, rawDataDes: "跟帖"},
         {name: "优质帖", id: 35, rawDataDes: "优质帖"}]}
+
+    const tabTata ={data:[{id:2,title:"正面得分"},{id:10,title:"负面得分"}]}
     return(
       <div>
         <div>
           {JSON.stringify(paramsObj)}
+        </div>
+        <div className={styles.tabBox} >
+          <SelfTab
+            dataSource={tabTata}
+            // firstId={this.state.type}
+            callBackFun={(item,index) => {this.fnCLickTab(item,index)}}
+            commonClass={styles.switchTabBtn}
+            tabClass={styles.switchSectedBtn}
+          />
         </div>
         <div className={styles.btnContainer}>
           <ButtonGroup
