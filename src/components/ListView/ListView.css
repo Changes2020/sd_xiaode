@@ -145,7 +145,7 @@
   height: .32rem!important;
   line-height: .32rem!important;
 }
-/*allshow*/
+/* allshow */
 .allUpCls img{
   width: .46rem;
   height: .46rem;
@@ -164,9 +164,12 @@
   line-height: .96rem;
   z-index: 10;
 }
-/*listView*/
+/* listView */
 :global(.am-list-item .am-list-line),:global(.am-list-item .am-list-line .am-list-content){
   padding: 0!important;
+}
+:global(html:not([data-scale]) .am-list-body div:not(:last-child) .am-list-line::after){
+  height: 0!important;
 }
 :global(.am-list-item){
   min-height: .8rem!important;

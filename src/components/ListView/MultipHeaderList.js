@@ -1,7 +1,7 @@
 /*
 * params：
 * dataList: 必传，展示的数据结构
-* groupName: 必传，每个模块的字段
+* groupName: 每个模块的字段，要是只有一个列表，可以不传
 * initialListSize: 每页展示多好条数据
 *
 * headerParam: 传给子组件 RenderHeader

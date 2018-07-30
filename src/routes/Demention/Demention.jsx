@@ -54,11 +54,11 @@ class Demention extends React.Component {
     [1, 2, 3, 4, 5, 6, 7].forEach(i => {
       rowdata.push({
         key: i,
-        id: i + 1,
-        titleOne: '3123',
-        titleTwo: '3123',
-        titleThree: '3123',
-        titleFour: '3123',
+        id: i,
+        titleOne: '2018-07-31',
+        titleTwo: '312313',
+        titleThree: '50',
+        titleFour: '哈哈镜',
       });
     });
     return rowdata;
@@ -134,10 +134,11 @@ class Demention extends React.Component {
             btnSelectedClass={styles.btnSelected}
           />
         </div>
+        {/* tableList */}
         <MultipHeaderList
           dataList={dataList}
           customRenderHeader={() => <CustomRenderHeader />}
-          customRenderItem={() => <CustomRenderItem />}
+          customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
         />
       </div>
     );
