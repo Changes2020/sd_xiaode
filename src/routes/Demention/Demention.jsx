@@ -48,7 +48,7 @@ import SelfTab from '../../components/SelfTab/SelfTab';
 
    // tab点击切换
    fnCLickTab(val = null) {
-     console.log('自己写的tab组件回调',val)
+     // console.log('自己写的tab组件回调',val)
      if (val.id !== this.state.type) {
        this.setState({
          type: val.id,
@@ -66,7 +66,8 @@ import SelfTab from '../../components/SelfTab/SelfTab';
         {name: "跟帖", id: 34, rawDataDes: "跟帖"},
         {name: "优质帖", id: 35, rawDataDes: "优质帖"}]}
 
-    const tabTata ={data:[{id:2,title:"正面得分"},{id:10,title:"负面得分"}]}
+    const tabData1 ={data:[{id:2,title:"正面得分"},{id:10,title:"负面得分"}]}
+    const tabData2 ={data:[{id:1,title:"学分均分"},{id:2,title:"正面均分"},{id:3,title:"负面均分"}]}
     return(
       <div>
         <div>
@@ -74,13 +75,24 @@ import SelfTab from '../../components/SelfTab/SelfTab';
         </div>
         <div className={styles.tabBox} >
           <SelfTab
-            dataSource={tabTata}
-            // firstId={this.state.type}
+            dataSource={tabData1}
             callBackFun={(item,index) => {this.fnCLickTab(item,index)}}
+            firstId={this.state.type}
             commonClass={styles.switchTabBtn}
             tabClass={styles.switchSectedBtn}
           />
         </div>
+
+        <div className={styles.tabBox1} >
+          <SelfTab
+            dataSource={tabData2}
+            callBackFun={(item,index) => {this.fnCLickTab(item,index)}}
+            firstId={this.state.type}
+            commonClass={styles.tabBtn}
+            tabClass={styles.sectedBtn}
+          />
+        </div>
+
         <div className={styles.btnContainer}>
           <ButtonGroup
             dataSource={dataSource}
