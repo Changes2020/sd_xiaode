@@ -13,8 +13,8 @@
 import React, { Component } from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { ListView } from 'antd-mobile';
-import RenderHeader from './RenderHeader';
-import RenderItem from './RenderItem';
+import RenderHeader from '../CreditDetail/RenderHeader';
+import RenderItem from '../CreditDetail/RenderItem';
 import './ListView.css';
 
 class MultipHeaderList extends Component {
@@ -66,11 +66,13 @@ class MultipHeaderList extends Component {
   };
   render() {
     const { dataList, groupName, initialListSize, otherCpmponent } = this.props;
-
+    const dataSource = groupName
+      ? this.state.dataSource.cloneWithRows(dataList[groupName])
+      : this.state.dataSource.cloneWithRows(dataList);
     return (
       <div>
         <ListView
-          dataSource={this.state.dataSource.cloneWithRows(dataList[groupName])}
+          dataSource={dataSource}
           className="am-list sticky-list"
           style={{ background: '#fff', paddingBottom: '.4rem' }}
           useBodyScroll
