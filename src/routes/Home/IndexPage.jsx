@@ -4,7 +4,6 @@ import { Flex, Button } from 'antd-mobile';
 import styles from './IndexPage.less';
 import DatePanle from '../../components/DatePanle';
 import Banner from '../../components/Banner';
-import Dialog from '../../components/Dialog';
 // import Loading from 'components/Loading/Loading';
 // import { Toast } from 'antd-mobile';
 import { assignUrlParams } from '../../utils/routerUtils';
@@ -24,6 +23,7 @@ class IndexPage extends React.Component {
         filteKeyID: null, // 登录用户id
         userId: null,
       },
+      visible: true,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -45,6 +45,12 @@ class IndexPage extends React.Component {
   selecteDate = dateObj => {
     console.log(dateObj);
   };
+  channel = () => {
+    console.log(33334);
+  };
+  // onClose = () => {
+  //   this.setState({ visible: false });
+  // };
   render() {
     const { paramsObj } = this.state;
 
@@ -57,8 +63,6 @@ class IndexPage extends React.Component {
             <p className={styles.hintContent}>每天13:30发布昨日数据</p>
           </Flex>
         </div>
-
-        <Dialog />
 
         <div style={{ marginTop: '50px' }}>
           <Button onClick={this.randomParams}>随机出参数</Button>

@@ -6,6 +6,7 @@ import CustomRenderHeader from '../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../components/TableItem/TableItem';
 import styles from './Demention.less';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
+import SelfTab from '../../components/SelfTab/SelfTab';
 
 class Demention extends React.Component {
   constructor(props) {
@@ -22,7 +23,9 @@ class Demention extends React.Component {
         filteKeyID: null, // 登录用户id
         userId: null,
       },
+
       dementionId: 4,
+      type: 2,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -60,6 +63,16 @@ class Demention extends React.Component {
     });
     return rowdata;
   };
+  // tab点击切换
+  fnCLickTab(val = null) {
+    // console.log('自己写的tab组件回调',val)
+    if (val.id !== this.state.type) {
+      this.setState({
+        type: val.id,
+      });
+    }
+  }
+
   render() {
     const { paramsObj } = this.state;
     const dataList = this.dataFn();
@@ -72,9 +85,42 @@ class Demention extends React.Component {
         { name: '优质帖', id: 35, rawDataDes: '优质帖' },
       ],
     };
+
+    const tabData1 = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '负面得分' }] };
+    const tabData2 = {
+      data: [
+        { id: 1, title: '学分均分' },
+        { id: 2, title: '正面均分' },
+        { id: 3, title: '负面均分' },
+      ],
+    };
     return (
       <div>
         <div>{JSON.stringify(paramsObj)}</div>
+        <div className={styles.tabBox}>
+          <SelfTab
+            dataSource={tabData1}
+            callBackFun={(item, index) => {
+              this.fnCLickTab(item, index);
+            }}
+            firstId={this.state.type}
+            commonClass={styles.switchTabBtn}
+            tabClass={styles.switchSectedBtn}
+          />
+        </div>
+
+        <div className={styles.tabBox1}>
+          <SelfTab
+            dataSource={tabData2}
+            callBackFun={(item, index) => {
+              this.fnCLickTab(item, index);
+            }}
+            firstId={this.state.type}
+            commonClass={styles.tabBtn}
+            tabClass={styles.sectedBtn}
+          />
+        </div>
+
         <div className={styles.btnContainer}>
           <ButtonGroup
             dataSource={dataSource}
@@ -83,9 +129,9 @@ class Demention extends React.Component {
             }}
             id={this.state.dementionId}
             isSelectFirst
-            // spanFunction={(item,num) => (this.spanFun(item,num))}
+            spanFunction={(item, num) => this.spanFun(item, num)}
             btnClass={styles.btnStyle}
-            // btnSelectedClass={styles.btnSelected}
+            btnSelectedClass={styles.btnSelected}
           />
         </div>
         <MultipHeaderList

@@ -1,14 +1,9 @@
 import React from 'react';
-import { Modal, Icon } from 'antd-mobile';
+import { Modal } from 'antd-mobile';
 import classNames from 'classnames';
 
 import styles from './index.less';
 
-/*
-*modelClass     模态框样式
-*cotainerClass  内容区域样式
-*
- */
 function closest(el, selector) {
   const matchesSelector =
     el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -42,24 +37,16 @@ export default class Dialog extends React.Component {
   overHide = () => {
     document.querySelector('#root').style.overflow = 'hidden';
   };
-  renderHeadElement(title) {
-    let ReturnDom = null;
-    if (typeof title === 'string') {
-      ReturnDom = <p className={styles.titleTxt}>{title}</p>;
-    }
-    if (React.isValidElement(title)) {
-      ReturnDom = <div>{title}</div>;
-    }
-    return (
-      <div className={styles.modalHead}>
-        {ReturnDom}
-        <Icon type="cross-circle" className={styles.dialogCloseBtn} onClick={this.onClose} />
-      </div>
-    );
-  }
+  renderFoot = () => {
+    const footer = this.props.footer || [];
+    return footer.map(item => {
+      const { text = '', onPress = null } = item;
+      return { text, onPress };
+    });
+  };
 
   render() {
-    const { visible, modelClass = '', cotainerClass = '', children = null, title } = this.props;
+    const { visible, modelClass = '', cotainerClass = '', children = null } = this.props;
     const newModelClass = modelClass ? classNames(styles.normal, modelClass) : styles.groupModal;
     const newFlexContainer = cotainerClass
       ? classNames(styles.normal, cotainerClass)
@@ -68,19 +55,18 @@ export default class Dialog extends React.Component {
       this.overHide(visible);
     }
     return visible ? (
-      <div>
+      <div className={styles.normal}>
         <Modal
           visible={visible}
           transparent
           maskClosable={false}
-          title={this.renderHeadElement(title)}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
           className={newModelClass}
           wrapClassName={styles.gwrapRoupModal}
+          footer={this.renderFoot()}
         >
-          <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
+          <div className={newFlexContainer}>
             <div className={styles.modalContent}>{children && { ...this.props.children }}</div>
-            <div className={styles.modalContentBottom} />
           </div>
         </Modal>
       </div>
