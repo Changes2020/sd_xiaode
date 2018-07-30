@@ -1,3 +1,15 @@
+/*
+* params：
+* dataList: 必传，展示的数据结构
+* groupName: 必传，每个模块的字段
+* initialListSize: 每页展示多好条数据
+*
+* headerParam: 传给子组件 RenderHeader
+* customRenderHeader: 组件，展示表头，默认RenderHeader
+* customRenderItem: 组件，展示数据，RenderItem
+* otherCpmponent: 在listView中扩展
+*
+* */
 import React, { Component } from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { ListView } from 'antd-mobile';
@@ -15,7 +27,15 @@ class MultipHeaderList extends Component {
   }
 
   render() {
-    const { dataList, groupName, tabKey, initialListSize, otherCpmponent, listColumn } = this.props;
+    const {
+      dataList,
+      groupName,
+      initialListSize,
+      headerParam,
+      customRenderHeader,
+      customRenderItem,
+      otherCpmponent,
+    } = this.props;
 
     return (
       <div>
@@ -33,32 +53,35 @@ class MultipHeaderList extends Component {
           )}
           renderSectionHeader={sectionData => (
             <Sticky>
-              {({ style }) => (
-                <RenderHeader
-                  className="sticky"
-                  style={{
-                    ...style,
-                  }}
-                  sectionData={sectionData}
-                  listColumn={listColumn}
-                  tabKey={tabKey}
-                  groupName={groupName}
-                />
-              )}
+              {({ style }) =>
+                customRenderHeader ? (
+                  customRenderHeader(sectionData)
+                ) : (
+                  <RenderHeader
+                    className="sticky"
+                    style={{ ...style }}
+                    sectionData={sectionData}
+                    tabKey={headerParam.tabKey}
+                    groupName={groupName}
+                  />
+                )
+              }
             </Sticky>
           )}
           renderRow={rowData => {
-            return <RenderItem rowData={rowData} listColumn={listColumn} />;
+            return !customRenderItem ? (
+              <RenderItem rowData={rowData} jump2Data={headerParam.jump2Data} />
+            ) : (
+              customRenderItem(rowData)
+            );
           }}
           pageSize={0}
-          initialListSize={initialListSize}
+          initialListSize={initialListSize || 500}
           scrollEventThrottle={200}
-          onEndReached={this.onEndReached}
           onEndReachedThreshold={10}
         />
-        {/* 小助手展示 todo */}
+        {/* 小助手展示查看全部 */}
         {!otherCpmponent ? null : otherCpmponent}
-        {/* {dataList[groupName].length>20?<div onClick={this.goAllData.bind(this,groupName)} className={styles.seeAllCls}>查看全部</div>:''} */}
       </div>
     );
   }

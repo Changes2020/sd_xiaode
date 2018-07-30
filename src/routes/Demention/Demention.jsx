@@ -27,14 +27,9 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 
    }
   // 父组件控制butonn组内容显示
-   spanFun = (item,id) => {
-     // console.log('父组件自定义span',item,id)
-     return (
-       <span>
-         <span className={item.id === id ? styles.spanIdSelected : styles.spanIdStyle}>{item.id}</span>
-         <span className={item.id === id ? styles.spanNameSelected : styles.spanNameStyle}>{item.name}</span>
-       </span>
-     )
+   spanFun = (item) => {
+     console.log('父组件显示span',item)
+     return (<span>{item.name}</span>)
    }
 
    // 点击button触发的请求chart和table接口函数

@@ -38,38 +38,43 @@ class ButtonGroup extends Component {
     }
   }
 
+  spanFun = (item,index) => {
+    const {spanFunction} = this.props
+    if(spanFunction && typeof (spanFunction) === "function"){
+        this.props.spanFunction(item,index)
+    }
+    else{
+      return (<span>{item.name}</span>)
+    }
+  }
+
   buttonListItem=(dataSource = null,
                   id = null,
-                  spanFunction = null,
                   btnClass=null,
                   btnSelectedClass=null,
-  )=>{
-    const self = this;
-    const data=!dataSource?[]:'data' in dataSource?dataSource.data:[];
-    const list = Array.isArray(data) ?data:[]
-    if (spanFunction && typeof spanFunction !== "function") {
-      console.warn("传入的spanFunction非function");
-    }
-    const selectId =!id?self.state.initId:id
-    const liList = list.map((item, index)=> {
-    return (
-      <Button
-        className={item.id === selectId ? btnSelectedClass : btnClass}
-        key={item.id}
-        onClick={self.selectButton.bind(self,item, index)}
-      >
-        {!spanFunction ? <span>{item.name}</span> : spanFunction(item, id)}
-      </Button>
-    );
-  });
-  return liList;
+    )=>{
+      const self = this;
+      const data=!dataSource?[]:'data' in dataSource?dataSource.data:[];
+      const list = Array.isArray(data) ?data:[]
+      const selectId =!id?self.state.initId:id
+      const liList = list.map((item, index)=> {
+      return (
+        <Button
+          className={item.id === selectId ? btnSelectedClass : btnClass}
+          key={item.id}
+          onClick={self.selectButton.bind(self,item, index)}
+        >
+          {this.spanFun(item,index)}
+        </Button>
+      );
+    });
+    return liList;
   }
 
   render() {
     const {
       dataSource = null,
       id = null,
-      spanFunction = null,
       btnClass = null,
       btnSelectedClass=null,
     } = this.props;
@@ -81,7 +86,6 @@ class ButtonGroup extends Component {
         {this.buttonListItem(
           dataSource,
           id,
-          spanFunction,
           btnStyle,
           btnSelected
         )}

@@ -4,4 +4,18 @@ html, body, :global(#root) {
   height: 100%;
   background-color: #F4F4F6;
 }
-
+*{
+  margin:0;
+  padding: 0;
+}
+a{
+  color: #333
+}
+ul li{
+  list-style: none;
+}
+html, body, :global(#root) {
+  height: 100%;
+  background-color: #F4F4F6;
+  font-family: PingFangSC-Regular;
+}
