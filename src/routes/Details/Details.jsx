@@ -45,6 +45,7 @@ class Details extends React.Component {
           id: 112,
           category: '睿博',
           isCheck: true,
+          arrowShow: true,
           children: {
             id: 1,
             parentid: 0,
