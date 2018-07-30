@@ -63,9 +63,9 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
             dataReturnFun={(item,index) => {this.fnClickGroupButton(item,index)}}
             id={this.state.dementionId}
             isSelectFirst
-            // spanFunction={(item,num) => (this.spanFun(item,num))}
+            spanFunction={(item,num) => (this.spanFun(item,num))}
             btnClass={styles.btnStyle}
-            // btnSelectedClass={styles.btnSelected}
+            btnSelectedClass={styles.btnSelected}
           />
         </div>
       </div>
