@@ -41,7 +41,7 @@ class ButtonGroup extends Component {
   spanFun = (item,index) => {
     const {spanFunction} = this.props
     if(spanFunction && typeof (spanFunction) === "function"){
-        this.props.spanFunction(item,index)
+        return (this.props.spanFunction(item,index))
     }
     else{
       return (<span>{item.name}</span>)
@@ -50,8 +50,8 @@ class ButtonGroup extends Component {
 
   buttonListItem=(dataSource = null,
                   id = null,
-                  btnClass=null,
-                  btnSelectedClass=null,
+                  newBtnClass=null,
+                  newBtnSelectedClass=null,
     )=>{
       const self = this;
       const data=!dataSource?[]:'data' in dataSource?dataSource.data:[];
@@ -60,7 +60,7 @@ class ButtonGroup extends Component {
       const liList = list.map((item, index)=> {
       return (
         <Button
-          className={item.id === selectId ? btnSelectedClass : btnClass}
+          className={item.id === selectId ? (newBtnSelectedClass) : (newBtnClass)}
           key={item.id}
           onClick={self.selectButton.bind(self,item, index)}
         >
@@ -78,16 +78,16 @@ class ButtonGroup extends Component {
       btnClass = null,
       btnSelectedClass=null,
     } = this.props;
-    // 获取父组件传入button选中和未选中样式补充到默认样式里面
-    const btnStyle = classNames(styles.btnStyle, btnClass);
-    const btnSelected = classNames(styles.btnSelected, btnSelectedClass);
+    // 获取父组件传入button选中和未选中样式,未传入则使用默认样式，传入补充到提前定义好接收的样式里面
+    const newBtnClass = !btnClass?classNames(styles.btnStyle, btnClass):classNames(styles.newBtnClass, btnClass);
+    const newBtnSelectedClass = !btnSelectedClass?classNames(styles.btnSelected, btnSelectedClass):classNames(styles.newBtnSelectedClass, btnSelectedClass);
     return (
       <div>
         {this.buttonListItem(
           dataSource,
           id,
-          btnStyle,
-          btnSelected
+          newBtnClass,
+          newBtnSelectedClass
         )}
       </div>
     );

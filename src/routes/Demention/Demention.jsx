@@ -28,8 +28,12 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
    }
   // 父组件控制butonn组内容显示
    spanFun = (item) => {
-     console.log('父组件显示span',item)
-     return (<span>{item.name}</span>)
+     return (
+       <span>
+         <span>{item.id}</span>
+         <span>{item.name}</span>
+       </span>
+     )
    }
 
    // 点击button触发的请求chart和table接口函数
@@ -48,7 +52,6 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
         {name: "主帖", id: 33, rawDataDes: "主帖"},
         {name: "跟帖", id: 34, rawDataDes: "跟帖"},
         {name: "优质帖", id: 35, rawDataDes: "优质帖"}]}
-    // console.log(this.state.dementionId)
     return(
       <div>
         <div>
@@ -60,9 +63,9 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
             dataReturnFun={(item,index) => {this.fnClickGroupButton(item,index)}}
             id={this.state.dementionId}
             isSelectFirst
-            // spanFunction={(item,num) => {this.spanFun(item,num)}}
+            // spanFunction={(item,num) => (this.spanFun(item,num))}
             btnClass={styles.btnStyle}
-            btnSelectedClass={styles.btnSelected}
+            // btnSelectedClass={styles.btnSelected}
           />
         </div>
       </div>
