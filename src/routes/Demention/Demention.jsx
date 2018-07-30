@@ -104,8 +104,8 @@ class Demention extends React.Component {
               this.fnCLickTab(item, index);
             }}
             firstId={this.state.type}
-            commonClass={styles.switchTabBtn}
-            tabClass={styles.switchSectedBtn}
+            // commonClass={styles.switchTabBtn}
+            // tabClass={styles.switchSectedBtn}
           />
         </div>
 
@@ -116,8 +116,8 @@ class Demention extends React.Component {
               this.fnCLickTab(item, index);
             }}
             firstId={this.state.type}
-            commonClass={styles.tabBtn}
-            tabClass={styles.sectedBtn}
+            // commonClass={styles.tabBtn}
+            // tabClass={styles.sectedBtn}
           />
         </div>
 
