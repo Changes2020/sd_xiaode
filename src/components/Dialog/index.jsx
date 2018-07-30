@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Button, Icon } from 'antd-mobile';
+import { Modal, Icon } from 'antd-mobile';
+import classNames from 'classnames';
 
 import styles from './index.less';
 
@@ -16,18 +17,11 @@ function closest(el, selector) {
   return null;
 }
 export default class Dialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false,
-    };
-  }
-
   onClose = () => {
     document.querySelector('#root').style.overflow = 'auto';
-    this.setState({
-      modal: false,
-    });
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
   };
 
   onWrapTouchStart = e => {
@@ -40,48 +34,51 @@ export default class Dialog extends React.Component {
       e.preventDefault();
     }
   };
-  showModal = key => e => {
+  overHide = () => {
     document.querySelector('#root').style.overflow = 'hidden';
-    e.preventDefault(); // 修复 Android 上点击穿透
-    this.setState({
-      [key]: true,
-    });
   };
-  renderHeadElement() {
+  renderHeadElement(title) {
+    let ReturnDom = null;
+    if (typeof title === 'string') {
+      ReturnDom = <p className={styles.titleTxt}>{title}</p>;
+    }
+    if (React.isValidElement(title)) {
+      ReturnDom = <div>{title}</div>;
+    }
     return (
       <div className={styles.modalHead}>
-        <p className={styles.titleTxt}>请选择想要查看的</p>
+        {ReturnDom}
         <Icon type="cross-circle" className={styles.dialogCloseBtn} onClick={this.onClose} />
       </div>
     );
   }
 
   render() {
-    const { modal } = this.state;
-    return (
+    const { visible, modelClass = '', cotainerClass = '', children = null, title } = this.props;
+    const newModelClass = modelClass ? classNames(styles.normal, modelClass) : styles.groupModal;
+    const newFlexContainer = cotainerClass
+      ? classNames(styles.normal, cotainerClass)
+      : styles.flexContainer;
+    if (visible) {
+      this.overHide(visible);
+    }
+    return visible ? (
       <div>
         <Modal
-          visible={modal}
+          visible={visible}
           transparent
           maskClosable={false}
-          title={this.renderHeadElement()}
+          title={this.renderHeadElement(title)}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-          className={styles.groupModal}
+          className={newModelClass}
           wrapClassName={styles.gwrapRoupModal}
         >
-          <div className={styles.flexContainer}>
-            <div className={styles.modalContent}>
-              {'111111111111111111111111111111111111111111111111111111111111'
-                .split('')
-                .map((item, index) => (
-                  <div key={Math.random()}>`sdkjsdfslkjdfsk&{item + index}`</div>
-                ))}
-            </div>
+          <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
+            <div className={styles.modalContent}>{children && { ...this.props.children }}</div>
             <div className={styles.modalContentBottom} />
           </div>
         </Modal>
-        <Button onClick={this.showModal('modal')}>dianji</Button>
       </div>
-    );
+    ) : null;
   }
 }

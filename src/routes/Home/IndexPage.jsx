@@ -24,6 +24,7 @@ class IndexPage extends React.Component {
         filteKeyID: null, // 登录用户id
         userId: null,
       },
+      visible: true,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -45,6 +46,9 @@ class IndexPage extends React.Component {
   selecteDate = dateObj => {
     console.log(dateObj);
   };
+  // onClose = () => {
+  //   this.setState({ visible: false });
+  // };
   render() {
     const { paramsObj } = this.state;
 
@@ -58,7 +62,22 @@ class IndexPage extends React.Component {
           </Flex>
         </div>
 
-        <Dialog />
+        <Dialog
+          title="ddffff"
+          visible={this.state.visible}
+          cotainerClass={styles.ceshi}
+          // onClose={() => {
+          //   this.onClose();
+          // }}
+        >
+          <div>
+            <div style={{ height: '500px' }}>dddwd</div>
+            <div style={{ height: '500px' }}>dddrd</div>
+            <div style={{ height: '500px' }}>ddedd</div>
+            <div style={{ height: '500px' }}>ddgdd</div>
+            <div style={{ height: '500px' }}>dddzd</div>
+          </div>
+        </Dialog>
 
         <div style={{ marginTop: '50px' }}>
           <Button onClick={this.randomParams}>随机出参数</Button>
