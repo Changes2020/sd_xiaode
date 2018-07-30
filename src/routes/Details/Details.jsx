@@ -780,6 +780,7 @@ class Details extends React.Component {
                     groupName={params[item].groupName}
                     dataList={dataList}
                     headerParam={headerParam}
+                    style={{ background: '#fff', paddingBottom: '.4rem' }}
                   />
                 )
               );

@@ -65,7 +65,7 @@ class MultipHeaderList extends Component {
     }
   };
   render() {
-    const { dataList, groupName, initialListSize, otherCpmponent } = this.props;
+    const { dataList, groupName, initialListSize, otherCpmponent, style } = this.props;
     const dataSource = groupName
       ? this.state.dataSource.cloneWithRows(dataList[groupName])
       : this.state.dataSource.cloneWithRows(dataList);
@@ -74,7 +74,7 @@ class MultipHeaderList extends Component {
         <ListView
           dataSource={dataSource}
           className="am-list sticky-list"
-          style={{ background: '#fff', paddingBottom: '.4rem' }}
+          style={style}
           useBodyScroll
           renderSectionWrapper={sectionID => {
             return this.renderSectionWrapper(sectionID);

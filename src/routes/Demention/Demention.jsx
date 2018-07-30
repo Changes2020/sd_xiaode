@@ -95,7 +95,7 @@ class Demention extends React.Component {
       ],
     };
     return (
-      <div>
+      <div className={styles.normal}>
         <div>{JSON.stringify(paramsObj)}</div>
         <div className={styles.tabBox}>
           <SelfTab
