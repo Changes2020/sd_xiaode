@@ -25,17 +25,47 @@ class MultipHeaderList extends Component {
       dataSource,
     };
   }
+  renderSectionWrapper = sectionID => {
+    return (
+      <StickyContainer
+        key={`s_${sectionID}_c`}
+        className="sticky-container"
+        style={{ zIndex: 4, padding: '0 10px' }}
+      />
+    );
+  };
 
+  renderSectionHeader = sectionData => {
+    const { customRenderHeader, headerParam, groupName } = this.props;
+    if (customRenderHeader) {
+      return customRenderHeader(sectionData);
+    } else {
+      return (
+        <Sticky>
+          {({ style }) => (
+            <RenderHeader
+              className="sticky"
+              style={{ ...style }}
+              sectionData={sectionData}
+              tabKey={headerParam.tabKey}
+              groupName={groupName}
+            />
+          )}
+        </Sticky>
+      );
+    }
+  };
+
+  renderRow = (rowData, sectionID, rowID) => {
+    const { customRenderItem, headerParam } = this.props;
+    if (customRenderItem) {
+      return customRenderItem(rowData, sectionID, rowID);
+    } else {
+      return <RenderItem rowData={rowData} jump2Data={headerParam.jump2Data} />;
+    }
+  };
   render() {
-    const {
-      dataList,
-      groupName,
-      initialListSize,
-      headerParam,
-      customRenderHeader,
-      customRenderItem,
-      otherCpmponent,
-    } = this.props;
+    const { dataList, groupName, initialListSize, otherCpmponent } = this.props;
 
     return (
       <div>
@@ -44,36 +74,14 @@ class MultipHeaderList extends Component {
           className="am-list sticky-list"
           style={{ background: '#fff', paddingBottom: '.4rem' }}
           useBodyScroll
-          renderSectionWrapper={sectionID => (
-            <StickyContainer
-              key={`s_${sectionID}_c`}
-              className="sticky-container"
-              style={{ zIndex: 4, padding: '0 10px' }}
-            />
-          )}
-          renderSectionHeader={sectionData => (
-            <Sticky>
-              {({ style }) =>
-                customRenderHeader ? (
-                  customRenderHeader(sectionData)
-                ) : (
-                  <RenderHeader
-                    className="sticky"
-                    style={{ ...style }}
-                    sectionData={sectionData}
-                    tabKey={headerParam.tabKey}
-                    groupName={groupName}
-                  />
-                )
-              }
-            </Sticky>
-          )}
-          renderRow={rowData => {
-            return !customRenderItem ? (
-              <RenderItem rowData={rowData} jump2Data={headerParam.jump2Data} />
-            ) : (
-              customRenderItem(rowData)
-            );
+          renderSectionWrapper={sectionID => {
+            return this.renderSectionWrapper(sectionID);
+          }}
+          renderSectionHeader={sectionData => {
+            return this.renderSectionHeader(sectionData);
+          }}
+          renderRow={(rowData, sectionID, rowID) => {
+            return this.renderRow(rowData, sectionID, rowID);
           }}
           pageSize={0}
           initialListSize={initialListSize || 500}
