@@ -34,7 +34,7 @@ class IndexPage extends React.Component {
         dateType: 3, // 1:周均,2:月均,3:自定义
         filteKeyID: null, // 登录用户id
       },
-      creditShowType: 'rank',
+      creditShowType: 'trend',
       visible: true,
     };
     this.state = assignUrlParams(initState, urlParams);
