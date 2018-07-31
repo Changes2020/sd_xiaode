@@ -5,7 +5,7 @@ class RenderHeader extends React.Component {
   componentDidMount() {}
 
   render() {
-    const { sectionData, tabKey, groupName } = this.props;
+    const { sectionData, tabKey } = this.props;
     const index = sectionData[0].familyType;
     const groupType = {
       1: '学院',
@@ -18,19 +18,10 @@ class RenderHeader extends React.Component {
       2: '(孵化器)',
     };
     return (
-      <div
-        className={styles.tableTitle}
-        style={{
-          backgroundColor:
-            groupName.indexOf('selfExam') > -1
-              ? '#52C9C2'
-              : groupName.indexOf('barrier') > -1 ? '#F3A92F' : '#619BDE',
-        }}
-      >
+      <div className={styles.tableTitle}>
         <div className={styles.tableCss}>
           <div className={styles.leftCss}>
             <span style={{ display: 'inline-block', width: '32px', textAlign: 'center' }}>
-              {' '}
               {groupType[tabKey]}
             </span>
             <br />

@@ -759,6 +759,7 @@ class Details extends React.Component {
     };
     const headerParam = {
       tabKey: paramsObj.tabKey,
+      loadComponent: 'credit',
       jump2Data: this.jump2Data,
     };
     return (
