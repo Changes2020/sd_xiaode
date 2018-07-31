@@ -47,3 +47,39 @@ export async function getOrgMap() {
     method: 'GET',
   });
 }
+/*
+*此接口用于获取排名接口
+ */
+export async function getCreditRankAvgList(params) {
+  return request(`${HOST}/trendNew/findAvgCredit`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*此接口用于获取分组趋势接口
+ */
+export async function getCreditTrendAvgList(params) {
+  return request(`${HOST}/trendNew/creditTrendAvgList`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*此接口用于获取集团均分趋势
+ */
+export async function getCreditCompanyAvgList(params) {
+  return request(`${HOST}/trendNew/creditCompanyAvgList`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*获取趋势数据
+ */
+export async function getCreditTrendObjList(params) {
+  return request(`${HOST}/trend/creditTrendObjList`, {
+    method: 'POST',
+    body: params,
+  });
+}

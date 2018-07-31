@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.less';
-// import Loading from 'components/Loading/Loading';
-// import { Toast } from 'antd-mobile';
+import Bar from '../../components/Charts/Bar';
 import { assignUrlParams } from '../../utils/routerUtils';
 
 class ChartList extends React.Component {
@@ -29,6 +28,8 @@ class ChartList extends React.Component {
     return (
       <div className={styles.normal}>
         <div>{JSON.stringify(paramsObj)}</div>
+        <Bar width="7.1rem" height="400px" />
+        <Bar width="7.1rem" height="500px" />
 
         {/* <Loading/>  */}
       </div>
