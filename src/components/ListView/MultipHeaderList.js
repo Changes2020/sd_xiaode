@@ -41,14 +41,17 @@ class MultipHeaderList extends Component {
     }
   };
   ItemBgColor = rowData => {
+    const { groupName } = this.props;
     if (rowData.lineHeight) {
       return 'rgba(255,89,89,0.10)';
-    } else if (rowData.familyType === 0) {
+    } else if (groupName.indexOf('selfExam') > -1) {
       return 'rgba(82,201,194,0.15)';
-    } else if (rowData.familyType === 1) {
+    } else if (groupName.indexOf('barrier') > -1) {
       return 'rgba(243,169,47,0.15)';
-    } else {
+    } else if (groupName.indexOf('incubator') > -1) {
       return 'rgba(97,155,222,0.15)';
+    } else {
+      console.warn('没有对应的字段');
     }
   };
   renderSectionWrapper = sectionID => {

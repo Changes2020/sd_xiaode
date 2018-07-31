@@ -4,22 +4,19 @@ import styles from './assistantDetails.less';
 
 class AssistantDetails extends Component {
   render() {
-    const rgb = {
-      col: 'rgba(82,201,194,0.15)',
-      fam: 'rgba(243,169,47,0.15)',
-      gro: 'rgba(97,155,222,0.15)',
-    };
-    const { rowData } = this.props;
-    const n = rowData.type; // 按自考，壁垒，孵化器区分颜色
+    const { rowData, isShowDetail } = this.props;
     let i = 0;
     i += 1;
     return (
-      <div key={`fir${i}`} style={{ paddingBottom: '.14rem', fontSize: '.2rem' }}>
-        <List
-          className={styles.mylist}
-          prefixCls="mylist"
-          style={{ background: n === 0 ? rgb.col : n === 1 ? rgb.fam : rgb.gro }}
-        >
+      <div
+        key={`fir${i}`}
+        style={{
+          paddingBottom: '.14rem',
+          fontSize: '.2rem',
+          display: !isShowDetail ? 'none' : 'block',
+        }}
+      >
+        <List className={styles.mylist} prefixCls="mylist">
           <List.Item prefixCls="mylist">
             <ul className={styles.ulCss}>
               <li>
@@ -43,18 +40,12 @@ class AssistantDetails extends Component {
                             </p>
                           )}
                         </span>
-                        <span
-                          onClick={this.firstScore.bind(this, j, rowData)}
-                          className={styles.row3}
-                        >
+                        <span onClick={console.log(111)} className={styles.row3}>
                           {datalist.positive}
                           {/* {datalist.chain1!==null?<img className={styles.triImg} src={datalist.chain1==0?yellowImg:datalist.chain1>0?greenImg:redImg} alt=""/>:<span className={styles.triImg}></span>} */}
                           {/* <p className={datalist.chain1!==null?(datalist.chain1===0?styles.circleY:datalist.chain1<0?styles.circleR:styles.circleG):styles.hideCircle}>•</p> */}
                         </span>
-                        <span
-                          onClick={this.firstScore.bind(this, j, rowData)}
-                          className={styles.row3}
-                        >
+                        <span onClick={console.log(222)} className={styles.row3}>
                           {datalist.negative}
                           {/* {datalist.chain!==null?<img className={styles.triImg} src={datalist.chain==0?yellowImg:datalist.chain>0?greenImg:redImg} alt=""/>:<span className={styles.triImg}></span>} */}
                           {/* <p className={datalist.chain!==null?(datalist.chain===0?styles.circleY:datalist.chain<0?styles.circleR:styles.circleG):styles.hideCircle}>•</p> */}

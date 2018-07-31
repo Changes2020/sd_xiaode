@@ -5,16 +5,29 @@ import yellowIcon from '../../assets/yellow.png';
 import Group1 from '../../assets/Group1.png';
 import Group2 from '../../assets/Group2.png';
 import Group3 from '../../assets/Group3.png';
+import AssistantDetail from '../SecDetails/assistantDetails';
 import styles from './Render.less';
 
 class RenderItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowDetail: this.props.rowData.isCheck,
+    };
+  }
   render() {
     const { rowData } = this.props;
+    const { isShowDetail } = this.state;
     const splitLevel = 1; // 取低于均值高于均值
     const n = rowData.type; // 按自考，壁垒，孵化器区分颜色
     return (
       <div>
-        <div className={styles.tableCss}>
+        <div
+          className={styles.tableCss}
+          onClick={() => {
+            this.setState({ isShowDetail: !isShowDetail });
+          }}
+        >
           <div className={styles.leftCss}>
             {splitLevel === 1 ? (
               rowData.rank === 1 ? (
@@ -42,10 +55,11 @@ class RenderItem extends React.Component {
           </div>
           <img
             alt=""
-            className={rowData.isCheck ? styles.arrowUp : styles.arrowDown}
+            className={isShowDetail ? styles.arrowUp : styles.arrowDown}
             src={n === 0 ? greenIcon : n === 1 ? yellowIcon : blueIcon}
           />
         </div>
+        <AssistantDetail rowData={rowData} isShowDetail={isShowDetail} />
       </div>
     );
   }
