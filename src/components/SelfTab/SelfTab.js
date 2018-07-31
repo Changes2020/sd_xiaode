@@ -45,7 +45,6 @@ class SelfTab extends Component {
     const data=!dataSource?[]:'data' in dataSource?dataSource.data:[];
     const list = Array.isArray(data) ?data:[]
     const selectId =!firstId?self.state.initId:firstId
-    console.log(`${100/(this.state.widthLength)}%`)
     const liList = list.map((item, index)=> {
       return (
         <span
