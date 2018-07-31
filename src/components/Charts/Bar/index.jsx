@@ -1,31 +1,46 @@
 import React from 'react';
 import echarts from 'echarts';
-import styles from './index.less';
 
 export default class Bar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //
-  //   };
-  // }
   componentDidMount() {
     setTimeout(() => {
       this.initChart();
-      // this.drawChart();
     }, 100);
   }
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.dataSource) !== JSON.stringify(this.props.dataSource)) {
+      // 接口出来后应该按照data进行判断
+      this.drawChart(nextProps);
+    }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.drawChart);
+  }
+  createRef = id => {
+    this.ID = id;
+  };
   initChart = () => {
-    const myChart = echarts.init(this.ID);
-    console.log(myChart);
-    // myChart[this.props.chartName] = echarts.init(document.getElementById(this.props.chartName));
-    // clientWidth[this.props.chartName] = null;
-    // fnResize[this.props.chartName] = this.resize.bind(this);
-    // window.addEventListener("resize", fnResize[this.props.chartName]);
-    // return myChart[this.props.chartName];
+    this.myChart = echarts.init(this.ID);
+    window.addEventListener('resize', this.resize);
+    this.clientWidth = null;
+    this.drawChart();
+  };
+  drawChart(nextProps = this.props) {
+    const { dataSource } = nextProps;
+    this.myChart.clear();
+    this.myChart.setOption(dataSource);
+    this.myChart.resize();
+  }
+  resize = () => {
+    if (this.clientWidth !== document.documentElement.clientWidth) {
+      setTimeout(() => {
+        this.drawChart();
+      }, 10);
+      this.clientWidth = document.documentElement.clientWidth;
+    }
   };
   render() {
     const { width, height } = this.props;
-    return <div style={{ width, height }} className={styles.chart} />;
+    return <div ref={this.createRef} style={{ width, height }} />;
   }
 }
