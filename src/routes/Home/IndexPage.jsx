@@ -11,7 +11,8 @@ import ChartCotainer from '../../components/ChartCotainer';
 import BarChart from '../../components/Charts/Bar';
 import Loading from '../../components/Loading/Loading';
 import { assignUrlParams } from '../../utils/routerUtils';
-import { horizontalChart } from './_horizontalChart';
+// import { horizontalChart } from './_horizontalChart';
+import { longitudinalChart } from './_longitudinalChart';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -28,7 +29,7 @@ class IndexPage extends React.Component {
         endTime, // 过滤结束时间
         userId,
         creditType: 1, // 均分类型1为学分均分2正面均分,3负面均分
-        groupType: 1, // 1:学院，2:家族，3:小组
+        groupType: 3, // 1:学院，2:家族，3:小组
         rankType: 3, // 1:集团，2:院内，3:null
         dateType: 3, // 1:周均,2:月均,3:自定义
         filteKeyID: null, // 登录用户id
@@ -81,7 +82,6 @@ class IndexPage extends React.Component {
     const { paramsObj } = this.state;
     const { isloading, home = {} } = this.props;
     const { rankDataObj } = home;
-
     return (
       <div className={styles.normal}>
         <Banner />
@@ -95,23 +95,7 @@ class IndexPage extends React.Component {
               }}
             >
               <BarChart
-                dataSource={horizontalChart(rankDataObj.selfExam, {
-                  ...paramsObj,
-                  familyName: 'selfExam',
-                })}
-                width="7.1rem"
-                height="400px"
-              />
-            </ChartCotainer>
-          ) : null}
-          {rankDataObj ? (
-            <ChartCotainer
-              onClickTitle={() => {
-                this.toDetailPage();
-              }}
-            >
-              <BarChart
-                dataSource={horizontalChart(rankDataObj.selfExam, {
+                dataSource={longitudinalChart(rankDataObj.selfExam, {
                   ...paramsObj,
                   familyName: 'selfExam',
                 })}
