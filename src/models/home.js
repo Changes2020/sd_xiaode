@@ -50,7 +50,6 @@ export default {
       // 趋势接口,初始化数据以及切换tab
       const trendDataObj = {};
       const { paramsObj, creditShowType } = payload;
-      // const allGroupType = getAllGroupMap(allOrgMap, {1: 'college', 2: 'family', 3: 'group'}[paramsObj.groupType]);
       let rankDataObj = yield call(getCreditRankAvgList, { ...paramsObj }); // 根据排名接口控制趋势图接口数据
       const fmilyTypeFilteKeyIDs = {}; // 趋势图西面的按钮
       if (rankDataObj.data !== null) {
