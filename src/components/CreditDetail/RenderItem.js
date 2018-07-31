@@ -3,7 +3,7 @@ import CreditDetails from '../SecDetails/CreditDetails';
 import greenIcon from '../../assets/green.png';
 import blueIcon from '../../assets/blue.png';
 import yellowIcon from '../../assets/yellow.png';
-import styles from './RenderItem.less';
+import styles from './Render.less';
 
 class RenderItem extends React.Component {
   constructor(props) {

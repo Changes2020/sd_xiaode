@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './RenderHeader.less';
+import styles from './Render.less';
 
 class RenderHeader extends React.Component {
   render() {
-    return <div className={styles.normal}>121212</div>;
+    return <div className={styles.normal}>3123</div>;
   }
 }
 export default RenderHeader;

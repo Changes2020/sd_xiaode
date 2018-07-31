@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './RenderItem.less';
+import styles from './Render.less';
 
 class RenderHeader extends React.Component {
   componentDidMount() {}
@@ -19,17 +19,12 @@ class RenderHeader extends React.Component {
     };
     return (
       <div
+        className={styles.tableTitle}
         style={{
-          zIndex: 2,
           backgroundColor:
             groupName.indexOf('selfExam') > -1
               ? '#52C9C2'
               : groupName.indexOf('barrier') > -1 ? '#F3A92F' : '#619BDE',
-          color: 'white',
-          width: '7.1rem',
-          height: '.8rem',
-          fontSize: '.2rem',
-          borderRadius: '.04rem .04rem 0 0',
         }}
       >
         <div className={styles.tableCss}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './RenderItem.less';
+import styles from './Render.less';
 
 class RenderItem extends React.Component {
   render() {
