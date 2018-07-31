@@ -40,12 +40,12 @@ class AssistantDetails extends Component {
                             </p>
                           )}
                         </span>
-                        <span onClick={console.log(111)} className={styles.row3}>
+                        <span className={styles.row3}>
                           {datalist.positive}
                           {/* {datalist.chain1!==null?<img className={styles.triImg} src={datalist.chain1==0?yellowImg:datalist.chain1>0?greenImg:redImg} alt=""/>:<span className={styles.triImg}></span>} */}
                           {/* <p className={datalist.chain1!==null?(datalist.chain1===0?styles.circleY:datalist.chain1<0?styles.circleR:styles.circleG):styles.hideCircle}>•</p> */}
                         </span>
-                        <span onClick={console.log(222)} className={styles.row3}>
+                        <span className={styles.row3}>
                           {datalist.negative}
                           {/* {datalist.chain!==null?<img className={styles.triImg} src={datalist.chain==0?yellowImg:datalist.chain>0?greenImg:redImg} alt=""/>:<span className={styles.triImg}></span>} */}
                           {/* <p className={datalist.chain!==null?(datalist.chain===0?styles.circleY:datalist.chain<0?styles.circleR:styles.circleG):styles.hideCircle}>•</p> */}
