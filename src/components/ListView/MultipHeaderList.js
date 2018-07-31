@@ -13,8 +13,10 @@
 import React, { Component } from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { ListView } from 'antd-mobile';
-import RenderHeader from '../CreditDetail/RenderHeader';
-import RenderItem from '../CreditDetail/RenderItem';
+import RenderAssistantHeader from '../AssistantDetail/RenderHeader';
+import RenderAssistantItem from '../AssistantDetail/RenderItem';
+import RenderCreditHeader from '../CreditDetail/RenderHeader';
+import RenderCreditItem from '../CreditDetail/RenderItem';
 import './ListView.css';
 
 class MultipHeaderList extends Component {
@@ -25,6 +27,33 @@ class MultipHeaderList extends Component {
       dataSource,
     };
   }
+
+  headerBgColor = () => {
+    const { groupName } = this.props;
+    if (groupName.indexOf('selfExam') > -1) {
+      return '#52C9C2';
+    } else if (groupName.indexOf('barrier') > -1) {
+      return '#F3A92F';
+    } else if (groupName.indexOf('incubator') > -1) {
+      return '#619BDE';
+    } else {
+      console.warn('没有对应的字段');
+    }
+  };
+  ItemBgColor = rowData => {
+    const { groupName } = this.props;
+    if (rowData.lineHeight) {
+      return 'rgba(255,89,89,0.10)';
+    } else if (groupName.indexOf('selfExam') > -1) {
+      return 'rgba(82,201,194,0.15)';
+    } else if (groupName.indexOf('barrier') > -1) {
+      return 'rgba(243,169,47,0.15)';
+    } else if (groupName.indexOf('incubator') > -1) {
+      return 'rgba(97,155,222,0.15)';
+    } else {
+      console.warn('没有对应的字段');
+    }
+  };
   renderSectionWrapper = sectionID => {
     return (
       <StickyContainer
@@ -34,7 +63,6 @@ class MultipHeaderList extends Component {
       />
     );
   };
-
   renderSectionHeader = sectionData => {
     const { customRenderHeader, headerParam, groupName } = this.props;
     if (customRenderHeader) {
@@ -43,13 +71,16 @@ class MultipHeaderList extends Component {
       return (
         <Sticky>
           {({ style }) => (
-            <RenderHeader
+            <div
               className="sticky"
-              style={{ ...style }}
-              sectionData={sectionData}
-              tabKey={headerParam.tabKey}
-              groupName={groupName}
-            />
+              style={{ ...style, zIndex: 4, backgroundColor: this.headerBgColor() }}
+            >
+              {headerParam.loadComponent === 'assistant' ? (
+                <RenderAssistantHeader sectionData={sectionData} groupName={groupName} />
+              ) : (
+                <RenderCreditHeader sectionData={sectionData} tabKey={headerParam.tabKey} />
+              )}
+            </div>
           )}
         </Sticky>
       );
@@ -58,10 +89,22 @@ class MultipHeaderList extends Component {
 
   renderRow = (rowData, sectionID, rowID) => {
     const { customRenderItem, headerParam } = this.props;
+
     if (customRenderItem) {
       return customRenderItem(rowData, sectionID, rowID);
     } else {
-      return <RenderItem rowData={rowData} jump2Data={headerParam.jump2Data} />;
+      return (
+        <div
+          className="flex-container"
+          style={{ background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
+        >
+          {headerParam.loadComponent === 'assistant' ? (
+            <RenderAssistantItem rowData={rowData} jump2Data={headerParam.jump2Data} />
+          ) : (
+            <RenderCreditItem rowData={rowData} jump2Data={headerParam.jump2Data} />
+          )}
+        </div>
+      );
     }
   };
   render() {

@@ -74,6 +74,9 @@ class IndexPage extends React.Component {
     // 查看全部排名数据
     this.props.setRouteUrlParams('/chartlist', { ...this.state.paramsObj });
   };
+  toAssistantPage = () => {
+    this.props.setRouteUrlParams('/assistant', { ...this.state.paramsObj });
+  };
   render() {
     const { paramsObj } = this.state;
     const { isloading, home = {} } = this.props;
@@ -121,6 +124,7 @@ class IndexPage extends React.Component {
 
         <div style={{ marginTop: '50px' }}>
           <Button onClick={this.toAllRankPage}>查看更多排名图页面</Button>
+          <Button onClick={this.toAssistantPage}>小助手页面</Button>
         </div>
         {/* 处理loading */}
         {isloading && <Loading />}

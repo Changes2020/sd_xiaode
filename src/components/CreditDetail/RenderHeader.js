@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './RenderItem.less';
+import styles from './Render.less';
 
 class RenderHeader extends React.Component {
   componentDidMount() {}
 
   render() {
-    const { sectionData, tabKey, groupName } = this.props;
+    const { sectionData, tabKey } = this.props;
     const index = sectionData[0].familyType;
     const groupType = {
       1: '学院',
@@ -18,24 +18,10 @@ class RenderHeader extends React.Component {
       2: '(孵化器)',
     };
     return (
-      <div
-        style={{
-          zIndex: 2,
-          backgroundColor:
-            groupName.indexOf('selfExam') > -1
-              ? '#52C9C2'
-              : groupName.indexOf('barrier') > -1 ? '#F3A92F' : '#619BDE',
-          color: 'white',
-          width: '7.1rem',
-          height: '.8rem',
-          fontSize: '.2rem',
-          borderRadius: '.04rem .04rem 0 0',
-        }}
-      >
+      <div className={styles.tableTitle}>
         <div className={styles.tableCss}>
           <div className={styles.leftCss}>
             <span style={{ display: 'inline-block', width: '32px', textAlign: 'center' }}>
-              {' '}
               {groupType[tabKey]}
             </span>
             <br />
