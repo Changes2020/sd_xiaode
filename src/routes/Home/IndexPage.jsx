@@ -70,6 +70,9 @@ class IndexPage extends React.Component {
   toAllRankPage = () => {
     this.props.setRouteUrlParams('/chartlist', { ...this.state.paramsObj });
   };
+  toAssistantPage = () => {
+    this.props.setRouteUrlParams('/assistant', { ...this.state.paramsObj });
+  };
   randomParams = () => {
     const startTime = new Date().valueOf();
     // const endTime = this.state.paramsObj.endTime + 10000000;
@@ -121,6 +124,7 @@ class IndexPage extends React.Component {
           <Button onClick={this.randomParams}>随机出参数</Button>
           <Button onClick={this.toDetailPage}>点击跳转至详情页面</Button>
           <Button onClick={this.toAllRankPage}>查看更多排名图页面</Button>
+          <Button onClick={this.toAssistantPage}>小助手页面</Button>
         </div>
 
         {/* <Loading/>  */}
