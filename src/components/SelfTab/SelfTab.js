@@ -2,6 +2,7 @@
 *
 * dataSource{必传 Obj}:数据源，对象结构:{data:[{id:1,title"'正面得分'}.....],...},里面有要map遍历的data数据源，data为数组格式，里面为对象，对象内的数据key值为id和title，父组件需要处理好传入。
 * callBackFun{必传 Funciton}:父组件需要传入点击对应tab返回时触发接受数据的function，返回数据为（item,index）
+* selfSpanFun{非必传 Function}:传入该属性，则父组件确定span里面文字展示内容，没有则默认span里面的文字只显示title,
 * firstId{非必传 Number}:传入默认选中第几个tab,若不传入默认选中第一个tab
 * commonClass{非必传 Obj}:所有tab公共样式
 * tabClass{非必传 Obj}:被选中tab样式，对象格式
@@ -9,7 +10,7 @@
 * */
 import React,{Component} from 'react';
 import classNames from "classnames";
-import styles from "./SelfTab.less";
+import styles from "./Tab.less";
 
 class SelfTab extends Component {
   constructor(props) {
@@ -36,6 +37,16 @@ class SelfTab extends Component {
     }
   }
 
+  spanFun = (item,index) => {
+    const {selfSpanFun} = this.props
+    if(selfSpanFun && typeof (selfSpanFun) === "function"){
+      return (this.props.selfSpanFun(item,index))
+    }
+    else{
+      return item.title
+    }
+  }
+
   renderTab = (dataSource = null,
                firstId = null,
                commonTab=null,
@@ -53,7 +64,7 @@ class SelfTab extends Component {
           className={`${commonTab} ${item.id === selectId ? sectedTab : ''}`}
           onClick={self.selectTab.bind(self,item, index)}
         >
-          {item.title}
+          {this.spanFun(item,index)}
         </span>
       );
     });
