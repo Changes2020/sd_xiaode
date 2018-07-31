@@ -8,6 +8,7 @@ import styles from './Demention.less';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import SelfTab from '../../components/SelfTab/SelfTab';
 
+
 class Demention extends React.Component {
   constructor(props) {
     super(props);
@@ -30,15 +31,17 @@ class Demention extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {}
+
+
   // 父组件控制butonn组内容显示
-  spanFun = item => {
-    return (
-      <span>
-        <span>{item.id}</span>
-        <span>{item.name}</span>
-      </span>
-    );
-  };
+  // spanFun = item => {
+  //   return (
+  //     <span>
+  //       <span>{item.id}</span>
+  //       <span>{item.name}</span>
+  //     </span>
+  //   );
+  // };
 
   // 点击button触发的请求chart和table接口函数
   fnClickGroupButton(item) {
@@ -47,6 +50,7 @@ class Demention extends React.Component {
       dementionId,
     });
   }
+
 
   // 造数据
   dataFn = () => {
@@ -87,13 +91,6 @@ class Demention extends React.Component {
     };
 
     const tabData1 = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '负面得分' }] };
-    const tabData2 = {
-      data: [
-        { id: 1, title: '学分均分' },
-        { id: 2, title: '正面均分' },
-        { id: 3, title: '负面均分' },
-      ],
-    };
     return (
       <div className={styles.normal}>
         <div>{JSON.stringify(paramsObj)}</div>
@@ -109,18 +106,6 @@ class Demention extends React.Component {
           />
         </div>
 
-        <div className={styles.tabBox1}>
-          <SelfTab
-            dataSource={tabData2}
-            callBackFun={(item, index) => {
-              this.fnCLickTab(item, index);
-            }}
-            firstId={this.state.type}
-            // commonClass={styles.tabBtn}
-            // tabClass={styles.sectedBtn}
-          />
-        </div>
-
         <div className={styles.btnContainer}>
           <ButtonGroup
             dataSource={dataSource}
@@ -129,11 +114,12 @@ class Demention extends React.Component {
             }}
             id={this.state.dementionId}
             isSelectFirst
-            spanFunction={(item, num) => this.spanFun(item, num)}
+            // spanFunction={(item, num) => this.spanFun(item, num)}
             btnClass={styles.btnStyle}
             btnSelectedClass={styles.btnSelected}
           />
         </div>
+
         {/* tableList */}
         <MultipHeaderList
           dataList={dataList}
