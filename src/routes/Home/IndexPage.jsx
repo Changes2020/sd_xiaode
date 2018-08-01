@@ -5,7 +5,6 @@ import styles from './IndexPage.less';
 import Filter from './_filter';
 import Banner from '../../components/Banner';
 import { defaultDateTime } from '../../utils/FormatDate';
-import { getAuthority } from '../../utils/authority';
 import { getItem } from '../../utils/localStorage';
 import ChartCotainer from '../../components/ChartCotainer';
 import BarChart from '../../components/Charts/Bar';
@@ -22,7 +21,7 @@ class IndexPage extends React.Component {
     super(props);
     const { urlParams = {} } = props;
     const { startTime, endTime } = defaultDateTime();
-    const userId = getAuthority();
+    const { groupId, userId } = userInfo;
     const initState = {
       paramsObj: {
         startTime, // 过滤开始时间
@@ -30,9 +29,9 @@ class IndexPage extends React.Component {
         userId,
         creditType: 1, // 均分类型1为学分均分2正面均分,3负面均分
         groupType: 3, // 1:学院，2:家族，3:小组
-        rankType: 3, // 1:集团，2:院内，3:null
+        rankType: 1, // 1:集团，2:院内，3:null
         dateType: 3, // 1:周均,2:月均,3:自定义
-        filteKeyID: null, // 登录用户id
+        filteKeyID: groupId, // 登录用户id
       },
       creditShowType: 'trend',
       visible: true,
@@ -47,10 +46,12 @@ class IndexPage extends React.Component {
     // 用于数据请求方法
     // 用于数据的请求
     // 排名和趋势参数不用于请求数据,需要过滤出来
+    const { paramsObj, creditShowType } = this.state;
     const iscreditShowType = 'creditShowType' in ops;
+    console.log(assignUrlParams(paramsObj, ops));
     const sendParams = {
-      paramsObj: { ...this.state.paramsObj, ...ops },
-      creditShowType: iscreditShowType ? ops.creditShowType : this.state.creditShowType,
+      paramsObj: assignUrlParams(paramsObj, ops),
+      creditShowType: iscreditShowType ? ops.creditShowType : creditShowType,
       userInfo,
       allOrgMap,
     };
@@ -79,13 +80,16 @@ class IndexPage extends React.Component {
     this.props.setRouteUrlParams('/assistant', { ...this.state.paramsObj });
   };
   render() {
-    const { paramsObj } = this.state;
+    const { paramsObj, creditShowType } = this.state;
     const { isloading, home = {} } = this.props;
     const { rankDataObj } = home;
     return (
       <div className={styles.normal}>
         <Banner />
-        <Filter paramsObj={paramsObj} fnGetData={obj => this.fnGetData(obj)} />
+        <Filter
+          paramsObj={{ ...paramsObj, creditShowType }}
+          fnGetData={obj => this.fnGetData(obj)}
+        />
         {/* 一下部分为图标数据区域 */}
         <div className={styles.chartContent}>
           {rankDataObj ? (

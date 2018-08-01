@@ -4,8 +4,8 @@
 * firstId{非必传 Number}:传入默认选中第几个tab,若不传入默认选中第一个tab
 *
 * */
-import React,{Component} from 'react';
-import styles from "./Tab.less";
+import React, { Component } from 'react';
+import styles from './Tab.less';
 import qushi from '../../assets/qushi.svg';
 import qushi1 from '../../assets/qushi1.svg';
 import rank from '../../assets/rank.svg';
@@ -14,33 +14,31 @@ import rank1 from '../../assets/rank1.svg';
 class RankTrendTab extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   selectTab(id) {
-    if (!this.props.callBackFun || typeof (this.props.callBackFun) !== "function") {
-      console.warn("未传入callBackFun方法或传入的非function");
-    }else{
-      this.props.callBackFun(id)
+    if (!this.props.callBackFun || typeof this.props.callBackFun !== 'function') {
+      console.warn('未传入callBackFun方法或传入的非function');
+    } else {
+      this.props.callBackFun(id);
     }
   }
 
-
-  render(){
-    const { firstId = 1} = this.props;
-    return(
-      <div>
-        <span onClick={() => (this.selectTab(1))} className={firstId === 1 ? styles.selectSpan1 : ''}>
+  render() {
+    const { firstId = 1 } = this.props;
+    return (
+      <div className={styles.segmentCls}>
+        <span onClick={() => this.selectTab(1)} className={firstId === 1 ? styles.selectSpan1 : ''}>
           <i className={styles.text}>排名</i>
           <img className={styles.iconImg} src={firstId === 1 ? rank1 : rank} alt="" />
         </span>
-        <span onClick={() => (this.selectTab(2))} className={firstId === 2 ? styles.selectSpan2 : ''}>
+        <span onClick={() => this.selectTab(2)} className={firstId === 2 ? styles.selectSpan2 : ''}>
           <i className={styles.text}>趋势</i>
           <img className={styles.iconImg} src={firstId === 2 ? qushi1 : qushi} alt="" />
         </span>
       </div>
-    )
+    );
   }
 }
 export default RankTrendTab;

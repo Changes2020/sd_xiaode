@@ -83,3 +83,34 @@ export async function getCreditTrendObjList(params) {
     body: params,
   });
 }
+
+/*
+*获取学分维度详情(底表页button组)接口
+ */
+export async function getCreditDementionList(params) {
+  return request(`${HOST}/dimension/creditDementionList`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+/*
+*获取维度信息列表接口(底表页详情数据)接口
+ */
+export async function getdementionTypeList(params) {
+  return request(`${HOST}/details/dementionTypeList`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+/*
+*获取趋势图(底表页趋势图)接口
+ */
+
+export async function getQueryCreditTrend(params) {
+  return request(`${HOST}/dimension/queryCreditTrend`, {
+    method: 'POST',
+    body: params,
+  });
+}
