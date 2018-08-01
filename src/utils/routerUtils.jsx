@@ -49,7 +49,7 @@ export function getRoutes(path, routerData) {
   * 此方法用于过滤掉使用路由传递参数,过滤掉用不到的参数,并记录原始值
   * @params{paramsObj} Object  需要合并的参数集合
   *        {urlParams} Object  从url中获取的参数集合
-  * return Object           
+  * return Object
   */
 export function assignUrlParams(paramsObj = {}, urlParams = {}) {
   // 过滤掉不需要的参数
@@ -60,7 +60,12 @@ export function assignUrlParams(paramsObj = {}, urlParams = {}) {
     if (item !== null && typeof item === 'object' && isNaN(item.length)) {
       returnParams[key] = assignUrlParams(item, urlParams);
     } else {
-      returnParams[key] = urlParams[key] || paramsObj[key] || null;
+      const value = urlParams[key] || paramsObj[key] || null;
+      if (typeof value !== 'object' && !isNaN(Number(value))) {
+        returnParams[key] = Number(value);
+      } else {
+        returnParams[key] = value;
+      }
     }
   });
   return returnParams;

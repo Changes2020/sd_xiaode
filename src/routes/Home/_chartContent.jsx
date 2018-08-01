@@ -7,7 +7,16 @@ import { longitudinalChart } from './_longitudinalChart';
 import { lineChart } from './_lineChart';
 
 export default class ChartContent extends React.Component {
-  toDetailPage = () => {};
+  toDetailPage = () => {
+    if (this.props.toDetailPage) {
+      this.props.toDetailPage();
+    }
+  };
+  toAllRankPage = keyname => {
+    if (this.props.toAllRankPage) {
+      this.props.toAllRankPage(keyname);
+    }
+  };
   handleRankChart = () => {
     const { home, paramsObj } = this.props;
     const { rankDataObj } = home;
@@ -57,6 +66,9 @@ export default class ChartContent extends React.Component {
         isShowFooter={isShowFooter}
         onClickTitle={() => {
           this.toDetailPage();
+        }}
+        onClickFooter={() => {
+          this.toAllRankPage(keyname);
         }}
       >
         <BarChart width="7.1rem" height="400px" key={keyname} data={data} dataSource={dataSource} />

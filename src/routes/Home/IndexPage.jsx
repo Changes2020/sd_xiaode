@@ -64,6 +64,7 @@ class IndexPage extends React.Component {
     // 防止重复渲染
     if (JSON.stringify(assignObj) !== JSON.stringify({ ...paramsObj, creditShowType })) {
       this.setState({ paramsObj, creditShowType });
+      this.props.setCurrentUrlParams({ ...paramsObj, creditShowType });
     }
   };
   toDetailPage = () => {
@@ -71,9 +72,9 @@ class IndexPage extends React.Component {
     const { dateType, startTime, endTime } = this.state.paramsObj;
     this.props.setRouteUrlParams('/details', { dateType, startTime, endTime });
   };
-  toAllRankPage = () => {
+  toAllRankPage = familyName => {
     // 查看全部排名数据
-    this.props.setRouteUrlParams('/chartlist', { ...this.state.paramsObj });
+    this.props.setRouteUrlParams('/chartlist', { ...this.state.paramsObj, familyName });
   };
   toAssistantPage = () => {
     this.props.setRouteUrlParams('/assistant', { ...this.state.paramsObj });
@@ -92,7 +93,13 @@ class IndexPage extends React.Component {
         {/* 一下部分为图标数据区域 */}
         <div className={styles.chartContent}>
           {rankDataObj && (
-            <ChartContent home={home} paramsObj={paramsObj} creditShowType={creditShowType} />
+            <ChartContent
+              home={home}
+              paramsObj={paramsObj}
+              creditShowType={creditShowType}
+              toDetailPage={() => this.toDetailPage()}
+              toAllRankPage={keyname => this.toAllRankPage(keyname)}
+            />
           )}
         </div>
 
