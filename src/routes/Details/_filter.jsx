@@ -4,10 +4,10 @@ import DatePanle from '../../components/DatePanle';
 import SelfTab from '../../components/SelfTab/SelfTab';
 import Dict from '../../utils/typeDict';
 
-const { creditPageDict } = Dict;
-const creditTypeData = Object.keys(creditPageDict).map(id => ({
+const { groupTypeZHDict } = Dict;
+const creditTypeData = Object.keys(groupTypeZHDict).map(id => ({
   id: Number(id),
-  title: creditPageDict[id],
+  title: groupTypeZHDict[id],
 }));
 export default class Filter extends React.Component {
   getData = obj => {

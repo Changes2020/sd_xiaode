@@ -9,7 +9,7 @@ export default {
     2: '正面均分',
     3: '负面均分',
   },
-  creditPageDict: {
+  groupTypeZHDict: {
     1: '学院',
     2: '家族',
     3: '小组',
