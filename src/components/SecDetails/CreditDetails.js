@@ -26,7 +26,7 @@ class SecDetails extends Component {
     return (
       <div className={`${styles.tableCss} ${styles.liCssThr}`}>
         <div className={styles.leftCss} />
-        <div className={styles.proCss2}>{data.project}</div>
+        <div className={styles.proCss2}>{data.name}</div>
         <div className={styles.equableCss}>{data.score.toFixed(2)}</div>
         <div className={styles.ringRatioCss}>
           {this.showChain(Number(data.chain))}
@@ -42,7 +42,7 @@ class SecDetails extends Component {
         </div>
 
         <div className={styles.countCss}>
-          {data.number > 99999 ? '99999+' : Math.round(data.number)}
+          {data.num > 99999 ? '99999+' : Math.round(data.num)}
           {data.unit}
         </div>
 
@@ -100,7 +100,7 @@ class SecDetails extends Component {
                       <li key={`fir${key}`} className={styles.liCssFir}>
                         <div className={styles.tableCss}>
                           <div className={styles.leftCss}>{`${index + 1}`}</div>
-                          <div className={styles.proCss2}>{dataList.project}</div>
+                          <div className={styles.proCss2}>{dataList.name}</div>
                           <div className={styles.equableCss}>{dataList.score.toFixed(2)}</div>
                           <div className={styles.ringRatioCss}>
                             {this.showChain(Number(dataList.chain))}
@@ -128,7 +128,7 @@ class SecDetails extends Component {
                                 <div className={styles.tableCss}>
                                   <div className={styles.leftCss}>{`${i}.${i1 + 1}`}</div>
                                   <div className={styles.proCss2}>
-                                    {dataList.dimensions[key1].project}
+                                    {dataList.dimensions[key1].name}
                                   </div>
                                   <div className={styles.equableCss}>
                                     {dataList.dimensions[key1].score.toFixed(2)}
@@ -160,7 +160,7 @@ class SecDetails extends Component {
                                     // 判断number是否为0，0?那行数据不可点击:可点击
                                     return (
                                       <div key={`thr${key2}`}>
-                                        {!dataList.dimensions[key1].dimensions[key2].number ? (
+                                        {!dataList.dimensions[key1].dimensions[key2].num ? (
                                           <div>
                                             {this.detailTmp(
                                               dataList.dimensions[key1].dimensions[key2],
