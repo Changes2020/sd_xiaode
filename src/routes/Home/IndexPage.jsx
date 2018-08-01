@@ -6,12 +6,9 @@ import Filter from './_filter';
 import Banner from '../../components/Banner';
 import { defaultDateTime } from '../../utils/FormatDate';
 import { getItem } from '../../utils/localStorage';
-import ChartCotainer from '../../components/ChartCotainer';
-import BarChart from '../../components/Charts/Bar';
 import Loading from '../../components/Loading/Loading';
 import { assignUrlParams } from '../../utils/routerUtils';
-// import { horizontalChart } from './_horizontalChart';
-import { longitudinalChart } from './_longitudinalChart';
+import ChartContent from './_chartContent';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -28,12 +25,12 @@ class IndexPage extends React.Component {
         endTime, // 过滤结束时间
         userId,
         creditType: 1, // 均分类型1为学分均分2正面均分,3负面均分
-        groupType: 3, // 1:学院，2:家族，3:小组
+        groupType: 1, // 1:学院，2:家族，3:小组
         rankType: 1, // 1:集团，2:院内，3:null
         dateType: 3, // 1:周均,2:月均,3:自定义
         filteKeyID: groupId, // 登录用户id
       },
-      creditShowType: 'trend',
+      creditShowType: 'rank',
       visible: true,
     };
     this.state = assignUrlParams(initState, urlParams);
@@ -48,7 +45,6 @@ class IndexPage extends React.Component {
     // 排名和趋势参数不用于请求数据,需要过滤出来
     const { paramsObj, creditShowType } = this.state;
     const iscreditShowType = 'creditShowType' in ops;
-    console.log(assignUrlParams(paramsObj, ops));
     const sendParams = {
       paramsObj: assignUrlParams(paramsObj, ops),
       creditShowType: iscreditShowType ? ops.creditShowType : creditShowType,
@@ -60,12 +56,15 @@ class IndexPage extends React.Component {
       payload: sendParams,
     });
     this.saveParams(sendParams);
-    // this.fnCheckShowRank(sendParams);// 判断集团排名和院内排名的出现
   }
   saveParams = sendParams => {
     // 用于数据存储,以及添加url
     const { paramsObj, creditShowType } = sendParams;
-    this.setState({ paramsObj, creditShowType });
+    const assignObj = { ...this.state.paramsObj, creditShowType: this.state.creditShowType };
+    // 防止重复渲染
+    if (JSON.stringify(assignObj) !== JSON.stringify({ ...paramsObj, creditShowType })) {
+      this.setState({ paramsObj, creditShowType });
+    }
   };
   toDetailPage = () => {
     // 跳转至详情页
@@ -92,22 +91,9 @@ class IndexPage extends React.Component {
         />
         {/* 一下部分为图标数据区域 */}
         <div className={styles.chartContent}>
-          {rankDataObj ? (
-            <ChartCotainer
-              onClickTitle={() => {
-                this.toDetailPage();
-              }}
-            >
-              <BarChart
-                dataSource={longitudinalChart(rankDataObj.selfExam, {
-                  ...paramsObj,
-                  familyName: 'selfExam',
-                })}
-                width="7.1rem"
-                height="400px"
-              />
-            </ChartCotainer>
-          ) : null}
+          {rankDataObj && (
+            <ChartContent home={home} paramsObj={paramsObj} creditShowType={creditShowType} />
+          )}
         </div>
 
         <div style={{ marginTop: '50px' }}>

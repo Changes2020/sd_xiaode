@@ -63,7 +63,6 @@ function dataHandle(nextProps, paramsObj) {
       },
     });
   });
-
   return setChartsOps({
     gridOps,
     labelSHowData,
@@ -104,7 +103,7 @@ function setChartsOps(optionsXobj) {
       itemHeight: 7,
       data: [
         {
-          name: `集团均分 ${optionsXobj.companyScore}`,
+          // name: `集团均分 ${optionsXobj.companyScore}`,
           icon: 'circle',
           textStyle: {
             color: '#999999',
