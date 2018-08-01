@@ -34,7 +34,8 @@ export default {
       const dementionListData = yield call(getCreditDementionList, {...dementionListParams});
       if (dementionListData.code === 2000) {
         const datasource =dementionListData.data
-        const dementionId =!dementionId?datasource[0].id:dementionId;
+        const dementionId =!payload.dementionId?datasource[0].id:payload.dementionId;
+        console.log('model请求接口时候dementionId的值',dementionId)
         const {switchtype} = payload
         if(switchtype===1){
           const detailListParams = payload.Params;

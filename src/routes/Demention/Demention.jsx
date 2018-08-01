@@ -10,6 +10,8 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import SelfTab from '../../components/SelfTab/SelfTab';
 import { formatDate } from '../../utils/FormatDate';
 import homepng from '../../assets/home.png';
+// import NoData from '../../components/Dialog/NoData.js';
+import Loading from '../../components/Loading/Loading';
 
 const scoreTab = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '负面得分' }] };
 const detailTab = { data: [{ id: 1, title: '详情数据' }, { id: 2, title: '趋势图' }] };
@@ -89,7 +91,7 @@ class Demention extends React.Component {
       topName1,
       topName: `${topName1} (${topName2})`,
       dataToMD: `${formatStratTime} ～ ${formatEndTime}`,
-      dementionId: 32,
+      dementionId: 33,
       titleName: '人资证1',
       buttonName: '预估分',
       switchtype: 1, // 趋势图和详情数据的切换
@@ -101,6 +103,21 @@ class Demention extends React.Component {
     const {switchtype} = this.state;
     const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
     this.dataFetch(dementionListParams,dementionId,switchtype,Params);
+  }
+
+  // 正负面tab点击切换
+  fnCLickTab=(val = null)=> {
+    if (val.id !== this.state.type) {
+      const dementionListParams = {type: val.id};
+      const dementionId = null;
+      const {switchtype} = this.state;
+      const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
+      this.dataFetch(dementionListParams,dementionId,switchtype,Params);
+      this.setState({
+        type: val.id,
+        buttonName:val===2?'直播':'开班电话',
+      });
+    }
   }
 
   // 请求model中的fetch方法
@@ -120,19 +137,12 @@ class Demention extends React.Component {
   // 点击button触发的请求chart和table接口函数
   fnClickGroupButton(item) {
     const dementionId = item.id;
+    console.log('点击button时候改变的dementionId',dementionId)
+    const buttonName = item.name
     this.setState({
       dementionId,
+      buttonName,
     });
-  }
-
-
-  // 正负面tab点击切换
-  fnCLickTab=(val = null)=> {
-    if (val.id !== this.state.type) {
-      this.setState({
-        type: val.id,
-      });
-    }
   }
 
   // 详情趋势图tab点击切换
@@ -178,13 +188,15 @@ class Demention extends React.Component {
 
 
   render() {
+    const { isloading } = this.props;
+    console.log(isloading)
     const {dementionListData} = this.props.demention
     const {detailListData} = this.props.demention
     const buttonData = dementionListData?(dementionListData.data?dementionListData.data:[]):[];
     const buttonList = {data:buttonData};
     const tableList = detailListData?(detailListData.data?this.tableListFun(detailListData.data):[]):[];
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
-
+    console.log('render时候的model返回的dementionId',this.props.demention.dementionId)
     return (
       <div className={styles.normal} id="selfDataCenter">
         <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
@@ -192,14 +204,15 @@ class Demention extends React.Component {
           {this.state.buttonName}
         </div>
         {headerDom(this.state, this.fnCLickTab.bind(this))}
-        {!dementionListData?<div>nothing</div> :(
+        {isloading && <Loading />}
+        {!dementionListData?null :(
           <div className={styles.btnContainer}>
             <ButtonGroup
               dataSource={buttonList}
-              dataReturnFun={(item, index) => {
-                this.fnClickGroupButton(item, index);
+              dataReturnFun={(item) => {
+                this.fnClickGroupButton(item);
               }}
-              id={this.state.dementionId}
+              id={this.props.demention.dementionId}
               isSelectFirst
               btnClass={styles.btnStyle}
               btnSelectedClass={styles.btnSelected}
