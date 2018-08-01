@@ -12,6 +12,8 @@ import { formatDate } from '../../utils/FormatDate';
 import homepng from '../../assets/home.png';
 // import NoData from '../../components/Dialog/NoData.js';
 import Loading from '../../components/Loading/Loading';
+import TrendChart from '../../components/Charts/Line';
+import {fontSizeAuto} from "../../utils/echartsUtils";
 
 const scoreTab = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '负面得分' }] };
 const detailTab = { data: [{ id: 1, title: '详情数据' }, { id: 2, title: '趋势图' }] };
@@ -91,7 +93,7 @@ class Demention extends React.Component {
       topName1,
       topName: `${topName1} (${topName2})`,
       dataToMD: `${formatStratTime} ～ ${formatEndTime}`,
-      dementionId: 33,
+      dementionId: 32,
       titleName: '人资证1',
       buttonName: '预估分',
       switchtype: 1, // 趋势图和详情数据的切换
@@ -115,7 +117,7 @@ class Demention extends React.Component {
       this.dataFetch(dementionListParams,dementionId,switchtype,Params);
       this.setState({
         type: val.id,
-        buttonName:val===2?'直播':'开班电话',
+        buttonName:val.id===2?'直播':'开班电话',
       });
     }
   }
@@ -134,11 +136,43 @@ class Demention extends React.Component {
     });
   }
 
+  // 请求model中的table方法
+  dataTable(dementionId,param){
+    const sendParams = {
+      detailListParams:  {...this.props.demention.detailListParams, ...param },
+      dementionId,
+    }
+    this.props.dispatch({
+      type: 'demention/table',
+      payload: sendParams,
+    });
+  }
+
+  // 请求model中的chart方法
+  dataChart(dementionId,param){
+    const sendParams = {
+      TrendParams:  {...this.props.demention.TrendParams, ...param },
+      dementionId,
+    }
+    this.props.dispatch({
+      type: 'demention/chart',
+      payload: sendParams,
+    });
+  }
+
   // 点击button触发的请求chart和table接口函数
   fnClickGroupButton(item) {
     const dementionId = item.id;
-    console.log('点击button时候改变的dementionId',dementionId)
     const buttonName = item.name
+    const {switchtype} = this.state;
+    if (item.id !== this.props.demention.dementionId) {
+      const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
+      if(switchtype===1){
+        this.dataTable(dementionId,Params)}
+      else{
+        this.dataChart(dementionId,Params);
+      }
+    }
     this.setState({
       dementionId,
       buttonName,
@@ -148,6 +182,14 @@ class Demention extends React.Component {
   // 详情趋势图tab点击切换
   detailCLickTab=(id = null)=> {
     if (id !== this.state.switchtype) {
+      const {dementionId} = this.state;
+      console.log(dementionId,id)
+      const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
+      if(id===1){
+        this.dataTable(dementionId,Params)}
+      else{
+        this.dataChart(dementionId,Params);
+      }
       this.setState({
         switchtype: id,
       });
@@ -186,17 +228,128 @@ class Demention extends React.Component {
     return data;
   }
 
+  // 通过dementionId遍历接口获得button的title
+  dataHandle=(datasource)=> {
+    const titledata = !datasource?[]:datasource;
+    const result = []
+    titledata.map((item)=> {
+      if(item.id === this.props.demention.dementionId)
+      {
+        const titleitem = {
+          nametitle: item.name,
+          secondtitle: item.rawDataDes,
+        }
+        result.push(titleitem)
+      }
+      return null
+    })
+    return result;
+  }
+
+  chartDataFun=(datasource,chartData)=>{
+    const titleobj = this.dataHandle(datasource);
+    const nameTitle = `${titleobj[0].nametitle}趋势图`;
+    const rawDataDes= titleobj[0].secondtitle;
+    const xdata = [];
+    const ydata = [];
+    const dataList = !chartData?[]:(!chartData.data?[]:chartData.data);
+    console.log('char数据遍历',chartData,dataList)
+    dataList.map((item)=> {
+      const xvalue = item.key;
+      const value = item.val
+      xdata.push(xvalue)
+      ydata.push(value)
+      return null
+    } )
+    return {
+      title: {
+        text: nameTitle,
+        subtext: rawDataDes,
+        top: fontSizeAuto(38),
+        left: fontSizeAuto(24),
+        textStyle: {
+          fontSize: fontSizeAuto(24),
+          color: '#444348',
+        },
+        subtextStyle: {
+          fontSize: fontSizeAuto(20),
+          color: '#999',
+        },
+      },
+      grid: {
+        containLabel: true,    // 此属性用于设置名字太长显示不全
+        left: fontSizeAuto(25),
+        top: fontSizeAuto(155),
+        right:fontSizeAuto(40),
+        bottom:fontSizeAuto(20),
+      },
+      xAxis: {
+        type: 'category',
+        axisTick: {
+          show: false,
+        },
+        axisLine:{
+          show: true,
+          lineStyle:{
+            color:"#dadada",
+          },
+        },
+        axisLabel: { // x轴y轴字体样式
+          fontSize: fontSizeAuto(16),
+          color: '#999',
+        },
+        // splitNumber: 5, // 显示的行数
+        data: xdata,
+      },
+      yAxis: {
+        type: 'value',
+        axisTick: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+        },
+        splitNumber: 4, // 显示的行数
+        axisLabel: { // x轴y轴字体样式
+          fontSize: fontSizeAuto(16),
+          color: '#999',
+        },
+        splitLine: {  // 分界线样式
+          lineStyle: {
+            width: 1,
+            color: '#eee',
+          },
+        },
+      },
+      series: {
+        name: '集团第一名均分',
+        type: 'line',
+        symbol: 'circle', // 拐点样式 圆
+        symbolSize: fontSizeAuto(10), // 拐点大小
+        itemStyle: {  // 拐点
+          color: '#52C9C2',
+        },
+        lineStyle: {
+          color: '#52C9C2',
+          type: 'solid', // 实线
+          width:1,
+        },
+        data: ydata,
+      },
+    }
+  }
+
 
   render() {
     const { isloading } = this.props;
-    console.log(isloading)
     const {dementionListData} = this.props.demention
     const {detailListData} = this.props.demention
     const buttonData = dementionListData?(dementionListData.data?dementionListData.data:[]):[];
     const buttonList = {data:buttonData};
     const tableList = detailListData?(detailListData.data?this.tableListFun(detailListData.data):[]):[];
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
-    console.log('render时候的model返回的dementionId',this.props.demention.dementionId)
+    const chartData = !this.props.demention.trendData?null:this.props.demention.trendData;
+    console.log('趋势图数据',chartData)
     return (
       <div className={styles.normal} id="selfDataCenter">
         <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
@@ -219,16 +372,33 @@ class Demention extends React.Component {
             />
           </div>)}
         {tabContainer(this.state, this.detailCLickTab.bind(this))}
-        <div>
-          <div className={styles.tabletitlediv}>
-            <p className={styles.tabletitle}>详情数据</p>
+        {this.state.switchtype===1? (
+          <div>
+            <div className={styles.tabletitlediv}>
+              <p className={styles.tabletitle}>{this.state.buttonName}详情数据</p>
+            </div>
+            {!tableList ? null : (
+              <div style={{ background: '#fff', width: '7.1rem', marginLeft: '0.2rem' }}>
+                <MultipHeaderList
+                  dataList={tableList}
+                  customRenderHeader={() => <CustomRenderHeader columnsData={columnsData}/>}
+                  customRenderItem={rowData => <CustomRenderItem rowData={rowData}/>}
+                />
+              </div>)
+            }
           </div>
-          <MultipHeaderList
-            dataList={tableList}
-            customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
-            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-          />
-        </div>
+          ) :(!chartData?null:(
+            <div style={{background:'#fff',width: '7.1rem',marginLeft: '0.2rem'}}>
+              <TrendChart
+                dataSource={!buttonData?[]: this.chartDataFun(buttonData,chartData)}
+                data={!chartData?[]:chartData.data}
+                width='7.1rem'
+                height='6rem'
+              />
+            </div>
+
+        ))
+        }
 
       </div>
     );
