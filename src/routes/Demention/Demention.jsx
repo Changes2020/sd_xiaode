@@ -254,7 +254,7 @@ class Demention extends React.Component {
     const xdata = [];
     const ydata = [];
     const dataList = !chartData?[]:(!chartData.data?[]:chartData.data);
-    console.log('char数据遍历',chartData,dataList)
+    // console.log('char数据遍历',chartData,dataList)
     dataList.map((item)=> {
       const xvalue = item.key;
       const value = item.val
@@ -350,7 +350,7 @@ class Demention extends React.Component {
     const tableList = detailListData?(!detailListData.data?null:this.tableListFun(detailListData.data)):null;
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
     const chartData = !this.props.demention.trendData?null:this.props.demention.trendData;
-    console.log('table数据',tableList)
+    // console.log('table数据',tableList)
     return (
       <div className={styles.normal} id="selfDataCenter">
         <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
