@@ -78,7 +78,7 @@ class MultipHeaderList extends Component {
               {headerParam.loadComponent === 'assistant' ? (
                 <RenderAssistantHeader sectionData={sectionData} groupName={groupName} />
               ) : (
-                <RenderCreditHeader sectionData={sectionData} tabKey={headerParam.tabKey} />
+                <RenderCreditHeader sectionData={sectionData} tabKey={headerParam.groupType} />
               )}
             </div>
           )}
@@ -88,7 +88,7 @@ class MultipHeaderList extends Component {
   };
 
   renderRow = (rowData, sectionID, rowID) => {
-    const { customRenderItem, headerParam } = this.props;
+    const { customRenderItem, headerParam, jump2Data } = this.props;
 
     if (customRenderItem) {
       return customRenderItem(rowData, sectionID, rowID);
@@ -99,9 +99,9 @@ class MultipHeaderList extends Component {
           style={{ background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
         >
           {headerParam.loadComponent === 'assistant' ? (
-            <RenderAssistantItem rowData={rowData} jump2Data={headerParam.jump2Data} />
+            <RenderAssistantItem rowData={rowData} jump2Data={data => jump2Data(data)} />
           ) : (
-            <RenderCreditItem rowData={rowData} jump2Data={headerParam.jump2Data} />
+            <RenderCreditItem rowData={rowData} jump2Data={data => jump2Data(data)} />
           )}
         </div>
       );

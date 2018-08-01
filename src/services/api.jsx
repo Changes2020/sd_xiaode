@@ -114,3 +114,14 @@ export async function getQueryCreditTrend(params) {
     body: params,
   });
 }
+
+/*
+* 学分详情接口
+ */
+
+export async function getCreditDetail(params) {
+  return request(`${HOST}/credit/detailAllCreditList`, {
+    method: 'POST',
+    body: params,
+  });
+}

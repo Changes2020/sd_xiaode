@@ -1,4 +1,4 @@
-import { firstCreditList } from '../services/api';
+import { getCreditDetail } from '../services/api';
 // import {isRequestRelative} from '../utils/FormatDate';
 // import {dealWithRelativeData, detailRelativeData} from '../utils/dealWithRelative';
 // import {getAllGroupMap, highLightData} from "../utils/dimensionAuthority";
@@ -18,7 +18,7 @@ export default {
   effects: {
     *fetch({ payload }, { call, put }) {
       const { paramsObj } = payload;
-      const dataList = yield call(firstCreditList, { ...paramsObj });
+      const dataList = yield call(getCreditDetail, { ...paramsObj });
       yield put({
         type: 'saveData',
         payload: { dataList: dataList.data },

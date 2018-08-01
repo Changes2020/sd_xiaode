@@ -25,12 +25,12 @@ class RenderItem extends React.Component {
             this.setState({ isShowDetail: !isShowDetail });
           }}
         >
-          <div className={styles.leftCss}>{rowData.category}</div>
+          <div className={styles.leftCss}>{rowData.name}</div>
           <div className={styles.proCss}>{rowData.project}</div>
           <div className={styles.rankCss}>
             {rowData.rank}/{rowData.total}
           </div>
-          <div className={styles.equableCss}>{rowData.creditScore.toFixed(2)}</div>
+          <div className={styles.equableCss}>{rowData.score.toFixed(2)}</div>
           <div className={styles.ringRatioCss}>
             {/* {this.showChain(chain)} */}
             {/* {chain||chain===0?<img className={styles.triImg} src={chain===0?yellowImg:chain<0?redImg:greenImg} />:<span className={styles.triImg}></span>} */}
@@ -48,7 +48,11 @@ class RenderItem extends React.Component {
             />
           </div>
         </div>
-        <CreditDetails rowData={rowData} jump2Data={jump2Data} isShowDetail={isShowDetail} />
+        <CreditDetails
+          rowData={rowData}
+          jump2Data={data => jump2Data(data)}
+          isShowDetail={isShowDetail}
+        />
       </div>
     );
   }

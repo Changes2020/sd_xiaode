@@ -19,7 +19,7 @@ export default class Filter extends React.Component {
     this.getData(dateObj);
   };
   fnCLickTab = id => {
-    this.getData({ tabKey: id });
+    this.getData({ groupType: id });
   };
 
   render() {
@@ -37,7 +37,7 @@ export default class Filter extends React.Component {
         <div className={styles.tabWrap}>
           <SelfTab
             dataSource={{ data: creditTypeData }}
-            firstId={paramsObj.tabKey}
+            firstId={paramsObj.groupType}
             callBackFun={item => {
               this.fnCLickTab(item.id);
             }}
