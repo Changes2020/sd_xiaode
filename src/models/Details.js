@@ -6,19 +6,6 @@ import { firstCreditList } from '../services/api';
 export default {
   namespace: 'Details',
   state: {
-    paramsObj: {
-      userId: 1, // 用户身份
-      groupType: 1, // 1:学院，2:家族，3:小组 //1:周均数据，2:月均数据，3:自定义数据
-      startTime: null,
-      endTime: null,
-    },
-    paramsObj2: {
-      groupType: 1, // 1:学院，2:家族，3:小组
-      startTime: null,
-      endTime: null,
-      groupId: 301,
-      familyType: 1, // 1:自考，2:壁垒，3:孵化器
-    },
     highGroupId: [], // high data
     dataList: 'nodata',
     dataSecList: null,

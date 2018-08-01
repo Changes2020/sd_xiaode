@@ -55,9 +55,11 @@ class SelfTab extends Component {
     const selectId = !firstId ? self.state.initId : firstId;
     const liList = list.map((item, index) => {
       return (
-        <div style={{ width: `${100 / this.state.widthLength}%`, textAlign: 'center' }}>
+        <div
+          key={item.id}
+          style={{ width: `${100 / this.state.widthLength}%`, textAlign: 'center' }}
+        >
           <span
-            key={item.id}
             className={`${commonTab} ${item.id === selectId ? sectedTab : ''}`}
             onClick={self.selectTab.bind(self, item, index)}
           >

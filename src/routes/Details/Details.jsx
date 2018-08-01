@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Button } from 'antd-mobile';
-import { assignUrlParams } from 'utils/routerUtils';
+import { assignUrlParams } from '../../utils/routerUtils';
 import Filter from './_filter';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 
@@ -20,9 +20,27 @@ class Details extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    const { paramsObj } = this.state;
+    this.fnGetData(paramsObj);
+  }
   fnGetData = (ops = {}) => {
-    console.log(ops);
+    const { paramsObj } = this.state;
+    const sendParams = {
+      paramsObj: assignUrlParams(paramsObj, ops),
+    };
+    console.log(sendParams);
+    // 掉接口
+    // this.props.dispatch({
+    //   type: 'Details/fetch',
+    //   payload: sendParams,
+    // });
+    this.saveParams(sendParams);
+  };
+  saveParams = sendParams => {
+    // 用于数据存储,以及添加url
+    const { paramsObj } = sendParams;
+    this.setState({ paramsObj });
   };
   toDementionPage = () => {
     const { dateType, startTime, endTime } = this.state.paramsObj;
