@@ -9,6 +9,11 @@ export default {
     2: '正面均分',
     3: '负面均分',
   },
+  groupTypeZHDict: {
+    1: '学院',
+    2: '家族',
+    3: '小组',
+  },
   groupTypeDict: {
     1: 'college',
     2: 'family',
