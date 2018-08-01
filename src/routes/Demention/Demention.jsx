@@ -10,7 +10,7 @@ import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import SelfTab from '../../components/SelfTab/SelfTab';
 import { formatDate } from '../../utils/FormatDate';
 import homepng from '../../assets/home.png';
-// import NoData from '../../components/Dialog/NoData.js';
+import NoData from '../../components/NoData/NoData.js';
 import Loading from '../../components/Loading/Loading';
 import TrendChart from '../../components/Charts/Line';
 import {fontSizeAuto} from "../../utils/echartsUtils";
@@ -209,6 +209,7 @@ class Demention extends React.Component {
   }
   // 遍历接口返回数据获取table的行数据
   tableListFun=(v)=>{
+
     const data = []
     if(v.data!==null){
       const data100 = v.data.slice(0,100);
@@ -346,10 +347,10 @@ class Demention extends React.Component {
     const {detailListData} = this.props.demention
     const buttonData = dementionListData?(dementionListData.data?dementionListData.data:[]):[];
     const buttonList = {data:buttonData};
-    const tableList = detailListData?(detailListData.data?this.tableListFun(detailListData.data):[]):[];
+    const tableList = detailListData?(!detailListData.data?null:this.tableListFun(detailListData.data)):null;
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
     const chartData = !this.props.demention.trendData?null:this.props.demention.trendData;
-    console.log('趋势图数据',chartData)
+    console.log('table数据',tableList)
     return (
       <div className={styles.normal} id="selfDataCenter">
         <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
@@ -358,7 +359,7 @@ class Demention extends React.Component {
         </div>
         {headerDom(this.state, this.fnCLickTab.bind(this))}
         {isloading && <Loading />}
-        {!dementionListData?null :(
+        {!dementionListData?<NoData showflag /> :(
           <div className={styles.btnContainer}>
             <ButtonGroup
               dataSource={buttonList}
@@ -377,7 +378,7 @@ class Demention extends React.Component {
             <div className={styles.tabletitlediv}>
               <p className={styles.tabletitle}>{this.state.buttonName}详情数据</p>
             </div>
-            {!tableList ? null : (
+            {!tableList||tableList.length===0 ? <NoData showflag /> : (
               <div style={{ background: '#fff', width: '7.1rem', marginLeft: '0.2rem' }}>
                 <MultipHeaderList
                   dataList={tableList}
@@ -387,7 +388,7 @@ class Demention extends React.Component {
               </div>)
             }
           </div>
-          ) :(!chartData?null:(
+          ) :(!chartData?<NoData showflag />:(
             <div style={{background:'#fff',width: '7.1rem',marginLeft: '0.2rem'}}>
               <TrendChart
                 dataSource={!buttonData?[]: this.chartDataFun(buttonData,chartData)}
