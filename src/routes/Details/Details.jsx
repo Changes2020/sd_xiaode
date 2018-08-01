@@ -38,6 +38,12 @@ class CreditDetails extends React.Component {
     });
     this.saveParams(sendParams);
   };
+  toggleClick = (data, show) => {
+    this.props.dispatch({
+      type: 'Details/saveIsCheck',
+      payload: { isCheck: show, data },
+    });
+  };
   saveParams = sendParams => {
     // 用于数据存储,以及添加url
     const { paramsObj } = sendParams;
@@ -59,7 +65,7 @@ class CreditDetails extends React.Component {
     const { paramsObj } = this.state;
     const { isloading, Details = {} } = this.props;
     const { dataList } = Details;
-    console.log(dataList);
+
     const params = {
       0: { groupName: 'selfExam', arr: 'activeCS' },
       1: { groupName: 'barrier', arr: 'activeCS' },
@@ -88,7 +94,10 @@ class CreditDetails extends React.Component {
                     groupName={params[item].groupName}
                     dataList={dataList}
                     headerParam={headerParam}
-                    jump2Data={data => this.jump2Data(data)}
+                    jump2Data={data => {
+                      this.jump2Data(data);
+                    }}
+                    toggleClick={(data, show) => this.toggleClick(data, show)}
                     style={{ background: '#fff', paddingBottom: '.4rem' }}
                   />
                 )

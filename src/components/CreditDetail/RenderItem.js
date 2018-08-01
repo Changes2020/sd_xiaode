@@ -13,7 +13,10 @@ class RenderItem extends React.Component {
     };
   }
   componentDidMount() {}
-
+  toggleClick = (data, show) => {
+    this.setState({ isShowDetail: !show });
+    this.props.toggleClick(data, !show);
+  };
   render() {
     const { rowData, jump2Data } = this.props;
     const { isShowDetail } = this.state;
@@ -22,7 +25,7 @@ class RenderItem extends React.Component {
         <div
           className={styles.tableCss}
           onClick={() => {
-            this.setState({ isShowDetail: !isShowDetail });
+            this.toggleClick(rowData, isShowDetail);
           }}
         >
           <div className={styles.leftCss}>{rowData.name}</div>
@@ -50,7 +53,9 @@ class RenderItem extends React.Component {
         </div>
         <CreditDetails
           rowData={rowData}
-          jump2Data={data => jump2Data(data)}
+          jump2Data={data => {
+            jump2Data(data);
+          }}
           isShowDetail={isShowDetail}
         />
       </div>

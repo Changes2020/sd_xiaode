@@ -88,7 +88,7 @@ class MultipHeaderList extends Component {
   };
 
   renderRow = (rowData, sectionID, rowID) => {
-    const { customRenderItem, headerParam, jump2Data } = this.props;
+    const { customRenderItem, headerParam, jump2Data, toggleClick } = this.props;
 
     if (customRenderItem) {
       return customRenderItem(rowData, sectionID, rowID);
@@ -99,9 +99,22 @@ class MultipHeaderList extends Component {
           style={{ background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
         >
           {headerParam.loadComponent === 'assistant' ? (
-            <RenderAssistantItem rowData={rowData} jump2Data={data => jump2Data(data)} />
+            <RenderAssistantItem
+              rowData={rowData}
+              jump2Data={data => {
+                jump2Data(data);
+              }}
+            />
           ) : (
-            <RenderCreditItem rowData={rowData} jump2Data={data => jump2Data(data)} />
+            <RenderCreditItem
+              rowData={rowData}
+              jump2Data={data => {
+                jump2Data(data);
+              }}
+              toggleClick={(data, show) => {
+                toggleClick(data, show);
+              }}
+            />
           )}
         </div>
       );
