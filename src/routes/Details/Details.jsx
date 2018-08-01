@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Button } from 'antd-mobile';
 import { assignUrlParams } from 'utils/routerUtils';
+import Filter from './_filter';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 
 class Details extends React.Component {
@@ -20,6 +21,9 @@ class Details extends React.Component {
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {}
+  fnGetData = (ops = {}) => {
+    console.log(ops);
+  };
   toDementionPage = () => {
     const { dateType, startTime, endTime } = this.state.paramsObj;
     this.props.setRouteUrlParams('/demention', {
@@ -764,9 +768,10 @@ class Details extends React.Component {
     };
     return (
       <div>
-        {/*
-         *************** listview ***************
-         * */}
+        {/* *************** Filter *************** */}
+        <Filter paramsObj={paramsObj} fnGetData={obj => this.fnGetData(obj)} />
+
+        {/* *************** listview *************** */}
         {dataList !== null ? (
           <div>
             {Object.keys(params).map(item => {
