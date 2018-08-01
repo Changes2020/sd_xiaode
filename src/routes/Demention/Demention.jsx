@@ -11,29 +11,39 @@ import SelfTab from '../../components/SelfTab/SelfTab';
 import { formatDate } from '../../utils/FormatDate';
 import homepng from '../../assets/home.png';
 
-const data = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '负面得分' }] };
+const scoreTab = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '负面得分' }] };
+const detailTab = { data: [{ id: 1, title: '详情数据' }, { id: 2, title: '趋势图' }] };
 
 // 头部容器
 const headerDom = (obj = null, clickTab = null) => (
   <div className={styles.headerContainer} style={{ display: 'block' }}>
     <div className={styles.headerText}>
       <p className={styles.dateArea}>{obj.dateArea}</p>
-      <p className={styles.headerTitle}>
-        {obj.topName} - {obj.titleName}
-      </p>
+      <p className={styles.headerTitle}>{obj.topName} - {obj.titleName}</p>
     </div>
     <div>
-      <Link to="/home">
-        <img className={styles.iconBtn} src={homepng} alt="homeimg" />
-      </Link>
+      <Link to="/home"><img className={styles.iconBtn} src={homepng} alt="homeimg" /></Link>
     </div>
     <div className={styles.tabBox}>
       <SelfTab
-        dataSource={data}
+        dataSource={scoreTab}
         firstId={obj.type}
-        callBackFun={(item, index) => {
-          clickTab(item, index);
-        }}
+        callBackFun={(item)=>{clickTab(item);}}
+      />
+    </div>
+  </div>
+);
+
+// 切换趋势图和详情
+const tabContainer = (obj = null, clickTab = null) => (
+  <div className={styles.tabContainer}   style={{display:'block'}}>
+    <div className={styles.switchTabBox} >
+      <SelfTab
+        dataSource={detailTab}
+        firstId={obj.switchtype}
+        callBackFun={(item) => {clickTab(item.id)}}
+        commonClass={styles.switchTabBtn}
+        tabClass={styles.switchSectedBtn}
       />
     </div>
   </div>
@@ -84,20 +94,23 @@ class Demention extends React.Component {
       buttonName: '预估分',
       switchtype: 1, // 趋势图和详情数据的切换
     };
-    console.log(this.state);
   }
   componentDidMount() {
-    const dementionListParams = { type: this.state.type };
-    const { dementionId } = this.state;
-    this.dataFetch(dementionListParams, dementionId);
+    const dementionListParams = {type: this.state.type};
+    const {dementionId} = this.state;
+    const {switchtype} = this.state;
+    const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
+    this.dataFetch(dementionListParams,dementionId,switchtype,Params);
   }
 
   // 请求model中的fetch方法
-  dataFetch(dementionListParams, dementionId) {
+  dataFetch(dementionListParams,dementionId,switchtype,Params){
     const sendParams = {
       dementionId,
-      dementionListParams: { ...this.props.demention.dementionListParams, ...dementionListParams },
-    };
+      switchtype,
+      Params,
+      dementionListParams:{...this.props.demention.dementionListParams, ...dementionListParams },
+    }
     this.props.dispatch({
       type: 'demention/fetch',
       payload: sendParams,
@@ -112,27 +125,21 @@ class Demention extends React.Component {
     });
   }
 
-  // 造数据
-  dataFn = () => {
-    const rowdata = [];
-    [1, 2, 3, 4, 5, 6, 7].forEach(i => {
-      rowdata.push({
-        key: i,
-        id: i,
-        titleOne: '2018-07-31',
-        titleTwo: '312313',
-        titleThree: '50',
-        titleFour: '哈哈镜',
-      });
-    });
-    return rowdata;
-  };
-  // tab点击切换
-  fnCLickTab(val = null) {
-    // console.log('自己写的tab组件回调',val)
+
+  // 正负面tab点击切换
+  fnCLickTab=(val = null)=> {
     if (val.id !== this.state.type) {
       this.setState({
         type: val.id,
+      });
+    }
+  }
+
+  // 详情趋势图tab点击切换
+  detailCLickTab=(id = null)=> {
+    if (id !== this.state.switchtype) {
+      this.setState({
+        switchtype: id,
       });
     }
   }
@@ -144,57 +151,72 @@ class Demention extends React.Component {
     dataToTop.style.display = 'none';
   };
 
+  // 格式处理详情杭数据展示长度
+  formatTableDatda=(val)=>{
+    return String(val).length>10 ? `${String(val).substr(0,10)}...` : !isNaN(Number((val*100)/100))?(val*100)/100:val;
+  }
+  // 遍历接口返回数据获取table的行数据
+  tableListFun=(v)=>{
+    const data = []
+    if(v.data!==null){
+      const data100 = v.data.slice(0,100);
+      data100.map((item, index)=> {
+        const rowdata = {
+          key: index,
+          id: index+1,
+          titleOne: this.formatTableDatda(item.valOne),
+          titleTwo: this.formatTableDatda(item.valTwo),
+          titleThree: this.formatTableDatda(item.valThree),
+          titleFour: this.formatTableDatda(item.valFour),
+        }
+        data.push(rowdata)
+        return 0;
+      } )
+    }
+    return data;
+  }
+
+
   render() {
-    // console.log(this.props)
-    const dataList = this.dataFn();
-    const dataSource = {
-      data: [
-        { name: '直播', id: 4, rawDataDes: '直播（小时）' },
-        { name: '预估分', id: 32, rawDataDes: '预估分' },
-        { name: '主帖', id: 33, rawDataDes: '主帖' },
-        { name: '跟帖', id: 34, rawDataDes: '跟帖' },
-        { name: '优质帖', id: 35, rawDataDes: '优质帖' },
-      ],
-    };
-    const columnsData = {
-      titleOne: '日期',
-      titleTwo: '学员ID',
-      titleThree: '预估分',
-      titleFour: '班主任',
-    };
+    const {dementionListData} = this.props.demention
+    const {detailListData} = this.props.demention
+    const buttonData = dementionListData?(dementionListData.data?dementionListData.data:[]):[];
+    const buttonList = {data:buttonData};
+    const tableList = detailListData?(detailListData.data?this.tableListFun(detailListData.data):[]):[];
+    const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
+
     return (
       <div className={styles.normal} id="selfDataCenter">
-        <div
-          className={styles.topContent}
-          id="dataToTop"
-          onClick={() => {
-            this.backToTop();
-          }}
-        >
+        <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
           {this.state.dataToMD} | {this.state.topName1} | {this.state.titleName} |{' '}
           {this.state.buttonName}
         </div>
         {headerDom(this.state, this.fnCLickTab.bind(this))}
-        <div className={styles.btnContainer}>
-          <ButtonGroup
-            dataSource={dataSource}
-            dataReturnFun={(item, index) => {
-              this.fnClickGroupButton(item, index);
-            }}
-            id={this.state.dementionId}
-            isSelectFirst
-            // spanFunction={(item, num) => this.spanFun(item, num)}
-            btnClass={styles.btnStyle}
-            btnSelectedClass={styles.btnSelected}
+        {!dementionListData?<div>nothing</div> :(
+          <div className={styles.btnContainer}>
+            <ButtonGroup
+              dataSource={buttonList}
+              dataReturnFun={(item, index) => {
+                this.fnClickGroupButton(item, index);
+              }}
+              id={this.state.dementionId}
+              isSelectFirst
+              btnClass={styles.btnStyle}
+              btnSelectedClass={styles.btnSelected}
+            />
+          </div>)}
+        {tabContainer(this.state, this.detailCLickTab.bind(this))}
+        <div>
+          <div className={styles.tabletitlediv}>
+            <p className={styles.tabletitle}>详情数据</p>
+          </div>
+          <MultipHeaderList
+            dataList={tableList}
+            customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+            customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
           />
         </div>
 
-        {/* tableList */}
-        <MultipHeaderList
-          dataList={dataList}
-          customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
-          customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
-        />
       </div>
     );
   }
