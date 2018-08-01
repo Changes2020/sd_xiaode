@@ -86,7 +86,23 @@ class Demention extends React.Component {
     };
     console.log(this.state);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    const dementionListParams = {type: this.state.type};
+    const {dementionId} = this.state;
+    this.dataFetch(dementionListParams,dementionId);
+  }
+
+  // 请求model中的fetch方法
+  dataFetch(dementionListParams,dementionId){
+    const sendParams = {
+      dementionId,
+      dementionListParams:{...this.props.demention.dementionListParams, ...dementionListParams },
+    }
+    this.props.dispatch({
+      type: 'demention/fetch',
+      payload: sendParams,
+    });
+  }
 
   // 点击button触发的请求chart和table接口函数
   fnClickGroupButton(item) {
@@ -129,7 +145,7 @@ class Demention extends React.Component {
   };
 
   render() {
-    // const { paramsObj } = this.state;
+    // console.log(this.props)
     const dataList = this.dataFn();
     const dataSource = {
       data: [
@@ -183,4 +199,8 @@ class Demention extends React.Component {
     );
   }
 }
-export default connect(({ loading }) => ({ loading }))(Demention);
+
+export default connect(({ demention, loading }) => ({
+  demention,
+  isloading: loading.models.demention,
+}))(Demention);

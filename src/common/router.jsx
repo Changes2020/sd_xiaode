@@ -95,7 +95,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['assistant'], () => import('../routes/Assistant/Assistant')),
     },
     '/demention': {
-      component: dynamicWrapper(app, ['example'], () => import('../routes/Demention/Demention')),
+      component: dynamicWrapper(app, ['demention'], () => import('../routes/Demention/Demention')),
     },
     '/usercourse': {
       component: dynamicWrapper(app, [], () => import('../routes/User/UseCourse')),
