@@ -381,8 +381,8 @@ class Demention extends React.Component {
               <div style={{ background: '#fff', width: '7.1rem', marginLeft: '0.2rem' }}>
                 <MultipHeaderList
                   dataList={tableList}
-                  customRenderHeader={() => <CustomRenderHeader columnsData={columnsData}/>}
-                  customRenderItem={rowData => <CustomRenderItem rowData={rowData}/>}
+                  customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+                  customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
                 />
               </div>)
             }
