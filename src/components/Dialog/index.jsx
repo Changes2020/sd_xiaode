@@ -22,10 +22,14 @@ function closest(el, selector) {
   return null;
 }
 export default class Dialog extends React.Component {
-  onClose = () => {
-    document.querySelector('#root').style.overflow = 'auto';
-    if (this.props.onClose) {
-      this.props.onClose();
+  onToggle = bol => {
+    if (bol) {
+      document.querySelector('#root').style.overflow = 'auto';
+    } else {
+      this.overHide();
+    }
+    if (this.props.onToggle) {
+      this.props.onToggle(bol);
     }
   };
 
@@ -73,6 +77,7 @@ export default class Dialog extends React.Component {
           visible={visible}
           transparent
           maskClosable={false}
+          onClose={this.onToggle(false)}
           title={this.renderHeadElement(title)}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
           className={newModelClass}
