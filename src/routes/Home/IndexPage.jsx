@@ -9,6 +9,7 @@ import Loading from '../../components/Loading/Loading';
 import { assignUrlParams } from '../../utils/routerUtils';
 import ChartContent from './_chartContent';
 import NoData from '../../components/NoData/NoData';
+import CeillingHead from './_ceillingHead';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -106,8 +107,8 @@ class IndexPage extends React.Component {
         familyTypeString,
       },
     });
-    // this.setDialogSHow(true);
   };
+  backTopFn = () => {};
   render() {
     const { paramsObj, creditShowType } = this.state;
     const { isloading, home = {} } = this.props;
@@ -115,7 +116,11 @@ class IndexPage extends React.Component {
     const isNoData = JSON.stringify(rankDataObj) === '{}';
     return (
       <div className={styles.normal}>
+        {/* 数据中心吸顶信息 */}
+        <CeillingHead paramsObj={{ ...paramsObj, creditShowType }} userInfo={userInfo} />
+        {/* 轮播组件 */}
         <Banner />
+        {/* 过滤组件 */}
         <Filter
           paramsObj={{ ...paramsObj, creditShowType }}
           fnGetData={obj => this.fnGetData(obj)}

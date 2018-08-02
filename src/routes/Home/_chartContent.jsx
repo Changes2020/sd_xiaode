@@ -171,7 +171,7 @@ export default class ChartContent extends React.Component {
       this.ShowModel(false);
     }
   };
-  ShowModel = bol => {
+  showModel = bol => {
     this.setState({ visible: bol });
   };
   renderGroupList = (groupData, familyType) => {
