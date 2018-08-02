@@ -6,6 +6,9 @@ export default class Ceilling extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll);
   }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
   onScroll = () => {
     const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
     this.Id.style.display = t >= 200 ? 'block' : 'none';
