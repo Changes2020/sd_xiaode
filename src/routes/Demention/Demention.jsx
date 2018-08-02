@@ -61,22 +61,11 @@ class Demention extends React.Component {
     //   paramsObj: {
     //     startTime: null, // 过滤开始时间
     //     endTime: null, // 过滤结束时间
-    //     creditType: 1, // 均分类型1为学分均分2正面均分,3负面均分
-    //     groupType: 1, // 1:学院，2:家族，3:小组
-    //     rankType: 3, // 1:集团，2:院内，3:null
-    //     dateType: 3, // 1:周均,2:月均,3:自定义
-    //     filteKeyID: null, // 登录用户id
-    //     userId: null,
     //   },
-    //
-    //   dementionId: 4,
-    //   type: 2,
     // };
     // this.state = assignUrlParams(initState, urlParams);
-    const startTime = 1532880000000;
-    const endTime = 1532966399999;
-    const groupType = 2;
-    const familyType = 0;
+    const arrValue = this.props.urlParams;
+    const {startTime,endTime,groupId,groupType,familyType,groupName,type,dementionId,titleName,buttonName} = arrValue;
     const topName1 = groupType === 1 ? '学院' : groupType === 2 ? '家族' : '小组';
     const topName2 = familyType === 0 ? '自考' : familyType === 1 ? '壁垒' : '孵化器';
     const formatStratTime = formatDate(startTime);
@@ -85,20 +74,19 @@ class Demention extends React.Component {
       startTime,
       endTime,
       dateArea: `${formatStratTime} ～ ${formatEndTime}`, // 根据用户选择时间区间显示到页头
-      groupName: '学术均分', // 从上个页面获取
-      type: 2, // 正面得分为2,负面的分为10，从上个页面获取的本页面初始值
-      groupId: 250,
-      groupType, // 1学院 2 家族 3 小组
-      familyType, // 0 自考 1 壁垒 2 孵化器
+      groupName, // 从上个页面获取
+      type:Number(type), // 正面得分为2,负面的分为10，从上个页面获取的本页面初始值
+      groupId:Number(groupId),
+      groupType:Number(groupType), // 1学院 2 家族 3 小组
+      familyType:Number(familyType), // 0 自考 1 壁垒 2 孵化器
       topName1,
       topName: `${topName1} (${topName2})`,
       dataToMD: `${formatStratTime} ～ ${formatEndTime}`,
-      dementionId: 32,
-      titleName: '人资证1',
-      buttonName: '预估分',
+      dementionId:Number(dementionId),
+      titleName,
+      buttonName,
       switchtype: 1, // 趋势图和详情数据的切换
     };
-    console.log(this.state)
   }
   componentDidMount() {
     const dementionListParams = {type: this.state.type};
@@ -247,6 +235,7 @@ class Demention extends React.Component {
     return result;
   }
 
+  // 调用图表组件之前的数据处理
   chartDataFun=(datasource,chartData)=>{
     const titleobj = this.dataHandle(datasource);
     const titleobjName = titleobj.length===0?'':(!titleobj[0].nametitle?'':titleobj[0].nametitle)
@@ -340,6 +329,7 @@ class Demention extends React.Component {
       },
     }
   }
+
   // 点击吸顶栏 返回顶部
   backToTop = () => {
     const dataToTop = document.getElementById('dataToTop');
@@ -347,29 +337,29 @@ class Demention extends React.Component {
     dataToTop.style.display = 'none';
   };
 
-
   render() {
     const { isloading } = this.props;
-    const {dementionListData} = this.props.demention
-    const {detailListData} = this.props.demention
+    const {dementionListData,detailListData,chartData} = this.props.demention
+    // button组件数据处理
     const buttonData = dementionListData?(dementionListData.data?dementionListData.data:[]):[];
     const buttonList = {data:buttonData};
+    // 详情数据组件table数据处理
     const tableList = detailListData?(!detailListData.data?null:this.tableListFun(detailListData.data)):null;
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
     const listNum = !detailListData?0:(!detailListData.data?0:detailListData.data.total)
-    // console.log(listNum)
-    const chartData = !this.props.demention.trendData?null:this.props.demention.trendData;
+    // 图表组件数据处理
+    const chartDataList = !chartData?null:chartData;
     return (
       <div className={styles.normal} id="selfDataCenter">
+        {/* 页面吸顶元素 */}
         <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
           {this.state.dataToMD} | {this.state.topName1} | {this.state.titleName} |{' '}
           {this.state.buttonName}
         </div>
-
+        {/* 页面header展示 */}
         {headerDom(this.state, this.fnCLickTab.bind(this))}
-
         {isloading && <Loading />}
-
+        {/* button组件展示 */}
         {!dementionListData?<NoData showflag /> :(
           <div className={styles.btnContainer}>
             <ButtonGroup
@@ -383,9 +373,9 @@ class Demention extends React.Component {
               btnSelectedClass={styles.btnSelected}
             />
           </div>)}
-
+        {/* 详情数据和趋势图tab切换导航 */}
         {tabContainer(this.state, this.detailCLickTab.bind(this))}
-
+        {/* 详情数据和趋势图组件 */}
         {this.state.switchtype===1? (
           <div>
             <div className={styles.tabletitlediv}>
@@ -398,30 +388,31 @@ class Demention extends React.Component {
                   customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
                   customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
                 />
+                <div className={styles.divheight} />
               </div>)
             }
           </div>
-          ) :(!chartData?<NoData showflag />:(
+          ) :(!chartDataList?<NoData showflag />:(
             <div style={{background:'#fff',width: '7.1rem',marginLeft: '0.2rem'}}>
               <TrendChart
-                dataSource={!buttonData?[]: this.chartDataFun(buttonData,chartData)}
+                dataSource={!buttonData?[]: this.chartDataFun(buttonData,chartDataList)}
                 data={this.props.demention.dementionId}
                 width='7.1rem'
                 height='6rem'
               />
             </div>))
         }
+        {/* 详情数据条数超过100的温馨提示 */}
         {this.state.switchtype===1? (
           <div  className={`${listNum > 99 ? styles.warmtoast : styles.warmtoastnone}`} >
             <div className={styles.warmtoasttitle}>
               *温馨提示
             </div>
             <div className={styles.warmtoastcontent}>
-              由于数据过多，目前仅支持查看前100条。数据下载功能开发中，即将上线～
+              由于数据过多，仅展示前100条数据。如需查看更多详情，可到首页下载底表查看（限10天内底表）
             </div>
           </div>
         ):null}
-        <div className={styles.divheight} />
       </div>
     );
   }

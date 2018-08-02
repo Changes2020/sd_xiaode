@@ -1,6 +1,6 @@
 // import Message from '../components/Message';
 import {weekMean} from '../utils/FormatDate';
-import {getCreditDementionList, getQueryCreditTrend, getdementionTypeList, getCreditRankAvgList} from '../services/api'
+import {getCreditDementionList, getQueryCreditTrend, getdementionTypeList} from '../services/api'
 import Message from "../components/Message";
 
 export default {
@@ -35,7 +35,6 @@ export default {
       if (dementionListData.code === 2000) {
         const datasource =dementionListData.data
         const dementionId =!payload.dementionId?datasource[0].id:payload.dementionId;
-        // console.log('model请求接口时候dementionId的值',dementionId)
         const {switchtype} = payload
         if(switchtype===1){
           const detailListParams = payload.Params;
@@ -71,7 +70,6 @@ export default {
     * table({payload}, {call, put}) {
       const {detailListParams} = payload;
       const {dementionId}=payload;
-      // console.log(dementionId)
       const detailListData = yield call(getdementionTypeList, {...detailListParams,dementionId});
       if(detailListData.code === 2000){
         yield put({type: 'tablesave', payload: {detailListData, detailListParams,dementionId}});
