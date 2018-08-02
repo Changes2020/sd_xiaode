@@ -4,9 +4,13 @@ import { getItem } from '../../utils/localStorage';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { dimensionAuthority, highLightData } from '../../utils/dimensionAuthority';
 import Filter from './_filter';
+import top from '../../assets/top.svg';
+import search from '../../assets/search.svg';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import Loading from '../../components/Loading/Loading';
+import Dialog from '../../components/Dialog/index';
 import { defaultDateTime } from '../../utils/FormatDate';
+import styles from './Details.less';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -24,13 +28,24 @@ class CreditDetails extends React.Component {
         dateType: 3, // 1:周均,2:月均,3:自定义
         userId: userInfo.userId,
       },
+      visible: false,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
+    window.onscroll = function() {
+      const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
+      const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
+      if (backTop !== null) {
+        backTop.style.display = t >= 200 ? 'block' : 'none';
+      }
+    };
+
     const { paramsObj } = this.state;
     this.fnGetData(paramsObj);
   }
+
   fnGetData = (ops = {}) => {
     const { paramsObj } = this.state;
 
@@ -54,6 +69,11 @@ class CreditDetails extends React.Component {
     });
     this.saveParams(sendParams);
   };
+  searchFn = () => {
+    this.setState({
+      visible: true,
+    });
+  };
   toggleClick = (data, show) => {
     this.props.dispatch({
       type: 'Details/saveIsCheck',
@@ -68,25 +88,25 @@ class CreditDetails extends React.Component {
   jump2Data = (rowData, data, data1, data2) => {
     if (rowData.arrowShow) {
       const { startTime, endTime, groupType } = this.state.paramsObj;
-      const { familyType, id, category } = rowData;
+      const { familyType, id, name } = rowData;
       this.props.setRouteUrlParams('/demention', {
         groupType,
         startTime,
         endTime,
         familyType, // 0:自考，1:壁垒，2:孵化器
-        titleName: category, // 学院名字
+        titleName: name, // 学院名字
         groupId: id, // 学院id
         groupName: '学分均分',
         type: data.id, //
         dementionId: data2.id, //
-        buttonName: data2.project, // 直播名字
+        buttonName: data2.name, // 直播名字
       });
     } else {
       console.warn('无权限查看');
     }
   };
   render() {
-    const { paramsObj } = this.state;
+    const { paramsObj, visible } = this.state;
     const { isloading, Details = {} } = this.props;
     const { dataList } = Details;
 
@@ -134,6 +154,30 @@ class CreditDetails extends React.Component {
             })}
           </div>
         ) : null}
+        {/* *************** 回到顶部 *************** */}
+        <div
+          className={`${styles.floatIcon} ${styles.goTopCls}`}
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          id="backTopBtn"
+        >
+          <img src={top} alt="" />
+        </div>
+
+        {/* *************** 搜索按钮 *************** */}
+        <div
+          className={`${styles.floatIcon} ${styles.searchCls}`}
+          onClick={() => {
+            this.searchFn();
+          }}
+        >
+          <img src={search} alt="" />
+        </div>
+
+        {/* *************** 搜索模态框 *************** */}
+        <Dialog visible={visible} />
+
         {/* 处理loading */}
         {isloading && <Loading />}
       </div>
