@@ -126,6 +126,7 @@ class Demention extends React.Component {
   componentWillReceiveProps() {
     window.scrollTo(0, 0);
   }
+  // 点击home图片返回首页
   homeFun = () => {
     this.props.setRouteUrlParams('/indexPage', {});
   };
@@ -323,13 +324,11 @@ class Demention extends React.Component {
         {/* 详情数据和趋势图组件 */}
         {this.state.switchtype === 1 ? (
           <div>
-            <div className={styles.tabletitlediv}>
-              <p className={styles.tabletitle}>{this.state.buttonName}详情数据</p>
-            </div>
             {!tableList || tableList.length === 0 ? (
               <NoData showflag />
             ) : (
               <div>
+                <p className={styles.tableTitle}>{this.state.buttonName}详情数据</p>
                 <MultipHeaderList
                   dataList={tableList}
                   customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
