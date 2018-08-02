@@ -75,13 +75,13 @@ class SecDetails extends Component {
 
     let idIndex = 0;
     idIndex += 1;
-    const { rowData, showDetail, jump2Data } = this.props;
+    const { rowData, isShowDetail, jump2Data } = this.props;
     return (
       <div
         id={`rowId${idIndex}`}
         dataid={`${rowData.familyType}${rowData.id}`}
         key={rowData.id}
-        style={{ fontSize: '.2rem', display: !showDetail ? 'none' : 'block' }}
+        style={{ fontSize: '.2rem', display: !isShowDetail ? 'none' : 'block' }}
       >
         <List
           className={styles.mylist}
