@@ -76,6 +76,7 @@ class _creditDialog extends React.Component {
       if (document.getElementById(`rowId${len}`)) {
         if (document.getElementById(`rowId${len}`).getAttribute('dataid') === groupId) {
           const height = document.getElementById(`rowId${len}`).offsetTop + clientHeight;
+          console.log(document.getElementById(`rowId${len}`).offsetTop, len);
           setTimeout(() => {
             window.scrollTo(0, height);
           }, 300);
