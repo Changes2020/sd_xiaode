@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
 // import { assignUrlParams } from 'utils/routerUtils';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import CustomRenderHeader from '../../components/TableItem/TableHeader';
