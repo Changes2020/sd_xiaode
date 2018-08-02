@@ -7,8 +7,9 @@ import Filter from './_filter';
 import top from '../../assets/top.svg';
 import search from '../../assets/search.svg';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
+import CreditDialog from './_creditDialog';
+import { SortChanseData } from '../../utils/sortChineseWord';
 import Loading from '../../components/Loading/Loading';
-import Dialog from '../../components/Dialog/index';
 import { defaultDateTime } from '../../utils/FormatDate';
 import styles from './Details.less';
 
@@ -28,7 +29,8 @@ class CreditDetails extends React.Component {
         dateType: 3, // 1:周均,2:月均,3:自定义
         userId: userInfo.userId,
       },
-      visible: false,
+      modelflag: false,
+      groupData: {},
     };
     this.state = assignUrlParams(initState, urlParams);
   }
@@ -70,10 +72,31 @@ class CreditDetails extends React.Component {
     this.saveParams(sendParams);
   };
   searchFn = () => {
+    this.isShowModel(true);
+    const { dataList } = this.props.Details;
+    const groupData = {};
+    Object.keys(dataList).forEach(item => {
+      groupData[item] = [];
+      dataList[item].forEach(jj => {
+        groupData[item].push({
+          category: jj.name,
+          groupId: `${jj.familyType}${jj.id}`,
+          tabKey: this.state.paramsObj.groupType,
+        });
+      });
+      groupData[item] = SortChanseData(groupData[item], 'category'); // 排序
+    });
+
     this.setState({
-      visible: true,
+      groupData,
     });
   };
+  isShowModel(v) {
+    // 判断模态框显隐
+    this.setState({
+      modelflag: v,
+    });
+  }
   toggleClick = (data, show) => {
     this.props.dispatch({
       type: 'Details/saveIsCheck',
@@ -106,7 +129,7 @@ class CreditDetails extends React.Component {
     }
   };
   render() {
-    const { paramsObj, visible } = this.state;
+    const { paramsObj, modelflag, groupData } = this.state;
     const { isloading, Details = {} } = this.props;
     const { dataList } = Details;
 
@@ -176,7 +199,15 @@ class CreditDetails extends React.Component {
         </div>
 
         {/* *************** 搜索模态框 *************** */}
-        <Dialog visible={visible} />
+        <CreditDialog
+          listData={groupData}
+          tabkey={paramsObj.groupType}
+          dataList={dataList}
+          modelflag={modelflag}
+          isShowModel={v => {
+            this.isShowModel(v);
+          }}
+        />
 
         {/* 处理loading */}
         {isloading && <Loading />}

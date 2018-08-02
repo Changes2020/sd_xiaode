@@ -1,0 +1,142 @@
+.normal {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+}
+.flexContainer {
+  max-height: 8.8rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  flex-flow: row wrap;
+  justify-content: start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.groupModal {
+  width: 7.5rem !important;
+  height: 86% !important;
+  overflow: hidden;
+}
+.gwrapRoupModal {
+  background: rgba(0, 0, 0, 0.6);
+  width: 7.5rem;
+}
+.modalHead {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 0.2rem;
+}
+.titleTxt {
+  font-size: 0.24rem;
+  color: #999;
+  text-align: left;
+}
+.modalHead > span:nth-last-of-type(1) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #333;
+  font-size: 0.26rem;
+}
+.dialogCloseBtn {
+  position: absolute;
+  top: 0;
+  right: 0.1rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  color: #c7c6c6;
+  font-size: 0.26rem;
+}
+:global(.am-modal) {
+  position: absolute !important;
+  bottom: 0;
+}
+:global(.am-button) {
+  padding-left: 0.26rem !important;
+  text-align: left !important;
+}
+:global(.am-button::before) {
+  content: '';
+  border: none !important;
+}
+:global(.am-modal-transparent .am-modal-content) {
+  padding-bottom: 0.8rem;
+}
+:global(.am-modal-transparent .am-modal-content .am-modal-body),
+:global(.am-modal-header) {
+  padding: 0 0.16rem 0.3rem 0.34rem !important;
+}
+
+.modeltitlediv {
+  margin: 0.1rem 0 0.24rem 0.05rem;
+}
+.modeltitle {
+  font-size: 0.26rem;
+  color: #333;
+  line-height: 0.37rem;
+  display: flex;
+}
+.buttonul {
+  width: 7.5rem;
+}
+.buttonDiv {
+  margin-left: 0.05rem;
+  text-align: left;
+}
+
+.btnStyle {
+  position: relative;
+  z-index: 10000;
+  background: #f5f8fa !important;
+  /* color:#00001E  !important; */
+  font-size: 0.2rem !important;
+  width: 2.1rem !important;
+  height: 0.56rem !important;
+  line-height: 0.56rem !important;
+  margin: 0 0.2rem 0.1rem 0;
+  display: inline-block !important;
+  border-radius: 0.04rem !important;
+}
+.btnSelected {
+  position: relative;
+  z-index: 10000;
+  background: #52c9c2 !important;
+  font-size: 0.2rem !important;
+  width: 2.1rem !important;
+  height: 0.56rem !important;
+  line-height: 0.56rem !important;
+  margin: 0 0.2rem 0.1rem 0;
+  display: inline-block !important;
+  border-radius: 0.04rem !important;
+}
+
+.spanIdSelected {
+  color: #fff !important;
+  position: absolute;
+  left: 0.05rem;
+}
+.spanNameSelected {
+  position: absolute;
+  left: 0.3rem;
+  color: #fff !important;
+}
+.spanIdStyle {
+  position: absolute;
+  left: 0.05rem;
+  color: #52c9c2 !important;
+}
+.spanNameStyle {
+  position: absolute;
+  left: 0.3rem;
+  color: #00001e !important;
+}
+:global(.am-modal-mask) {
+  width: 7.5rem !important;
+}
