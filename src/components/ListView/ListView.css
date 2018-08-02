@@ -1,7 +1,4 @@
 
-.normal {
-}
-
 .arrowDown{
   position: absolute;
   right: .4rem;
@@ -21,13 +18,17 @@
 }
 .mylist{
   width: 7.1rem;
-  /*height: 2.94rem;*/
+  /*
+  height: 2.94rem;
+  */
   margin-left: .2rem;
   padding-bottom: .33rem
 }
 .ulCss{
   width: 6.56rem;
-  /*height:2.6rem;*/
+  /*
+  height:2.6rem;
+  */
   background-color: #fff;
   box-sizing: border-box;
   margin: 0 .22rem;
@@ -87,7 +88,9 @@
   padding-top: .19rem;
   padding-bottom: .2rem;
 }
-/*biao zhi*/
+/*
+biao zhi
+*/
 .imgCls{
   position: absolute;
   top: 0;
@@ -96,7 +99,9 @@
   width: .22rem;
   height: .26rem;
 }
-/*列表样式*/
+/*
+列表样式
+*/
 .tableCss {
   width: 7.1rem;
   height: .8rem;
@@ -167,6 +172,8 @@
 /* listView */
 :global(.am-list-item .am-list-line),:global(.am-list-item .am-list-line .am-list-content){
   padding: 0!important;
+  border-top-left-radius: 0.04rem;
+  border-top-right-radius: 0.04rem;
 }
 :global(html:not([data-scale]) .am-list-body div:not(:last-child) .am-list-line::after){
   height: 0!important;
@@ -174,4 +181,8 @@
 :global(.am-list-item){
   min-height: .8rem!important;
   padding: 0!important;
+}
+:global(.am-list-body::after, html:not([data-scale]) .am-list-body::before){
+  background-color: #fff !important;
+  height: 0 !important;
 }

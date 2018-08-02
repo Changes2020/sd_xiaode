@@ -106,6 +106,13 @@ class Demention extends React.Component {
     const {switchtype} = this.state;
     const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
     this.dataFetch(dementionListParams,dementionId,switchtype,Params);
+    window.onscroll = function () {
+      const t = document.documentElement.scrollTop || document.body.scrollTop;// 滚动条滚动时，到顶部的距离
+      const backTop = document.getElementById('dataToTop');// 吸顶模块
+      if (backTop !== null) {
+        backTop.style.display = t >= 118 ? 'block' : 'none';
+      }
+    };
   }
 
   // 正负面tab点击切换
@@ -196,20 +203,13 @@ class Demention extends React.Component {
     }
   }
 
-  // 点击吸顶栏 返回顶部
-  backToTop = () => {
-    const dataToTop = document.getElementById('dataToTop');
-    window.scrollTo(0, document.getElementById('selfDataCenter').offsetTop);
-    dataToTop.style.display = 'none';
-  };
-
-  // 格式处理详情杭数据展示长度
+  // 格式处理详情数据展示长度
   formatTableDatda=(val)=>{
     return String(val).length>10 ? `${String(val).substr(0,10)}...` : !isNaN(Number((val*100)/100))?(val*100)/100:val;
   }
+
   // 遍历接口返回数据获取table的行数据
   tableListFun=(v)=>{
-
     const data = []
     if(v.data!==null){
       const data100 = v.data.slice(0,100);
@@ -340,6 +340,12 @@ class Demention extends React.Component {
       },
     }
   }
+  // 点击吸顶栏 返回顶部
+  backToTop = () => {
+    const dataToTop = document.getElementById('dataToTop');
+    window.scrollTo(0, document.getElementById('selfDataCenter').offsetTop);
+    dataToTop.style.display = 'none';
+  };
 
 
   render() {
@@ -350,16 +356,20 @@ class Demention extends React.Component {
     const buttonList = {data:buttonData};
     const tableList = detailListData?(!detailListData.data?null:this.tableListFun(detailListData.data)):null;
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
+    const listNum = !detailListData?0:(!detailListData.data?0:detailListData.data.total)
+    // console.log(listNum)
     const chartData = !this.props.demention.trendData?null:this.props.demention.trendData;
-    // console.log('table数据',tableList)
     return (
       <div className={styles.normal} id="selfDataCenter">
         <div className={styles.topContent} id="dataToTop" onClick={() => {this.backToTop();}}>
           {this.state.dataToMD} | {this.state.topName1} | {this.state.titleName} |{' '}
           {this.state.buttonName}
         </div>
+
         {headerDom(this.state, this.fnCLickTab.bind(this))}
+
         {isloading && <Loading />}
+
         {!dementionListData?<NoData showflag /> :(
           <div className={styles.btnContainer}>
             <ButtonGroup
@@ -373,7 +383,9 @@ class Demention extends React.Component {
               btnSelectedClass={styles.btnSelected}
             />
           </div>)}
+
         {tabContainer(this.state, this.detailCLickTab.bind(this))}
+
         {this.state.switchtype===1? (
           <div>
             <div className={styles.tabletitlediv}>
@@ -397,11 +409,19 @@ class Demention extends React.Component {
                 width='7.1rem'
                 height='6rem'
               />
-            </div>
-
-        ))
+            </div>))
         }
-
+        {this.state.switchtype===1? (
+          <div  className={`${listNum > 99 ? styles.warmtoast : styles.warmtoastnone}`} >
+            <div className={styles.warmtoasttitle}>
+              *温馨提示
+            </div>
+            <div className={styles.warmtoastcontent}>
+              由于数据过多，目前仅支持查看前100条。数据下载功能开发中，即将上线～
+            </div>
+          </div>
+        ):null}
+        <div className={styles.divheight} />
       </div>
     );
   }
