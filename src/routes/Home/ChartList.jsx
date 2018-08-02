@@ -8,6 +8,7 @@ import { defaultDateTime } from '../../utils/FormatDate';
 import BarChart from '../../components/Charts/Bar';
 import { assignUrlParams } from '../../utils/routerUtils';
 import Loading from '../../components/Loading/Loading';
+import NoData from '../../components/NoData/NoData';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -91,10 +92,11 @@ class ChartList extends React.Component {
   render() {
     const { home, isloading } = this.props;
     const { rankDataObj = null } = home;
-    console.log(home);
     const rankDom = rankDataObj ? this.handleRankChart() : null;
+    const isNoData = JSON.stringify(rankDataObj) === '{}';
     return (
       <div className={styles.normal}>
+        {isNoData && <NoData showflag />}
         {rankDom}
         {isloading && <Loading />}
       </div>

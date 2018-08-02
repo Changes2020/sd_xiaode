@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Button } from 'antd-mobile';
 import styles from './IndexPage.less';
 import Filter from './_filter';
 import Banner from '../../components/Banner';
@@ -9,6 +8,7 @@ import { getItem } from '../../utils/localStorage';
 import Loading from '../../components/Loading/Loading';
 import { assignUrlParams } from '../../utils/routerUtils';
 import ChartContent from './_chartContent';
+import NoData from '../../components/NoData/NoData';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -79,10 +79,40 @@ class IndexPage extends React.Component {
   toAssistantPage = () => {
     this.props.setRouteUrlParams('/assistant', { ...this.state.paramsObj });
   };
+  selectGroup = (id, name, familyType) => {
+    // 选择分组趋势数据
+    const { paramsObj } = this.props.home;
+    const filteKeyID = id;
+    const filteKeyTitle = name;
+    const familyTypeString = familyType;
+    this.props.dispatch({
+      type: 'home/updateTrend',
+      payload: {
+        paramsObj: { ...paramsObj, creditShowType: 'trend' },
+        filteKeyTitle,
+        filteKeyID,
+        familyTypeString,
+      },
+    });
+  };
+  lookAllGroup = familyType => {
+    // 点击查看全部
+    const { paramsObj } = this.props.home;
+    const familyTypeString = familyType;
+    this.props.dispatch({
+      type: 'home/getGroupList',
+      payload: {
+        paramsObj,
+        familyTypeString,
+      },
+    });
+    // this.setDialogSHow(true);
+  };
   render() {
     const { paramsObj, creditShowType } = this.state;
     const { isloading, home = {} } = this.props;
     const { rankDataObj } = home;
+    const isNoData = JSON.stringify(rankDataObj) === '{}';
     return (
       <div className={styles.normal}>
         <Banner />
@@ -99,13 +129,11 @@ class IndexPage extends React.Component {
               creditShowType={creditShowType}
               toDetailPage={() => this.toDetailPage()}
               toAllRankPage={keyname => this.toAllRankPage(keyname)}
+              selectGroup={(id, name, familyType) => this.selectGroup(id, name, familyType)}
+              lookAllGroup={familyType => this.lookAllGroup(familyType)}
             />
           )}
-        </div>
-
-        <div style={{ marginTop: '50px' }}>
-          <Button onClick={this.toAllRankPage}>查看更多排名图页面</Button>
-          <Button onClick={this.toAssistantPage}>小助手页面</Button>
+          {isNoData && <NoData showflag />}
         </div>
         {/* 处理loading */}
         {isloading && <Loading />}

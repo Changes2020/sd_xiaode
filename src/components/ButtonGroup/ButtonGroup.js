@@ -10,87 +10,79 @@
 *
 * */
 
-import React, { Component } from "react";
-import { Button } from "antd-mobile";
-import classNames from "classnames";
-import styles from "./ButtonGroup.less";
+import React, { Component } from 'react';
+import { Button } from 'antd-mobile';
+import classNames from 'classnames';
+import styles from './ButtonGroup.less';
 
 class ButtonGroup extends Component {
   constructor(props) {
     super(props);
-    const data= !this.props.dataSource?[]:!this.props.dataSource.data?[]:this.props.dataSource.data
-    const firstId= !this.props.isSelectFirst ? -1: (data.length>1?data[0].id:-1);
+    const data = !this.props.dataSource
+      ? []
+      : !this.props.dataSource.data ? [] : this.props.dataSource.data;
+    const firstId = !this.props.isSelectFirst ? -1 : data.length > 1 ? data[0].id : -1;
     this.state = {
-      initId:firstId,
+      initId: firstId,
     };
   }
 
-  selectButton(item,index) {
-    if(this.state.initId!==item.id){
+  selectButton(item, index) {
+    if (this.state.initId !== item.id) {
       this.setState({
-        initId:item.id,
+        initId: item.id,
       });
     }
-    if (!this.props.dataReturnFun || typeof (this.props.dataReturnFun) !== "function") {
-      console.warn("未传入dataReturnFun方法或传入的非function");
-    }else{
-      this.props.dataReturnFun(item,index)
+    if (!this.props.dataReturnFun || typeof this.props.dataReturnFun !== 'function') {
+      console.warn('未传入dataReturnFun方法或传入的非function');
+    } else {
+      this.props.dataReturnFun(item, index);
     }
   }
 
-  spanFun = (item,index) => {
-    const {spanFunction} = this.props
-    if(spanFunction && typeof (spanFunction) === "function"){
-        return (this.props.spanFunction(item,index))
+  spanFun = (item, index) => {
+    const { spanFunction } = this.props;
+    if (spanFunction && typeof spanFunction === 'function') {
+      return this.props.spanFunction(item, index);
+    } else {
+      return <span>{item.name}</span>;
     }
-    else{
-      return (<span>{item.name}</span>)
-    }
-  }
+  };
 
-  buttonListItem=(dataSource = null,
-                  id = null,
-                  newBtnClass=null,
-                  newBtnSelectedClass=null,
-    )=>{
-      const self = this;
-      const data=!dataSource?[]:'data' in dataSource?dataSource.data:[];
-      const list = Array.isArray(data) ?data:[]
-      const selectId =!id?self.state.initId:id
-      const liList = list.map((item, index)=> {
+  buttonListItem = (
+    dataSource = null,
+    id = null,
+    newBtnClass = null,
+    newBtnSelectedClass = null
+  ) => {
+    const self = this;
+    const data = !dataSource ? [] : 'data' in dataSource ? dataSource.data : [];
+    const list = Array.isArray(data) ? data : [];
+    const selectId = !id ? self.state.initId : id;
+    const liList = list.map((item, index) => {
       return (
         <Button
-          className={item.id === selectId ? (newBtnSelectedClass) : (newBtnClass)}
+          className={item.id === selectId ? newBtnSelectedClass : newBtnClass}
           key={item.id}
-          onClick={self.selectButton.bind(self,item, index)}
+          onClick={self.selectButton.bind(self, item, index)}
         >
-          {this.spanFun(item,index)}
+          {this.spanFun(item, index)}
         </Button>
       );
     });
     return liList;
-  }
+  };
 
   render() {
-    const {
-      dataSource = null,
-      id = null,
-      btnClass = null,
-      btnSelectedClass=null,
-    } = this.props;
+    const { dataSource = null, id = null, btnClass = null, btnSelectedClass = null } = this.props;
     // 获取父组件传入button选中和未选中样式,未传入则使用默认样式，传入补充到提前定义好接收的样式里面
-    const newBtnClass = !btnClass?classNames(styles.btnStyle, btnClass):classNames(styles.newBtnClass, btnClass);
-    const newBtnSelectedClass = !btnSelectedClass?classNames(styles.btnSelected, btnSelectedClass):classNames(styles.newBtnSelectedClass, btnSelectedClass);
-    return (
-      <div>
-        {this.buttonListItem(
-          dataSource,
-          id,
-          newBtnClass,
-          newBtnSelectedClass
-        )}
-      </div>
-    );
+    const newBtnClass = !btnClass
+      ? classNames(styles.btnStyle, btnClass)
+      : classNames(styles.newBtnClass, btnClass);
+    const newBtnSelectedClass = !btnSelectedClass
+      ? classNames(styles.btnSelected, btnSelectedClass)
+      : classNames(styles.newBtnSelectedClass, btnSelectedClass);
+    return <div>{this.buttonListItem(dataSource, id, newBtnClass, newBtnSelectedClass)}</div>;
   }
 }
 

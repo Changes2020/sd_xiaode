@@ -5,10 +5,10 @@ import {
   getCreditRankAvgList,
   getCreditTrendAvgList,
   getCreditCompanyAvgList,
-  // getCreditTrendObjList,
+  getCreditTrendObjList,
 } from '../services/api';
 import { highLightData } from '../utils/dimensionAuthority';
-import Dict from '../utils/typeDict';
+import typeDict from '../utils/typeDict';
 
 export default {
   namespace: 'home',
@@ -63,7 +63,7 @@ export default {
               const filteKeyArr = rankDataObj.data[item].data.filter(list => list.rank === 1);
               const filteKeyID = filteKeyArr[0].groupId;
               const firstGroupName = filteKeyArr[0].name;
-              const familyType = Dict.familyTypeDict[item];
+              const familyType = typeDict.familyTypeDict[item];
               fmilyTypeFilteKeyIDs[item] = filteKeyID || null;
               const familyTypeReaponse = yield call(getCreditTrendAvgList, {
                 ...paramsObj,
@@ -98,6 +98,26 @@ export default {
           payload: { trendDataObj, rankDataObj, paramsObj, creditShowType },
         });
       }
+    },
+    *updateTrend({ payload }, { call, put }) {
+      // ...接口
+      const { filteKeyID, paramsObj, familyTypeString, filteKeyTitle } = payload;
+      const familyType = typeDict.familyTypeDict[familyTypeString];
+      const familyTypeReaponse = yield call(getCreditTrendAvgList, {
+        ...paramsObj,
+        filteKeyID,
+        familyType,
+      });
+      yield put({
+        type: 'saveupdateTrend',
+        payload: { filteKeyID, paramsObj, familyTypeString, familyTypeReaponse, filteKeyTitle },
+      });
+    },
+    *getGroupList({ payload }, { call, put }) {
+      const { paramsObj, familyTypeString } = payload;
+      const familyType = typeDict.familyTypeDict[familyTypeString];
+      const GroupList = yield call(getCreditTrendObjList, { ...paramsObj, familyType });
+      yield put({ type: 'saveGroupList', payload: { GroupList, familyTypeString } });
     },
   },
 
@@ -154,6 +174,36 @@ export default {
       };
     },
     saveEmptyTrend(state, action) {
+      return { ...state, ...action.payload };
+    },
+    saveupdateTrend(state, action) {
+      const {
+        filteKeyID,
+        paramsObj,
+        familyTypeString,
+        familyTypeReaponse,
+        filteKeyTitle,
+      } = action.payload; // 待处理
+      const { fmilyTypeFilteKeyIDs } = state;
+      const trendDataObj = state.trendDataObj === null ? {} : state.trendDataObj;
+      fmilyTypeFilteKeyIDs[familyTypeString] = filteKeyID; // 将最新id进行储存;
+      trendDataObj[familyTypeString] =
+        familyTypeReaponse !== null &&
+        familyTypeReaponse.data !== null &&
+        familyTypeReaponse.data !== undefined
+          ? familyTypeReaponse.data[familyTypeString]
+          : null;
+      if (trendDataObj[familyTypeString] !== null) {
+        trendDataObj[familyTypeString].title = filteKeyTitle;
+      }
+      return { ...state, fmilyTypeFilteKeyIDs, paramsObj, trendDataObj };
+    },
+    saveGroupList(state, action) {
+      const { GroupList, familyTypeString } = action.payload;
+      const { getGroupObj } = state;
+      if (GroupList && GroupList.data !== null) {
+        getGroupObj[familyTypeString] = GroupList.data;
+      }
       return { ...state, ...action.payload };
     },
   },
