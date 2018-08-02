@@ -202,24 +202,56 @@ export default class ChartContent extends React.Component {
     );
   };
   renderDialogGroup = () => {
-    // const { allGroupObj, fmilyTypeFilteKeyIDs } = this.props.home;
+    const { getGroupObj, fmilyTypeFilteKeyIDs } = this.props.home;
+    const allFamily = Object.keys(getGroupObj);
+    const familyType = allFamily.length > 0 ? allFamily[0] : '';
+    const isSelectedId = fmilyTypeFilteKeyIDs[familyType];
+    const allGroupObj = getGroupObj[familyType];
+    const liList = Object.keys(allGroupObj).map(key => {
+      const data = allGroupObj[key].map(item => ({
+        id: item.id,
+        name: item.title,
+        familyType,
+      }));
+      return (
+        <li key={key}>
+          {/* 判断用户如果为学院不需要显示, */}
+          <div className={styles.modeltitlediv}>
+            <span key={key} className={styles.modeltitle}>
+              {key}
+            </span>
+          </div>
+          {/* div的样式需要调整 */}
+          <div className={styles.buttonDiv}>
+            <ButtonGroup
+              dataSource={{ data }}
+              id={isSelectedId}
+              btnClass={styles.modelBtn}
+              btnSelectedClass={styles.modelSelectBtn}
+              dataReturnFun={item => {
+                this.selectGroup(item.id, item.name, item.familyType);
+              }}
+            />
+          </div>
+        </li>
+      );
+    });
+    return <ul className={styles.buttonul}>{liList}</ul>;
   };
 
   render() {
     const { home = {} } = this.props;
     const { visible } = this.state;
-    const { rankDataObj, trendDataObj, creditShowType } = home;
+    const { rankDataObj, trendDataObj, creditShowType, getGroupObj = {} } = home;
     const rankDom = rankDataObj ? this.handleRankChart() : null;
     const trendDom = trendDataObj ? this.handleTrendChart() : null;
+    const groupDom =
+      Object.keys(getGroupObj).length > 0 && visible ? this.renderDialogGroup() : null;
     const renderDom = creditShowType === 'rank' ? rankDom : trendDom;
     return (
       <div>
         {[...renderDom]}
-        {visible && (
-          <Dialog visible={visible}>
-            <div>ccddd</div>
-          </Dialog>
-        )}
+        {visible && <Dialog visible={visible}>{groupDom}</Dialog>}
       </div>
     );
   }

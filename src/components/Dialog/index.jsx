@@ -32,6 +32,17 @@ export default class Dialog extends React.Component {
       e.preventDefault();
     }
   };
+  isShowModel(bol) {
+    if (this.props.isShowModel) {
+      this.props.isShowModel(bol);
+    }
+    if (!bol) {
+      document.querySelector('#root').style.overflow = 'auto';
+    } else {
+      this.overHide();
+    }
+  }
+
   overHide = () => {
     document.querySelector('#root').style.overflow = 'hidden';
   };
@@ -50,7 +61,7 @@ export default class Dialog extends React.Component {
           type="cross-circle"
           className={styles.dialogCloseBtn}
           onClick={() => {
-            this.props.isShowModel(false);
+            this.isShowModel(false);
           }}
         />
       </div>

@@ -9,27 +9,22 @@
   text-align: center;
   color: #52c9c2;
 }
-.btnStyle {
-  background: #f5f8fa !important;
-  /* color:#00001E  !important; */
-  font-size: 0.2rem !important;
+.groupBtn {
   width: 2.1rem !important;
+  font-size: 0.2rem !important;
   height: 0.56rem !important;
   line-height: 0.56rem !important;
   margin: 0 0.1rem 0.2rem 0;
   display: inline-block !important;
   border-radius: 0.04rem !important;
 }
+.btnStyle {
+  &:extend(.groupBtn);
+  background: #f5f8fa !important;
+}
 .btnSelected {
+  &:extend(.groupBtn);
   background: #52c9c2 !important;
-  /* color:#FFFFFF !important; */
-  font-size: 0.2rem !important;
-  width: 2.1rem !important;
-  height: 0.56rem !important;
-  line-height: 0.56rem !important;
-  margin: 0 0.1rem 0.2rem 0;
-  display: inline-block !important;
-  border-radius: 0.04rem !important;
 }
 .spanIdSelected {
   color: #fff !important;
@@ -50,4 +45,31 @@
   position: absolute;
   left: 0.45rem;
   color: #00001e !important;
+}
+//弹框样式
+.modelBtn {
+  &:extend(.groupBtn);
+  background: #f5f8fa !important;
+  width: 2.26rem !important;
+}
+.modelSelectBtn {
+  &:extend(.groupBtn);
+  width: 2.26rem !important;
+  background: #52c9c2 !important;
+}
+.modeltitlediv {
+  margin: 0.1rem 0 0.24rem 0.15rem;
+}
+.modeltitle {
+  font-size: 0.26rem;
+  color: #333;
+  line-height: 0.37rem;
+  display: flex;
+}
+.buttonul {
+  width: 7.5rem;
+}
+.buttonDiv {
+  margin-left: 0.1rem;
+  text-align: left;
 }

@@ -198,13 +198,13 @@ export default {
       }
       return { ...state, fmilyTypeFilteKeyIDs, paramsObj, trendDataObj };
     },
-    saveGroupList(state, action) {
-      const { GroupList, familyTypeString } = action.payload;
+    saveGroupList(state, { payload }) {
+      const { GroupList, familyTypeString } = payload;
       const { getGroupObj } = state;
       if (GroupList && GroupList.data !== null) {
         getGroupObj[familyTypeString] = GroupList.data;
       }
-      return { ...state, ...action.payload };
+      return { ...state, ...payload, getGroupObj };
     },
   },
 };
