@@ -101,15 +101,15 @@ class MultipHeaderList extends Component {
           {headerParam.loadComponent === 'assistant' ? (
             <RenderAssistantItem
               rowData={rowData}
-              jump2Data={data => {
-                jump2Data(data);
+              jump2Data={(data1, data2, data3, data4) => {
+                jump2Data(data1, data2, data3, data4);
               }}
             />
           ) : (
             <RenderCreditItem
               rowData={rowData}
-              jump2Data={data => {
-                jump2Data(data);
+              jump2Data={(data1, data2, data3, data4) => {
+                jump2Data(data1, data2, data3, data4);
               }}
               toggleClick={(data, show) => {
                 toggleClick(data, show);

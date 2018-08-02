@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Button } from 'antd-mobile';
 import { getItem } from '../../utils/localStorage';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { dimensionAuthority, highLightData } from '../../utils/dimensionAuthority';
@@ -66,17 +65,25 @@ class CreditDetails extends React.Component {
     const { paramsObj } = sendParams;
     this.setState({ paramsObj });
   };
-  toDementionPage = () => {
-    const { dateType, startTime, endTime } = this.state.paramsObj;
-    this.props.setRouteUrlParams('/demention', {
-      dateType,
-      startTime,
-      endTime,
-    });
-  };
-  jump2Data = () => {
-    // 跳转至数据详情页
-    // console.log(rowData);
+  jump2Data = (rowData, data, data1, data2) => {
+    if (rowData.arrowShow) {
+      const { startTime, endTime, groupType } = this.state.paramsObj;
+      const { familyType, id, category } = rowData;
+      this.props.setRouteUrlParams('/demention', {
+        groupType,
+        startTime,
+        endTime,
+        familyType, // 0:自考，1:壁垒，2:孵化器
+        titleName: category, // 学院名字
+        groupId: id, // 学院id
+        groupName: '学分均分',
+        type: data.id, //
+        dementionId: data2.id, //
+        buttonName: data2.project, // 直播名字
+      });
+    } else {
+      console.warn('无权限查看');
+    }
   };
   render() {
     const { paramsObj } = this.state;
@@ -116,8 +123,8 @@ class CreditDetails extends React.Component {
                     groupName={params[item].groupName}
                     dataList={dataList}
                     headerParam={headerParam}
-                    jump2Data={data => {
-                      this.jump2Data(data);
+                    jump2Data={(data1, data2, data3, data4) => {
+                      this.jump2Data(data1, data2, data3, data4);
                     }}
                     toggleClick={(data, show) => this.toggleClick(data, show)}
                     style={{ background: '#fff', paddingBottom: '.4rem' }}
@@ -127,10 +134,6 @@ class CreditDetails extends React.Component {
             })}
           </div>
         ) : null}
-
-        <div style={{ marginTop: '50px' }}>
-          <Button onClick={this.toDementionPage}>点击跳转至低表页面</Button>
-        </div>
         {/* 处理loading */}
         {isloading && <Loading />}
       </div>

@@ -75,8 +75,8 @@ class RenderItem extends React.Component {
         </div>
         <CreditDetails
           rowData={rowData}
-          jump2Data={data => {
-            jump2Data(data);
+          jump2Data={(data1, data2, data3, data4) => {
+            jump2Data(data1, data2, data3, data4);
           }}
           isShowDetail={isShowDetail}
         />

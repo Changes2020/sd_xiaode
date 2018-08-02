@@ -115,6 +115,7 @@ export default {
         });
         return dataList;
       });
+
       // 环比
       let { chainData } = action.payload;
       if (dataList === 'nodata') {
@@ -126,7 +127,6 @@ export default {
             dataList[item] = null;
           } else {
             chainData = chainData === null ? null : chainData;
-            // todo
             // if(chainData) dataList[item] = detailRelativeData(dataList[item], chainData[item])
           }
         });

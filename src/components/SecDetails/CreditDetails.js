@@ -74,7 +74,7 @@ class SecDetails extends Component {
       gro: 'rgba(97,155,222,0.15)',
       higColor: 'rgba(255,89,89,0.10)',
     };
-    const { rowData, jump2Data, isShowDetail } = this.props;
+    const { rowData, isShowDetail, jump2Data } = this.props;
     return (
       <div
         id={`rowId${i}`}
@@ -170,12 +170,14 @@ class SecDetails extends Component {
                                           </div>
                                         ) : (
                                           <div
-                                            onClick={jump2Data(
-                                              rowData,
-                                              dataList,
-                                              dataList.dimensions[key1],
-                                              dataList.dimensions[key1].dimensions[key2]
-                                            )}
+                                            onClick={() =>
+                                              jump2Data(
+                                                rowData,
+                                                dataList,
+                                                dataList.dimensions[key1],
+                                                dataList.dimensions[key1].dimensions[key2]
+                                              )
+                                            }
                                           >
                                             {this.detailTmp(
                                               dataList.dimensions[key1].dimensions[key2],

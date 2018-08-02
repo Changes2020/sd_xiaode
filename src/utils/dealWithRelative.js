@@ -58,8 +58,8 @@ export function detailRelativeData(nowXdata = null, lastXData = null) {
     const nowXplatXdata = flatten(nowXdata);
     const lastXplatXdata = flatten(lastXData);
     const handdleData = dealWithRelativeData(nowXplatXdata, lastXplatXdata, 'id', 'score'); // 扁平化数据处理环比之后的结果
-    traverseTree(nowXdata[0], handdleData);
-    return nowXdata[0];
+    traverseTree(nowXdata, handdleData);
+    return nowXdata;
   }
 }
 
