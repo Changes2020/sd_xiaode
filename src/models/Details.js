@@ -1,6 +1,6 @@
 import { getCreditDetail } from '../services/api';
 import { isRequestRelative } from '../utils/FormatDate';
-// import { detailRelativeData } from '../utils/dealWithRelative';
+import { detailRelativeData } from '../utils/dealWithRelative';
 
 export default {
   namespace: 'Details',
@@ -127,7 +127,7 @@ export default {
             dataList[item] = null;
           } else {
             chainData = chainData === null ? null : chainData;
-            // if(chainData) dataList[item] = detailRelativeData(dataList[item], chainData[item])
+            if (chainData) dataList[item] = detailRelativeData(dataList[item], chainData[item]);
           }
         });
       }
