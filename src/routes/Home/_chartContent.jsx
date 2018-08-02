@@ -160,12 +160,19 @@ export default class ChartContent extends React.Component {
     if (this.props.lookAllGroup) {
       this.props.lookAllGroup(familyType);
     }
-    this.setState({ visible: true });
+    this.ShowModel(true);
   };
   selectGroup = (id = null, name, familyType) => {
+    const { visible } = this.state;
     if (this.props.selectGroup) {
       this.props.selectGroup(id, name, familyType);
     }
+    if (visible) {
+      this.ShowModel(false);
+    }
+  };
+  ShowModel = bol => {
+    this.setState({ visible: bol });
   };
   renderGroupList = (groupData, familyType) => {
     // 此方法用于render出groupList
@@ -251,7 +258,16 @@ export default class ChartContent extends React.Component {
     return (
       <div>
         {[...renderDom]}
-        {visible && <Dialog visible={visible}>{groupDom}</Dialog>}
+        {visible && (
+          <Dialog
+            visible={visible}
+            ShowModel={bol => {
+              this.ShowModel(bol);
+            }}
+          >
+            {groupDom}
+          </Dialog>
+        )}
       </div>
     );
   }

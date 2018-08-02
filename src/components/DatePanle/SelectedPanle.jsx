@@ -14,10 +14,10 @@ export default class SelectPanle extends React.Component {
       this.props.clickOption(value);
     }
   }
-  checkType = (item, index) => {
+  checkType = item => {
     if (typeof item === 'string' || typeof item === 'number') {
       return (
-        <Option value={item} key={item} onClick={this.clickOption.bind(this, index + 1)}>
+        <Option value={item} key={item} onClick={this.clickOption.bind(this, item)}>
           {item}
         </Option>
       );
