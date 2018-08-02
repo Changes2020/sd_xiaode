@@ -103,6 +103,10 @@ class Demention extends React.Component {
     };
   }
 
+  componentWillReceiveProps() {
+    window.scrollTo(0,0);
+  }
+
   // 正负面tab点击切换
   fnCLickTab=(val = null)=> {
     if (val.id !== this.state.type) {
@@ -114,6 +118,22 @@ class Demention extends React.Component {
       this.setState({
         type: val.id,
         buttonName:val.id===2?'直播':'开班电话',
+      });
+    }
+  }
+
+  // 详情趋势图tab点击切换
+  detailCLickTab=(id = null)=> {
+    if (id !== this.state.switchtype) {
+      const {dementionId} = this.props.demention;
+      const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
+      if(id===1){
+        this.dataTable(dementionId,Params)}
+      else{
+        this.dataChart(dementionId,Params);
+      }
+      this.setState({
+        switchtype: id,
       });
     }
   }
@@ -175,22 +195,6 @@ class Demention extends React.Component {
     });
   }
 
-  // 详情趋势图tab点击切换
-  detailCLickTab=(id = null)=> {
-    if (id !== this.state.switchtype) {
-      const {dementionId} = this.state;
-      const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
-      if(id===1){
-        this.dataTable(dementionId,Params)}
-      else{
-        this.dataChart(dementionId,Params);
-      }
-      this.setState({
-        switchtype: id,
-      });
-    }
-  }
-
   // 格式处理详情数据展示长度
   formatTableDatda=(val)=>{
     return String(val).length>10 ? `${String(val).substr(0,10)}...` : !isNaN(Number((val*100)/100))?(val*100)/100:val;
@@ -245,6 +249,7 @@ class Demention extends React.Component {
     const xdata = [];
     const ydata = [];
     const dataList = !chartData?[]:(!chartData.data?[]:chartData.data);
+    console.log('图表展示数据',titleobjName,dataList)
     dataList.map((item)=> {
       const xvalue = item.key;
       const value = item.val
@@ -339,7 +344,7 @@ class Demention extends React.Component {
 
   render() {
     const { isloading } = this.props;
-    const {dementionListData,detailListData,chartData} = this.props.demention
+    const {dementionListData,detailListData,trendData} = this.props.demention
     // button组件数据处理
     const buttonData = dementionListData?(dementionListData.data?dementionListData.data:[]):[];
     const buttonList = {data:buttonData};
@@ -347,8 +352,6 @@ class Demention extends React.Component {
     const tableList = detailListData?(!detailListData.data?null:this.tableListFun(detailListData.data)):null;
     const columnsData = detailListData?(detailListData.data?detailListData.data:[]):[];
     const listNum = !detailListData?0:(!detailListData.data?0:detailListData.data.total)
-    // 图表组件数据处理
-    const chartDataList = !chartData?null:chartData;
     return (
       <div className={styles.normal} id="selfDataCenter">
         {/* 页面吸顶元素 */}
@@ -392,10 +395,10 @@ class Demention extends React.Component {
               </div>)
             }
           </div>
-          ) :(!chartDataList?<NoData showflag />:(
+          ) :(!trendData?<NoData showflag />:(
             <div style={{background:'#fff',width: '7.1rem',marginLeft: '0.2rem'}}>
               <TrendChart
-                dataSource={!buttonData?[]: this.chartDataFun(buttonData,chartDataList)}
+                dataSource={!buttonData?[]: this.chartDataFun(buttonData,trendData)}
                 data={this.props.demention.dementionId}
                 width='7.1rem'
                 height='6rem'

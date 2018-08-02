@@ -178,6 +178,14 @@ biao zhi
 :global(html:not([data-scale]) .am-list-body div:not(:last-child) .am-list-line::after){
   height: 0!important;
 }
+
+:global(.am-list-body::before) {
+  height:0 !important;
+}
+:global(.am-list-body::after) {
+  height:0 !important;
+}
+
 :global(.am-list-item){
   min-height: .8rem!important;
   padding: 0!important;
