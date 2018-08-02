@@ -49,7 +49,7 @@ export default class Dialog extends React.Component {
   renderHeadElement(title) {
     let ReturnDom = null;
     if (typeof title === 'string') {
-      ReturnDom = <p className={styles.titleTxt}>{title}</p>;
+      ReturnDom = <p className={styles.titleTxt}>{title}</p >;
     }
     if (React.isValidElement(title)) {
       ReturnDom = <div>{title}</div>;
