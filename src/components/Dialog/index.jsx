@@ -23,7 +23,7 @@ function closest(el, selector) {
 }
 export default class Dialog extends React.Component {
   onToggle = bol => {
-    if (bol) {
+    if (!bol) {
       document.querySelector('#root').style.overflow = 'auto';
     } else {
       this.overHide();
@@ -49,7 +49,7 @@ export default class Dialog extends React.Component {
   renderHeadElement(title) {
     let ReturnDom = null;
     if (typeof title === 'string') {
-      ReturnDom = <p className={styles.titleTxt}>{title}</p >;
+      ReturnDom = <p className={styles.titleTxt}>{title}</p>;
     }
     if (React.isValidElement(title)) {
       ReturnDom = <div>{title}</div>;

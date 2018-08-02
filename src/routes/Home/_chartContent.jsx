@@ -202,14 +202,13 @@ export default class ChartContent extends React.Component {
     );
   };
   renderDialogGroup = () => {
-    // const {allGroupObj,fmilyTypeFilteKeyIDs}=this.props.home;
+    // const { allGroupObj, fmilyTypeFilteKeyIDs } = this.props.home;
   };
 
   render() {
     const { home = {} } = this.props;
     const { visible } = this.state;
     const { rankDataObj, trendDataObj, creditShowType } = home;
-    // const {rankChartOps}=this.state;
     const rankDom = rankDataObj ? this.handleRankChart() : null;
     const trendDom = trendDataObj ? this.handleTrendChart() : null;
     const renderDom = creditShowType === 'rank' ? rankDom : trendDom;
