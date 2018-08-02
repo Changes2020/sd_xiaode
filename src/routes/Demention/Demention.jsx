@@ -76,7 +76,7 @@ class Demention extends React.Component {
     const startTime = 1532880000000;
     const endTime = 1532966399999;
     const groupType = 2;
-    const familyType = 1;
+    const familyType = 0;
     const topName1 = groupType === 1 ? '学院' : groupType === 2 ? '家族' : '小组';
     const topName2 = familyType === 0 ? '自考' : familyType === 1 ? '壁垒' : '孵化器';
     const formatStratTime = formatDate(startTime);
@@ -87,7 +87,7 @@ class Demention extends React.Component {
       dateArea: `${formatStratTime} ～ ${formatEndTime}`, // 根据用户选择时间区间显示到页头
       groupName: '学术均分', // 从上个页面获取
       type: 2, // 正面得分为2,负面的分为10，从上个页面获取的本页面初始值
-      groupId: 220,
+      groupId: 250,
       groupType, // 1学院 2 家族 3 小组
       familyType, // 0 自考 1 壁垒 2 孵化器
       topName1,
@@ -98,6 +98,7 @@ class Demention extends React.Component {
       buttonName: '预估分',
       switchtype: 1, // 趋势图和详情数据的切换
     };
+    console.log(this.state)
   }
   componentDidMount() {
     const dementionListParams = {type: this.state.type};
@@ -183,7 +184,6 @@ class Demention extends React.Component {
   detailCLickTab=(id = null)=> {
     if (id !== this.state.switchtype) {
       const {dementionId} = this.state;
-      console.log(dementionId,id)
       const Params = {groupType:this.state.groupType,familyType:this.state.familyType,filteKeyID:this.state.groupId,startTime:this.state.startTime,endTime:this.state.endTime};
       if(id===1){
         this.dataTable(dementionId,Params)}
@@ -249,12 +249,13 @@ class Demention extends React.Component {
 
   chartDataFun=(datasource,chartData)=>{
     const titleobj = this.dataHandle(datasource);
-    const nameTitle = `${titleobj[0].nametitle}趋势图`;
-    const rawDataDes= titleobj[0].secondtitle;
+    const titleobjName = titleobj.length===0?'':(!titleobj[0].nametitle?'':titleobj[0].nametitle)
+    const tetleobjSecond = titleobj.length===0?'':(!titleobj[0].secondtitle?'':titleobj[0].secondtitle);
+    const nameTitle = `${titleobjName}趋势图`;
+    const rawDataDes= tetleobjSecond;
     const xdata = [];
     const ydata = [];
     const dataList = !chartData?[]:(!chartData.data?[]:chartData.data);
-    // console.log('char数据遍历',chartData,dataList)
     dataList.map((item)=> {
       const xvalue = item.key;
       const value = item.val
@@ -379,7 +380,7 @@ class Demention extends React.Component {
               <p className={styles.tabletitle}>{this.state.buttonName}详情数据</p>
             </div>
             {!tableList||tableList.length===0 ? <NoData showflag /> : (
-              <div style={{ background: '#fff', width: '7.1rem', marginLeft: '0.2rem' }}>
+              <div>
                 <MultipHeaderList
                   dataList={tableList}
                   customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
@@ -392,7 +393,7 @@ class Demention extends React.Component {
             <div style={{background:'#fff',width: '7.1rem',marginLeft: '0.2rem'}}>
               <TrendChart
                 dataSource={!buttonData?[]: this.chartDataFun(buttonData,chartData)}
-                data={!chartData?[]:chartData.data}
+                data={this.props.demention.dementionId}
                 width='7.1rem'
                 height='6rem'
               />
