@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-// import { assignUrlParams } from 'utils/routerUtils';
+import { assignUrlParams } from 'utils/routerUtils';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import CustomRenderHeader from '../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../components/TableItem/TableItem';
@@ -55,37 +55,31 @@ const tabContainer = (obj = null, clickTab = null) => (
 class Demention extends React.Component {
   constructor(props) {
     super(props);
-    // const { urlParams = {} } = props;
-    // const initState = {
-    //   paramsObj: {
-    //     startTime: null, // 过滤开始时间
-    //     endTime: null, // 过滤结束时间
-    //   },
-    // };
-    // this.state = assignUrlParams(initState, urlParams);
-    const arrValue = this.props.urlParams;
-    const {startTime,endTime,groupId,groupType,familyType,groupName,type,dementionId,titleName,buttonName} = arrValue;
+    const { urlParams = {} } = props;
+    const {startTime=1531756800000,endTime=1531843199999, groupId=111,groupType=1, familyType=1,groupName='',
+            type=1,dementionId=33,titleName='',buttonName=''} = urlParams;
     const topName1 = groupType === 1 ? '学院' : groupType === 2 ? '家族' : '小组';
     const topName2 = familyType === 0 ? '自考' : familyType === 1 ? '壁垒' : '孵化器';
     const formatStratTime = formatDate(startTime);
     const formatEndTime = formatDate(endTime);
-    this.state = {
-      startTime,
-      endTime,
-      dateArea: `${formatStratTime} ～ ${formatEndTime}`, // 根据用户选择时间区间显示到页头
-      groupName, // 从上个页面获取
-      type:Number(type), // 正面得分为2,负面的分为10，从上个页面获取的本页面初始值
-      groupId:Number(groupId),
-      groupType:Number(groupType), // 1学院 2 家族 3 小组
-      familyType:Number(familyType), // 0 自考 1 壁垒 2 孵化器
-      topName1,
-      topName: `${topName1} (${topName2})`,
-      dataToMD: `${formatStratTime} ～ ${formatEndTime}`,
-      dementionId:Number(dementionId),
-      titleName,
-      buttonName,
-      switchtype: 1, // 趋势图和详情数据的切换
+    const initState = {
+        startTime,
+        endTime,
+        dateArea: `${formatStratTime} ～ ${formatEndTime}`, // 根据用户选择时间区间显示到页头
+        groupName, // 从上个页面获取
+        type:Number(type), // 正面得分为2,负面的分为10，从上个页面获取的本页面初始值
+        groupId:Number(groupId),
+        groupType:Number(groupType), // 1学院 2 家族 3 小组
+        familyType:Number(familyType), // 0 自考 1 壁垒 2 孵化器
+        topName1,
+        topName: `${topName1} (${topName2})`,
+        dataToMD: `${formatStratTime.substring(5)} ～ ${formatEndTime.substring(5)}`,
+        dementionId:Number(dementionId),
+        titleName,
+        buttonName,
+        switchtype: 1, // 趋势图和详情数据的切换
     };
+    this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
     const dementionListParams = {type: this.state.type};
