@@ -5,11 +5,17 @@ import NoData from '../../components/NoData/NoData';
 import styles from './_creditDialog.less';
 
 class _creditDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: 1,
+    };
+  }
   setListItem = (data, v) => {
-    const self = this;
+    const _self = this;
     let i = 0;
     const liList = Object.keys(v).map(key => {
-      const res = { data: self.dataFormt(v[key]) };
+      const res = { data: this.dataFormt(v[key]) };
       const domTmp = (
         <li key={(i += 1)}>
           <div className={styles.modeltitlediv}>
@@ -23,8 +29,9 @@ class _creditDialog extends React.Component {
             <ButtonGroup
               dataSource={res}
               dataReturnFun={item => {
-                self.selectGroup(item.id, key, v);
+                _self.selectGroup(item.id, key, v);
               }}
+              id={this.state.selected}
               btnClass={styles.btnStyle}
               btnSelectedClass={styles.btnSelected}
             />
@@ -40,7 +47,7 @@ class _creditDialog extends React.Component {
     data.map((item, index) => {
       const bb = {
         key: index,
-        id: Number(item.groupId),
+        id: item.groupId,
         name: item.category,
       };
       list.push(bb);
@@ -49,7 +56,7 @@ class _creditDialog extends React.Component {
     return list;
   };
   selectGroup(groupId, key, data) {
-    const clientHeight = document.documentElement.clientHeight / 667 * 60;
+    const clientHeight = document.documentElement.clientHeight / 667 * 17;
     let len = 0;
     const selfLen = data.selfExam ? data.selfExam.length : 0;
     const barLen = data.barrier ? data.barrier.length : 0;
@@ -61,6 +68,9 @@ class _creditDialog extends React.Component {
       len = selfLen + barLen;
     }
 
+    this.setState({
+      selected: groupId,
+    });
     for (let i = 0; i < data[key].length; i += 1) {
       len += 1;
       if (document.getElementById(`rowId${len}`)) {
@@ -72,7 +82,7 @@ class _creditDialog extends React.Component {
         }
       }
     }
-    this.props.isShowModel(false);
+    this.props.showModel(false);
   }
 
   render() {
@@ -82,8 +92,8 @@ class _creditDialog extends React.Component {
       <div>
         <Dialog
           visible={modelflag}
-          isShowModel={val => {
-            this.props.isShowModel(val);
+          showModel={val => {
+            this.props.showModel(val);
           }}
           title={`请选择想要查看的${tabkey === 1 ? '学院' : tabkey === 2 ? '家族' : '小组'}`}
         >

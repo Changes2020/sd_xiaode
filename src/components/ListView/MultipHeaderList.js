@@ -104,6 +104,9 @@ class MultipHeaderList extends Component {
               jump2Data={(data1, data2, data3, data4) => {
                 jump2Data(data1, data2, data3, data4);
               }}
+              toggleClick={(data, show) => {
+                toggleClick(data, show);
+              }}
             />
           ) : (
             <RenderCreditItem

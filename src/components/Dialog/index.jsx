@@ -32,7 +32,7 @@ export default class Dialog extends React.Component {
       e.preventDefault();
     }
   };
-  ShowModel(bol) {
+  showModel(bol) {
     if (this.props.showModel) {
       this.props.showModel(bol);
     }

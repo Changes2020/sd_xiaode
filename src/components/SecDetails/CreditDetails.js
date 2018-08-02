@@ -66,21 +66,22 @@ class SecDetails extends Component {
   };
 
   render() {
-    let i = 0;
-    i += 1;
     const rgb = {
       col: 'rgba(82,201,194,0.15)',
       fam: 'rgba(243,169,47,0.15)',
       gro: 'rgba(97,155,222,0.15)',
       higColor: 'rgba(255,89,89,0.10)',
     };
-    const { rowData, isShowDetail, jump2Data } = this.props;
+
+    let idIndex = 0;
+    idIndex += 1;
+    const { rowData, showDetail, jump2Data } = this.props;
     return (
       <div
-        id={`rowId${i}`}
+        id={`rowId${idIndex}`}
         dataid={`${rowData.familyType}${rowData.id}`}
         key={rowData.id}
-        style={{ fontSize: '.2rem', display: !isShowDetail ? 'none' : 'block' }}
+        style={{ fontSize: '.2rem', display: !showDetail ? 'none' : 'block' }}
       >
         <List
           className={styles.mylist}
@@ -126,7 +127,7 @@ class SecDetails extends Component {
                             return (
                               <li key={`sec${key1}`} className={styles.liCssSec}>
                                 <div className={styles.tableCss}>
-                                  <div className={styles.leftCss}>{`${i}.${i1 + 1}`}</div>
+                                  <div className={styles.leftCss}>{`${index + 1}.${i1 + 1}`}</div>
                                   <div className={styles.proCss2}>
                                     {dataList.dimensions[key1].name}
                                   </div>

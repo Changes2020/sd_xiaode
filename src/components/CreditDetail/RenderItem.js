@@ -31,6 +31,8 @@ class RenderItem extends React.Component {
     }
   };
   render() {
+    let idIndex = 0;
+    idIndex += 1;
     const { rowData, jump2Data } = this.props;
     const { isShowDetail } = this.state;
     const { chain } = rowData;
@@ -79,6 +81,7 @@ class RenderItem extends React.Component {
             jump2Data(data1, data2, data3, data4);
           }}
           isShowDetail={isShowDetail}
+          idIndex={idIndex}
         />
       </div>
     );

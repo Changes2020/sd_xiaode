@@ -72,7 +72,7 @@ class CreditDetails extends React.Component {
     this.saveParams(sendParams);
   };
   searchFn = () => {
-    this.isShowModel(true);
+    this.showModel(true);
     const { dataList } = this.props.Details;
     const groupData = {};
     Object.keys(dataList).forEach(item => {
@@ -91,7 +91,7 @@ class CreditDetails extends React.Component {
       groupData,
     });
   };
-  isShowModel(v) {
+  showModel(v) {
     // 判断模态框显隐
     this.setState({
       modelflag: v,
@@ -204,8 +204,8 @@ class CreditDetails extends React.Component {
           tabkey={paramsObj.groupType}
           dataList={dataList}
           modelflag={modelflag}
-          isShowModel={v => {
-            this.isShowModel(v);
+          showModel={v => {
+            this.showModel(v);
           }}
         />
 
