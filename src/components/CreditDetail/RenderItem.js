@@ -3,6 +3,9 @@ import CreditDetails from '../SecDetails/CreditDetails';
 import greenIcon from '../../assets/green.png';
 import blueIcon from '../../assets/blue.png';
 import yellowIcon from '../../assets/yellow.png';
+import redImg from '../../assets/redtriangle.png';
+import greenImg from '../../assets/greentriangle.png';
+import yellowImg from '../../assets/yellowtriangle.png';
 import styles from './Render.less';
 
 class RenderItem extends React.Component {
@@ -12,14 +15,25 @@ class RenderItem extends React.Component {
       isShowDetail: this.props.rowData.isCheck,
     };
   }
-  componentDidMount() {}
   toggleClick = (data, show) => {
     this.setState({ isShowDetail: !show });
     this.props.toggleClick(data, !show);
   };
+  showChain = (n = null) => {
+    if (!n) {
+      return n === 0 ? n : 'N/A';
+    } else if (n > 1000) {
+      return '1000+';
+    } else if (n < -1000) {
+      return '-1000+';
+    } else {
+      return n;
+    }
+  };
   render() {
     const { rowData, jump2Data } = this.props;
     const { isShowDetail } = this.state;
+    const { chain } = rowData;
     return (
       <div>
         <div
@@ -35,8 +49,16 @@ class RenderItem extends React.Component {
           </div>
           <div className={styles.equableCss}>{rowData.score.toFixed(2)}</div>
           <div className={styles.ringRatioCss}>
-            {/* {this.showChain(chain)} */}
-            {/* {chain||chain===0?<img className={styles.triImg} src={chain===0?yellowImg:chain<0?redImg:greenImg} />:<span className={styles.triImg}></span>} */}
+            {this.showChain(chain)}
+            {chain || chain === 0 ? (
+              <img
+                alt=""
+                className={styles.triImg}
+                src={chain === 0 ? yellowImg : chain < 0 ? redImg : greenImg}
+              />
+            ) : (
+              <span className={styles.triImg} />
+            )}
           </div>
           <div className={styles.rightCss} />
           <div className={styles.rightCss}>

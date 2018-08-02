@@ -1,22 +1,29 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Button } from 'antd-mobile';
+import { getItem } from '../../utils/localStorage';
 import { assignUrlParams } from '../../utils/routerUtils';
+import { dimensionAuthority, highLightData } from '../../utils/dimensionAuthority';
 import Filter from './_filter';
-import Loading from '../../components/Loading/Loading';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
+import Loading from '../../components/Loading/Loading';
+import { defaultDateTime } from '../../utils/FormatDate';
+
+const userInfo = getItem('userInfo').value || {};
+const allOrgMap = getItem('allOrgMap').value || {};
 
 class CreditDetails extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const { startTime, endTime } = defaultDateTime();
     const initState = {
       paramsObj: {
-        startTime: null, // 过滤开始时间
-        endTime: null, // 过滤结束时间
+        startTime, // 过滤开始时间
+        endTime, // 过滤结束时间
         groupType: 1, // 1:学院，2:家族，3:小组
         dateType: 3, // 1:周均,2:月均,3:自定义
-        userId: null,
+        userId: userInfo.userId,
       },
     };
     this.state = assignUrlParams(initState, urlParams);
@@ -27,10 +34,20 @@ class CreditDetails extends React.Component {
   }
   fnGetData = (ops = {}) => {
     const { paramsObj } = this.state;
+
+    // 获取权限用户数据
+    const { groupId, groupType } = userInfo;
+
+    const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
+    const lineHeight = highLightData(allOrgMap, groupId, groupType); // 获取高亮数据
     const sendParams = {
       paramsObj: assignUrlParams(paramsObj, ops),
+      allOrgMap,
+      dateType: paramsObj.dateType,
+      dataOrg,
+      lineHeight,
     };
-    console.log(sendParams);
+
     // 掉接口
     this.props.dispatch({
       type: 'Details/fetch',
@@ -57,9 +74,9 @@ class CreditDetails extends React.Component {
       endTime,
     });
   };
-  jump2Data = rowData => {
+  jump2Data = () => {
     // 跳转至数据详情页
-    console.log(rowData);
+    // console.log(rowData);
   };
   render() {
     const { paramsObj } = this.state;
@@ -77,7 +94,12 @@ class CreditDetails extends React.Component {
     return (
       <div>
         {/* *************** Filter *************** */}
-        <Filter paramsObj={paramsObj} fnGetData={obj => this.fnGetData(obj)} />
+        <Filter
+          paramsObj={paramsObj}
+          fnGetData={obj => {
+            this.fnGetData(obj);
+          }}
+        />
 
         {/* *************** listview *************** */}
         {dataList ? (

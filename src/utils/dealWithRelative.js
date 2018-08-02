@@ -36,11 +36,18 @@ export function dealWithRelativeData(arrXnow, arrXlast, groupId, key = 'val', ke
   return arrXnow;
 }
 
-export function flatten(jsonData = []) {
+export function flatten(data = []) {
+  let jsonData = [];
+  if (!data) {
+    jsonData = [];
+  } else {
+    jsonData = data;
+  }
+
   // 将树形结构转换成扁平结构
-  return jsonData.reduce((arr, { id, parentid, project, number, creditScore, unit, data = [] }) => {
+  return jsonData.reduce((arr, { id, parentId, project, num, score, unit, dimensions = [] }) => {
     const newArr = arr || [];
-    return newArr.concat([{ id, parentid, project, number, creditScore, unit }], flatten(data));
+    return newArr.concat([{ id, parentId, project, num, score, unit }], flatten(dimensions));
   }, []);
 }
 
@@ -50,7 +57,7 @@ export function detailRelativeData(nowXdata = null, lastXData = null) {
   } else {
     const nowXplatXdata = flatten(nowXdata);
     const lastXplatXdata = flatten(lastXData);
-    const handdleData = dealWithRelativeData(nowXplatXdata, lastXplatXdata, 'id', 'creditScore'); // 扁平化数据处理环比之后的结果
+    const handdleData = dealWithRelativeData(nowXplatXdata, lastXplatXdata, 'id', 'score'); // 扁平化数据处理环比之后的结果
     traverseTree(nowXdata[0], handdleData);
     return nowXdata[0];
   }

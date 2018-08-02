@@ -92,7 +92,7 @@ class SecDetails extends Component {
         >
           <List.Item prefixCls="mylist">
             <ul className={styles.ulCss}>
-              {rowData.dimensions == null
+              {!rowData.dimensions
                 ? ''
                 : Object.keys(rowData.dimensions[0].dimensions).map((key, index) => {
                     const dataList = rowData.dimensions[0].dimensions[index];
