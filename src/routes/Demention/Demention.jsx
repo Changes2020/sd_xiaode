@@ -19,14 +19,14 @@ const scoreTab = { data: [{ id: 2, title: '正面得分' }, { id: 10, title: '�
 const detailTab = { data: [{ id: 1, title: '详情数据' }, { id: 2, title: '趋势图' }] };
 
 // 头部容器
-const headerDom = (obj = null, clickTab = null) => (
+const headerDom = (obj = null, clickTab = null,homeFun = null) => (
   <div className={styles.headerContainer} style={{ display: 'block' }}>
     <div className={styles.headerText}>
       <p className={styles.dateArea}>{obj.dateArea}</p>
       <p className={styles.headerTitle}>{obj.topName} - {obj.titleName}</p>
     </div>
     <div>
-      <Link to="/home"><img className={styles.iconBtn} src={homepng} alt="homeimg" /></Link>
+      <div onClick={() => {homeFun();}}><img className={styles.iconBtn} src={homepng} alt="homeimg" /></div>
     </div>
     <div className={styles.tabBox}>
       <SelfTab
@@ -105,6 +105,10 @@ class Demention extends React.Component {
 
   componentWillReceiveProps() {
     window.scrollTo(0,0);
+  }
+  homeFun=()=>{
+    this.props.setRouteUrlParams('/indexPage', {});
+
   }
 
   // 正负面tab点击切换
@@ -249,7 +253,6 @@ class Demention extends React.Component {
     const xdata = [];
     const ydata = [];
     const dataList = !chartData?[]:(!chartData.data?[]:chartData.data);
-    console.log('图表展示数据',titleobjName,dataList)
     dataList.map((item)=> {
       const xvalue = item.key;
       const value = item.val
@@ -360,7 +363,7 @@ class Demention extends React.Component {
           {this.state.buttonName}
         </div>
         {/* 页面header展示 */}
-        {headerDom(this.state, this.fnCLickTab.bind(this))}
+        {headerDom(this.state, this.fnCLickTab.bind(this),this.homeFun.bind(this))}
         {isloading && <Loading />}
         {/* button组件展示 */}
         {!dementionListData?<NoData showflag /> :(
