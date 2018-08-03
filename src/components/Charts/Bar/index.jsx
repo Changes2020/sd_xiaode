@@ -34,7 +34,6 @@ export default class Bar extends React.Component {
   resize = () => {
     if (this.clientWidth !== document.documentElement.clientWidth) {
       setTimeout(() => {
-        alert(1);
         this.drawChart();
       }, 10);
       this.clientWidth = document.documentElement.clientWidth;

@@ -143,10 +143,6 @@ class IndexPage extends React.Component {
         </div>
         {/* ***************导出数据置顶按钮************ */}
         <ExportDemention />
-        <div className={styles.floatCotainer}>
-          <button>1</button>
-          <button>2</button>
-        </div>
         {/* **************处理loading************** */}
         {isloading && <Loading />}
       </div>

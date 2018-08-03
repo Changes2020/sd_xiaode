@@ -24,28 +24,26 @@
     background-color: rgba(41,42,50, 0.7) !important;
     width: 2.4rem;
     height: 2.4rem;
-  
+
   }
   :global(.am-activity-indicator-spinner-lg ){
     width: 2rem !important;
     height: 2rem !important;
   }
-  
-  
+
+
   :global(.am-activity-indicator-toast){
     width:2.24rem ;
-    font-family: PingFangSC-Regular;
     font-size: .28rem;
-    color: #FFFFFF;
+    color: #FFF;
     letter-spacing: 0;
     text-align: center;
   }
-  
-  
-  
+
+
+
   :global(.am-activity-indicator-spinner){
     -webkit-animation: unset !important;
     animation: unset !important;
     background-image:url(http://bi-m.ministudy.com/staticFile/load.gif) !important;
   }
-  
