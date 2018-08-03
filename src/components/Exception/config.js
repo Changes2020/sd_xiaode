@@ -1,7 +1,7 @@
 const config = {
   serverup: {
     img: 'http://bi-m.ministudy.com/staticFile/bi_img/serverup.png',
-    title: '403',
+    title: '服务器升级',
     desc: '抱歉，服务器正在升级',
   },
   timeout: {
@@ -22,7 +22,7 @@ const config = {
   500: {
     img: 'http://bi-m.ministudy.com/staticFile/bi_img/serverdown.png',
     title: '500',
-    desc: '抱歉，服务器出错了',
+    desc: '服务器出错,请退出重试/待会再来~',
   },
 };
 

@@ -33,7 +33,6 @@ export default class ChartContent extends React.Component {
     }
   };
   handleRankChart = () => {
-    this.selectLimitGroup('selfExam');
     const { home, paramsObj } = this.props;
     const { rankDataObj } = home;
     const charts = [];

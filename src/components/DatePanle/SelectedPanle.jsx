@@ -4,6 +4,12 @@ import 'rc-select/assets/index.css';
 import styles from './select.less';
 
 export default class SelectPanle extends React.Component {
+  componentDidMount() {
+    setTimeout(() => {
+      // 禁止input输入
+      document.getElementsByClassName('rc-select-search__field')[0].setAttribute('disabled', true);
+    }, 100);
+  }
   onSelect = val => {
     if (this.props.onSelect) {
       this.props.onSelect(val);

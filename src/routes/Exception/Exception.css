@@ -1,12 +1,12 @@
 .container{
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: #fff;
     box-sizing: border-box;
     overflow: hidden;
 }
 .conter{
-   margin-top:2.6rem; 
+   margin-top:2.6rem;
 }
 .desc{
     list-style: none;
@@ -17,11 +17,11 @@
     height: 0.8rem;
     line-height: 0.32rem;
     font-size: 0.32rem;
-    color: #333333;
+    color: #333;
     }
 .authItem{
     height: 0.5rem;
     line-height: 0.28rem;
     font-size: 0.28rem;
-    color: #999999;
+    color: #999;
 }

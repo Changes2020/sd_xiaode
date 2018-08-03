@@ -12,7 +12,7 @@ export default class Exception extends React.Component {
   checkoutDesc = desc => {
     // 判断desc参数的类型渲染不通的展示
     if (typeof desc === 'string') {
-      return <span className={styles.wordStyle}>desc</span>;
+      return <span className={styles.wordStyle}>{desc}</span>;
     }
     if (typeof desc === 'object' && !isNaN(desc.length)) {
       const lis = desc.map(item => (

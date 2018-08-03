@@ -22,7 +22,7 @@ export default class Bar extends React.Component {
   initChart = () => {
     this.myChart = echarts.init(this.ID);
     window.addEventListener('resize', this.resize);
-    this.clientWidth = null;
+    this.clientWidth = document.documentElement.clientWidth;
     this.drawChart();
   };
   drawChart(nextProps = this.props) {
@@ -34,6 +34,7 @@ export default class Bar extends React.Component {
   resize = () => {
     if (this.clientWidth !== document.documentElement.clientWidth) {
       setTimeout(() => {
+        alert(1);
         this.drawChart();
       }, 10);
       this.clientWidth = document.documentElement.clientWidth;

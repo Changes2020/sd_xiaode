@@ -10,6 +10,7 @@ import { assignUrlParams } from '../../utils/routerUtils';
 import ChartContent from './_chartContent';
 import NoData from '../../components/NoData/NoData';
 import CeillingHead from './_ceillingHead';
+import ExportDemention from './_exportDemention';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -116,16 +117,16 @@ class IndexPage extends React.Component {
     const isNoData = JSON.stringify(rankDataObj) === '{}';
     return (
       <div className={styles.normal}>
-        {/* 数据中心吸顶信息 */}
+        {/* ************数据中心吸顶信息************** */}
         <CeillingHead paramsObj={{ ...paramsObj, creditShowType }} userInfo={userInfo} />
-        {/* 轮播组件 */}
+        {/* ************轮播组件********************* */}
         <Banner />
-        {/* 过滤组件 */}
+        {/* ************过滤组件********************* */}
         <Filter
           paramsObj={{ ...paramsObj, creditShowType }}
           fnGetData={obj => this.fnGetData(obj)}
         />
-        {/* 一下部分为图标数据区域 */}
+        {/* *************一下部分为图标数据区域******** */}
         <div className={styles.chartContent}>
           {rankDataObj && (
             <ChartContent
@@ -140,7 +141,13 @@ class IndexPage extends React.Component {
           )}
           {isNoData && <NoData showflag />}
         </div>
-        {/* 处理loading */}
+        {/* ***************导出数据置顶按钮************ */}
+        <ExportDemention />
+        <div className={styles.floatCotainer}>
+          <button>1</button>
+          <button>2</button>
+        </div>
+        {/* **************处理loading************** */}
         {isloading && <Loading />}
       </div>
     );

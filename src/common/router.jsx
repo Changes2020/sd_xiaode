@@ -121,6 +121,9 @@ export const getRouterData = app => {
     '/exception/500': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/Error500')),
     },
+    '/exception/serverup': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/Serverup')),
+    },
   };
 
   return routerConfig;
