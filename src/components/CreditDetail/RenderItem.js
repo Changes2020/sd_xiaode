@@ -49,7 +49,6 @@ class RenderItem extends React.Component {
   render() {
     const { rowData, jump2Data } = this.props;
     const { isShowDetail } = this.state;
-    console.log(rowData.isCheck, isShowDetail);
     const { chain } = rowData;
     return (
       <div>
