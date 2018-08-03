@@ -56,7 +56,7 @@ class _creditDialog extends React.Component {
     return list;
   };
   selectGroup(groupId, key, data) {
-    const clientHeight = document.documentElement.clientHeight / 667 * 17;
+    const clientHeight = document.documentElement.clientHeight / 667 * 60;
     let len = 0;
     const selfLen = data.selfExam ? data.selfExam.length : 0;
     const barLen = data.barrier ? data.barrier.length : 0;
@@ -76,7 +76,6 @@ class _creditDialog extends React.Component {
       if (document.getElementById(`rowId${len}`)) {
         if (document.getElementById(`rowId${len}`).getAttribute('dataid') === groupId) {
           const height = document.getElementById(`rowId${len}`).offsetTop + clientHeight;
-          console.log(document.getElementById(`rowId${len}`).offsetTop, len);
           setTimeout(() => {
             window.scrollTo(0, height);
           }, 300);

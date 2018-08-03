@@ -19,6 +19,7 @@ import RenderCreditHeader from '../CreditDetail/RenderHeader';
 import RenderCreditItem from '../CreditDetail/RenderItem';
 import './ListView.css';
 
+let pretotal = 0;
 class MultipHeaderList extends Component {
   constructor(props) {
     super(props);
@@ -89,12 +90,22 @@ class MultipHeaderList extends Component {
 
   renderRow = (rowData, sectionID, rowID) => {
     const { customRenderItem, headerParam, jump2Data, toggleClick } = this.props;
-
+    let dataIndex = 0;
+    if (rowData.familyType === 0) {
+      dataIndex = rowData.rank;
+      pretotal = rowData.total;
+    } else if (rowData.familyType === 1) {
+      dataIndex = rowData.rank + pretotal;
+    } else {
+      console.warn('只考虑0和1');
+    }
     if (customRenderItem) {
       return customRenderItem(rowData, sectionID, rowID);
     } else {
       return (
         <div
+          id={`rowId${dataIndex}`}
+          dataid={`${rowData.familyType}${rowData.id}`}
           className="flex-container"
           style={{ background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
         >

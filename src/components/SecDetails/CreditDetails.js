@@ -8,7 +8,6 @@ import blueIcon from '../../assets/blue.png';
 import yellowIcon from '../../assets/yellow.png';
 import styles from './CreditDetails.less';
 
-let pretotal = 0;
 class SecDetails extends Component {
   showChain = (n = null) => {
     if (!n) {
@@ -75,19 +74,8 @@ class SecDetails extends Component {
     };
 
     const { rowData, isShowDetail, jump2Data } = this.props;
-    let dataIndex = 0;
-    if (rowData.familyType === 0) {
-      dataIndex = rowData.rank;
-      pretotal = rowData.total;
-    } else if (rowData.familyType === 1) {
-      dataIndex = rowData.rank + pretotal;
-    } else {
-      console.warn('只考虑0和1');
-    }
     return (
       <div
-        id={`rowId${dataIndex}`}
-        dataid={`${rowData.familyType}${rowData.id}`}
         key={rowData.id}
         style={{ fontSize: '.2rem', display: !isShowDetail ? 'none' : 'block' }}
       >
