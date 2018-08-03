@@ -8,17 +8,15 @@ import greenImg from '../../assets/greentriangle.png';
 import yellowImg from '../../assets/yellowtriangle.png';
 import styles from './Render.less';
 
+const checkIds = [];
 class RenderItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowDetail: this.props.rowData.isCheck,
+      isShowDetail: this.props.rowData.isCheck || false,
     };
   }
-  toggleClick = (data, show) => {
-    this.setState({ isShowDetail: !show });
-    this.props.toggleClick(data, !show);
-  };
+
   showChain = (n = null) => {
     if (!n) {
       return n === 0 ? n : 'N/A';
@@ -30,16 +28,44 @@ class RenderItem extends React.Component {
       return n;
     }
   };
+  toggleClick = (k, bol) => {
+    let n = k;
+    const { dataList } = this.props;
+    Object.keys(dataList).map(item => {
+      dataList[item].forEach(el => {
+        n += 1;
+        if (document.getElementById(`rowId${n}`)) {
+          if (
+            document.getElementById(`rowId${n}`).getAttribute('dataid') ===
+            `${el.familyType}${el.id}`
+          ) {
+            this.setState({ isShowDetail: bol });
+          }
+        }
+      });
+      return dataList;
+    });
+  };
   render() {
     const { rowData, jump2Data } = this.props;
     const { isShowDetail } = this.state;
+    console.log(rowData.isCheck, isShowDetail);
     const { chain } = rowData;
     return (
       <div>
         <div
           className={styles.tableCss}
           onClick={() => {
-            this.toggleClick(rowData, isShowDetail);
+            const _id = `${rowData.familyType}${rowData.id}`;
+            const index = checkIds.indexOf(_id);
+            if (index === -1) {
+              checkIds.push(_id);
+              this.toggleClick(0, true);
+            } else {
+              checkIds.splice(index, 1);
+              this.toggleClick(0, false);
+            }
+            this.props.saveIds(checkIds);
           }}
         >
           <div className={styles.leftCss}>{rowData.name}</div>

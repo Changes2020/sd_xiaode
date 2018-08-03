@@ -89,7 +89,7 @@ class MultipHeaderList extends Component {
   };
 
   renderRow = (rowData, sectionID, rowID) => {
-    const { customRenderItem, headerParam, jump2Data, toggleClick } = this.props;
+    const { dataList, customRenderItem, headerParam, jump2Data, saveIds } = this.props;
     let dataIndex = 0;
     if (rowData.familyType === 0) {
       dataIndex = rowData.rank;
@@ -97,8 +97,9 @@ class MultipHeaderList extends Component {
     } else if (rowData.familyType === 1) {
       dataIndex = rowData.rank + pretotal;
     } else {
-      console.warn('只考虑0和1');
+      // 处理其他字段
     }
+
     if (customRenderItem) {
       return customRenderItem(rowData, sectionID, rowID);
     } else {
@@ -115,18 +116,19 @@ class MultipHeaderList extends Component {
               jump2Data={(data1, data2, data3, data4) => {
                 jump2Data(data1, data2, data3, data4);
               }}
-              toggleClick={(data, show) => {
-                toggleClick(data, show);
+              saveIds={arr => {
+                saveIds(arr);
               }}
             />
           ) : (
             <RenderCreditItem
+              dataList={dataList}
               rowData={rowData}
               jump2Data={(data1, data2, data3, data4) => {
                 jump2Data(data1, data2, data3, data4);
               }}
-              toggleClick={(data, show) => {
-                toggleClick(data, show);
+              saveIds={arr => {
+                saveIds(arr);
               }}
             />
           )}

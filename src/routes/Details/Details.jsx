@@ -31,10 +31,12 @@ class CreditDetails extends React.Component {
       },
       modelflag: false,
       groupData: {},
+      isShowDetail: false,
     };
     this.state = assignUrlParams(initState, urlParams);
   }
   componentDidMount() {
+    // 返回顶部
     window.scrollTo(0, 0);
     window.onscroll = function() {
       const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
@@ -44,6 +46,7 @@ class CreditDetails extends React.Component {
       }
     };
 
+    // 防止重复调用接口
     const { paramsObj } = this.state;
     this.fnGetData(paramsObj);
   }
@@ -97,16 +100,17 @@ class CreditDetails extends React.Component {
       modelflag: v,
     });
   }
-  toggleClick = (data, show) => {
+  saveIds = checkIds => {
     this.props.dispatch({
-      type: 'Details/saveIsCheck',
-      payload: { isCheck: show, data },
+      type: 'Details/saveData',
+      payload: { checkIds, dataList: this.props.Details.dataList },
     });
   };
   saveParams = sendParams => {
     // 用于数据存储,以及添加url
     const { paramsObj } = sendParams;
     this.setState({ paramsObj });
+    this.props.setCurrentUrlParams(paramsObj);
   };
   jump2Data = (rowData, data, data1, data2) => {
     if (rowData.arrowShow) {
@@ -169,7 +173,7 @@ class CreditDetails extends React.Component {
                     jump2Data={(data1, data2, data3, data4) => {
                       this.jump2Data(data1, data2, data3, data4);
                     }}
-                    toggleClick={(data, show) => this.toggleClick(data, show)}
+                    saveIds={arr => this.saveIds(arr)}
                     style={{ background: '#fff', paddingBottom: '.4rem' }}
                   />
                 )

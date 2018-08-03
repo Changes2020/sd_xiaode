@@ -13,7 +13,7 @@ export default {
     modelflag: false,
     dateType: null,
     groupData: {},
-    isCheck: false,
+    checkIds: [],
   },
   effects: {
     *fetch({ payload }, { call, put }) {
@@ -35,13 +35,6 @@ export default {
         },
       });
     },
-    *saveIsCheck({ payload }, { put }) {
-      const { isCheck, data } = payload;
-      yield put({
-        type: 'saveCheck',
-        payload: { isCheck, data },
-      });
-    },
     *getHighData({ payload }, { put }) {
       const { highGroupId } = payload;
       yield put({ type: 'saveData', payload: { highGroupId } });
@@ -54,14 +47,24 @@ export default {
 
   reducers: {
     saveData(state, action) {
-      return { ...state, ...action.payload };
-    },
-    saveCheck(state, action) {
-      const { data, isCheck } = action.payload;
-      Object.keys(data).map(() => {
-        data.isCheck = isCheck;
-        return data;
-      });
+      const { dataList, checkIds } = action.payload;
+      if (checkIds) {
+        const isCheckObj = {};
+        if (dataList !== 'nodata') {
+          Object.keys(dataList).map(item => {
+            dataList[item].forEach((el, index) => {
+              isCheckObj[`${el.familyType}${el.id}`] = false;
+              checkIds.forEach(id => {
+                if (id === `${el.familyType}${el.id}`) {
+                  isCheckObj[id] = true;
+                }
+                dataList[item][index].isCheck = isCheckObj[`${el.familyType}${el.id}`];
+              });
+            });
+            return dataList;
+          });
+        }
+      }
       return { ...state, ...action.payload };
     },
     dealDatalist(state, action) {
