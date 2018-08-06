@@ -249,8 +249,8 @@ export default class ChartContent extends React.Component {
     const { home = {} } = this.props;
     const { visible } = this.state;
     const { rankDataObj, trendDataObj, creditShowType, getGroupObj = {} } = home;
-    const rankDom = rankDataObj ? this.handleRankChart() : null;
-    const trendDom = trendDataObj ? this.handleTrendChart() : null;
+    const rankDom = rankDataObj && creditShowType === 'rank' ? this.handleRankChart() : null;
+    const trendDom = trendDataObj && creditShowType === 'trend' ? this.handleTrendChart() : null;
     const groupDom =
       Object.keys(getGroupObj).length > 0 && visible ? this.renderDialogGroup() : null;
     const renderDom = creditShowType === 'rank' ? rankDom : trendDom;
