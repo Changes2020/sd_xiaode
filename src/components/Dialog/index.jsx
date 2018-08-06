@@ -44,7 +44,6 @@ export default class Dialog extends React.Component {
   }
 
   overHide = () => {
-    alert(23);
     document.querySelector('#root').style.overflow = 'hidden';
   };
   renderHeadElement(title) {

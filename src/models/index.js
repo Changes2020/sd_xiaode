@@ -11,7 +11,9 @@ export default {
     userInfo: null,
   },
 
-  subscriptions: {},
+  subscriptions: {
+    // setup({ dispatch, history }) {},
+  },
 
   effects: {
     *getUserInfo({ payload }, { call, put }) {
@@ -39,7 +41,7 @@ export default {
           Message.fail(timeResponse.msg);
         }
         /* ************** 跳转至首页 ************** */
-        yield put(routerRedux.push('/indexPage'));
+        // yield put(routerRedux.push('/indexPage'));
       } else {
         yield put(routerRedux.push('/exception/403'));
       }

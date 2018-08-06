@@ -71,9 +71,15 @@ class IndexPage extends React.Component {
   };
   toDetailPage = () => {
     // 跳转至详情页
-    const routerHash = this.props.history.location.key;
-    const { dateType, startTime, endTime } = this.state.paramsObj;
-    this.props.setRouteUrlParams('/details', { dateType, startTime, endTime, routerHash });
+    const routerHash = new Date().valueOf();
+    const { dateType, startTime, endTime, groupType } = this.state.paramsObj;
+    this.props.setRouteUrlParams('/details', {
+      dateType,
+      startTime,
+      endTime,
+      routerHash,
+      groupType,
+    });
   };
   toAllRankPage = familyName => {
     // 查看全部排名数据

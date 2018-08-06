@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Switch, Route, routerRedux } from 'dva/router';
+import { Redirect, Switch, Route, routerRedux } from 'dva/router';
 import { getRoutes } from '../utils/routerUtils';
 import { getAuthority } from '../utils/authority';
 
@@ -39,6 +39,7 @@ class BaseLayout extends React.Component {
               redirectPath="/exception/403"
             />
           ))}
+          <Redirect exact from="/" to="/indexPage" />
         </Switch>
       </div>
     );
