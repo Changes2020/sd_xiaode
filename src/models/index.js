@@ -2,6 +2,7 @@
 import { routerRedux } from 'dva/router';
 import { getDisableTime, getUserInfo, getOrgMap } from 'services/api';
 import { setItem } from 'utils/localStorage';
+// import Message from '../components/Message';
 
 export default {
   namespace: 'index',
@@ -37,6 +38,13 @@ export default {
       });
       if (response && response.code === 2000) {
         setItem('userInfo', response.data);
+        //  请求获取时间接口
+        //   const timeResponse = yield call(getDisableTime);
+        //   if(timeResponse.code===2000){
+        //     setItem('timeDate', response.data);
+        //   }else {
+        //
+        //   }
       } else {
         yield put(routerRedux.push('/exception/403'));
       }
@@ -50,6 +58,9 @@ export default {
       if (response && response.code === 2000) {
         setItem('allOrgMap', response.data, 1);
       }
+    },
+    *ceshi() {
+      console.log(9999);
     },
   },
 
