@@ -1,6 +1,7 @@
 import { getCreditDetail } from '../services/api';
 import { isRequestRelative } from '../utils/FormatDate';
 import { detailRelativeData } from '../utils/dealWithRelative';
+import Message from '../components/Message';
 
 export default {
   namespace: 'Details',
@@ -20,20 +21,24 @@ export default {
       const { paramsObj, dateType, dataOrg, lineHeight, allOrgMap } = payload;
       const relativeParams = isRequestRelative(paramsObj, dateType); // 环比请求参数,当时间不合法时返回null,不予请求
       const dataList = yield call(getCreditDetail, { ...paramsObj });
-      const chainData =
-        relativeParams !== null ? yield call(getCreditDetail, { ...relativeParams }) : [];
-      yield put({
-        type: 'dealDatalist',
-        payload: {
-          dataList: dataList.data,
-          paramsObj,
-          chainData: chainData.data,
-          dateType,
-          dataOrg,
-          lineHeight,
-          allOrgMap,
-        },
-      });
+      if (dataList.code === 2000) {
+        const chainData =
+          relativeParams !== null ? yield call(getCreditDetail, { ...relativeParams }) : [];
+        yield put({
+          type: 'dealDatalist',
+          payload: {
+            dataList: dataList.data,
+            paramsObj,
+            chainData: chainData.data,
+            dateType,
+            dataOrg,
+            lineHeight,
+            allOrgMap,
+          },
+        });
+      } else {
+        Message.fail(dataList.msg);
+      }
     },
     *getHighData({ payload }, { put }) {
       const { highGroupId } = payload;
@@ -50,7 +55,7 @@ export default {
       const { dataList, checkIds } = action.payload;
       if (checkIds) {
         const isCheckObj = {};
-        if (dataList !== 'nodata') {
+        if (dataList && dataList !== 'nodata') {
           Object.keys(dataList).map(item => {
             dataList[item].forEach((el, index) => {
               isCheckObj[`${el.familyType}${el.id}`] = false;
@@ -61,7 +66,6 @@ export default {
                 dataList[item][index].isCheck = isCheckObj[`${el.familyType}${el.id}`];
               });
             });
-            console.log(dataList);
             return dataList;
           });
         }
@@ -135,7 +139,7 @@ export default {
           }
         });
       }
-      console.log(dataList);
+
       return { ...state, ...action.payload };
     },
   },

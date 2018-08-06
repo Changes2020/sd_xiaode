@@ -74,6 +74,7 @@ class SecDetails extends Component {
     };
 
     const { rowData, isShowDetail, jump2Data } = this.props;
+    console.log(rowData);
     return (
       <div
         key={rowData.id}
@@ -89,7 +90,7 @@ class SecDetails extends Component {
         >
           <List.Item prefixCls="mylist">
             <ul className={styles.ulCss}>
-              {!rowData || !rowData.dimensions
+              {!rowData.dimensions
                 ? null
                 : Object.keys(rowData.dimensions[0].dimensions).map((key, index) => {
                     const dataList = rowData.dimensions[0].dimensions[index];

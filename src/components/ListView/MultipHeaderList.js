@@ -89,7 +89,15 @@ class MultipHeaderList extends Component {
   };
 
   renderRow = (rowData, sectionID, rowID) => {
-    const { dataList, customRenderItem, headerParam, jump2Data, saveIds, paramCom } = this.props;
+    const {
+      dataList,
+      customRenderItem,
+      headerParam,
+      jump2Data,
+      saveIds,
+      paramCom,
+      style,
+    } = this.props;
     let dataIndex = 0;
     if (rowData.familyType === 0) {
       dataIndex = rowData.rank;
@@ -108,7 +116,7 @@ class MultipHeaderList extends Component {
           id={`rowId${dataIndex}`}
           dataid={`${rowData.familyType}${rowData.id}`}
           className="flex-container"
-          style={{ background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
+          style={{ ...style, background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
         >
           {headerParam.loadComponent === 'assistant' ? (
             <RenderAssistantItem

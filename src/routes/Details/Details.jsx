@@ -95,21 +95,22 @@ class CreditDetails extends React.Component {
     this.showModel(true);
     const { dataList } = this.props.Details;
     const groupData = {};
-    Object.keys(dataList).forEach(item => {
-      groupData[item] = [];
-      dataList[item].forEach(jj => {
-        groupData[item].push({
-          category: jj.name,
-          groupId: `${jj.familyType}${jj.id}`,
-          tabKey: this.state.paramsObj.groupType,
+    if (dataList && dataList !== 'nodata') {
+      Object.keys(dataList).forEach(item => {
+        groupData[item] = [];
+        dataList[item].forEach(jj => {
+          groupData[item].push({
+            category: jj.name,
+            groupId: `${jj.familyType}${jj.id}`,
+            tabKey: this.state.paramsObj.groupType,
+          });
         });
+        groupData[item] = SortChanseData(groupData[item], 'category'); // 排序
       });
-      groupData[item] = SortChanseData(groupData[item], 'category'); // 排序
-    });
-
-    this.setState({
-      groupData,
-    });
+      this.setState({
+        groupData,
+      });
+    }
   };
   showModel(v) {
     // 判断模态框显隐
