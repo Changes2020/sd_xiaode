@@ -61,6 +61,7 @@ export default {
                 dataList[item][index].isCheck = isCheckObj[`${el.familyType}${el.id}`];
               });
             });
+            console.log(dataList);
             return dataList;
           });
         }
@@ -134,7 +135,7 @@ export default {
           }
         });
       }
-
+      console.log(dataList);
       return { ...state, ...action.payload };
     },
   },

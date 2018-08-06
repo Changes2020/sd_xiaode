@@ -8,7 +8,7 @@ import greenImg from '../../assets/greentriangle.png';
 import yellowImg from '../../assets/yellowtriangle.png';
 import styles from './Render.less';
 
-const checkIds = [];
+let checkIds = [];
 class RenderItem extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,18 @@ class RenderItem extends React.Component {
       isShowDetail: this.props.rowData.isCheck || false,
     };
   }
-
+  componentWillReceiveProps(nextprops) {
+    if (nextprops.paramCom && this.props.paramCom) {
+      const { paramsObj, nextParamsObj } = nextprops.paramCom;
+      if (paramsObj !== nextParamsObj) {
+        // 如果是过滤条件，则需要把checkIds和isShowDetail恢复初始值
+        this.setState({
+          isShowDetail: false,
+        });
+        checkIds = [];
+      }
+    }
+  }
   showChain = (n = null) => {
     if (!n) {
       return n === 0 ? n : 'N/A';
@@ -49,6 +60,7 @@ class RenderItem extends React.Component {
   render() {
     const { rowData, jump2Data } = this.props;
     const { isShowDetail } = this.state;
+
     const { chain } = rowData;
     return (
       <div>
@@ -64,6 +76,7 @@ class RenderItem extends React.Component {
               checkIds.splice(index, 1);
               this.toggleClick(0, false);
             }
+            console.log(checkIds);
             this.props.saveIds(checkIds);
           }}
         >

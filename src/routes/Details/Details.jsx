@@ -16,6 +16,8 @@ import styles from './Details.less';
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
 
+let paramCom = {}; // 存储过滤器参数
+const isRequest = true; //
 class CreditDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +37,7 @@ class CreditDetails extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
   componentDidMount() {
     // 返回顶部
     window.scrollTo(0, 0);
@@ -47,10 +50,21 @@ class CreditDetails extends React.Component {
     };
 
     // 防止重复调用接口
-    const { paramsObj } = this.state;
-    this.fnGetData(paramsObj);
+    if (isRequest) {
+      const { paramsObj } = this.state;
+      this.fnGetData(paramsObj);
+    }
   }
-
+  componentWillReceiveProps(nexprops) {
+    if (nexprops.Details.paramsObj && this.props.Details.paramsObj) {
+      const { paramsObj } = this.props.Details;
+      const nextParamsObj = nexprops.Details.paramsObj;
+      paramCom = {
+        paramsObj,
+        nextParamsObj,
+      };
+    }
+  }
   fnGetData = (ops = {}) => {
     const { paramsObj } = this.state;
 
@@ -132,6 +146,7 @@ class CreditDetails extends React.Component {
       console.warn('无权限查看');
     }
   };
+
   render() {
     const { paramsObj, modelflag, groupData } = this.state;
     const { isloading, Details = {} } = this.props;
@@ -166,6 +181,7 @@ class CreditDetails extends React.Component {
               return (
                 newDataList.length > 0 && (
                   <MultipHeaderList
+                    paramCom={paramCom}
                     key={item}
                     groupName={params[item].groupName}
                     dataList={dataList}
