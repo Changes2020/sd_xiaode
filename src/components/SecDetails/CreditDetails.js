@@ -42,7 +42,7 @@ class SecDetails extends Component {
         </div>
 
         <div className={styles.countCss}>
-          {data.num > 99999 ? '99999+' : Math.round(data.num)}
+          {data.rawValue > 99999 ? '99999+' : Math.round(data.rawValue)}
           {data.unit}
         </div>
 
@@ -158,7 +158,7 @@ class SecDetails extends Component {
                                     // 判断number是否为0，0?那行数据不可点击:可点击
                                     return (
                                       <div key={`thr${key2}`}>
-                                        {!dataList.dimensions[key1].dimensions[key2].num ? (
+                                        {!dataList.dimensions[key1].dimensions[key2].rawValue ? (
                                           <div>
                                             {this.detailTmp(
                                               dataList.dimensions[key1].dimensions[key2],

@@ -4,6 +4,7 @@ import { getItem } from '../../utils/localStorage';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { dimensionAuthority, highLightData } from '../../utils/dimensionAuthority';
 import Filter from './_filter';
+import { scroll } from '../../utils/scroll';
 import top from '../../assets/top.svg';
 import search from '../../assets/search.svg';
 import NoData from '../../components/NoData/NoData';
@@ -171,7 +172,7 @@ class CreditDetails extends React.Component {
       loadComponent: 'credit',
     };
     return (
-      <div>
+      <div className={styles.normal}>
         {/* *************** Filter *************** */}
         <Filter
           paramsObj={paramsObj}
@@ -213,11 +214,12 @@ class CreditDetails extends React.Component {
         <div
           className={`${styles.floatIcon} ${styles.goTopCls}`}
           onClick={() => {
-            window.scrollTo(0, 0);
+            const currentY = document.documentElement.scrollTop || document.body.scrollTop;
+            scroll(currentY, 0);
           }}
           id="backTopBtn"
         >
-          <img src={top} alt="" />
+          <img src={top} alt="回到顶部" />
         </div>
 
         {/* *************** 搜索按钮 *************** */}
@@ -227,7 +229,7 @@ class CreditDetails extends React.Component {
             this.searchFn();
           }}
         >
-          <img src={search} alt="" />
+          <img src={search} alt="搜索" />
         </div>
 
         {/* *************** 搜索模态框 *************** */}
