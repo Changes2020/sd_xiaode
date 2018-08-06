@@ -29,6 +29,7 @@ class RenderItem extends React.Component {
     }
   }
   showChain = (n = null) => {
+    console.log(n);
     if (!n) {
       return n === 0 ? n : 'N/A';
     } else if (n > 1000) {

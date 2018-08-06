@@ -29,7 +29,7 @@ class SecDetails extends Component {
         <div className={styles.proCss2}>{data.name}</div>
         <div className={styles.equableCss}>{data.score.toFixed(2)}</div>
         <div className={styles.ringRatioCss}>
-          {this.showChain(Number(data.chain))}
+          {this.showChain(data.chain)}
           {data.chain || data.chain === 0 ? (
             <img
               alt="img"
@@ -100,7 +100,7 @@ class SecDetails extends Component {
                           <div className={styles.proCss2}>{dataList.name}</div>
                           <div className={styles.equableCss}>{dataList.score.toFixed(2)}</div>
                           <div className={styles.ringRatioCss}>
-                            {this.showChain(Number(dataList.chain))}
+                            {this.showChain(dataList.chain)}
                             {dataList.chain || dataList.chain === 0 ? (
                               <img
                                 alt="img"
@@ -131,7 +131,7 @@ class SecDetails extends Component {
                                     {dataList.dimensions[key1].score.toFixed(2)}
                                   </div>
                                   <div className={styles.ringRatioCss}>
-                                    {this.showChain(Number(dataList.dimensions[key1].chain))}
+                                    {this.showChain(dataList.dimensions[key1].chain)}
                                     {dataList.dimensions[key1].chain ||
                                     dataList.dimensions[key1].chain === 0 ? (
                                       <img
