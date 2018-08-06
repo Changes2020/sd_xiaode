@@ -70,7 +70,9 @@ export default class Dialog extends React.Component {
 
   render() {
     const { visible, modelClass = '', cotainerClass = '', children = null, title } = this.props;
-    const newModelClass = modelClass ? classNames(styles.normal, modelClass) : styles.groupModal;
+    const newModelClass = modelClass
+      ? classNames(styles.groupModal, modelClass)
+      : styles.groupModal;
     const newFlexContainer = cotainerClass
       ? classNames(styles.normal, cotainerClass)
       : styles.flexContainer;
@@ -78,22 +80,24 @@ export default class Dialog extends React.Component {
       this.overHide(visible);
     }
     return visible ? (
-      <div>
-        <Modal
-          visible={visible}
-          transparent
-          maskClosable={false}
-          title={this.renderHeadElement(title)}
-          wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-          className={newModelClass}
-          wrapClassName={styles.gwrapRoupModal}
-        >
-          <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
-            <div className={styles.modalContent}>{children && { ...this.props.children }}</div>
-            <div className={styles.modalContentBottom} />
+      <Modal
+        visible={visible}
+        transparent
+        maskClosable={false}
+        title={this.renderHeadElement(title)}
+        wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+        className={newModelClass}
+        wrapClassName={styles.gwrapRoupModal}
+      >
+        <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
+          <div className={styles.modalContent}>
+            {children && Array.isArray(children)
+              ? [...this.props.children]
+              : { ...this.props.children }}
           </div>
-        </Modal>
-      </div>
+          <div className={styles.modalContentBottom} />
+        </div>
+      </Modal>
     ) : null;
   }
 }

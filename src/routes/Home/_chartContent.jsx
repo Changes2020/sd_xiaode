@@ -159,7 +159,7 @@ export default class ChartContent extends React.Component {
     if (this.props.lookAllGroup) {
       this.props.lookAllGroup(familyType);
     }
-    this.ShowModel(true);
+    this.showModel(true);
   };
   selectGroup = (id = null, name, familyType) => {
     const { visible } = this.state;
@@ -167,7 +167,7 @@ export default class ChartContent extends React.Component {
       this.props.selectGroup(id, name, familyType);
     }
     if (visible) {
-      this.ShowModel(false);
+      this.showModel(false);
     }
   };
   showModel = bol => {
@@ -260,8 +260,8 @@ export default class ChartContent extends React.Component {
         {visible && (
           <Dialog
             visible={visible}
-            ShowModel={bol => {
-              this.ShowModel(bol);
+            showModel={bol => {
+              this.showModel(bol);
             }}
           >
             {groupDom}

@@ -60,9 +60,12 @@ class ButtonGroup extends Component {
     const list = Array.isArray(data) ? data : [];
     const selectId = !id ? self.state.initId : id;
     const liList = list.map((item, index) => {
+      const isSelected = Array.isArray(selectId)
+        ? selectId.find(ls => ls === item.id)
+        : selectId === item.id;
       return (
         <Button
-          className={item.id === selectId ? newBtnSelectedClass : newBtnClass}
+          className={isSelected ? newBtnSelectedClass : newBtnClass}
           key={item.id}
           onClick={self.selectButton.bind(self, item, index)}
         >
