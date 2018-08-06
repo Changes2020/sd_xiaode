@@ -8,6 +8,7 @@ import styles from './Demention.less';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import SelfTab from '../../components/SelfTab/SelfTab';
 import { formatDate } from '../../utils/FormatDate';
+import { scroll } from '../../utils/scroll';
 import homepng from '../../assets/home.png';
 import NoData from '../../components/NoData/NoData.js';
 import Loading from '../../components/Loading/Loading';
@@ -124,7 +125,7 @@ class Demention extends React.Component {
   }
 
   componentWillReceiveProps() {
-    window.scrollTo(0, 0);
+    scroll(0, 0);
   }
   // 点击home图片返回首页
   homeFun = () => {
@@ -268,7 +269,7 @@ class Demention extends React.Component {
   // 点击吸顶栏 返回顶部
   backToTop = () => {
     const dataToTop = document.getElementById('dataToTop');
-    window.scrollTo(0, document.getElementById('selfDataCenter').offsetTop);
+    scroll(0, document.getElementById('selfDataCenter').offsetTop);
     dataToTop.style.display = 'none';
   };
 
