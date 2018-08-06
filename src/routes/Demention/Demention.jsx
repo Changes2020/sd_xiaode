@@ -320,9 +320,9 @@ class Demention extends React.Component {
           </div>
         )}
         {/* 详情数据和趋势图tab切换导航 */}
-        {tabContainer(this.state, this.detailCLickTab.bind(this))}
+        {!tableList ? null:tabContainer(this.state, this.detailCLickTab.bind(this))}
         {/* 详情数据和趋势图组件 */}
-        {this.state.switchtype === 1 ? (
+        {!tableList ? null:this.state.switchtype === 1 ? (
           <div>
             {!tableList || tableList.length === 0 ? (
               <NoData showflag />
