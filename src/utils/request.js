@@ -1,7 +1,7 @@
 import fetch from 'dva/fetch';
 import { routerRedux } from 'dva/router';
-import { Toast } from 'antd-mobile';
 import { parse } from 'url';
+import Toast from '../components/Message';
 import store from '../index';
 import { getItem } from './localStorage';
 
@@ -26,8 +26,8 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  const errortext = codeMessage[response.status] || response.statusText;
-  Toast.error(errortext);
+  const errortext = codeMessage[response.status] || response.msg;
+  Toast.fail(errortext);
   const error = new Error(errortext);
   error.name = response.status;
   error.response = response;
@@ -85,6 +85,7 @@ export default function request(url, options) {
     .then(checkStatus)
     .then(parseJSON)
     .catch(e => {
+      console.log(e.name);
       const { dispatch } = store;
       const status = e.name;
       if (status === 403) {

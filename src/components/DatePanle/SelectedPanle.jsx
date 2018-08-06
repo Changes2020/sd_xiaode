@@ -7,7 +7,10 @@ export default class SelectPanle extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       // 禁止input输入
-      document.getElementsByClassName('rc-select-search__field')[0].setAttribute('disabled', true);
+      const input = document.querySelector('.rc-select-search__field') || null;
+      if (input) {
+        input.setAttribute('disabled', true);
+      }
     }, 100);
   }
   onSelect = val => {
