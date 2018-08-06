@@ -74,7 +74,7 @@ class SecDetails extends Component {
     };
 
     const { rowData, isShowDetail, jump2Data } = this.props;
-    console.log(rowData);
+
     return (
       <div
         key={rowData.id}

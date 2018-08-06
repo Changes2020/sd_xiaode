@@ -18,12 +18,19 @@ const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
 
 let paramCom = {}; // 存储过滤器参数
-let isRequest = true; //
+let locationKey = null;
+let isRequest = null;
+
 class CreditDetails extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
+    const { routerHash } = urlParams;
     const { startTime, endTime } = defaultDateTime();
+
+    isRequest = locationKey;
+    locationKey = locationKey !== routerHash ? routerHash : locationKey;
+
     const initState = {
       paramsObj: {
         startTime, // 过滤开始时间
@@ -51,11 +58,10 @@ class CreditDetails extends React.Component {
     };
 
     // 防止重复调用接口
-    if (isRequest) {
+    const { routerHash } = this.props.urlParams;
+    if (isRequest !== routerHash) {
       const { paramsObj } = this.state;
       this.fnGetData(paramsObj);
-
-      isRequest = false;
     }
   }
   componentWillReceiveProps(nexprops) {
