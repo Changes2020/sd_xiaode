@@ -29,7 +29,6 @@ class RenderItem extends React.Component {
     }
   }
   showChain = (n = null) => {
-    console.log(n);
     if (!n) {
       return n === 0 ? n : 'N/A';
     } else if (n > 1000) {
@@ -77,7 +76,6 @@ class RenderItem extends React.Component {
               checkIds.splice(index, 1);
               this.toggleClick(0, false);
             }
-            console.log(checkIds);
             this.props.saveIds(checkIds);
           }}
         >
@@ -99,7 +97,7 @@ class RenderItem extends React.Component {
               <span className={styles.triImg} />
             )}
           </div>
-          <div className={styles.rightCss} />
+          <div className={styles.countCss} />
           <div className={styles.rightCss}>
             <img
               alt="箭头"

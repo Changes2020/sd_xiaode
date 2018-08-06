@@ -31,7 +31,7 @@ class RenderHeader extends React.Component {
           <div className={styles.rankCss}>排名/总数</div>
           <div className={styles.equableCss}>均分</div>
           <div className={styles.ringRatioCss}>环比%</div>
-          <div className={styles.ringRatioCss}>数量</div>
+          <div className={styles.countCss}>数量</div>
           <div className={styles.rightCss}>操作</div>
         </div>
       </div>
