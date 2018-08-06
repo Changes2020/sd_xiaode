@@ -76,7 +76,7 @@
 <div id="container">
   <div style="width: 2px;height: 2px;background:url('http://bi-m.ministudy.com/staticFile/load.gif');"></div>
   <div class="content">
-    <img class="imgCss" src='./error.png' alt='errorimg'/>
+    <img class="imgCss" src='http://bi-m.ministudy.com/staticFile/bi_img/authorized.png' alt='errorimg'/>
     <div class="wordStyle">
                 <span class="wordStyle1">
                   你没有权限访问此页面，或权限设置有误。
@@ -110,7 +110,7 @@
     document.querySelector('.content').style.display = 'table-cell';
   }
 
-export function setItem(key) {
+function setItem(key) {
   var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var days = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
