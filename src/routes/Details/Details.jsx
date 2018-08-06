@@ -6,6 +6,7 @@ import { dimensionAuthority, highLightData } from '../../utils/dimensionAuthorit
 import Filter from './_filter';
 import top from '../../assets/top.svg';
 import search from '../../assets/search.svg';
+import NoData from '../../components/NoData/NoData';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import CreditDialog from './_creditDialog';
 import { SortChanseData } from '../../utils/sortChineseWord';
@@ -17,7 +18,7 @@ const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
 
 let paramCom = {}; // 存储过滤器参数
-const isRequest = true; //
+let isRequest = true; //
 class CreditDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -53,6 +54,8 @@ class CreditDetails extends React.Component {
     if (isRequest) {
       const { paramsObj } = this.state;
       this.fnGetData(paramsObj);
+
+      isRequest = false;
     }
   }
   componentWillReceiveProps(nexprops) {
@@ -171,7 +174,7 @@ class CreditDetails extends React.Component {
         />
 
         {/* *************** listview *************** */}
-        {dataList ? (
+        {dataList === 'nodata' ? null : dataList !== null ? (
           <div>
             {Object.keys(params).map(item => {
               const newDataList = Object.keys(dataList).filter(
@@ -196,7 +199,9 @@ class CreditDetails extends React.Component {
               );
             })}
           </div>
-        ) : null}
+        ) : (
+          <NoData showflag />
+        )}
         {/* *************** 回到顶部 *************** */}
         <div
           className={`${styles.floatIcon} ${styles.goTopCls}`}
