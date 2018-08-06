@@ -324,7 +324,7 @@ class Demention extends React.Component {
         {!tableList ? null:tabContainer(this.state, this.detailCLickTab.bind(this))}
         {/* 详情数据和趋势图组件 */}
         {!tableList ? null:this.state.switchtype === 1 ? (
-          <div>
+          <div className={styles.tableDiv}>
             {!tableList || tableList.length === 0 ? (
               <NoData showflag />
             ) : (
@@ -344,7 +344,7 @@ class Demention extends React.Component {
         ) : !trendData ? (
           <NoData showflag />
         ) : (
-          <div style={{ background: '#fff', width: '7.1rem', marginLeft: '0.2rem' }}>
+          <div  style={{marginLeft:'0.2rem',width:'7.1rem',background:'#fff'}}>
             <ChartFilter
               buttonData={buttonData}
               trendData={trendData}
