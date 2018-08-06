@@ -43,7 +43,7 @@ export default {
           payload: { rankDataObj, paramsObj, creditShowType, chainData, userInfo, allOrgMap },
         });
       } else {
-        Message.error(rankDataObj.msg);
+        Message.fail(rankDataObj.msg);
       }
     },
     *fetchTrend({ payload }, { call, put }) {
@@ -51,6 +51,9 @@ export default {
       const trendDataObj = {};
       const { paramsObj, creditShowType } = payload;
       let rankDataObj = yield call(getCreditRankAvgList, { ...paramsObj }); // 根据排名接口控制趋势图接口数据
+      if (rankDataObj.code !== 2000) {
+        Message.fail(rankDataObj.msg);
+      }
       const fmilyTypeFilteKeyIDs = {}; // 趋势图西面的按钮
       if (rankDataObj.data !== null) {
         // 排名接口有数据
@@ -70,15 +73,22 @@ export default {
                 filteKeyID,
                 familyType,
               });
-              if (familyTypeReaponse.data !== null) {
-                // 请求下来数据的处理
-                trendDataObj[item] = familyTypeReaponse.data[item];
-                trendDataObj[item].title = firstGroupName;
+              if (familyTypeReaponse.code === 2000) {
+                if (familyTypeReaponse.data !== null) {
+                  // 请求下来数据的处理
+                  trendDataObj[item] = familyTypeReaponse.data[item];
+                  trendDataObj[item].title = firstGroupName;
+                }
+              } else {
+                Message.fail(familyTypeReaponse.msg);
               }
             }
           }
         }
         const companyAvgDataObj = yield call(getCreditCompanyAvgList, { ...paramsObj }); // 获取集团均分数据
+        if (companyAvgDataObj !== 2000) {
+          Message.fail(companyAvgDataObj.msg);
+        }
         yield put({
           type: 'saveTrend',
           payload: {
@@ -108,6 +118,9 @@ export default {
         filteKeyID,
         familyType,
       });
+      if (familyTypeReaponse.code !== 2000) {
+        Message.fail(familyTypeReaponse.msg);
+      }
       yield put({
         type: 'saveupdateTrend',
         payload: { filteKeyID, paramsObj, familyTypeString, familyTypeReaponse, filteKeyTitle },
@@ -117,6 +130,9 @@ export default {
       const { paramsObj, familyTypeString } = payload;
       const familyType = typeDict.familyTypeDict[familyTypeString];
       const GroupList = yield call(getCreditTrendObjList, { ...paramsObj, familyType });
+      if (GroupList.code !== 2000) {
+        Message.fail(GroupList.msg);
+      }
       yield put({ type: 'saveGroupList', payload: { GroupList, familyTypeString } });
     },
   },
