@@ -80,24 +80,26 @@ export default class Dialog extends React.Component {
       this.overHide(visible);
     }
     return visible ? (
-      <Modal
-        visible={visible}
-        transparent
-        maskClosable={false}
-        title={this.renderHeadElement(title)}
-        wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-        className={newModelClass}
-        wrapClassName={styles.gwrapRoupModal}
-      >
-        <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
-          <div className={styles.modalContent}>
-            {children && Array.isArray(children)
-              ? [...this.props.children]
-              : { ...this.props.children }}
+      <div className={styles.dialog}>
+        <Modal
+          visible={visible}
+          transparent
+          maskClosable={false}
+          title={this.renderHeadElement(title)}
+          wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+          className={newModelClass}
+          wrapClassName={styles.gwrapRoupModal}
+        >
+          <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
+            <div className={styles.modalContent}>
+              {children && Array.isArray(children)
+                ? [...this.props.children]
+                : { ...this.props.children }}
+            </div>
+            <div className={styles.modalContentBottom} />
           </div>
-          <div className={styles.modalContentBottom} />
-        </div>
-      </Modal>
+        </Modal>
+      </div>
     ) : null;
   }
 }

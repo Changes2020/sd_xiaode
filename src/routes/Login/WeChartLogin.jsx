@@ -5,7 +5,7 @@ import { getAuthority } from 'utils/authority';
 import { getWeChart } from 'services/api';
 import config from '../../config';
 
-const { DEBUGGER = false, userId } = config;
+const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
 class WeChartLogin extends React.Component {
   componentWillMount() {
     if (DEBUGGER) {
@@ -14,6 +14,9 @@ class WeChartLogin extends React.Component {
         this.checkoutHasAuth();
       }, 100);
     } else {
+      if (NODE_ENV === 'dev') {
+        window.localStorage.removeItem('userInfo');
+      }
       this.checkoutHasAuth();
     }
   }

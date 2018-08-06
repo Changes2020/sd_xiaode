@@ -86,7 +86,7 @@ export default {
           }
         }
         const companyAvgDataObj = yield call(getCreditCompanyAvgList, { ...paramsObj }); // 获取集团均分数据
-        if (companyAvgDataObj !== 2000) {
+        if (companyAvgDataObj.code !== 2000) {
           Message.fail(companyAvgDataObj.msg);
         }
         yield put({
