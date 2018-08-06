@@ -2,6 +2,7 @@ import { routerRedux } from 'dva/router';
 import { getDisableTime, getUserInfo, getOrgMap } from 'services/api';
 import { setItem, getItem } from 'utils/localStorage';
 import Message from '../components/Message';
+import { getAuthority } from '../utils/authority';
 
 export default {
   namespace: 'index',
@@ -12,7 +13,20 @@ export default {
   },
 
   subscriptions: {
-    // setup({ dispatch, history }) {},
+    setup({ dispatch, history }) {
+      const userId = getAuthority();
+      const { pathname } = history.location;
+      if (pathname === '/') {
+        if (userId) {
+          dispatch({
+            type: 'getUserInfo',
+            payload: { userId },
+          });
+        } else {
+          dispatch(routerRedux.push('/exception/403'));
+        }
+      }
+    },
   },
 
   effects: {
@@ -41,7 +55,7 @@ export default {
           Message.fail(timeResponse.msg);
         }
         /* ************** 跳转至首页 ************** */
-        // yield put(routerRedux.push('/indexPage'));
+        yield put(routerRedux.push('/indexPage'));
       } else {
         yield put(routerRedux.push('/exception/403'));
       }
