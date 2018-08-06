@@ -328,7 +328,9 @@ class Demention extends React.Component {
               <NoData showflag />
             ) : (
               <div>
-                <p className={styles.tableTitle}>{this.state.buttonName}详情数据</p>
+                <p className={styles.tableTitle}>
+                  <span style={{paddingLeft: '0.24rem'}}>{this.state.buttonName}详情数据</span>
+                </p>
                 <MultipHeaderList
                   dataList={tableList}
                   customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
