@@ -193,7 +193,7 @@ export default class ExportDemention extends React.Component {
           >
             <div className={styles.resultModal}>
               <img src={rightIcon} className={styles.resultIcon} alt="成功" />
-              <h4 className={styles.resultSuccess}> 请求成功!</h4>
+              <h4 className={styles.resultSuccess}> 发送成功!</h4>
               <p className={styles.resultEmilCheck}>请稍后到邮箱中查看底表</p>
             </div>
           </Modal>
