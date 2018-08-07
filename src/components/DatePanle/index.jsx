@@ -18,7 +18,7 @@ const { dateTypeDict = {} } = typeDict;
 export default class DatePanle extends React.Component {
   constructor(props) {
     super(props);
-    const { timeDate = {} } = getItem('timeDate').value || {};
+    const timeDate = getItem('timeDate').value || {};
     const { dataExList = [] } = timeDate;
     const dateObj = getExtraDate() || {};
     const { startTime, endTime, dateType } = props;
@@ -86,6 +86,7 @@ export default class DatePanle extends React.Component {
   };
   render() {
     const { selectData, visible, minDate, maxDate, dataExList, dateType, dateText } = this.state;
+    console.log(dataExList);
     const defaultValue = typeDict.dateTypeDict[dateType];
     return (
       <Flex justify="arround" className={styles.container}>
