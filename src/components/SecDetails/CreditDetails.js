@@ -163,7 +163,7 @@ class SecDetails extends Component {
                                             {this.detailTmp(
                                               dataList.dimensions[key1].dimensions[key2],
                                               rowData,
-                                              true
+                                              false
                                             )}
                                           </div>
                                         ) : (
