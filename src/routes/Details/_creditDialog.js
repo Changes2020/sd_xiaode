@@ -1,5 +1,6 @@
 import React from 'react';
 import { scroll } from '../../utils/scroll';
+import typeDict from '../../utils/typeDict';
 import Dialog from '../../components/Dialog/index';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import NoData from '../../components/NoData/NoData';
@@ -21,7 +22,7 @@ class _creditDialog extends React.Component {
         <li key={(i += 1)}>
           <div className={styles.modeltitlediv}>
             <span key={key} className={styles.modeltitle}>
-              {key === 'selfExam' ? '自考' : key === 'barrier' ? '壁垒' : '孵化器'}
+              {typeDict.selfExamDict[key]}
             </span>
           </div>
           {/* div的样式需要调整 */}
@@ -62,11 +63,12 @@ class _creditDialog extends React.Component {
     let len = 0;
     const selfLen = data.selfExam ? data.selfExam.length : 0;
     const barLen = data.barrier ? data.barrier.length : 0;
-    if (key === 'selfExam') {
+
+    if (key === typeDict.dicName[0]) {
       len = 0;
-    } else if (key === 'barrier') {
+    } else if (key === typeDict.dicName[1]) {
       len = selfLen;
-    } else if (key === 'incubator') {
+    } else if (key === typeDict.dicName[2]) {
       len = selfLen + barLen;
     }
 
@@ -81,12 +83,12 @@ class _creditDialog extends React.Component {
           if (len > selfLen) {
             height =
               document.getElementById(`rowId${len}`).offsetTop +
-              document.getElementById('barrier').offsetTop -
+              document.getElementById(typeDict.dicName[1]).offsetTop -
               decHeight;
           } else if (len > selfLen + barLen) {
             height =
               document.getElementById(`rowId${len}`).offsetTop +
-              document.getElementById('incubator').offsetTop -
+              document.getElementById(typeDict.dicName[2]).offsetTop -
               decHeight;
           } else {
             height = document.getElementById(`rowId${len}`).offsetTop + addHeight;
@@ -109,7 +111,7 @@ class _creditDialog extends React.Component {
         showModel={val => {
           this.props.showModel(val);
         }}
-        title={`请选择想要查看的${tabkey === 1 ? '学院' : tabkey === 2 ? '家族' : '小组'}`}
+        title={`请选择想要查看的${typeDict.groupTypeZHDict[tabkey]}`}
       >
         <div className={styles.flexContainer}>
           {!dataList || dataList === 'nodata' ? (

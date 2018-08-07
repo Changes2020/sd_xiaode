@@ -166,6 +166,7 @@ class CreditDetails extends React.Component {
     const params = {
       0: { groupName: 'selfExam', arr: 'activeCS' },
       1: { groupName: 'barrier', arr: 'activeCS' },
+      2: { groupName: 'incubator', arr: 'activeCS' },
     };
     const headerParam = {
       groupType: paramsObj.groupType,

@@ -14,6 +14,11 @@ export default {
     2: '家族',
     3: '小组',
   },
+  selfExamDict: {
+    selfExam: '自考',
+    barrier: '壁垒',
+    incubator: '孵化器',
+  },
   groupTypeDict: {
     1: 'college',
     2: 'family',
@@ -24,4 +29,5 @@ export default {
     barrier: 1,
     incubator: 2,
   },
+  dicName: ['selfExam', 'barrier', 'incubator'], // 学分详情搜索弹框用到
 };
