@@ -41,6 +41,16 @@ class IndexPage extends React.Component {
     const { paramsObj } = this.state;
     this.fnGetData(paramsObj);
   }
+
+  getDownloadInfo = dataList => {
+    this.props.dispatch({
+      type: 'home/getDownloadInfo',
+      payload: {
+        userId: this.state.paramsObj.userId,
+        dataList,
+      },
+    });
+  };
   fnGetData(ops = {}) {
     // 用于数据请求方法
     // 用于数据的请求
@@ -149,7 +159,11 @@ class IndexPage extends React.Component {
           {isNoData && <NoData showflag />}
         </div>
         {/* ***************导出数据置顶按钮************ */}
-        <ExportDemention />
+        <ExportDemention
+          getDownloadInfo={data => {
+            this.getDownloadInfo(data);
+          }}
+        />
         {/* **************处理loading************** */}
         {isloading && <Loading />}
       </div>

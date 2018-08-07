@@ -6,6 +6,7 @@ import {
   getCreditTrendAvgList,
   getCreditCompanyAvgList,
   getCreditTrendObjList,
+  addDownloadTask,
 } from '../services/api';
 import { highLightData } from '../utils/dimensionAuthority';
 import typeDict from '../utils/typeDict';
@@ -134,6 +135,9 @@ export default {
         Message.fail(GroupList.msg);
       }
       yield put({ type: 'saveGroupList', payload: { GroupList, familyTypeString } });
+    },
+    *getDownloadInfo({ payload }, { call }) {
+      yield call(addDownloadTask, { ...payload });
     },
   },
 

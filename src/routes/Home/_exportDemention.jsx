@@ -86,6 +86,7 @@ export default class ExportDemention extends React.Component {
     );
   };
   render() {
+    // const { getDownloadInfo } = this.props;
     const { dialogVisible, isShowModal } = this.state;
     return (
       <div>
