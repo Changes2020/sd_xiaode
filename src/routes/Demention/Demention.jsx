@@ -80,8 +80,8 @@ class Demention extends React.Component {
       titleName = '',
       buttonName = '',
     } = urlParams;
-    const topName1 = Number(groupType) === 1 ? '学院' : groupType === 2 ? '家族' : '小组';
-    const topName2 = Number(familyType) === 0 ? '自考' : familyType === 1 ? '壁垒' : '孵化器';
+    const topName1 = Number(groupType) === 1 ? '学院' : Number(groupType) === 2 ? '家族' : '小组';
+    const topName2 = Number(familyType) === 0 ? '自考' : Number(familyType) === 1 ? '壁垒' : '孵化器';
     const formatStratTime = formatDate(startTime);
     const formatEndTime = formatDate(endTime);
     const initState = {
