@@ -61,7 +61,7 @@ class MultipHeaderList extends Component {
       <StickyContainer
         key={`s_${sectionID}_c`}
         className="sticky-container"
-        style={{ zIndex: 4, padding: '0 10px' }}
+        style={{ zIndex: 4, padding: '0 .2rem' }}
       />
     );
   };
