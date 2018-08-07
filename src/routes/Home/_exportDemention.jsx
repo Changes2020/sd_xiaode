@@ -90,10 +90,13 @@ export default class ExportDemention extends React.Component {
     }
   };
   nextStep = () => {
-    this.setState({
-      dialogVisible: false,
-      isShowModal: true,
-    });
+    const { selectedTime } = this.state;
+    if (selectedTime.length > 0) {
+      this.setState({
+        dialogVisible: false,
+        isShowModal: true,
+      });
+    }
   };
   cannelModal = () => {
     this.setState({
