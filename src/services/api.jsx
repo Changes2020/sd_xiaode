@@ -125,3 +125,12 @@ export async function getCreditDetail(params) {
     body: params,
   });
 }
+/*
+* 用于下载地表数据接口
+ */
+export async function addDownloadTask(params) {
+  return request(`${HOST}/positiveAction/addDownloadTask`, {
+    method: 'POST',
+    body: params,
+  });
+}
