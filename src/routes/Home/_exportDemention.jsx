@@ -9,11 +9,10 @@ import Dialog from '../../components/Dialog';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import { getExtraDate } from '../../utils/FormatDate';
 import Modal from '../../components/Modal';
-import typeDict from '../../utils/typeDict';
 import rightIcon from '../../assets/right.svg';
+import { getItem } from '../../utils/localStorage';
 
-const { groupTypeZHDict } = typeDict;
-
+const userInfo = getItem('userInfo').value || {};
 export default class ExportDemention extends React.Component {
   constructor(props) {
     super(props);
@@ -129,16 +128,21 @@ export default class ExportDemention extends React.Component {
 
   render() {
     const { dialogVisible, isShowModal, isResultModal } = this.state;
+    const { groupType } = userInfo;
     const { paramsObj } = this.props;
+    const isShowDownload =
+      groupType === 'college' || groupType === 'family' || groupType === 'group';
     return (
       <div>
         <div className={styles.floatCotainer}>
           <p className={styles.topBtn} ref={this.createRef} onClick={this.toBackTop}>
             <img src={top} alt="回到顶部" />
           </p>
-          <p className={styles.downloadBtn} onClick={this.showModel.bind(this, true)}>
-            <img src={download} alt="下载" />
-          </p>
+          {isShowDownload && (
+            <p className={styles.downloadBtn} onClick={this.showModel.bind(this, true)}>
+              <img src={download} alt="下载" />
+            </p>
+          )}
         </div>
         <div className={styles.download}>
           {dialogVisible && (
@@ -173,7 +177,7 @@ export default class ExportDemention extends React.Component {
                 *底表包含
                 <i className={styles.dataInfo}>
                   {' '}
-                  本{groupTypeZHDict[paramsObj.groupType]}所有学分维度数据
+                  本{{ college: '学院', family: '家族', group: '小组' }[groupType]}所有学分维度数据
                 </i>
               </p>
               <p>(底线了质检除外)</p>
