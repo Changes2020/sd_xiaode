@@ -4,14 +4,14 @@
   background: #fff;
 }
 .flexContainer {
-  height: 85vh;
+  max-height: 85vh;
 }
 .modalContentBottom {
   height: 0.2rem;
 }
 .groupModal {
   width: 7.5rem !important;
-  height: 90vh !important;
+  max-height: 90vh !important;
   overflow: hidden;
 }
 .gwrapRoupModal {
@@ -53,6 +53,9 @@
 :global(.am-button::before) {
   content: '';
   border: none !important;
+}
+:global(.am-modal-content) {
+  border-radius: 7px 7px 0 0 !important;
 }
 :global(.am-modal-transparent .am-modal-content) {
   padding-bottom: 0.8rem;
