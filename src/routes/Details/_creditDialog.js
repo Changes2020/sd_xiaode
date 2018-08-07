@@ -1,4 +1,5 @@
 import React from 'react';
+import { scroll } from '../../utils/scroll';
 import Dialog from '../../components/Dialog/index';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import NoData from '../../components/NoData/NoData';
@@ -56,7 +57,8 @@ class _creditDialog extends React.Component {
     return list;
   };
   selectGroup(groupId, key, data) {
-    const clientHeight = document.documentElement.clientHeight / 667 * 60;
+    const addHeight = document.documentElement.clientHeight / 667 * 60;
+    const decHeight = document.documentElement.clientHeight / 667 * 40;
     let len = 0;
     const selfLen = data.selfExam ? data.selfExam.length : 0;
     const barLen = data.barrier ? data.barrier.length : 0;
@@ -75,10 +77,22 @@ class _creditDialog extends React.Component {
       len += 1;
       if (document.getElementById(`rowId${len}`)) {
         if (document.getElementById(`rowId${len}`).getAttribute('dataid') === groupId) {
-          const height = document.getElementById(`rowId${len}`).offsetTop + clientHeight;
-          setTimeout(() => {
-            window.scrollTo(0, height);
-          }, 300);
+          let height = 0;
+          if (len > selfLen) {
+            height =
+              document.getElementById(`rowId${len}`).offsetTop +
+              document.getElementById('barrier').offsetTop -
+              decHeight;
+          } else if (len > selfLen + barLen) {
+            height =
+              document.getElementById(`rowId${len}`).offsetTop +
+              document.getElementById('incubator').offsetTop -
+              decHeight;
+          } else {
+            height = document.getElementById(`rowId${len}`).offsetTop + addHeight;
+          }
+
+          scroll(0, height);
         }
       }
     }

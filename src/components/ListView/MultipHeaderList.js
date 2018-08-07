@@ -147,7 +147,7 @@ class MultipHeaderList extends Component {
       ? this.state.dataSource.cloneWithRows(dataList[groupName])
       : this.state.dataSource.cloneWithRows(dataList);
     return (
-      <div>
+      <div id={groupName}>
         <ListView
           dataSource={dataSource}
           className="am-list sticky-list"
