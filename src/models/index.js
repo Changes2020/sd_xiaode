@@ -2,7 +2,6 @@ import { routerRedux } from 'dva/router';
 import { getDisableTime, getUserInfo, getOrgMap } from 'services/api';
 import { setItem, getItem } from 'utils/localStorage';
 import Message from '../components/Message';
-import { getAuthority } from '../utils/authority';
 
 export default {
   namespace: 'index',
@@ -14,7 +13,8 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
-      const userId = getAuthority();
+      const userInfo = getItem('userInfo').value || {};
+      const { userId = null } = userInfo;
       const { pathname } = history.location;
       if (pathname === '/') {
         if (userId) {

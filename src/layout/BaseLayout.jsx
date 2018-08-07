@@ -1,25 +1,34 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Switch, Route } from 'dva/router';
+import { Redirect, Switch, Route } from 'dva/router';
 import { getRoutes } from '../utils/routerUtils';
+import { getItem } from '../utils/localStorage';
 
 class BaseLayout extends React.Component {
   render() {
     const { routerData, match } = this.props;
+    const userInfo = getItem('userInfo').value;
+    const timeDate = getItem('timeDate').value;
+    const allOrgMap = getItem('allOrgMap').value;
     return (
       <div>
-        <Switch>
-          {getRoutes(match.path, routerData).map(item => (
-            <Route
-              key={item.key}
-              path={item.path}
-              component={item.component}
-              exact={item.exact}
-              authority={item.authority}
-              redirectPath="/exception/403"
-            />
-          ))}
-        </Switch>
+        {userInfo &&
+          timeDate &&
+          allOrgMap && (
+            <Switch>
+              {getRoutes(match.path, routerData).map(item => (
+                <Route
+                  key={item.key}
+                  path={item.path}
+                  component={item.component}
+                  exact={item.exact}
+                  authority={item.authority}
+                  redirectPath="/exception/403"
+                />
+              ))}
+              <Redirect from="/" to="/indexPage" />
+            </Switch>
+          )}
       </div>
     );
   }
