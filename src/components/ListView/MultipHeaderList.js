@@ -13,12 +13,13 @@
 import React, { Component } from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { ListView } from 'antd-mobile';
+import classNames from 'classnames';
 import { scroll } from '../../utils/scroll';
 import RenderAssistantHeader from '../AssistantDetail/RenderHeader';
 import RenderAssistantItem from '../AssistantDetail/RenderItem';
 import RenderCreditHeader from '../CreditDetail/RenderHeader';
 import RenderCreditItem from '../CreditDetail/RenderItem';
-import './ListView.css';
+import styles from './ListView.css';
 
 let pretotal = 0;
 class MultipHeaderList extends Component {
@@ -57,13 +58,11 @@ class MultipHeaderList extends Component {
     }
   };
   renderSectionWrapper = sectionID => {
-    return (
-      <StickyContainer
-        key={`s_${sectionID}_c`}
-        className="sticky-container"
-        style={{ zIndex: 4, padding: '0 .2rem' }}
-      />
-    );
+    const { sectionClass = '' } = this.props;
+    const newSectionClass = sectionClass
+      ? classNames('sticky-container', styles.containCls, sectionClass)
+      : classNames('sticky-container', styles.containCls);
+    return <StickyContainer key={`s_${sectionID}_c`} className={newSectionClass} />;
   };
   renderSectionHeader = sectionData => {
     const { customRenderHeader, headerParam, groupName } = this.props;

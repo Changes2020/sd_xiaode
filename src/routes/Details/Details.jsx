@@ -201,7 +201,7 @@ class CreditDetails extends React.Component {
                       this.jump2Data(data1, data2, data3, data4);
                     }}
                     saveIds={arr => this.saveIds(arr)}
-                    style={{ background: '#fff', paddingBottom: '.4rem' }}
+                    style={{ background: '#fff', paddingBottom: '1px' }}
                   />
                 )
               );
