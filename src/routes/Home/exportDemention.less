@@ -112,13 +112,26 @@
 }
 .downLoadModal {
   width: 5.94rem !important;
+  box-sizing: border-box;
   height: 3.96rem;
-  border: 1px solid red;
+  background: #fff;
+  border-radius: 14px;
+}
+.downLoadTitle {
+  font-size: 0.36rem;
+  color: #333;
+  text-align: center;
+  height: 0.5rem;
+  margin: 0.34rem 0 0.3rem;
 }
 .downloadWarn {
-  height: 1.87rem;
+  height: 1.56rem;
   border: 1px solid red;
 }
-.downloadWarn :global(.am-modal-transparent .am-modal-content) {
+.downLoadModal :global(.am-modal-content) {
   padding: 0 !important;
+}
+.downLoadModal :global(.am-modal-body) {
+  height: 2.97rem !important;
+  box-sizing: border-box;
 }

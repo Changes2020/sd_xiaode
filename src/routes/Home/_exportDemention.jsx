@@ -119,6 +119,7 @@ export default class ExportDemention extends React.Component {
           modelClass={styles.downLoadModal}
           footer={[{ text: '取消' }, { text: '确定' }]}
         >
+          <p className={styles.downLoadTitle}>是否确定发送底表？</p>
           <div className={styles.downloadWarn} />
         </Modal>
       </div>
