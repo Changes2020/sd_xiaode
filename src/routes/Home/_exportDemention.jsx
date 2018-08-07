@@ -9,11 +9,16 @@ import Dialog from '../../components/Dialog';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import { getExtraDate } from '../../utils/FormatDate';
 import Modal from '../../components/Modal';
+import typeDict from '../../utils/typeDict';
+import rightIcon from '../../assets/right.svg';
+
+const { groupTypeZHDict } = typeDict;
 
 export default class ExportDemention extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isResultModal: false,
       isShowModal: false,
       selectedTime: [],
       dialogVisible: false,
@@ -29,6 +34,21 @@ export default class ExportDemention extends React.Component {
     const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
     this.Id.style.display = t > 200 ? 'block' : 'none';
   };
+  getDownloadInfo = () => {
+    if (this.props.getDownloadInfo) {
+      const { selectedTime } = this.state;
+      const { paramsObj } = this.props;
+      const sendObj = {
+        userId: paramsObj.userId,
+        downloadDates: selectedTime.join(','),
+      };
+      this.props.getDownloadInfo(sendObj);
+      this.setState({
+        isResultModal: true,
+        isShowModal: false,
+      });
+    }
+  };
   createRef = Id => {
     this.Id = Id;
   };
@@ -39,8 +59,10 @@ export default class ExportDemention extends React.Component {
   selectDateTime = id => {
     const { selectedTime } = this.state;
     if (!selectedTime.find(item => item === id)) {
-      selectedTime.push(id);
-      this.setState({ selectedTime });
+      if (selectedTime.length < 5) {
+        selectedTime.push(id);
+        this.setState({ selectedTime });
+      }
     } else {
       selectedTime.splice(selectedTime.findIndex(item => item === id), 1);
       this.setState({ selectedTime });
@@ -52,8 +74,8 @@ export default class ExportDemention extends React.Component {
     const dateArr = [];
     for (let i = maxDate; i >= minDate && dateArr.length < 10; i -= 86400000) {
       dateArr.push({
-        id: i,
-        name: moment(i).format('YYYY-MM-DD'),
+        id: moment(i).format('YYYY.MM.DD'),
+        name: moment(i).format('YYYY.MM.DD'),
       });
     }
     return dateArr;
@@ -67,7 +89,23 @@ export default class ExportDemention extends React.Component {
       this.setState({ dialogVisible: bol });
     }
   };
-  nextStep = () => {};
+  nextStep = () => {
+    this.setState({
+      dialogVisible: false,
+      isShowModal: true,
+    });
+  };
+  cannelModal = () => {
+    this.setState({
+      isShowModal: false,
+    });
+  };
+
+  cannelResultModal = () => {
+    this.setState({
+      isResultModal: false,
+    });
+  };
 
   renderGroupList = () => {
     // 此方法用于render出groupList
@@ -85,9 +123,10 @@ export default class ExportDemention extends React.Component {
       />
     );
   };
+
   render() {
-    // const { getDownloadInfo } = this.props;
-    const { dialogVisible, isShowModal } = this.state;
+    const { dialogVisible, isShowModal, isResultModal } = this.state;
+    const { paramsObj } = this.props;
     return (
       <div>
         <div className={styles.floatCotainer}>
@@ -115,14 +154,43 @@ export default class ExportDemention extends React.Component {
           )}
         </div>
         {/* modal弹框 */}
-        <Modal
-          visible={isShowModal}
-          modelClass={styles.downLoadModal}
-          footer={[{ text: '取消' }, { text: '确定' }]}
-        >
-          <p className={styles.downLoadTitle}>是否确定发送底表？</p>
-          <div className={styles.downloadWarn} />
-        </Modal>
+        {isShowModal && (
+          <Modal
+            visible={isShowModal}
+            modelClass={styles.downLoadModal}
+            footer={[
+              { text: '取消', onPress: this.cannelModal },
+              { text: '确定', onPress: this.getDownloadInfo },
+            ]}
+          >
+            <p className={styles.downLoadTitle}>是否确定发送底表？</p>
+            <div className={styles.downloadWarn}>
+              <p>接收邮箱: {paramsObj.userId}@sanlunds.com</p>
+              <p>
+                *底表包含
+                <i className={styles.dataInfo}>
+                  {' '}
+                  本{groupTypeZHDict[paramsObj.groupType]}所有学分维度数据
+                </i>
+              </p>
+              <p>(底线了质检除外)</p>
+            </div>
+          </Modal>
+        )}
+        {/* 返回结果弹框 */}
+        {isResultModal && (
+          <Modal
+            visible={isResultModal}
+            modelClass={styles.downLoadModal}
+            footer={[{ text: '确定', onPress: this.cannelResultModal }]}
+          >
+            <div className={styles.resultModal}>
+              <img src={rightIcon} className={styles.resultIcon} alt="成功" />
+              <h4 className={styles.resultSuccess}> 请求成功!</h4>
+              <p className={styles.resultEmilCheck}>请稍后到邮箱中查看底表</p>
+            </div>
+          </Modal>
+        )}
       </div>
     );
   }

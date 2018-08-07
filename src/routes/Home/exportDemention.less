@@ -102,10 +102,12 @@
   width: 2.6rem;
   height: 0.78rem;
   margin: 0.78rem auto;
-  background: #52c9c2;
+  background: #52c9c2 !important;
   text-align: center !important;
   font-size: 0.3rem;
   color: #fff;
+  padding-left: 0 !important;
+  line-height: 0.78rem;
 }
 .timeList :global(.am-button) {
   padding-left: 0 !important;
@@ -126,7 +128,37 @@
 }
 .downloadWarn {
   height: 1.56rem;
-  border: 1px solid red;
+  font-size: 0.26rem;
+  color: #6d6d75;
+  text-align: center;
+  line-height: 0.52rem;
+  .dataInfo {
+    font-style: normal;
+    color: red;
+    font-weight: 300;
+  }
+}
+.resultModal {
+  height: 2.6rem;
+  .resultIcon {
+    width: 0.86rem;
+    height: 0.86rem;
+    margin-top: 0.46rem;
+  }
+  .resultSuccess {
+    margin-top: 0.1rem;
+    font-size: 0.36rem;
+    color: #333;
+    text-align: center;
+    font-weight: 400;
+  }
+  .resultEmilCheck {
+    margin-top: 0.1rem;
+    font-size: 0.28rem;
+    color: #6d6d75;
+    text-align: center;
+    line-height: 0.46rem;
+  }
 }
 .downLoadModal :global(.am-modal-content) {
   padding: 0 !important;

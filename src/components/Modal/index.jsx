@@ -18,12 +18,17 @@ function closest(el, selector) {
 }
 
 export default class Dialog extends React.Component {
-  onClose = () => {
-    document.querySelector('#root').style.overflow = 'auto';
-    if (this.props.onClose) {
-      this.props.onClose();
-    }
-  };
+  // showModel(bol) {
+  //   if (this.props.showModel) {
+  //     this.props.showModel(bol);
+  //   }
+  //   if (!bol) {
+  //     document.querySelector('#root').style.overflow = 'auto';
+  //   } else {
+  //     this.overHide();
+  //   }
+  // }
+  //
 
   onWrapTouchStart = e => {
     // fix touch to scroll background page on iOS

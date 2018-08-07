@@ -46,8 +46,7 @@ class IndexPage extends React.Component {
     this.props.dispatch({
       type: 'home/getDownloadInfo',
       payload: {
-        userId: this.state.paramsObj.userId,
-        dataList,
+        ...dataList,
       },
     });
   };
@@ -160,6 +159,7 @@ class IndexPage extends React.Component {
         </div>
         {/* ***************导出数据置顶按钮************ */}
         <ExportDemention
+          paramsObj={paramsObj}
           getDownloadInfo={data => {
             this.getDownloadInfo(data);
           }}

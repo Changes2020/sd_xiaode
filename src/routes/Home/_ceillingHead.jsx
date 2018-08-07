@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatDate } from '../../utils/FormatDate';
 import styles from './IndexPage.less';
+import { scroll } from '../../utils/scroll';
 
 export default class Ceilling extends React.Component {
   componentDidMount() {
@@ -17,9 +18,8 @@ export default class Ceilling extends React.Component {
     this.Id = Id;
   };
   backTopFn = () => {
-    if (this.props.backTopFn) {
-      this.props.backTopFn();
-    }
+    const currentY = document.documentElement.scrollTop || document.body.scrollTop;
+    scroll(currentY, 0);
   };
   render() {
     const { paramsObj, userInfo } = this.props;
