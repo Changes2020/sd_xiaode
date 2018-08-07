@@ -36,7 +36,7 @@ export function dealWithRelativeData(arrXnow, arrXlast, groupId, key = 'val', ke
   return arrXnow;
 }
 
-export function flatten(data = []) {
+export function flatten(data = [], oId = undefined) {
   let jsonData = [];
   if (!data) {
     jsonData = [];
@@ -45,10 +45,17 @@ export function flatten(data = []) {
   }
 
   // 将树形结构转换成扁平结构
-  return jsonData.reduce((arr, { id, parentId, project, num, score, unit, dimensions = [] }) => {
-    const newArr = arr || [];
-    return newArr.concat([{ id, parentId, project, num, score, unit }], flatten(dimensions));
-  }, []);
+  return jsonData.reduce(
+    (arr, { id, parentId = undefined, project, num, score, unit, name, dimensions = [] }) => {
+      const newArr = arr || [];
+      const originId = oId === undefined ? id : oId;
+      return newArr.concat(
+        [{ id, parentId, project, num, score, unit, name, originId }],
+        flatten(dimensions, originId)
+      );
+    },
+    []
+  );
 }
 
 export function detailRelativeData(nowXdata = null, lastXData = null) {
@@ -63,26 +70,25 @@ export function detailRelativeData(nowXdata = null, lastXData = null) {
   }
 }
 
-export function traverseTree(data, chainData) {
+export function traverseTree(data, chainData, originId) {
   if (!data) {
     return;
   }
-  traverseNode(data, chainData);
+  traverseNode(data, chainData, originId);
   if (data.dimensions && data.dimensions.length > 0) {
     for (let i = 0; i < data.dimensions.length; i += 1) {
-      traverseTree(data.dimensions[i], chainData);
+      const newOriginId = originId === undefined ? data.dimensions[i].id : originId;
+      traverseTree(data.dimensions[i], chainData, newOriginId);
     }
   }
 }
 
-function traverseNode(n, chainData) {
+function traverseNode(n, chainData, originId) {
   const node = n;
-  for (let i = 0; i < chainData.length; i += 1) {
-    if (chainData[i].id === node.id) {
-      node.chain = chainData[i].chain;
-      break;
-    }
-  }
+  const handleObj = chainData.find(
+    item => item.id === node.id && item.parentId === node.parentId && item.originId === originId
+  );
+  node.chain = handleObj ? handleObj.chain : null;
 }
 function detailRelative(arrXnow, arrXlast, key = 'val', keyname = 'chain') {
   // 用于详情页面环比
@@ -95,6 +101,7 @@ function detailRelative(arrXnow, arrXlast, key = 'val', keyname = 'chain') {
         if (
           item.id === obj.id &&
           item.parentId === obj.parentId &&
+          item.originId === obj.originId &&
           item[key] !== null &&
           obj[key] !== null
         ) {

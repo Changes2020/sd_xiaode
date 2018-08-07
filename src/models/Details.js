@@ -129,15 +129,17 @@ export default {
       if (dataList === 'nodata') {
         return null;
       } else {
-        Object.keys(dataList).forEach(item => {
-          // 自考,壁垒,孵化器,如果没有值得花默认为null
-          if (dataList[item] === undefined) {
-            dataList[item] = null;
-          } else {
-            chainData = chainData === null ? null : chainData;
-            if (chainData) dataList[item] = detailRelativeData(dataList[item], chainData[item]);
-          }
-        });
+        Object.keys(dataList)
+          .slice(0, 1)
+          .forEach(item => {
+            // 自考,壁垒,孵化器,如果没有值得花默认为null
+            if (dataList[item] === undefined) {
+              dataList[item] = null;
+            } else {
+              chainData = chainData === null ? null : chainData;
+              if (chainData) dataList[item] = detailRelativeData(dataList[item], chainData[item]);
+            }
+          });
       }
 
       return { ...state, ...action.payload };
