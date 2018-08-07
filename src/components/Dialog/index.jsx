@@ -91,12 +91,11 @@ export default class Dialog extends React.Component {
           wrapClassName={styles.gwrapRoupModal}
         >
           <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
-            {children && (
-              <div className={styles.modalContent}>
-                {Array.isArray(children) ? [...children] : { ...children }}
-              </div>
-            )}
-
+            <div className={styles.modalContent}>
+              {children && Array.isArray(children)
+                ? [...this.props.children]
+                : { ...this.props.children }}
+            </div>
             <div className={styles.modalContentBottom} />
           </div>
         </Modal>

@@ -89,23 +89,22 @@ class _creditDialog extends React.Component {
     const { dataList, listData, tabkey, modelflag } = this.props;
 
     return (
-      <div>
-        <Dialog
-          visible={modelflag}
-          showModel={val => {
-            this.props.showModel(val);
-          }}
-          title={`请选择想要查看的${tabkey === 1 ? '学院' : tabkey === 2 ? '家族' : '小组'}`}
-        >
-          <div className={styles.flexContainer}>
-            {!dataList || dataList === 'nodata' ? (
-              <NoData showflag />
-            ) : (
-              this.setListItem(dataList, listData)
-            )}
-          </div>
-        </Dialog>
-      </div>
+      <Dialog
+        modelClass={styles.dialogWrap}
+        visible={modelflag}
+        showModel={val => {
+          this.props.showModel(val);
+        }}
+        title={`请选择想要查看的${tabkey === 1 ? '学院' : tabkey === 2 ? '家族' : '小组'}`}
+      >
+        <div className={styles.flexContainer}>
+          {!dataList || dataList === 'nodata' ? (
+            <NoData showflag />
+          ) : (
+            this.setListItem(dataList, listData)
+          )}
+        </div>
+      </Dialog>
     );
   }
 }
