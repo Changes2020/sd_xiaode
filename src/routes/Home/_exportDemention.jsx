@@ -14,7 +14,7 @@ export default class ExportDemention extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowModal: false,
+      isShowModal: true,
       selectedTime: [],
       dialogVisible: false,
     };
@@ -114,7 +114,13 @@ export default class ExportDemention extends React.Component {
           )}
         </div>
         {/* modal弹框 */}
-        <Modal visible={isShowModal} />
+        <Modal
+          visible={isShowModal}
+          modelClass={styles.downLoadModal}
+          footer={[{ text: '取消' }, { text: '确定' }]}
+        >
+          <div className={styles.downloadWarn} />
+        </Modal>
       </div>
     );
   }

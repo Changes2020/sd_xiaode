@@ -16,6 +16,7 @@ function closest(el, selector) {
   }
   return null;
 }
+
 export default class Dialog extends React.Component {
   onClose = () => {
     document.querySelector('#root').style.overflow = 'auto';
@@ -46,11 +47,8 @@ export default class Dialog extends React.Component {
   };
 
   render() {
-    const { visible, modelClass = '', cotainerClass = '', children = null } = this.props;
+    const { visible, modelClass = '', children = null } = this.props;
     const newModelClass = modelClass ? classNames(styles.normal, modelClass) : styles.groupModal;
-    const newFlexContainer = cotainerClass
-      ? classNames(styles.normal, cotainerClass)
-      : styles.flexContainer;
     if (visible) {
       this.overHide(visible);
     }
@@ -65,9 +63,9 @@ export default class Dialog extends React.Component {
           wrapClassName={styles.gwrapRoupModal}
           footer={this.renderFoot()}
         >
-          <div className={newFlexContainer}>
-            <div className={styles.modalContent}>{children && { ...this.props.children }}</div>
-          </div>
+          {children && Array.isArray(children)
+            ? [...this.props.children]
+            : { ...this.props.children }}
         </Modal>
       </div>
     ) : null;
