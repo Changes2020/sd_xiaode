@@ -12,25 +12,21 @@ import NoData from '../../components/NoData/NoData';
 import CeillingHead from './_ceillingHead';
 import ExportDemention from './_exportDemention';
 
-const userInfo = getItem('userInfo').value || {};
-const allOrgMap = getItem('allOrgMap').value || {};
-
 class IndexPage extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
     const { startTime, endTime } = defaultDateTime();
-    const { groupId, userId } = userInfo;
     const initState = {
       paramsObj: {
         startTime, // 过滤开始时间
         endTime, // 过滤结束时间
-        userId,
+        userId: null,
         creditType: 1, // 均分类型1为学分均分2正面均分,3负面均分
         groupType: 1, // 1:学院，2:家族，3:小组
         rankType: 1, // 1:集团，2:院内，3:null
         dateType: 3, // 1:周均,2:月均,3:自定义
-        filteKeyID: groupId, // 登录用户id
+        filteKeyID: null, // 登录用户id
       },
       creditShowType: 'rank',
       visible: true,
@@ -39,7 +35,16 @@ class IndexPage extends React.Component {
   }
   componentDidMount() {
     const { paramsObj } = this.state;
-    this.fnGetData(paramsObj);
+    // 解决异步请求数据,未加载用户信息未存储
+    const userInfo = getItem('userInfo').value || {};
+    const { userId } = userInfo;
+    const filteKeyID = userInfo.groupId;
+    const sendParamsObj = {
+      ...paramsObj,
+      filteKeyID,
+      userId,
+    };
+    this.fnGetData(sendParamsObj);
   }
 
   getDownloadInfo = dataList => {
@@ -54,13 +59,12 @@ class IndexPage extends React.Component {
     // 用于数据请求方法
     // 用于数据的请求
     // 排名和趋势参数不用于请求数据,需要过滤出来
+
     const { paramsObj, creditShowType } = this.state;
     const iscreditShowType = 'creditShowType' in ops;
     const sendParams = {
       paramsObj: assignUrlParams(paramsObj, ops),
       creditShowType: iscreditShowType ? ops.creditShowType : creditShowType,
-      userInfo,
-      allOrgMap,
     };
     this.props.dispatch({
       type: sendParams.creditShowType === 'rank' ? 'home/fetchRank' : 'home/fetchTrend',
@@ -134,7 +138,7 @@ class IndexPage extends React.Component {
     return (
       <div className={styles.normal}>
         {/* ************数据中心吸顶信息************** */}
-        <CeillingHead paramsObj={{ ...paramsObj, creditShowType }} userInfo={userInfo} />
+        <CeillingHead paramsObj={{ ...paramsObj, creditShowType }} />
         {/* ************轮播组件********************* */}
         <Banner />
         {/* ************过滤组件********************* */}
