@@ -12,7 +12,6 @@ import Modal from '../../components/Modal';
 import rightIcon from '../../assets/right.svg';
 import { getItem } from '../../utils/localStorage';
 
-const userInfo = getItem('userInfo').value || {};
 export default class ExportDemention extends React.Component {
   constructor(props) {
     super(props);
@@ -47,6 +46,11 @@ export default class ExportDemention extends React.Component {
         isShowModal: false,
       });
     }
+  };
+  getGroupType = () => {
+    const userInfo = getItem('userInfo').value || {};
+    const { groupType } = userInfo;
+    return groupType;
   };
   createRef = Id => {
     this.Id = Id;
@@ -128,8 +132,9 @@ export default class ExportDemention extends React.Component {
 
   render() {
     const { dialogVisible, isShowModal, isResultModal } = this.state;
-    const { groupType } = userInfo;
+
     const { paramsObj } = this.props;
+    const groupType = this.getGroupType();
     const isShowDownload =
       groupType === 'college' || groupType === 'family' || groupType === 'group';
     return (

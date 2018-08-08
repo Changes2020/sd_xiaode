@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Redirect, Switch, Route } from 'dva/router';
 import { getRoutes } from '../utils/routerUtils';
 import { getItem } from '../utils/localStorage';
+import Loading from '../components/Loading/Loading';
 
 class BaseLayout extends React.Component {
   render() {
@@ -12,23 +13,23 @@ class BaseLayout extends React.Component {
     const allOrgMap = getItem('allOrgMap').value;
     return (
       <div>
-        {userInfo &&
-          timeDate &&
-          allOrgMap && (
-            <Switch>
-              {getRoutes(match.path, routerData).map(item => (
-                <Route
-                  key={item.key}
-                  path={item.path}
-                  component={item.component}
-                  exact={item.exact}
-                  authority={item.authority}
-                  redirectPath="/exception/403"
-                />
-              ))}
-              <Redirect from="/" to="/indexPage" />
-            </Switch>
-          )}
+        {userInfo && timeDate && allOrgMap ? (
+          <Switch>
+            {getRoutes(match.path, routerData).map(item => (
+              <Route
+                key={item.key}
+                path={item.path}
+                component={item.component}
+                exact={item.exact}
+                authority={item.authority}
+                redirectPath="/exception/403"
+              />
+            ))}
+            <Redirect from="/" to="/indexPage" />
+          </Switch>
+        ) : (
+          <Loading />
+        )}
       </div>
     );
   }
