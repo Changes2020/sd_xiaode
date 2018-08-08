@@ -38,10 +38,10 @@
 }
 .modelClass {
   width: 7.5rem !important;
-  height: 50vh !important;
+  // max-height: 50vh !important;
   overflow: hidden;
   position: absolute !important;
-  bottom: 0;
+  bottom: -7px;
 }
 .groupModal:global(.am-modal) {
   height: 100px !important;
@@ -55,11 +55,14 @@
   margin-left: 0.2rem;
 }
 .flexContainer {
-  height: 50vh;
+  max-height: 50vh;
 }
-
+.modelClass :global(.am-modal-content) {
+  padding-bottom: 0 !important;
+}
 .downloadWWW :global(.am-modal-transparent .am-modal-content) {
   padding-top: 1.33rem !important;
+  padding-bottom: 0 !important;
 }
 .timeList {
   width: 6.9rem;
@@ -110,7 +113,7 @@
 .nextStep {
   width: 2.6rem;
   height: 0.78rem;
-  margin: 0.78rem auto;
+  margin: 0.78rem auto 0.48rem;
   background: #52c9c2 !important;
   text-align: center !important;
   font-size: 0.3rem;
@@ -118,9 +121,9 @@
   padding-left: 0 !important;
   line-height: 0.78rem;
 }
-.timeList :global(.am-button) {
-  padding-left: 0 !important;
-}
+// .timeList :global(.am-button) {
+// padding-left: 0 !important;
+// }
 .downLoadModal {
   width: 5.94rem !important;
   box-sizing: border-box;
