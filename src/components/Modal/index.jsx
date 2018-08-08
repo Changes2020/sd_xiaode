@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd-mobile';
 import classNames from 'classnames';
+// import { fixModal } from './fixModel';
 
 import styles from './index.less';
 
@@ -29,6 +30,9 @@ export default class Dialog extends React.Component {
   //   }
   // }
   //
+  componentDidMount() {
+    // fixModal()
+  }
 
   onWrapTouchStart = e => {
     // fix touch to scroll background page on iOS
