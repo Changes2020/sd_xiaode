@@ -10,6 +10,7 @@ import {
 } from '../services/api';
 import { highLightData } from '../utils/dimensionAuthority';
 import typeDict from '../utils/typeDict';
+import { getItem } from '../utils/localStorage';
 
 export default {
   namespace: 'home',
@@ -33,7 +34,8 @@ export default {
   effects: {
     *fetchRank({ payload }, { call, put }) {
       // 排名接口
-      const { userInfo, allOrgMap, paramsObj, creditShowType } = payload;
+      const { paramsObj, creditShowType } = payload;
+
       const relativeParams = isRequestRelative(paramsObj, paramsObj.dateType); // 环比请求参数,当时间不合法时返回null,不予请求
       const rankDataObj = yield call(getCreditRankAvgList, { ...paramsObj });
       if (rankDataObj.code === 2000) {
@@ -41,7 +43,7 @@ export default {
           relativeParams !== null ? yield call(getCreditRankAvgList, { ...relativeParams }) : null;
         yield put({
           type: 'saveRank',
-          payload: { rankDataObj, paramsObj, creditShowType, chainData, userInfo, allOrgMap },
+          payload: { rankDataObj, paramsObj, creditShowType, chainData },
         });
       } else {
         Message.fail(rankDataObj.msg);
@@ -143,7 +145,9 @@ export default {
 
   reducers: {
     saveRank(state, { payload }) {
-      const { paramsObj, creditShowType, userInfo, allOrgMap } = payload;
+      const { paramsObj, creditShowType } = payload;
+      const allOrgMap = getItem('allOrgMap').value || [];
+      const userInfo = getItem('userInfo').value || {};
       const orgObj = highLightData(allOrgMap, userInfo.groupId, userInfo.groupType);
       const rankDataObj = payload.rankDataObj.data === null ? {} : payload.rankDataObj.data;
       const chainData =

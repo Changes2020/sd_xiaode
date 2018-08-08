@@ -2,6 +2,7 @@ import React from 'react';
 import { formatDate } from '../../utils/FormatDate';
 import styles from './IndexPage.less';
 import { scroll } from '../../utils/scroll';
+import { getItem } from '../../utils/localStorage';
 
 export default class Ceilling extends React.Component {
   componentDidMount() {
@@ -22,7 +23,8 @@ export default class Ceilling extends React.Component {
     scroll(currentY, 0);
   };
   render() {
-    const { paramsObj, userInfo } = this.props;
+    const { paramsObj } = this.props;
+    const userInfo = getItem('userInfo').value || {};
     const groupTypeP = userInfo.groupType;
     return (
       <div className={styles.topBarCls} ref={this.createRef} onClick={this.backTopFn}>
