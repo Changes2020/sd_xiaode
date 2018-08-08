@@ -19,20 +19,25 @@ function closest(el, selector) {
 }
 
 export default class Dialog extends React.Component {
-  // showModel(bol) {
-  //   if (this.props.showModel) {
-  //     this.props.showModel(bol);
+  // componentDidMount() {
+  //   const {visible}=this.props;
+  //   if(visible){
+  //     fixModal()
   //   }
-  //   if (!bol) {
-  //     document.querySelector('#root').style.overflow = 'auto';
-  //   } else {
-  //     this.overHide();
+  //
+  // }
+  // componentWillReceiveProps(nextProps) {
+  //   if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
+  //     if(nextProps.visible){
+  //       fixModal()
+  //     }else{
+  //       fixModal(true)
+  //     }
   //   }
   // }
-  //
-  componentDidMount() {
-    // fixModal()
-  }
+  // componentWillUnmount(){
+  //   fixModal(true);   // 将touch事件remove掉
+  // }
 
   onWrapTouchStart = e => {
     // fix touch to scroll background page on iOS

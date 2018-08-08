@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Icon } from 'antd-mobile';
 import classNames from 'classnames';
+// import { fixModal } from './fixModel';
 
 import styles from './index.less';
 
@@ -22,6 +23,25 @@ function closest(el, selector) {
   return null;
 }
 export default class Dialog extends React.Component {
+  // componentDidMount() {
+  //   const {visible}=this.props;
+  //   if(visible){
+  //     fixModal()
+  //   }
+  //
+  // }
+  // componentWillReceiveProps(nextProps) {
+  //   if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
+  //     if(nextProps.visible){
+  //       fixModal()
+  //     }else{
+  //       fixModal(true)
+  //     }
+  //   }
+  // }
+  // componentWillUnmount(){
+  //   fixModal(true);   // 将touch事件remove掉
+  // }
   onWrapTouchStart = e => {
     // fix touch to scroll background page on iOS
     if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
@@ -33,13 +53,14 @@ export default class Dialog extends React.Component {
     }
   };
   showModel(bol) {
-    if (this.props.showModel) {
-      this.props.showModel(bol);
-    }
     if (!bol) {
+      // fixModal(true);
       document.querySelector('#root').style.overflow = 'auto';
     } else {
       this.overHide();
+    }
+    if (this.props.showModel) {
+      this.props.showModel(bol);
     }
   }
 
