@@ -16,7 +16,7 @@ export default class ExportDemention extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isResultModal: false,
+      isResultModal: true,
       isShowModal: false,
       selectedTime: [],
       dialogVisible: false,
