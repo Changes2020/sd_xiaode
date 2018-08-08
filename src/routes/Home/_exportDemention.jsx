@@ -185,7 +185,7 @@ export default class ExportDemention extends React.Component {
                   本{{ college: '学院', family: '家族', group: '小组' }[groupType]}所有学分维度数据
                 </i>
               </p>
-              <p>(底线了质检除外)</p>
+              <p>(底线和质检除外)</p>
             </div>
           </Modal>
         )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd-mobile';
 import classNames from 'classnames';
-// import { fixModal } from './fixModel';
+import { fixModal } from '../../utils/fixModel';
 
 import styles from './index.less';
 
@@ -19,26 +19,18 @@ function closest(el, selector) {
 }
 
 export default class Dialog extends React.Component {
-  // componentDidMount() {
-  //   const {visible}=this.props;
-  //   if(visible){
-  //     fixModal()
-  //   }
-  //
-  // }
-  // componentWillReceiveProps(nextProps) {
-  //   if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
-  //     if(nextProps.visible){
-  //       fixModal()
-  //     }else{
-  //       fixModal(true)
-  //     }
-  //   }
-  // }
-  // componentWillUnmount(){
-  //   fixModal(true);   // 将touch事件remove掉
-  // }
-
+  componentDidMount() {
+    const { visible } = this.props;
+    this.handleTouch(!visible);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
+      this.handleTouch(!nextProps.visible);
+    }
+  }
+  componentWillUnmount() {
+    this.handleTouch(true); // 将touch事件remove掉
+  }
   onWrapTouchStart = e => {
     // fix touch to scroll background page on iOS
     if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
@@ -49,8 +41,13 @@ export default class Dialog extends React.Component {
       e.preventDefault();
     }
   };
-  overHide = () => {
-    document.querySelector('#root').style.overflow = 'hidden';
+  handleTouch = bol => {
+    fixModal(bol);
+    if (bol) {
+      document.querySelector('#root').style.overflow = 'auto';
+    } else {
+      document.querySelector('#root').style.overflow = 'hidden';
+    }
   };
   renderFoot = () => {
     const footer = this.props.footer || [];
@@ -63,9 +60,6 @@ export default class Dialog extends React.Component {
   render() {
     const { visible, modelClass = '', children = null } = this.props;
     const newModelClass = modelClass ? classNames(styles.normal, modelClass) : styles.groupModal;
-    if (visible) {
-      this.overHide(visible);
-    }
     return visible ? (
       <div className={styles.normal}>
         <Modal

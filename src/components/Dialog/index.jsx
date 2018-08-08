@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Icon } from 'antd-mobile';
 import classNames from 'classnames';
-// import { fixModal } from './fixModel';
+import { fixModal } from '../../utils/fixModel';
 
 import styles from './index.less';
 
@@ -23,25 +23,18 @@ function closest(el, selector) {
   return null;
 }
 export default class Dialog extends React.Component {
-  // componentDidMount() {
-  //   const {visible}=this.props;
-  //   if(visible){
-  //     fixModal()
-  //   }
-  //
-  // }
-  // componentWillReceiveProps(nextProps) {
-  //   if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
-  //     if(nextProps.visible){
-  //       fixModal()
-  //     }else{
-  //       fixModal(true)
-  //     }
-  //   }
-  // }
-  // componentWillUnmount(){
-  //   fixModal(true);   // 将touch事件remove掉
-  // }
+  componentDidMount() {
+    const { visible } = this.props;
+    this.handleTouch(!visible);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
+      this.handleTouch(!nextProps.visible);
+    }
+  }
+  componentWillUnmount() {
+    this.handleTouch(true); // 将touch事件remove掉
+  }
   onWrapTouchStart = e => {
     // fix touch to scroll background page on iOS
     if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
@@ -52,21 +45,21 @@ export default class Dialog extends React.Component {
       e.preventDefault();
     }
   };
-  showModel(bol) {
-    if (!bol) {
-      // fixModal(true);
+  handleTouch = bol => {
+    fixModal(bol);
+    if (bol) {
       document.querySelector('#root').style.overflow = 'auto';
     } else {
-      this.overHide();
+      document.querySelector('#root').style.overflow = 'hidden';
     }
+  };
+  showModel(bol) {
+    this.handleTouch(!bol);
     if (this.props.showModel) {
       this.props.showModel(bol);
     }
   }
 
-  overHide = () => {
-    document.querySelector('#root').style.overflow = 'hidden';
-  };
   renderHeadElement(title) {
     let ReturnDom = null;
     if (typeof title === 'string') {
@@ -97,9 +90,6 @@ export default class Dialog extends React.Component {
     const newFlexContainer = cotainerClass
       ? classNames(styles.normal, cotainerClass)
       : styles.flexContainer;
-    if (visible) {
-      this.overHide(visible);
-    }
     return visible ? (
       <div className={styles.dialog}>
         <Modal
@@ -111,7 +101,7 @@ export default class Dialog extends React.Component {
           className={newModelClass}
           wrapClassName={styles.gwrapRoupModal}
         >
-          <div className={newFlexContainer} style={{ overflowY: 'scroll' }}>
+          <div className={`${newFlexContainer} scroller`} style={{ overflowY: 'scroll' }}>
             {children && (
               <div className={styles.modalContent}>
                 {children && Array.isArray(children)
