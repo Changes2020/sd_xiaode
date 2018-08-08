@@ -27,7 +27,24 @@ export default class Bar extends React.Component {
   };
   drawChart(nextProps = this.props) {
     const { dataSource } = nextProps;
+    /* *********默认显示最后一条数据的tip***** */
+    const len = dataSource.series[0].data.length;
     this.myChart.clear();
+    if (this.props.showDefaultTip) {
+      setTimeout(() => {
+        this.myChart.dispatchAction({
+          type: 'highlight',
+          dataIndex: len - 1,
+        });
+        this.myChart.dispatchAction({
+          type: 'showTip',
+          seriesIndex: 0,
+          dataIndex: len - 1,
+        });
+      }, 10);
+    }
+
+    /* ****************结束******************** */
     this.myChart.setOption(dataSource);
     this.myChart.resize();
   }

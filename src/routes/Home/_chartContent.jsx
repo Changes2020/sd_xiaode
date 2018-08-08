@@ -110,7 +110,13 @@ export default class ChartContent extends React.Component {
           this.toDetailPage();
         }}
       >
-        <LineChart height="400px" key={keyname} data={data} dataSource={dataSource} />
+        <LineChart
+          height="400px"
+          key={keyname}
+          data={data}
+          dataSource={dataSource}
+          showDefaultTip
+        />
         <div>{groupList.length > 0 && this.renderGroupList(groupList, keyname)}</div>
         {isShowAllBtn && (
           <div className={styles.checkAllGroup} onClick={() => this.lookAllGroup(keyname)}>
