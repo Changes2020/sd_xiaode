@@ -6,7 +6,7 @@
 export function scroll(currentY, targetY) {
   // 计算需要移动的距离
   const needScrollTop = targetY - currentY;
-  const stepNum = 15;
+  const stepNum = 35;
   let _currentY = currentY;
   const time = setTimeout(() => {
     // 一次调用滑动帧数，每次调用会不一样

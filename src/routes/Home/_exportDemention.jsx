@@ -141,11 +141,11 @@ export default class ExportDemention extends React.Component {
       <div>
         <div className={styles.floatCotainer}>
           <p className={styles.topBtn} ref={this.createRef} onClick={this.toBackTop}>
-            <img src={top} alt="回到顶部" />
+            <img className={styles.imgTop} src={top} alt="回到顶部" />
           </p>
           {isShowDownload && (
             <p className={styles.downloadBtn} onClick={this.showModel.bind(this, true)}>
-              <img src={download} alt="下载" />
+              <img className={styles.imgDown} src={download} alt="下载" />
             </p>
           )}
         </div>

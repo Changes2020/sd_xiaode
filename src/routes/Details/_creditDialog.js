@@ -1,5 +1,4 @@
 import React from 'react';
-import { scroll } from '../../utils/scroll';
 import typeDict from '../../utils/typeDict';
 import Dialog from '../../components/Dialog/index';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
@@ -94,7 +93,7 @@ class _creditDialog extends React.Component {
             height = document.getElementById(`rowId${len}`).offsetTop + addHeight;
           }
 
-          scroll(0, height);
+          window.scrollTo(0, height);
         }
       }
     }
