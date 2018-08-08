@@ -25,6 +25,10 @@ export default class Filter extends React.Component {
       isShowCollegaRank: false,
     };
   }
+  componentDidMount() {
+    const { paramsObj = {} } = this.props;
+    this.fnCheckShowRank(paramsObj);
+  }
   onSelectRank = value => {
     const { paramsObj } = this.props;
     if (value !== paramsObj.rankType) {

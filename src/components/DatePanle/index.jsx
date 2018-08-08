@@ -86,7 +86,6 @@ export default class DatePanle extends React.Component {
   };
   render() {
     const { selectData, visible, minDate, maxDate, dataExList, dateType, dateText } = this.state;
-    console.log(dataExList);
     const defaultValue = typeDict.dateTypeDict[dateType];
     return (
       <Flex justify="arround" className={styles.container}>
