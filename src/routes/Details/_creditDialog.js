@@ -41,7 +41,7 @@ class _creditDialog extends React.Component {
       );
       return domTmp;
     });
-    return <ul className={styles.buttonul}>{liList}</ul>;
+    return <ul className={`${styles.buttonul} scroller`}>{liList}</ul>;
   };
   dataFormt = data => {
     const list = [];
@@ -112,11 +112,11 @@ class _creditDialog extends React.Component {
         }}
         title={`请选择想要查看的${typeDict.groupTypeZHDict[tabkey]}`}
       >
-        <div className={styles.flexContainer}>
+        <div className={`${styles.flexContainer}`}>
           {!dataList || dataList === 'nodata' ? (
             <NoData showflag />
           ) : (
-            this.setListItem(dataList, listData)
+            <div className="scroller">{this.setListItem(dataList, listData)}</div>
           )}
         </div>
       </Dialog>

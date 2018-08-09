@@ -17,7 +17,7 @@ const groupTypeData = Object.keys(groupTypeZHDict).map(id => ({
   id: Number(id),
   title: groupTypeZHDict[id],
 }));
-const userInfo = getItem('userInfo').value || {};
+
 export default class Filter extends React.Component {
   constructor(props) {
     super(props);
@@ -60,13 +60,15 @@ export default class Filter extends React.Component {
   };
   fnCheckShowRank = paramsObj => {
     // 判断集团排名院内排名是否出现
+    const userInfo = getItem('userInfo').value || {};
     const { isShowCollegaRank } = this.state;
-    const { filteKeyID, groupType, creditShowType } = paramsObj; // 获取用户权限
+    const { groupType, creditShowType } = paramsObj; // 获取用户权限
     const groupTypeP = userInfo.groupType; // 获取用户权限
+    const { groupId = null } = userInfo;
     if (
       groupTypeP === 'boss' ||
       groupTypeP === 'admin' ||
-      filteKeyID === null ||
+      groupId === null ||
       creditShowType === 'trend' ||
       groupType === 1
     ) {
