@@ -104,7 +104,7 @@ export function checkoutNextDay() {
     .valueOf();
   if (moment(dayTime).isBefore(nowTmpFormat)) {
     /*
-    *选择默认日期小于t-1 
+    *选择默认日期小于t-1
     */
     if (
       moment(dayTime).isBefore(t1DateTime) ||

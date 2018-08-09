@@ -43,7 +43,9 @@ export default class Ceilling extends React.Component {
         {paramsObj.groupType === 1 ? ' | 学院' : paramsObj.groupType === 2 ? ' | 家族' : ' | 小组'}
         {groupTypeP === 'boss' || groupTypeP === 'admin'
           ? ''
-          : paramsObj.rankType === 1 ? '| 集团排名' : paramsObj.rankType === 2 ? '| 院内排名' : ''}
+          : paramsObj.rankType === 1
+            ? ' | 集团排名'
+            : paramsObj.rankType === 2 ? ' | 院内排名' : ''}
       </div>
     );
   }
