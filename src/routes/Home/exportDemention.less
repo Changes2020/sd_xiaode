@@ -150,32 +150,49 @@
     font-weight: 300;
   }
 }
-.resultModal {
-  height: 2.6rem;
-  .resultIcon {
-    width: 0.86rem;
-    height: 0.86rem;
-    margin-top: 0.46rem;
-  }
-  .resultSuccess {
-    margin-top: 0.1rem;
-    font-size: 0.36rem;
-    color: #333;
-    text-align: center;
-    font-weight: 400;
-  }
+
+.downLoadResultModal {
+  &:extend(.downLoadModal);
+  width: 6.14rem !important;
+  height: 4.54rem;
+}
+
+.resultIcon {
+  width: 0.86rem;
+  height: 0.86rem;
+  margin-top: 0.5rem;
+}
+.resultSuccess {
+  margin-top: 0.32rem;
+  font-size: 0.36rem;
+  color: #333;
+  text-align: center;
+  font-weight: 400;
+}
+.textContainer {
+  width: 5.1rem;
+  height: 0.92rem;
+  margin: 0.2rem auto;
+  line-height: 0.46rem;
   .resultEmilCheck {
-    margin-top: 0.1rem;
     font-size: 0.28rem;
     color: #6d6d75;
     text-align: center;
-    line-height: 0.46rem;
   }
+}
+
+.downLoadResultModal :global(.am-modal-content) {
+  padding: 0 !important;
+}
+.downLoadResultModal :global(.am-modal-body) {
+  height: 3.54rem !important;
+  box-sizing: border-box;
+  line-height: 1;
 }
 .downLoadModal :global(.am-modal-content) {
   padding: 0 !important;
 }
 .downLoadModal :global(.am-modal-body) {
-  height: 2.97rem !important;
+  height: 3.1rem !important;
   box-sizing: border-box;
 }
