@@ -24,7 +24,6 @@ let data = {
 };
 function onTouchStart(e) {
   const scroller = closest(e.target, '.scroller');
-  console.log(scroller);
   if (!scroller) return;
   data.scroller = scroller;
   // 垂直位置标记
