@@ -27,6 +27,9 @@ export default class Bar extends React.Component {
   };
   drawChart(nextProps = this.props) {
     const { dataSource } = nextProps;
+    if (!this.myChart) {
+      this.initChart();
+    }
     this.myChart.clear();
     this.myChart.setOption(dataSource);
     this.myChart.resize();

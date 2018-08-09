@@ -122,11 +122,12 @@ export default class ChartFilter extends React.Component {
   };
 
   render() {
-    const { buttonData = [], trendData = null, dementionId = null } = this.props;
+    const { buttonData = [], trendData = null } = this.props;
+    const { data = null } = trendData;
     return (
       <TrendChart
         dataSource={!buttonData ? [] : this.chartDataFun(buttonData, trendData)}
-        data={dementionId}
+        data={data}
         width="7.1rem"
         height="6rem"
       />

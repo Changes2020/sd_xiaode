@@ -177,7 +177,7 @@ export default class ExportDemention extends React.Component {
           >
             <p className={styles.downLoadTitle}>是否确定发送底表？</p>
             <div className={styles.downloadWarn}>
-              <p>接收邮箱: {paramsObj.userId}@sanlunds.com</p>
+              <p>接收邮箱: {paramsObj.userId}@sunlands.com</p>
               <p>
                 *底表包含
                 <i className={styles.dataInfo}>

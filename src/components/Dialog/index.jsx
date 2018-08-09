@@ -101,16 +101,14 @@ export default class Dialog extends React.Component {
           className={newModelClass}
           wrapClassName={styles.gwrapRoupModal}
         >
-          <div className={`${newFlexContainer} scroller`} style={{ overflowY: 'scroll' }}>
-            {children && (
-              <div className={styles.modalContent}>
-                {children && Array.isArray(children)
-                  ? [...this.props.children]
-                  : { ...this.props.children }}
-              </div>
-            )}
-            <div className={styles.modalContentBottom} />
-          </div>
+          {children && (
+            <div className={`${newFlexContainer} scroller`} style={{ overflowY: 'scroll' }}>
+              {children && Array.isArray(children)
+                ? [...this.props.children]
+                : { ...this.props.children }}
+              <div className={styles.modalContentBottom} />
+            </div>
+          )}
         </Modal>
       </div>
     ) : null;
