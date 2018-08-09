@@ -4,7 +4,6 @@ import { getItem } from '../../utils/localStorage';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { dimensionAuthority, highLightData } from '../../utils/dimensionAuthority';
 import Filter from './_filter';
-import { scroll } from '../../utils/scroll';
 import top from '../../assets/top.svg';
 import search from '../../assets/search.svg';
 import NoData from '../../components/NoData/NoData';
@@ -215,8 +214,9 @@ class CreditDetails extends React.Component {
         <div
           className={`${styles.floatIcon} ${styles.goTopCls}`}
           onClick={() => {
-            const currentY = document.documentElement.scrollTop || document.body.scrollTop;
-            scroll(currentY, 0);
+            window.scrollTo(0, 0);
+            // const currentY = document.documentElement.scrollTop || document.body.scrollTop;
+            // scroll(currentY, 0);
           }}
           id="backTopBtn"
         >

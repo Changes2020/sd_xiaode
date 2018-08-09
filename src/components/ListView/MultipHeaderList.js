@@ -14,7 +14,6 @@ import React, { Component } from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { ListView } from 'antd-mobile';
 import classNames from 'classnames';
-import { scroll } from '../../utils/scroll';
 import RenderAssistantHeader from '../AssistantDetail/RenderHeader';
 import RenderAssistantItem from '../AssistantDetail/RenderItem';
 import RenderCreditHeader from '../CreditDetail/RenderHeader';
@@ -75,8 +74,9 @@ class MultipHeaderList extends Component {
             <div
               className="sticky"
               onClick={() => {
-                const currentY = document.documentElement.scrollTop || document.body.scrollTop;
-                scroll(currentY, 0);
+                window.scrollTo(0, 0);
+                // const currentY = document.documentElement.scrollTop || document.body.scrollTop;
+                // scroll(currentY, 0);
               }}
               style={{ ...style, zIndex: 4, backgroundColor: this.headerBgColor() }}
             >
