@@ -87,7 +87,7 @@ export default class Filter extends React.Component {
       <div className={styles.filterCntainer}>
         <Flex className={styles.hintContainer}>
           <p className={styles.hintTitle}>数据中心</p>
-          <p className={styles.hintContent}>每天13:30发布昨日数据</p>
+          <p className={styles.hintContent}>每天下午发布昨日数据</p>
         </Flex>
         {/*  时间控件  */}
         <DatePanle
