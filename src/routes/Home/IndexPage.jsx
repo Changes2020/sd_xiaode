@@ -36,15 +36,7 @@ class IndexPage extends React.Component {
   componentDidMount() {
     const { paramsObj } = this.state;
     // 解决异步请求数据,未加载用户信息未存储
-    const userInfo = getItem('userInfo').value || {};
-    const { userId } = userInfo;
-    const filteKeyID = userInfo.groupId;
-    const sendParamsObj = {
-      ...paramsObj,
-      filteKeyID,
-      userId,
-    };
-    this.fnGetData(sendParamsObj);
+    this.fnGetData(paramsObj);
   }
 
   getDownloadInfo = dataList => {
@@ -55,16 +47,26 @@ class IndexPage extends React.Component {
       },
     });
   };
+  getUserInfo = () => {
+    //  此方法用于异步请求数据造成userId,以及groupId获取不到的问题
+    const userInfo = getItem('userInfo').value || {};
+    const { userId } = userInfo;
+    const filteKeyID = userInfo.groupId;
+    return { userId, filteKeyID };
+  };
   fnGetData(ops = {}) {
     // 用于数据请求方法
     // 用于数据的请求
     // 排名和趋势参数不用于请求数据,需要过滤出来
-
     const { paramsObj, creditShowType } = this.state;
-    const iscreditShowType = 'creditShowType' in ops;
+    let newOps = ops;
+    if (!paramsObj.userId || !paramsObj.filteKeyID) {
+      newOps = Object.assign({}, ops, this.getUserInfo());
+    }
+    const iscreditShowType = 'creditShowType' in newOps;
     const sendParams = {
-      paramsObj: assignUrlParams(paramsObj, ops),
-      creditShowType: iscreditShowType ? ops.creditShowType : creditShowType,
+      paramsObj: assignUrlParams(paramsObj, newOps),
+      creditShowType: iscreditShowType ? newOps.creditShowType : creditShowType,
     };
     this.props.dispatch({
       type: sendParams.creditShowType === 'rank' ? 'home/fetchRank' : 'home/fetchTrend',
