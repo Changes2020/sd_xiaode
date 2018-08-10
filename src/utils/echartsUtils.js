@@ -130,7 +130,7 @@ export function tooltipFormate(params) {
     const { seriesName, value } = params[i];
     str += `<span style="display: inline-block;margin-top: 0.08rem"><a style="width:0.09rem;height: 0.09rem;margin-right:0.1rem;color:${
       params[i].color
-    }">●</a>${seriesName}:${' '}${value}</span><br />`;
+    }">●</a>${seriesName}:${' '}${value || 0}</span><br />`;
   }
   return str;
 }
