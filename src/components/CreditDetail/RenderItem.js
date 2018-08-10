@@ -39,23 +39,25 @@ class RenderItem extends React.Component {
       return n;
     }
   };
-  toggleClick = (k, bol) => {
-    let n = k;
-    const { dataList } = this.props;
-    Object.keys(dataList).map(item => {
-      dataList[item].forEach(el => {
-        n += 1;
-        if (document.getElementById(`rowId${n}`)) {
-          if (
-            document.getElementById(`rowId${n}`).getAttribute('dataid') ===
-            `${el.familyType}${el.id}`
-          ) {
-            this.setState({ isShowDetail: bol });
-          }
-        }
-      });
-      return dataList;
-    });
+  toggleClick = () => {
+    const { isShowDetail } = this.state;
+    this.setState({ isShowDetail: !isShowDetail });
+    // let n = k;
+    // const { dataList } = this.props;
+    // Object.keys(dataList).map(item => {
+    //   dataList[item].forEach(el => {
+    //     n += 1;
+    //     if (document.getElementById(`rowId${n}`)) {
+    //       if (
+    //         document.getElementById(`rowId${n}`).getAttribute('dataid') ===
+    //         `${el.familyType}${el.id}`
+    //       ) {
+    //         this.setState({ isShowDetail: bol });
+    //       }
+    //     }
+    //   });
+    //   return dataList;
+    // });
   };
   render() {
     const { rowData, jump2Data } = this.props;
