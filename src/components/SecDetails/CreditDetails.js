@@ -92,24 +92,22 @@ class SecDetails extends Component {
             <ul className={styles.ulCss}>
               {rowData.dimensions.length === 0
                 ? null
-                : Object.keys(rowData.dimensions[0].dimensions).map((key, index) => {
-                    const dataList = rowData.dimensions[0].dimensions[index];
+                : rowData.dimensions[0].dimensions.map((key, index) => {
+                    const n = index + 1;
                     return (
-                      <li key={`fir${key}`} className={styles.liCssFir}>
+                      <li key={`fir${n}`} className={styles.liCssFir}>
                         <div className={styles.tableCss}>
                           <div className={styles.leftCss}>{`${index + 1}`}</div>
-                          <div className={styles.proCss2}>{dataList.name}</div>
-                          <div className={styles.equableCss}>{dataList.score.toFixed(2)}</div>
+                          <div className={styles.proCss2}>{key.name}</div>
+                          <div className={styles.equableCss}>{key.score.toFixed(2)}</div>
                           <div className={styles.ringRatioCss}>
-                            {this.showChain(dataList.chain)}
-                            {dataList.chain || dataList.chain === 0 ? (
+                            {this.showChain(key.chain)}
+                            {key.chain || key.chain === 0 ? (
                               <img
                                 alt="img"
                                 className={styles.triImg}
                                 src={
-                                  dataList.chain === 0
-                                    ? yellowImg
-                                    : dataList.chain < 0 ? redImg : greenImg
+                                  key.chain === 0 ? yellowImg : key.chain < 0 ? redImg : greenImg
                                 }
                               />
                             ) : (
@@ -120,30 +118,24 @@ class SecDetails extends Component {
                           <p className={styles.rightCss} />
                         </div>
                         <ul>
-                          {Object.keys(dataList.dimensions).map((key1, i1) => {
+                          {key.dimensions.map((key1, i1) => {
+                            const n2 = i1 + 1;
                             return (
-                              <li key={`sec${key1}`} className={styles.liCssSec}>
+                              <li key={`sec${n2}`} className={styles.liCssSec}>
                                 <div className={styles.tableCss}>
                                   <div className={styles.leftCss}>{`${index + 1}.${i1 + 1}`}</div>
-                                  <div className={styles.proCss2}>
-                                    {dataList.dimensions[key1].name}
-                                  </div>
-                                  <div className={styles.equableCss}>
-                                    {dataList.dimensions[key1].score.toFixed(2)}
-                                  </div>
+                                  <div className={styles.proCss2}>{key1.name}</div>
+                                  <div className={styles.equableCss}>{key1.score.toFixed(2)}</div>
                                   <div className={styles.ringRatioCss}>
-                                    {this.showChain(dataList.dimensions[key1].chain)}
-                                    {dataList.dimensions[key1].chain ||
-                                    dataList.dimensions[key1].chain === 0 ? (
+                                    {this.showChain(key1.chain)}
+                                    {key1.chain || key1.chain === 0 ? (
                                       <img
                                         alt="img"
                                         className={styles.triImg}
                                         src={
-                                          dataList.dimensions[key1].chain === 0
+                                          key1.chain === 0
                                             ? yellowImg
-                                            : dataList.dimensions[key1].chain < 0
-                                              ? redImg
-                                              : greenImg
+                                            : key1.chain < 0 ? redImg : greenImg
                                         }
                                       />
                                     ) : (
@@ -154,34 +146,16 @@ class SecDetails extends Component {
                                   <p className={styles.rightCss} />
                                 </div>
                                 <div>
-                                  {Object.keys(dataList.dimensions[key1].dimensions).map(key2 => {
+                                  {key1.dimensions.map((key2, i2) => {
+                                    const n3 = i2 + 1;
                                     // 判断number是否为0，0?那行数据不可点击:可点击
                                     return (
-                                      <div key={`thr${key2}`}>
-                                        {!dataList.dimensions[key1].dimensions[key2].rawValue ? (
-                                          <div>
-                                            {this.detailTmp(
-                                              dataList.dimensions[key1].dimensions[key2],
-                                              rowData,
-                                              false
-                                            )}
-                                          </div>
+                                      <div key={`thr${n3}`}>
+                                        {!key2.rawValue ? (
+                                          <div>{this.detailTmp(key2, rowData, false)}</div>
                                         ) : (
-                                          <div
-                                            onClick={() =>
-                                              jump2Data(
-                                                rowData,
-                                                dataList,
-                                                dataList.dimensions[key1],
-                                                dataList.dimensions[key1].dimensions[key2]
-                                              )
-                                            }
-                                          >
-                                            {this.detailTmp(
-                                              dataList.dimensions[key1].dimensions[key2],
-                                              rowData,
-                                              true
-                                            )}
+                                          <div onClick={() => jump2Data(rowData, key, key1, key2)}>
+                                            {this.detailTmp(key2, rowData, true)}
                                           </div>
                                         )}
                                       </div>
