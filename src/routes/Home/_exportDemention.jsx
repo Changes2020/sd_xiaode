@@ -154,7 +154,7 @@ export default class ExportDemention extends React.Component {
             <Dialog
               visible={dialogVisible}
               showModel={bol => this.showModel(bol)}
-              title={<p className={styles.dialogTitle}>请选择所要下载的底表(最多选择5天)</p>}
+              title={<p className={styles.dialogTitle}>请选择所要下载的底表(最多选择3天)</p>}
               modelClass={styles.modelClass}
               cotainerClass={styles.flexContainer}
             >
