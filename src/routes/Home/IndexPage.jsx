@@ -36,7 +36,7 @@ class IndexPage extends React.Component {
   componentDidMount() {
     const { paramsObj } = this.state;
     // 解决异步请求数据,未加载用户信息未存储
-    this.fnGetData(paramsObj);
+    this.fnGetData(paramsObj, true);
   }
 
   getDownloadInfo = dataList => {
@@ -54,7 +54,7 @@ class IndexPage extends React.Component {
     const filteKeyID = userInfo.groupId;
     return { userId, filteKeyID };
   };
-  fnGetData(ops = {}) {
+  fnGetData(ops = {}, isFirstMount = false) {
     // 用于数据请求方法
     // 用于数据的请求
     // 排名和趋势参数不用于请求数据,需要过滤出来
@@ -68,11 +68,16 @@ class IndexPage extends React.Component {
       paramsObj: assignUrlParams(paramsObj, newOps),
       creditShowType: iscreditShowType ? newOps.creditShowType : creditShowType,
     };
-    this.props.dispatch({
-      type: sendParams.creditShowType === 'rank' ? 'home/fetchRank' : 'home/fetchTrend',
-      payload: sendParams,
-    });
-    this.saveParams(sendParams);
+    if (
+      JSON.stringify(sendParams) !== JSON.stringify({ paramsObj, creditShowType }) ||
+      isFirstMount
+    ) {
+      this.props.dispatch({
+        type: sendParams.creditShowType === 'rank' ? 'home/fetchRank' : 'home/fetchTrend',
+        payload: sendParams,
+      });
+      this.saveParams(sendParams);
+    }
   }
   saveParams = sendParams => {
     // 用于数据存储,以及添加url
