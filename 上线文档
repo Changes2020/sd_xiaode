@@ -1,0 +1,3 @@
+上线确认congig配置文件
+1.NODE_ENV的配置是否是:'pro'
+2.DEBUGGER的配置是否是false;
