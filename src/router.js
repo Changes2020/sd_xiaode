@@ -1,14 +1,14 @@
 import React from 'react';
 import { routerRedux, Route, Switch } from 'dva/router';
-import dynamic from 'dva/dynamic';
+// import dynamic from 'dva/dynamic';
 import { getRouterData } from './common/router';
 import Authorized from './utils/Authorized';
 import { getAuthority } from './utils/authority';
-import Loading from './components/Loading/Loading';
+// import Loading from './components/Loading/Loading';
 
-dynamic.setDefaultLoadingComponent(() => {
-  return <Loading />;
-});
+// dynamic.setDefaultLoadingComponent(() => {
+//   return <Loading />;
+// });
 const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
 function RouterConfig({ history, app }) {
