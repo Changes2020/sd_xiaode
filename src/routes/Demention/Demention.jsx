@@ -115,6 +115,7 @@ class Demention extends React.Component {
       endTime: this.state.endTime,
     };
     this.dataFetch(dementionListParams, dementionId, switchtype, Params);
+    window.scroll(0,0);
     window.onscroll = function() {
       const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
       const backTop = document.getElementById('dataToTop'); // 吸顶模块
@@ -124,9 +125,10 @@ class Demention extends React.Component {
     };
   }
 
-  componentWillReceiveProps() {
-    scroll(0, 0);
+  componentWillUnmount() {
+    window.onscroll = '';
   }
+
   // 点击home图片返回首页
   homeFun = () => {
     this.props.setRouteUrlParams('/indexPage', {});
