@@ -220,7 +220,7 @@ class CreditDetails extends React.Component {
           }}
           id="backTopBtn"
         >
-          <img src={top} alt="回到顶部" />
+          <img src={top} className={styles.imgTop} alt="回到顶部" />
         </div>
 
         {/* *************** 搜索按钮 *************** */}
@@ -230,7 +230,7 @@ class CreditDetails extends React.Component {
             this.searchFn();
           }}
         >
-          <img src={search} alt="搜索" />
+          <img src={search} className={styles.imgSearch} alt="搜索" />
         </div>
 
         {/* *************** 搜索模态框 *************** */}
