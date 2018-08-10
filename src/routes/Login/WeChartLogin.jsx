@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'dva';
 import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
@@ -6,6 +7,7 @@ import { getWeChart } from 'services/api';
 import config from '../../config';
 
 const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
+
 class WeChartLogin extends React.Component {
   componentWillMount() {
     if (DEBUGGER) {
@@ -20,6 +22,7 @@ class WeChartLogin extends React.Component {
       this.checkoutHasAuth();
     }
   }
+
   checkoutHasAuth = () => {
     // 获取微信授权信息,如果获取失败,则需要跳转微信授权
     const isHasUserId = getAuthority();
@@ -30,12 +33,13 @@ class WeChartLogin extends React.Component {
       window.location.href = url;
     }
   };
+
   render() {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
+    const { isloading } = this.props;
+    return <div>{isloading && <Loading />}</div>;
   }
 }
-export default WeChartLogin;
+
+export default connect(({ loading }) => ({
+  isloading: loading.global,
+}))(WeChartLogin);
