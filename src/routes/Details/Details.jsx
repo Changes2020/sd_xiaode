@@ -45,17 +45,9 @@ class CreditDetails extends React.Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
-
   componentDidMount() {
-    // 返回顶部
     window.scrollTo(0, 0);
-    window.onscroll = function() {
-      const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
-      const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
-      if (backTop !== null) {
-        backTop.style.display = t >= 200 ? 'block' : 'none';
-      }
-    };
+    window.addEventListener('scroll', this.onScroll);
 
     // 防止重复调用接口
     const { routerHash } = this.props.urlParams;
@@ -74,6 +66,16 @@ class CreditDetails extends React.Component {
       };
     }
   }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+  onScroll = () => {
+    const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
+    const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
+    if (backTop !== null) {
+      backTop.style.display = t >= 200 ? 'block' : 'none';
+    }
+  };
   fnGetData = (ops = {}) => {
     const { paramsObj } = this.state;
 
