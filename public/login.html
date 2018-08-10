@@ -96,9 +96,8 @@
   if (params['userId'] && params['userType'] == 1) {
     setItem('userInfo', params);
     var urlObj = {
-      dev:'http://172.16.225.4:8092/',
       pro: 'http://bi-m.ministudy.com/',
-//      dev: 'http://172.16.117.64:8092/'
+      dev: 'http://172.16.117.64:8092/'
     }
     var redit_url = urlObj[params['branch']] ? urlObj[params['branch']] : './';
     var time=new Date().getTime();
