@@ -112,7 +112,7 @@ class MultipHeaderList extends Component {
           id={`rowId${dataIndex}`}
           dataid={`${rowData.familyType}${rowData.id}`}
           className="flex-container"
-          style={{ background: this.ItemBgColor(rowData), marginBottom: '.14rem' }}
+          style={{ background: this.ItemBgColor(rowData), color: '#333', marginBottom: '.14rem' }}
         >
           {headerParam.loadComponent === 'assistant' ? (
             <RenderAssistantItem
