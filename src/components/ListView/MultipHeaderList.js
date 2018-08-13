@@ -5,6 +5,8 @@
 * initialListSize: 每页展示多好条数据
 *
 * headerParam: 传给子组件 RenderHeader
+* renderHeader：页头
+* renderFooter：页脚
 * customRenderHeader: 组件，展示表头，默认RenderHeader
 * customRenderItem: 组件，展示数据，RenderItem
 * otherCpmponent: 在listView中扩展
@@ -55,6 +57,14 @@ class MultipHeaderList extends Component {
     } else {
       console.warn('没有对应的字段');
     }
+  };
+  // 组件头部
+  renderHeader = () => {
+    if (this.props.renderHeader) return this.props.renderHeader();
+  };
+  // 组件底部
+  renderFooter = () => {
+    if (this.props.renderFooter) return this.props.renderFooter();
   };
   renderSectionWrapper = sectionID => {
     const { sectionClass = '' } = this.props;
@@ -153,6 +163,12 @@ class MultipHeaderList extends Component {
           className="am-list sticky-list"
           style={style}
           useBodyScroll
+          renderHeader={() => {
+            return this.renderHeader();
+          }}
+          renderFooter={() => {
+            return this.renderFooter();
+          }}
           renderSectionWrapper={sectionID => {
             return this.renderSectionWrapper(sectionID);
           }}
