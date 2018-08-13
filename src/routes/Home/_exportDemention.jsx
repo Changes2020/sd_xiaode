@@ -77,14 +77,21 @@ export default class ExportDemention extends React.Component {
     // }
   };
   choseDateArea = () => {
+    const timeDate = getItem('timeDate').value || {};
+    const { dataExList = [] } = timeDate;
     const extra = getExtraDate();
     const { minDate = 0, maxDate = 0 } = extra;
     const dateArr = [];
     for (let i = maxDate; i >= minDate && dateArr.length < 10; i -= 86400000) {
-      dateArr.push({
-        id: moment(i).format('YYYY.MM.DD'),
-        name: moment(i).format('YYYY.MM.DD'),
-      });
+      const isSameDate = dataExList.find(
+        item => moment(item).format('YYYY.MM.DD') === moment(i).format('YYYY.MM.DD')
+      );
+      if (!isSameDate) {
+        dateArr.push({
+          id: moment(i).format('YYYY.MM.DD'),
+          name: moment(i).format('YYYY.MM.DD'),
+        });
+      }
     }
     return dateArr;
     // const dateTime = moment(date).format('YYYY-MM-DD');
