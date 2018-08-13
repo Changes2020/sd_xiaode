@@ -61,25 +61,37 @@ export default class ExportDemention extends React.Component {
   };
   selectDateTime = id => {
     const { selectedTime } = this.state;
-    if (!selectedTime.find(item => item === id)) {
-      if (selectedTime.length < 1) {
-        selectedTime.push(id);
-        this.setState({ selectedTime });
-      }
-    } else {
-      selectedTime.splice(selectedTime.findIndex(item => item === id), 1);
-      this.setState({ selectedTime });
-    }
+    // 只有一个选项可选择
+    selectedTime.length = 0;
+    selectedTime.push(id);
+    this.setState({ selectedTime });
+    // 该方法适用于可选择多个选择
+    // if (!selectedTime.find(item => item === id)) {
+    //   if (selectedTime.length < 1) {
+    //     selectedTime.push(id);
+    //     this.setState({ selectedTime });
+    //   }
+    // } else {
+    //   selectedTime.splice(selectedTime.findIndex(item => item === id), 1);
+    //   this.setState({ selectedTime });
+    // }
   };
   choseDateArea = () => {
+    const timeDate = getItem('timeDate').value || {};
+    const { dataExList = [] } = timeDate;
     const extra = getExtraDate();
     const { minDate = 0, maxDate = 0 } = extra;
     const dateArr = [];
     for (let i = maxDate; i >= minDate && dateArr.length < 10; i -= 86400000) {
-      dateArr.push({
-        id: moment(i).format('YYYY.MM.DD'),
-        name: moment(i).format('YYYY.MM.DD'),
-      });
+      const isSameDate = dataExList.find(
+        item => moment(item).format('YYYY.MM.DD') === moment(i).format('YYYY.MM.DD')
+      );
+      if (!isSameDate) {
+        dateArr.push({
+          id: moment(i).format('YYYY.MM.DD'),
+          name: moment(i).format('YYYY.MM.DD'),
+        });
+      }
     }
     return dateArr;
     // const dateTime = moment(date).format('YYYY-MM-DD');
@@ -199,7 +211,7 @@ export default class ExportDemention extends React.Component {
             <img src={rightIcon} className={styles.resultIcon} alt="成功" />
             <h4 className={styles.resultSuccess}> 请求成功, 小德已开始准备数据!</h4>
             <div className={styles.textContainer}>
-              <p className={styles.resultEmilCheck}>因数据量较大，大约10～20分钟后发送到</p>
+              <p className={styles.resultEmilCheck}>因数据量较大,大约10～20分钟后发送到</p>
               <p className={styles.resultEmilCheck}>您的邮箱。请勿重复请求</p>
             </div>
           </Modal>
