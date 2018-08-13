@@ -61,15 +61,20 @@ export default class ExportDemention extends React.Component {
   };
   selectDateTime = id => {
     const { selectedTime } = this.state;
-    if (!selectedTime.find(item => item === id)) {
-      if (selectedTime.length < 1) {
-        selectedTime.push(id);
-        this.setState({ selectedTime });
-      }
-    } else {
-      selectedTime.splice(selectedTime.findIndex(item => item === id), 1);
-      this.setState({ selectedTime });
-    }
+    // 只有一个选项可选择
+    selectedTime.length = 0;
+    selectedTime.push(id);
+    this.setState({ selectedTime });
+    // 该方法适用于可选择多个选择
+    // if (!selectedTime.find(item => item === id)) {
+    //   if (selectedTime.length < 1) {
+    //     selectedTime.push(id);
+    //     this.setState({ selectedTime });
+    //   }
+    // } else {
+    //   selectedTime.splice(selectedTime.findIndex(item => item === id), 1);
+    //   this.setState({ selectedTime });
+    // }
   };
   choseDateArea = () => {
     const extra = getExtraDate();
@@ -199,7 +204,7 @@ export default class ExportDemention extends React.Component {
             <img src={rightIcon} className={styles.resultIcon} alt="成功" />
             <h4 className={styles.resultSuccess}> 请求成功, 小德已开始准备数据!</h4>
             <div className={styles.textContainer}>
-              <p className={styles.resultEmilCheck}>因数据量较大，大约10～20分钟后发送到</p>
+              <p className={styles.resultEmilCheck}>因数据量较大,大约10～20分钟后发送到</p>
               <p className={styles.resultEmilCheck}>您的邮箱。请勿重复请求</p>
             </div>
           </Modal>
