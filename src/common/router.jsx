@@ -109,6 +109,9 @@ export const getRouterData = app => {
     '/static': {
       component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
     },
+    '/static/formula': {
+      component: dynamicWrapper(app, [], () => import('../routes/Static/Formula/Formula')),
+    },
     '/exception': {
       component: dynamicWrapper(app, [], () => import('../layout/Exception')),
     },
