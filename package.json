@@ -24,7 +24,7 @@
     "path-to-regexp": "^2.2.1",
     "qs": "^6.5.0",
     "rc-form": "^2.2.0",
-    "rc-select": "^8.0.8",
+    "rc-select": "8.0.8",
     "rc-switch": "^1.6.0",
     "rc-table": "^6.1.10",
     "react": "^16.2.0",

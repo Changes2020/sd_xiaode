@@ -198,3 +198,6 @@ biao zhi
   background-color: #fff !important;
   height: 0 !important;
 }
+:global(.am-list-footer),:global(.am-list-header){
+  padding: 0!important;
+}
