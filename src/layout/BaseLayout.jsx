@@ -26,9 +26,6 @@ class BaseLayout extends React.Component {
   render() {
     const { loading } = this.props;
     const { routerData, match } = this.props;
-    // const userInfo = getItem('userInfo').value;
-    // const timeDate = getItem('timeDate').value;
-    // const allOrgMap = getItem('allOrgMap').value;
     return (
       <div>
         {!loading ? (
