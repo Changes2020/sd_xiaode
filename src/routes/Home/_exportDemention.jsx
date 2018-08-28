@@ -161,7 +161,7 @@ export default class ExportDemention extends React.Component {
             </p>
           )}
         </div>
-        <div className={styles.download}>
+        <div className="download">
           {dialogVisible && (
             <Dialog
               visible={dialogVisible}
