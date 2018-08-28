@@ -6,14 +6,29 @@ import { getItem } from '../utils/localStorage';
 import Loading from '../components/Loading/Loading';
 
 class BaseLayout extends React.Component {
-  render() {
-    const { routerData, match } = this.props;
+  componentDidMount() {
+    const { loading } = this.props;
     const userInfo = getItem('userInfo').value;
-    const timeDate = getItem('timeDate').value;
-    const allOrgMap = getItem('allOrgMap').value;
+    const { groupId, userId } = userInfo;
+    if ((!groupId || !userId) && !loading) {
+      // 当用户进入之后多次返回页面造成的bug
+      this.getUserInfo();
+    }
+  }
+  getUserInfo = () => {
+    const userInfo = getItem('userInfo').value;
+    const { userId = null } = userInfo;
+    this.props.dispatch({
+      type: 'index/getUserInfo',
+      payload: { userId },
+    });
+  };
+  render() {
+    const { loading } = this.props;
+    const { routerData, match } = this.props;
     return (
       <div>
-        {userInfo && timeDate && allOrgMap ? (
+        {!loading ? (
           <Switch>
             {getRoutes(match.path, routerData).map(item => (
               <Route
@@ -37,6 +52,5 @@ class BaseLayout extends React.Component {
 
 export default connect(({ index, loading }) => ({
   index,
-  loading,
-  isLogin: index.isLogin,
+  loading: loading.models.index,
 }))(BaseLayout);

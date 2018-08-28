@@ -14,7 +14,7 @@ class WeChartLogin extends React.Component {
       setItem('userInfo', { userId });
       setTimeout(() => {
         this.checkoutHasAuth();
-      }, 100);
+      }, 10);
     } else {
       if (NODE_ENV === 'dev') {
         window.localStorage.removeItem('userInfo');
