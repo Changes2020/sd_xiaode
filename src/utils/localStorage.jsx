@@ -32,7 +32,7 @@ export function getItem(key) {
   let store = window.localStorage.getItem(key) || null;
   store = JSON.parse(store) || {};
   const { value = null, expries = null } = store;
-  const isExpries = expries && Number(expries) > Number(new Date());
+  const isExpries = expries && Number(expries) <= Number(new Date());
   return {
     value,
     isExpries,
