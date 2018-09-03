@@ -139,6 +139,12 @@ export function defaultDateTime() {
   const [forMatStr, timeDate] = ['YYYY-MM-DD', getItem('timeDate').value || null];
   const { dataExList = [] } = timeDate || {};
   const { startTime, endTime } = checkoutNextDay();
+  if (startTime > endTime) {
+    return {
+      startTime: endTime,
+      endTime,
+    };
+  }
   for (let i = endTime; i >= startTime; i -= 86400000) {
     const tempTime = moment(i).format(forMatStr);
     if (!dataExList.find(item => moment(item).format(forMatStr) === tempTime)) {
