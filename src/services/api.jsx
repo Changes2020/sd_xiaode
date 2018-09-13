@@ -48,6 +48,24 @@ export async function getOrgMap() {
   });
 }
 /*
+*此接口用于集团总绩效列表
+*/
+export async function findGroupTotalKpi(params) {
+  return request(`${HOST}/organization/findOrgMap`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+*此接口用于集团人均总绩效列表
+*/
+export async function findGroupAvgKpi(params) {
+  return request(`${HOST}/totalKpi/findGroupAvgKpi`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
 *此接口用于获取排名接口
  */
 export async function getCreditRankAvgList(params) {
