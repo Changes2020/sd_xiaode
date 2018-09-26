@@ -86,7 +86,7 @@ function checkoutRank(nextProps, paramsObj, isAll = false) {
   // const allOrgMap = getItem('allOrgMap').value || {};
   const { data } = nextProps; // 需要处理的数据
   const { groupId } = userInfo;
-  const userGroupType = userInfo.groupType; // college,family,group,boss,admin
+  const userGroupType = userInfo.groupType === 'class' ? 'group' : userInfo.groupType; // college,family,group,boss,admin
   const selectedGroupType = paramsObj.groupType; // 1学院2家族3小组
   const filterSelfArr = [];
   // const sortArr=data.sort((a,b)=>(a.rank-b.rank));      //按照降序排列
