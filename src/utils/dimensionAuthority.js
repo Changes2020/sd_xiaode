@@ -26,7 +26,7 @@ export function dimensionAuthority(orgArr, groupId, groupType) {
       authorityOrg.group = orgObj.group;
       break;
     case 'class':
-      console.warn('将class用户转换成group用户');
+      authorityOrg.group = getSameAllGroup(orgArr, groupId, 'group').group;
       break;
     default:
       console.warn('传递用户权限有误');
@@ -52,7 +52,7 @@ export function highLightData(orgArr, groupId, groupType) {
       authorityOrg = orgObj;
       break;
     case 'class':
-      console.warn('将class用户转换成group用户');
+      authorityOrg = getSameAllGroup(orgArr, groupId, 'group');
       break;
     default:
       console.warn('传递用户权限有误');

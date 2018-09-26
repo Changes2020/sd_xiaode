@@ -23,6 +23,8 @@ export default {
     1: 'college',
     2: 'family',
     3: 'group',
+    4: 'class',
+    5: 'boss',
   },
   familyTypeDict: {
     selfExam: 0,
