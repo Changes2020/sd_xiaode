@@ -8,7 +8,7 @@ class Error500 extends React.Component {
     //   <ul className={styles.desc}>
     //     <li className={styles.authInfo}>你没有权限访问此页面，或权限设置有误。</li>
     //     <li className={styles.authItem}>请联系：运营中心-产研一部</li>
-    //     <li className={styles.authItem}>jiangli@sunlands.com</li>
+    //     <li className={styles.authItem}>ganwenbin@sunlands.com</li>
     //   </ul>
     // );
     return (

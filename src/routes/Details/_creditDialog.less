@@ -6,9 +6,7 @@
 .flexContainer {
   max-height: 75vh;
 }
-.dialogWrap :global(.am-modal-content) {
-  border-radius: 7px 7px 0 0 !important;
-}
+
 .groupModal {
   width: 7.5rem !important;
   height: 86% !important;
@@ -53,12 +51,15 @@
   content: '';
   border: none !important;
 }
-:global(.am-modal-transparent .am-modal-content) {
-  padding-bottom: 0.8rem;
-}
-:global(.am-modal-transparent .am-modal-content .am-modal-body),
-:global(.am-modal-header) {
-  padding: 0 0.16rem 0.3rem 0.34rem !important;
+.dialogWrap {
+  :global(.am-modal-content) {
+    border-radius: 7px 7px 0 0 !important;
+    padding-bottom: 0.8rem;
+  }
+  :global(.am-modal-content .am-modal-body),
+  :global(.am-modal-header) {
+    padding: 0 0.16rem 0.3rem 0.34rem !important;
+  }
 }
 
 .modeltitlediv {

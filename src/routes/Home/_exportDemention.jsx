@@ -161,7 +161,7 @@ export default class ExportDemention extends React.Component {
             </p>
           )}
         </div>
-        <div className={styles.download}>
+        <div className="download">
           {dialogVisible && (
             <Dialog
               visible={dialogVisible}
@@ -194,7 +194,9 @@ export default class ExportDemention extends React.Component {
                 *底表包含
                 <i className={styles.dataInfo}>
                   {' '}
-                  本{{ college: '学院', family: '家族', group: '小组' }[groupType]}所有学分维度数据
+                  本{
+                    { college: '学院', family: '家族', group: '小组', class: '小组' }[groupType]
+                  }所有学分维度数据
                 </i>
               </p>
               <p>(底线和质检除外)</p>
