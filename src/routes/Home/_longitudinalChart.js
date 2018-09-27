@@ -91,7 +91,10 @@ function checkoutRank(nextProps, paramsObj, isAll = false) {
   const filterSelfArr = [];
   // const sortArr=data.sort((a,b)=>(a.rank-b.rank));      //按照降序排列
   data.forEach(item => {
-    if (Dict.groupTypeDict[userGroupType] === selectedGroupType && groupId === item.groupId) {
+    const newUserType = Object.keys(Dict.groupTypeDict).find(
+      list => Dict.groupTypeDict[list] === userGroupType
+    );
+    if (newUserType === selectedGroupType && groupId === item.groupId) {
       filterSelfArr.push(item);
     }
   });
