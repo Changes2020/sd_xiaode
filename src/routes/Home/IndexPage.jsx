@@ -40,10 +40,19 @@ class IndexPage extends React.Component {
   }
 
   getDownloadInfo = dataList => {
+    const userInfo = getItem('userInfo').value || {};
+    const { groupId, groupType } = userInfo;
+    console.log({
+      ...dataList,
+      groupId,
+      groupType,
+    });
     this.props.dispatch({
       type: 'home/getDownloadInfo',
       payload: {
         ...dataList,
+        groupId,
+        groupType,
       },
     });
   };
