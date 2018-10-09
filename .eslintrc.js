@@ -10,6 +10,7 @@ module.exports = {
     jasmine: true,
   },
   rules: {
+    camelcase: [0],
     'no-underscore-dangle': 0,
     'generator-star-spacing': [0],
     'consistent-return': [0],

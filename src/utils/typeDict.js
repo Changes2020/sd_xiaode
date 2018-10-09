@@ -25,6 +25,7 @@ export default {
     3: 'group',
     4: 'class',
     5: 'boss',
+    6: 'admin',
   },
   familyTypeDict: {
     selfExam: 0,

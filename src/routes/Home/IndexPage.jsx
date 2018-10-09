@@ -7,6 +7,7 @@ import { defaultDateTime } from '../../utils/FormatDate';
 import { getItem } from '../../utils/localStorage';
 import Loading from '../../components/Loading/Loading';
 import { assignUrlParams } from '../../utils/routerUtils';
+import Dict from '../../utils/typeDict';
 import ChartContent from './_chartContent';
 import NoData from '../../components/NoData/NoData';
 import CeillingHead from './_ceillingHead';
@@ -40,10 +41,22 @@ class IndexPage extends React.Component {
   }
 
   getDownloadInfo = dataList => {
+    const userInfo = getItem('userInfo').value || {};
+    const { groupId, groupType } = userInfo;
+    const newUserType = Object.keys(Dict.groupTypeDict).find(
+      list => Dict.groupTypeDict[list] === groupType
+    );
+    console.log({
+      ...dataList,
+      groupId,
+      groupType: Number(newUserType),
+    });
     this.props.dispatch({
       type: 'home/getDownloadInfo',
       payload: {
         ...dataList,
+        groupId,
+        groupType: Number(newUserType),
       },
     });
   };
