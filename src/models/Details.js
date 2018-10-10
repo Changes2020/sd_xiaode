@@ -80,6 +80,7 @@ export default {
     dealDatalist(state, action) {
       const { dataOrg, paramsObj, lineHeight } = action.payload;
       const dataList = action.payload.dataList || {};
+
       // 判断可查看权限
       const groupType = { 1: 'college', 2: 'family', 3: 'group' }[paramsObj.groupType];
       const selfGroupData = dataOrg[groupType]; // 权限用户
