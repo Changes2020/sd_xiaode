@@ -73,7 +73,8 @@ export default {
       return { ...state, ...action.payload };
     },
     dealDatalist(state, action) {
-      const { dataList, dataOrg, paramsObj, lineHeight } = action.payload;
+      const { dataOrg, paramsObj, lineHeight } = action.payload;
+      const dataList = action.payload.dataList || {};
 
       // 判断可查看权限
       const groupType = { 1: 'college', 2: 'family', 3: 'group' }[paramsObj.groupType];

@@ -163,7 +163,6 @@ class CreditDetails extends React.Component {
     const { paramsObj, modelflag, groupData } = this.state;
     const { isloading, Details = {} } = this.props;
     const { dataList } = Details;
-
     const params = {
       0: { groupName: 'selfExam', arr: 'activeCS' },
       1: { groupName: 'barrier', arr: 'activeCS' },
