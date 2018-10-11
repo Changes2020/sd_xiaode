@@ -9,7 +9,7 @@ import config from '../../config';
 const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
 
 class WeChartLogin extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (DEBUGGER) {
       setItem('userInfo', { userId });
       setTimeout(() => {

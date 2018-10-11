@@ -145,7 +145,7 @@ export default class ExportDemention extends React.Component {
   render() {
     const { dialogVisible, isShowModal, isResultModal } = this.state;
 
-    const { paramsObj } = this.props;
+    const { paramsObj, isDownLoadSuccess } = this.props;
     const groupType = this.getGroupType();
     const isShowDownload =
       groupType === 'college' || groupType === 'family' || groupType === 'group';
@@ -205,20 +205,21 @@ export default class ExportDemention extends React.Component {
           </Modal>
         )}
         {/* 返回结果弹框 */}
-        {isResultModal && (
-          <Modal
-            visible={isResultModal}
-            modelClass={styles.downLoadResultModal}
-            footer={[{ text: '确定', onPress: this.cannelResultModal }]}
-          >
-            <img src={rightIcon} className={styles.resultIcon} alt="成功" />
-            <h4 className={styles.resultSuccess}> 请求成功, 小德已开始准备数据!</h4>
-            <div className={styles.textContainer}>
-              <p className={styles.resultEmilCheck}>因数据量较大,大约10～20分钟后发送到</p>
-              <p className={styles.resultEmilCheck}>您的邮箱。请勿重复请求</p>
-            </div>
-          </Modal>
-        )}
+        {isResultModal &&
+          isDownLoadSuccess && (
+            <Modal
+              visible={isResultModal}
+              modelClass={styles.downLoadResultModal}
+              footer={[{ text: '确定', onPress: this.cannelResultModal }]}
+            >
+              <img src={rightIcon} className={styles.resultIcon} alt="成功" />
+              <h4 className={styles.resultSuccess}> 请求成功, 小德已开始准备数据!</h4>
+              <div className={styles.textContainer}>
+                <p className={styles.resultEmilCheck}>因数据量较大,大约10～20分钟后发送到</p>
+                <p className={styles.resultEmilCheck}>您的邮箱。请勿重复请求</p>
+              </div>
+            </Modal>
+          )}
       </div>
     );
   }

@@ -29,6 +29,7 @@ export default {
     firstMeanObj: null, // 排名第一均分第一对象
     creditShowType: 'rank', // 均分数据展示类型,排名rank,趋势:trend
     getGroupObj: {}, // 获取趋势图下面所有对象数据的储存
+    isDownLoadSuccess: false, // 下载地表成功
   },
 
   effects: {
@@ -138,8 +139,15 @@ export default {
       }
       yield put({ type: 'saveGroupList', payload: { GroupList, familyTypeString } });
     },
-    *getDownloadInfo({ payload }, { call }) {
-      yield call(addDownloadTask, { ...payload });
+    *getDownloadInfo({ payload }, { call, put }) {
+      const response = yield call(addDownloadTask, { ...payload });
+      yield put({
+        type: 'saveDownLoadState',
+        payload: { isDownLoadSuccess: response.code === 2000 },
+      });
+      if (response.code !== 2000) {
+        Message.fail(response.msg);
+      }
     },
   },
 
@@ -229,6 +237,9 @@ export default {
         getGroupObj[familyTypeString] = GroupList.data;
       }
       return { ...state, ...payload, getGroupObj };
+    },
+    saveDownLoadState(state, { payload }) {
+      return { ...state, ...payload };
     },
   },
 };

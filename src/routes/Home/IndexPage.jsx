@@ -46,11 +46,6 @@ class IndexPage extends React.Component {
     const newUserType = Object.keys(Dict.groupTypeDict).find(
       list => Dict.groupTypeDict[list] === groupType
     );
-    console.log({
-      ...dataList,
-      groupId,
-      groupType: Number(newUserType),
-    });
     this.props.dispatch({
       type: 'home/getDownloadInfo',
       payload: {
@@ -153,7 +148,7 @@ class IndexPage extends React.Component {
   render() {
     const { paramsObj, creditShowType } = this.state;
     const { isloading, home = {} } = this.props;
-    const { rankDataObj } = home;
+    const { rankDataObj, isDownLoadSuccess = false } = home;
     const isNoData = JSON.stringify(rankDataObj) === '{}';
     return (
       <div className={styles.normal}>
@@ -183,6 +178,7 @@ class IndexPage extends React.Component {
         </div>
         {/* ***************导出数据置顶按钮************ */}
         <ExportDemention
+          isDownLoadSuccess={isDownLoadSuccess}
           paramsObj={paramsObj}
           getDownloadInfo={data => {
             this.getDownloadInfo(data);

@@ -56,7 +56,7 @@ class CreditDetails extends React.Component {
       this.fnGetData(paramsObj);
     }
   }
-  componentWillReceiveProps(nexprops) {
+  UNSAFE_componentWillReceiveProps(nexprops) {
     if (nexprops.Details.paramsObj && this.props.Details.paramsObj) {
       const { paramsObj } = this.props.Details;
       const nextParamsObj = nexprops.Details.paramsObj;
@@ -103,7 +103,7 @@ class CreditDetails extends React.Component {
     this.showModel(true);
     const { dataList } = this.props.Details;
     const groupData = {};
-    if (dataList && dataList !== 'nodata') {
+    if (dataList) {
       Object.keys(dataList).forEach(item => {
         groupData[item] = [];
         dataList[item].forEach(jj => {
@@ -163,7 +163,6 @@ class CreditDetails extends React.Component {
     const { paramsObj, modelflag, groupData } = this.state;
     const { isloading, Details = {} } = this.props;
     const { dataList } = Details;
-
     const params = {
       0: { groupName: 'selfExam', arr: 'activeCS' },
       1: { groupName: 'barrier', arr: 'activeCS' },
@@ -184,7 +183,7 @@ class CreditDetails extends React.Component {
         />
 
         {/* *************** listview *************** */}
-        {dataList === 'nodata' ? null : dataList !== null ? (
+        {isloading ? null : dataList !== null ? (
           <div>
             {Object.keys(params).map(item => {
               const newDataList = Object.keys(dataList).filter(
