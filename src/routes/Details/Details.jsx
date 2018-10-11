@@ -103,7 +103,7 @@ class CreditDetails extends React.Component {
     this.showModel(true);
     const { dataList } = this.props.Details;
     const groupData = {};
-    if (dataList && dataList !== 'nodata') {
+    if (dataList) {
       Object.keys(dataList).forEach(item => {
         groupData[item] = [];
         dataList[item].forEach(jj => {
@@ -183,7 +183,7 @@ class CreditDetails extends React.Component {
         />
 
         {/* *************** listview *************** */}
-        {dataList === 'nodata' ? null : dataList !== null ? (
+        {isloading ? null : dataList !== null ? (
           <div>
             {Object.keys(params).map(item => {
               const newDataList = Object.keys(dataList).filter(

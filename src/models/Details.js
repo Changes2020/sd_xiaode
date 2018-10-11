@@ -7,7 +7,7 @@ export default {
   namespace: 'Details',
   state: {
     highGroupId: [], // high data
-    dataList: 'nodata',
+    dataList: null,
     dataSecList: null,
     dataOrg: null, // 用户权限
     allOrgMap: null, // zuzhi
@@ -55,16 +55,21 @@ export default {
       const { dataList, checkIds } = action.payload;
       if (checkIds) {
         const isCheckObj = {};
-        if (dataList && dataList !== 'nodata') {
+        if (dataList) {
           Object.keys(dataList).map(item => {
             dataList[item].forEach((el, index) => {
               isCheckObj[`${el.familyType}${el.id}`] = false;
-              checkIds.forEach(id => {
-                if (id === `${el.familyType}${el.id}`) {
-                  isCheckObj[id] = true;
-                }
-                dataList[item][index].isCheck = isCheckObj[`${el.familyType}${el.id}`];
-              });
+              const _checkId = checkIds.find(id => id === `${el.familyType}${el.id}`);
+              if (_checkId) {
+                isCheckObj[_checkId] = true;
+              }
+              dataList[item][index].isCheck = isCheckObj[`${el.familyType}${el.id}`];
+              // forEach(id => {
+              //   if (id === `${el.familyType}${el.id}`) {
+              //     isCheckObj[id] = true;
+              //   }
+              //   dataList[item][index].isCheck = isCheckObj[`${el.familyType}${el.id}`];
+              // });
             });
             return dataList;
           });
@@ -81,7 +86,7 @@ export default {
       const selfGroupData = dataOrg[groupType]; // 权限用户
       const lineHeightData = lineHeight[groupType]; // 获取高亮数据
 
-      if (dataList === 'nodata') {
+      if (!dataList) {
         return null;
       } else {
         Object.keys(dataList).forEach(itemList => {
@@ -127,7 +132,7 @@ export default {
 
       // 环比
       let { chainData } = action.payload;
-      if (dataList === 'nodata') {
+      if (!dataList) {
         return null;
       } else {
         Object.keys(dataList).forEach(item => {
