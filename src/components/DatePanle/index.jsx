@@ -32,7 +32,7 @@ export default class DatePanle extends React.Component {
       dateType,
     };
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (
       nextProps.startTime !== this.props.startTime ||
       nextProps.endTime !== this.props.endTime ||

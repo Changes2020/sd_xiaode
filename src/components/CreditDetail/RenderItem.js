@@ -16,7 +16,7 @@ class RenderItem extends React.Component {
       isShowDetail: this.props.rowData.isCheck || false,
     };
   }
-  componentWillReceiveProps(nextprops) {
+  UNSAFE_componentWillReceiveProps(nextprops) {
     if (nextprops.paramCom && this.props.paramCom) {
       const { paramsObj, nextParamsObj } = nextprops.paramCom;
       if (paramsObj !== nextParamsObj) {

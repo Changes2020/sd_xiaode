@@ -23,7 +23,7 @@ export default class Dialog extends React.Component {
     const { visible } = this.props;
     this.handleTouch(!visible);
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (JSON.stringify(nextProps.visible) !== JSON.stringify(this.props.visible)) {
       this.handleTouch(!nextProps.visible);
     }

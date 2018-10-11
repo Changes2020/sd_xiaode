@@ -56,7 +56,7 @@ class CreditDetails extends React.Component {
       this.fnGetData(paramsObj);
     }
   }
-  componentWillReceiveProps(nexprops) {
+  UNSAFE_componentWillReceiveProps(nexprops) {
     if (nexprops.Details.paramsObj && this.props.Details.paramsObj) {
       const { paramsObj } = this.props.Details;
       const nextParamsObj = nexprops.Details.paramsObj;
