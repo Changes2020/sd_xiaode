@@ -148,10 +148,8 @@ export default class ExportDemention extends React.Component {
     const { paramsObj } = this.props;
     const groupType = this.getGroupType();
     const isShowDownload =
-      groupType === 'college' ||
-      groupType === 'family' ||
-      groupType === 'group' ||
-      groupType === 'class';
+      groupType === 'college' || groupType === 'family' || groupType === 'group';
+    // groupType === 'class';
     return (
       <div>
         <div className={styles.floatCotainer}>
