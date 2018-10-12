@@ -81,7 +81,8 @@ class Demention extends React.Component {
       buttonName = '',
     } = urlParams;
     const topName1 = Number(groupType) === 1 ? '学院' : Number(groupType) === 2 ? '家族' : '小组';
-    const topName2 = Number(familyType) === 0 ? '自考' : Number(familyType) === 1 ? '壁垒' : '孵化器';
+    const topName2 =
+      Number(familyType) === 0 ? '自考' : Number(familyType) === 1 ? '壁垒' : '孵化器';
     const formatStratTime = formatDate(startTime);
     const formatEndTime = formatDate(endTime);
     const initState = {
@@ -115,7 +116,7 @@ class Demention extends React.Component {
       endTime: this.state.endTime,
     };
     this.dataFetch(dementionListParams, dementionId, switchtype, Params);
-    window.scroll(0,0);
+    window.scroll(0, 0);
     window.onscroll = function() {
       const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
       const backTop = document.getElementById('dataToTop'); // 吸顶模块
@@ -242,9 +243,13 @@ class Demention extends React.Component {
 
   // 格式处理详情数据展示长度
   formatTableDatda = val => {
-    return String(val).length > 10
-      ? `${String(val).substr(0, 10)}...`
-      : !isNaN(Number(val * 100 / 100)) ? val * 100 / 100 : val;
+    if (val) {
+      return String(val).length > 10
+        ? `${String(val).substr(0, 10)}...`
+        : !isNaN(Number(val * 100 / 100)) ? val * 100 / 100 : val;
+    } else {
+      return val;
+    }
   };
 
   // 遍历接口返回数据获取table的行数据
@@ -323,16 +328,16 @@ class Demention extends React.Component {
           </div>
         )}
         {/* 详情数据和趋势图tab切换导航 */}
-        {!tableList ? null:tabContainer(this.state, this.detailCLickTab.bind(this))}
+        {!tableList ? null : tabContainer(this.state, this.detailCLickTab.bind(this))}
         {/* 详情数据和趋势图组件 */}
-        {!tableList ? null:this.state.switchtype === 1 ? (
+        {!tableList ? null : this.state.switchtype === 1 ? (
           <div className={styles.tableDiv}>
             {!tableList || tableList.length === 0 ? (
               <NoData showflag />
             ) : (
               <div>
                 <p className={styles.tableTitle}>
-                  <span style={{paddingLeft: '0.24rem'}}>{this.state.buttonName}详情数据</span>
+                  <span style={{ paddingLeft: '0.24rem' }}>{this.state.buttonName}详情数据</span>
                 </p>
                 <MultipHeaderList
                   dataList={tableList}
@@ -346,7 +351,7 @@ class Demention extends React.Component {
         ) : !trendData ? (
           <NoData showflag />
         ) : (
-          <div  style={{marginLeft:'0.2rem',width:'7.1rem',background:'#fff'}}>
+          <div style={{ marginLeft: '0.2rem', width: '7.1rem', background: '#fff' }}>
             <ChartFilter
               buttonData={buttonData}
               trendData={trendData}
