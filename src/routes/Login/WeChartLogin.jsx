@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Switch, Redirect } from 'dva/router';
+// import { Switch, Redirect } from 'dva/router';
 import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
@@ -35,16 +35,14 @@ class WeChartLogin extends React.Component {
 
   render() {
     const { isloading } = this.props;
-    const isHasUserId = getAuthority();
+    // const isHasUserId = getAuthority();
     return (
       <div>
-        {!isHasUserId ? null : (
+        {/* {!isHasUserId ? null : (
           <Switch>
             <Redirect from="/user/wechart" to="/indexPage" />
           </Switch>
-        )}
-
-        {/* <span onClick={this.gotoHome}>点击进入主页</span>   */}
+        )} */}
         {isloading && <Loading />}
       </div>
     );
