@@ -16,7 +16,7 @@ class WeChartLogin extends React.Component {
       this.checkoutHasAuth();
     } else {
       if (NODE_ENV === 'dev') {
-        window.localStorage.removeItem('userInfo');
+        // window.localStorage.removeItem('userInfo');
       }
       this.checkoutHasAuth();
     }
@@ -26,14 +26,11 @@ class WeChartLogin extends React.Component {
     // 获取微信授权信息,如果获取失败,则需要跳转微信授权,成功采用重定向的方式跳转
     const isHasUserId = getAuthority();
     if (isHasUserId) {
-      //   this.props.setRouteUrlParams('/');
+      // this.props.setRouteUrlParams('/');
     } else {
       const url = getWeChart();
       window.location.href = url;
     }
-  };
-  gotoHome = () => {
-    this.props.setRouteUrlParams('/');
   };
 
   render() {
