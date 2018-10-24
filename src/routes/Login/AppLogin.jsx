@@ -4,6 +4,7 @@ import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
 import { parse } from 'url';
+import { setAppUserAuth } from 'services/api';
 import config from '../../config';
 
 const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
@@ -33,10 +34,8 @@ class AppLogin extends React.Component {
       this.props.setRouteUrlParams('/');
     } else {
       const payload = this.getCurrentUrlCode();
-      this.props.dispatch({
-        type: 'login/setAppUserAuth',
-        payload,
-      });
+      const url = setAppUserAuth(payload);
+      window.location.href = url;
     }
   };
 

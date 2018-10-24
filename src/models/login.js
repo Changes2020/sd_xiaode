@@ -1,5 +1,7 @@
+//   暂未使用
+
 import { routerRedux } from 'dva/router';
-import { setAppUserAuth } from 'services/appApi';
+import { setAppUserAuth } from 'services/api';
 import Message from '../components/Message';
 
 export default {
