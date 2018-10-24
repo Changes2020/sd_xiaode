@@ -11,7 +11,6 @@ export default {
     isLogin: false,
     userInfo: null,
   },
-
   effects: {
     *setAppUserAuth({ payload }, { call, put }) {
       const response = yield call(setAppUserAuth, payload);

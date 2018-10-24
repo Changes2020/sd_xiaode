@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { Switch, Redirect } from 'dva/router';
 import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
@@ -31,7 +32,7 @@ class AppLogin extends React.Component {
     // 获取微信授权信息,如果获取失败,则需要跳转微信授权
     const isHasUserId = getAuthority();
     if (isHasUserId) {
-      this.props.setRouteUrlParams('/');
+      // this.props.setRouteUrlParams('/');
     } else {
       const payload = this.getCurrentUrlCode();
       const url = setAppUserAuth(payload);
@@ -41,7 +42,17 @@ class AppLogin extends React.Component {
 
   render() {
     const { isloading } = this.props;
-    return <div>{isloading && <Loading />}</div>;
+    const isHasUserId = getAuthority();
+    return (
+      <div>
+        {!isHasUserId ? null : (
+          <Switch>
+            <Redirect from="/user/applogin" to="/indexPage" />
+          </Switch>
+        )}
+        {isloading && <Loading />}
+      </div>
+    );
   }
 }
 
