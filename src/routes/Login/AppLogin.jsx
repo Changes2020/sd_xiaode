@@ -47,7 +47,7 @@ class AppLogin extends React.Component {
       <div>
         {!isHasUserId ? null : (
           <Switch>
-            <Redirect from="/user/applogin" to="/indexPage" />
+            <Redirect from="/user/applogin" to="/" />
           </Switch>
         )}
         {isloading && <Loading />}
