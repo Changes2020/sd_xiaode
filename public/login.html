@@ -91,29 +91,84 @@
   </div>
 </div>
 <script>
-
-  var params = getUrlParams();
-  if (params['userId'] && params['userType'] == 1) {
-    setItem('userInfo', params);
-    var urlObj = {
+var urlObj = {
       pro: 'http://bi-m.ministudy.com/',
       dev: 'http://172.16.117.64:8092/'
     }
-    var redit_url = urlObj[params['branch']] ? urlObj[params['branch']] : './';
-    var time=new Date().getTime();
-    window.location.href = `${redit_url}?v=${time}`;
-  } else if (JSON.stringify(params) !== '{}') {
-    var href = window.location.href;
+
+function Login(params){
+  this.params=params;
+  this.userId=params.userId||null;
+  this.userType=params.userType||'';
+  this.branch=params.branch||'';
+  this.loginType=params.loginType||'';
+}
+Login.prototype.checkLoginType=function(){
+  var type=this.loginType;
+  switch (type){
+  case 'app':          // 企业客户端登录
+  this.appLogin();
+  break;
+  case 'wechart':      // 企业微信端登录
+  this.wechartLogin();
+  break;
+  default:             // 默认企业微信端登录
+  this.wechartLogin();
+  break;
+}
+}
+Login.prototype.appLogin=function(){
+  var isLogin=this.params.isBiLogin==1||false;
+  var isAuth=this.userId&&this.userType==1&&isLogin;
+  this.checkoutLoginState(isAuth);
+}
+Login.prototype.wechartLogin=function(){
+  var isAuth=this.userId&&this.userType==1;
+  this.checkoutLoginState(isAuth);
+}
+Login.prototype.checkoutLoginState=function(bol){
+  bol?this.success():this.error();
+}
+Login.prototype.success=function(){
+  var host=urlObj[this.branch];
+  setItem('userInfo', this.params);
+  var redit_url = host || './';
+  var time=new Date().getTime();
+  window.location.href = redit_url + "?v=" + time;
+}
+Login.prototype.removeParams=function(){       //  清除掉url上参数
+  var href = window.location.href;
     var nextUrl = href.replace(window.location.search, '');
     window.location.href = nextUrl;
-  } else {
-    document.querySelector('.content').style.display = 'table-cell';
+}
+Login.prototype.error=function(){
+  if(JSON.stringify(this.params) !== '{}'){
+    this.removeParams();
   }
+  document.querySelector('.content').style.display = 'table-cell';
+}
+//   操作区;
+var urlParams = getUrlParams()||{};
+  var login=new Login(urlParams);
+  login.checkLoginType();
 
+
+
+  // if (params['userId'] && params['userType'] == 1) {
+  //   setItem('userInfo', params);
+  //   var redit_url = urlObj[params['branch']] ? urlObj[params['branch']] : './';
+  //   var time=new Date().getTime();
+  //   window.location.href = `${redit_url}?v=${time}`;
+  // } else if (JSON.stringify(params) !== '{}') {   //  防止参数向外暴露,造成不安全;
+  //   var href = window.location.href;
+  //   var nextUrl = href.replace(window.location.search, '');
+  //   window.location.href = nextUrl;
+  // } else {
+  //   document.querySelector('.content').style.display = 'table-cell';
+  // }
 function setItem(key) {
   var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var days = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
   if (value === null || days !== null && isNaN(days)) {
     var error = new Error('localStorage存储请输入正确参数');
     throw error;
