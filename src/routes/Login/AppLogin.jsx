@@ -35,7 +35,7 @@ class AppLogin extends React.Component {
       // this.props.setRouteUrlParams('/');
     } else {
       const payload = this.getCurrentUrlCode();
-      const url = setAppUserAuth(payload);
+      const url = setAppUserAuth({ ...payload, loginType: 'app' });
       window.location.href = url;
     }
   };

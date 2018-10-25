@@ -11,6 +11,14 @@ export default {
     isLogin: false,
     userInfo: null,
   },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     const { pathname } = history.location;
+  //     if (pathname === '/user/applogin') {
+  //       console.log(3);
+  //     }
+  //   },
+  // },
   effects: {
     *setAppUserAuth({ payload }, { call, put }) {
       const response = yield call(setAppUserAuth, payload);
