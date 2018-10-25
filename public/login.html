@@ -118,7 +118,7 @@ Login.prototype.checkLoginType=function(){
 }
 }
 Login.prototype.appLogin=function(){
-  var isLogin=this.params.isBiLogin||false;
+  var isLogin=this.params.isBiLogin==1||false;
   var isAuth=this.userId&&this.userType==1&&isLogin;
   this.checkoutLoginState(isAuth);
 }
