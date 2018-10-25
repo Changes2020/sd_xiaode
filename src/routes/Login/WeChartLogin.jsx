@@ -16,7 +16,7 @@ class WeChartLogin extends React.Component {
       this.checkoutHasAuth();
     } else {
       if (NODE_ENV === 'dev') {
-        // window.localStorage.removeItem('userInfo');
+        window.localStorage.removeItem('userInfo');
       }
       this.checkoutHasAuth();
     }
