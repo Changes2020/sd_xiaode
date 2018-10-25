@@ -7,13 +7,18 @@ import Loading from '../components/Loading/Loading';
 
 class BaseLayout extends React.Component {
   componentDidMount() {
-    const { loading } = this.props;
-    const userInfo = getItem('userInfo').value;
-    const { groupId, userId } = userInfo;
-    if ((!groupId || !userId) && !loading) {
-      // 当用户进入之后多次返回页面造成的bug
-      this.getUserInfo();
-    }
+    // const { loading } = this.props;
+    // console.log(this.props)
+    // const userInfo = getItem('userInfo').value;
+    // const { groupId, userId } = userInfo;
+    // if (!isLogin) {
+    // 当用户进入之后多次返回页面造成的bug
+    this.getUserInfo();
+    // }
+    // if ((!groupId || !userId) && !loading) {
+    //   // 当用户进入之后多次返回页面造成的bug
+    //   this.getUserInfo();
+    // }
   }
   getUserInfo = () => {
     const userInfo = getItem('userInfo').value;
@@ -23,9 +28,11 @@ class BaseLayout extends React.Component {
       payload: { userId },
     });
   };
+  renderRedirectPath = isLoaginSuccess => {
+    return isLoaginSuccess ? '/indexPage' : '/exception/403';
+  };
   render() {
-    const { loading } = this.props;
-    const { routerData, match } = this.props;
+    const { loading, routerData, match, isLogin } = this.props;
     return (
       <div>
         {!loading ? (
@@ -40,7 +47,8 @@ class BaseLayout extends React.Component {
                 redirectPath="/exception/403"
               />
             ))}
-            <Redirect from="/" to="/indexPage" />
+            {/* <Redirect from="/" to="/indexPage" /> */}
+            <Redirect from="/" to={this.renderRedirectPath(isLogin)} />
           </Switch>
         ) : (
           <Loading />
@@ -52,5 +60,6 @@ class BaseLayout extends React.Component {
 
 export default connect(({ index, loading }) => ({
   index,
-  loading: loading.models.index,
+  loading: loading.effects['index/getUserInfo'],
+  isLogin: index.isLogin,
 }))(BaseLayout);

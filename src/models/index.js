@@ -7,7 +7,7 @@ export default {
   namespace: 'index',
 
   state: {
-    isLogin: false,
+    isLogin: null,
     userInfo: null,
   },
 
@@ -57,7 +57,7 @@ export default {
         /* ************** 跳转至首页 ************** */
         yield put(routerRedux.push('/indexPage'));
       } else {
-        yield put(routerRedux.push('/exception/403'));
+        // yield put(routerRedux.push('/exception/403'));
       }
       yield put({
         type: 'saveUser',
