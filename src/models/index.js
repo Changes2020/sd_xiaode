@@ -34,7 +34,6 @@ export default {
       const orgStore = getItem('allOrgMap');
       const { value, isExpries } = orgStore;
       const response = yield call(getUserInfo, { ...payload });
-      console.log(response);
       if (response && response.code === 2000) {
         setItem('userInfo', response.data);
         //  请求获取时间接口

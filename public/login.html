@@ -149,23 +149,10 @@ Login.prototype.error=function(){
 }
 //   操作区;
 var urlParams = getUrlParams()||{};
+console.log(getUrlParams())
   var login=new Login(urlParams);
   login.checkLoginType();
 
-
-
-  // if (params['userId'] && params['userType'] == 1) {
-  //   setItem('userInfo', params);
-  //   var redit_url = urlObj[params['branch']] ? urlObj[params['branch']] : './';
-  //   var time=new Date().getTime();
-  //   window.location.href = `${redit_url}?v=${time}`;
-  // } else if (JSON.stringify(params) !== '{}') {   //  防止参数向外暴露,造成不安全;
-  //   var href = window.location.href;
-  //   var nextUrl = href.replace(window.location.search, '');
-  //   window.location.href = nextUrl;
-  // } else {
-  //   document.querySelector('.content').style.display = 'table-cell';
-  // }
 function setItem(key) {
   var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var days = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
