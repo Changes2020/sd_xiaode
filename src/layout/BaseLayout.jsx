@@ -35,7 +35,7 @@ class BaseLayout extends React.Component {
     const { loading, routerData, match, isLogin } = this.props;
     return (
       <div>
-        {!loading ? (
+        {loading === false ? (
           <Switch>
             {getRoutes(match.path, routerData).map(item => (
               <Route

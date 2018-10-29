@@ -11,29 +11,30 @@ export default {
     userInfo: null,
   },
 
-  subscriptions: {
-    setup({ dispatch, history }) {
-      const userInfo = getItem('userInfo').value || {};
-      const { userId = null } = userInfo;
-      const { pathname } = history.location;
-      if (pathname === '/') {
-        if (userId) {
-          dispatch({
-            type: 'getUserInfo',
-            payload: { userId },
-          });
-        } else {
-          dispatch(routerRedux.push('/exception/403'));
-        }
-      }
-    },
-  },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     const userInfo = getItem('userInfo').value || {};
+  //     const { userId = null } = userInfo;
+  //     const { pathname } = history.location;
+  //     if (pathname === '/') {
+  //       if (userId) {
+  //         dispatch({
+  //           type: 'getUserInfo',
+  //           payload: { userId },
+  //         });
+  //       } else {
+  //         dispatch(routerRedux.push('/exception/403'));
+  //       }
+  //     }
+  //   },
+  // },
 
   effects: {
     *getUserInfo({ payload }, { call, put }) {
       const orgStore = getItem('allOrgMap');
       const { value, isExpries } = orgStore;
       const response = yield call(getUserInfo, { ...payload });
+      console.log(response);
       if (response && response.code === 2000) {
         setItem('userInfo', response.data);
         //  请求获取时间接口
