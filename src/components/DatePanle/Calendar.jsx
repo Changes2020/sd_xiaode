@@ -37,6 +37,7 @@ export default class CalendarDate extends React.Component {
   };
   render() {
     const { minDate = null, maxDate = null, visible } = this.props;
+    const defaultDate = maxDate - 2592000000 < minDate ? minDate : maxDate - 2592000000; // 方便默认展示两个月数据
     return (
       <Calendar
         visible={visible}
@@ -45,6 +46,7 @@ export default class CalendarDate extends React.Component {
         minDate={new Date(minDate)}
         maxDate={new Date(maxDate)}
         onConfirm={this.onConfirm}
+        defaultDate={new Date(defaultDate)}
       />
     );
   }
