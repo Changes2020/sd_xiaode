@@ -215,7 +215,7 @@ export default class ExportDemention extends React.Component {
               footer={[{ text: '确定', onPress: this.cannelResultModal }]}
             >
               <img src={rightIcon} className={styles.resultIcon} alt="成功" />
-              <h4 className={styles.resultSuccess}> 请求成功, 小德已开始准备数据!</h4>
+              <p className={styles.resultSuccess}> 请求成功, 小德已开始准备数据!</p>
               <div className={styles.textContainer}>
                 <p className={styles.resultEmilCheck}>因数据量较大,大约10～20分钟后发送到</p>
                 <p className={styles.resultEmilCheck}>您的邮箱。请勿重复请求</p>
