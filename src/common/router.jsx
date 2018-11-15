@@ -97,9 +97,6 @@ export const getRouterData = app => {
     '/demention': {
       component: dynamicWrapper(app, ['demention'], () => import('../routes/Demention/Demention')),
     },
-    '/usercourse': {
-      component: dynamicWrapper(app, [], () => import('../routes/User/UseCourse')),
-    },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
     },
@@ -111,6 +108,9 @@ export const getRouterData = app => {
     },
     '/static': {
       component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
+    },
+    '/static/usercourse': {
+      component: dynamicWrapper(app, [], () => import('../routes/User/UseCourse')),
     },
     '/static/formula': {
       component: dynamicWrapper(app, [], () => import('../routes/Static/Formula/Formula')),
