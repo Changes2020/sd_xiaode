@@ -6,6 +6,7 @@ import formula2 from '../../../assets/sunlinght_02.png';
 
 class Test extends Component {
   componentDidMount() {
+    document.title='\u200E';
     window.addEventListener('scroll', this.onScroll);
   }
   componentWillUnmount() {
