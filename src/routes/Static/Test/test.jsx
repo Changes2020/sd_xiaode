@@ -51,24 +51,12 @@ class Test extends Component {
           <img src={Top} className={styles.imgTop} alt="回到顶部" />
         </div>
 
-        <div className={styles.u_button1} onClick={() => this.scrollToAnchor('test3')}>
-          a
-        </div>
-        <div className={styles.u_button2} onClick={() => this.scrollToAnchor('test4')}>
-          a
-        </div>
-        <div className={styles.u_button3} onClick={() => this.scrollToAnchor('test5')}>
-          a
-        </div>
-        <div className={styles.u_button4} onClick={() => this.scrollToAnchor('test6')}>
-          a
-        </div>
-        <div className={styles.u_button5} onClick={() => this.scrollToAnchor('test7')}>
-          a
-        </div>
-        <div className={styles.u_button6} onClick={() => this.scrollToAnchor('test8')}>
-          a
-        </div>
+        <div className={styles.u_button1} onClick={() => this.scrollToAnchor('test3')} />
+        <div className={styles.u_button2} onClick={() => this.scrollToAnchor('test4')} />
+        <div className={styles.u_button3} onClick={() => this.scrollToAnchor('test5')} />
+        <div className={styles.u_button4} onClick={() => this.scrollToAnchor('test6')} />
+        <div className={styles.u_button5} onClick={() => this.scrollToAnchor('test7')} />
+        <div className={styles.u_button6} onClick={() => this.scrollToAnchor('test8')} />
         <img src={sunlinght1} alt="sunlinght1" />
         <img src={sunlinght2} alt="sunlinght2" />
         <img id="test3" src={sunlinght3} alt="sunlinght3" />
