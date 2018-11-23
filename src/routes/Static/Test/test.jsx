@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import styles from './test.less';
 import Top from '../../../assets/top.svg';
-import formula1 from '../../../assets/sunlinght_01.png';
-import formula2 from '../../../assets/sunlinght_02.png';
+import sunlinght1 from '../../../assets/sunlight1.png';
+import sunlinght2 from '../../../assets/sunlight2.png';
+import sunlinght3 from '../../../assets/sunlight3.png';
+import sunlinght4 from '../../../assets/sunlight4.png';
+import sunlinght5 from '../../../assets/sunlight5.png';
+import sunlinght6 from '../../../assets/sunlight6.png';
+import sunlinght7 from '../../../assets/sunlight7.png';
+import sunlinght8 from '../../../assets/sunlight8.png';
+import sunlinght9 from '../../../assets/sunlight9.png';
+
 
 class Test extends Component {
   componentDidMount() {
@@ -46,15 +54,30 @@ class Test extends Component {
         <div className={styles.u_button1} onClick={() => this.scrollToAnchor('test3')}>
           a
         </div>
-        <div className={styles.u_button2} onClick={() => this.scrollToAnchor('test6')}>
+        <div className={styles.u_button2} onClick={() => this.scrollToAnchor('test4')}>
           a
         </div>
-        <img src={formula1} alt="formula1" />
-        <img src={formula2} alt="formula2" />
-        <img id="test3" src={formula1} alt="formula2" />
-        <img src={formula2} alt="formula1" />
-        <img id="test6" src={formula1} alt="formula2" />
-        <img src={formula2} alt="formula1" />
+        <div className={styles.u_button3} onClick={() => this.scrollToAnchor('test5')}>
+          a
+        </div>
+        <div className={styles.u_button4} onClick={() => this.scrollToAnchor('test6')}>
+          a
+        </div>
+        <div className={styles.u_button5} onClick={() => this.scrollToAnchor('test7')}>
+          a
+        </div>
+        <div className={styles.u_button6} onClick={() => this.scrollToAnchor('test8')}>
+          a
+        </div>
+        <img src={sunlinght1} alt="sunlinght1" />
+        <img src={sunlinght2} alt="sunlinght2" />
+        <img id="test3" src={sunlinght3} alt="sunlinght3" />
+        <img id="test4" src={sunlinght4} alt="sunlinght4" />
+        <img id="test5" src={sunlinght5} alt="sunlinght5" />
+        <img id="test6" src={sunlinght6} alt="sunlinght6" />
+        <img id="test7" src={sunlinght7} alt="sunlinght7" />
+        <img id="test8" src={sunlinght8} alt="sunlinght8" />
+        <img  src={sunlinght9} alt="sunlinght9" />
       </div>
     );
   }
