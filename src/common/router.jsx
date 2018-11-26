@@ -106,6 +106,9 @@ export const getRouterData = app => {
     '/user/applogin': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/Login/AppLogin')),
     },
+    '/user/brochure': {
+      component: dynamicWrapper(app, ['login'], () => import('../routes/Login/Brochure ')),
+    },
     '/static': {
       component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),
     },
@@ -123,6 +126,9 @@ export const getRouterData = app => {
     },
     '/exception/403': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/Error403')),
+    },
+    '/exception/introduceError403': {
+      component: dynamicWrapper(app, [], () => import('../routes/Exception/IntroduceError403')),
     },
     '/exception/404': {
       component: dynamicWrapper(app, [], () => import('../routes/Exception/Error404')),

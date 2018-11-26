@@ -9,16 +9,28 @@ const hostObj = {
 };
 const HOST = hostObj[NODE_ENV];
 
+// /*
+// *此接口为获取微信授权接口(微信企业号)
+// */
+// export function getWeChart() {
+//   const weChartUrlObj = {
+//     dev: 'http://172.16.117.65:8087/authorize/RedirectToWechat?branch=dev',
+//     pro: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat?branch=pro',
+//   };
+//   return weChartUrlObj[NODE_ENV];
+// }
 /*
-*此接口为获取微信授权接口(微信企业号)
+*此接口为用于微信授权接口调用
 */
-export function getWeChart() {
-  const weChartUrlObj = {
-    dev: 'http://172.16.117.65:8087/authorize/RedirectToWechat?branch=dev',
-    pro: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat?branch=pro',
+export function setWechartAuth(params = {}) {
+  const wechartHost = {
+    pro: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat',
+    dev: 'http://172.16.117.65:8087/authorize/RedirectToWechat',
   };
-  return weChartUrlObj[NODE_ENV];
+  const newParams = { branch: NODE_ENV, ...params };
+  window.location.href = `${wechartHost[NODE_ENV]}?${stringify(newParams)}`;
 }
+
 /*
 * 此接口用于客户端app获取授权
 */

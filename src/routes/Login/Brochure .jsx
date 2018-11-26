@@ -1,19 +1,22 @@
 import React from 'react';
 import { connect } from 'dva';
-// import { Switch, Redirect } from 'dva/router';
 import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
 import { setWechartAuth } from 'services/api';
+import UserIntroduceRoute from '../Static/Test/test';
+import IntroduceError403 from '../Exception/IntroduceError403';
 import config from '../../config';
 
 const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
 
-class WeChartLogin extends React.Component {
+class AppLogin extends React.Component {
   UNSAFE_componentWillMount() {
     if (DEBUGGER) {
       setItem('userInfo', { userId });
-      this.checkoutHasAuth();
+      setTimeout(() => {
+        this.checkoutHasAuth();
+      }, 10);
     } else {
       if (NODE_ENV === 'dev') {
         window.localStorage.removeItem('userInfo');
@@ -23,31 +26,28 @@ class WeChartLogin extends React.Component {
   }
 
   checkoutHasAuth = () => {
-    // 获取微信授权信息,如果获取失败,则需要跳转微信授权,成功采用重定向的方式跳转
+    // 获取微信授权信息,如果获取失败,则需要跳转微信授权
     const isHasUserId = getAuthority();
     if (isHasUserId) {
-      this.props.setRouteUrlParams('/');
+      // this.props.setRouteUrlParams('/');
     } else {
-      setWechartAuth({ loginType: 'wechart' });
+      setWechartAuth({ loginType: 'brochure' });
     }
   };
 
   render() {
     const { isloading } = this.props;
-    // const isHasUserId = getAuthority();
+    const isHasUserId = getAuthority();
     return (
       <div>
-        {/* {!isHasUserId ? null : (
-          <Switch>
-            <Redirect from="/user/wechart" to="/indexPage" />
-          </Switch>
-        )} */}
+        {!isHasUserId ? <IntroduceError403 /> : <UserIntroduceRoute />}
         {isloading && <Loading />}
       </div>
     );
   }
 }
 
-export default connect(({ loading }) => ({
+export default connect(({ loading, login }) => ({
+  login,
   isloading: loading.global,
-}))(WeChartLogin);
+}))(AppLogin);
