@@ -124,8 +124,7 @@ Login.prototype.checkLoginType=function(){
 }
 //发光学院用户使用页面
 Login.prototype.userintroduce=function(){
-  var isLogin=this.params.isBiLogin==1||false;
-  var isAuth=this.userId&&this.userType==1&&isLogin;
+  var isAuth=this.userId&&this.userType==1;
   this.successPath='/user/brochure';
   this.errorPath='/exception/introduceError403';
   this.checkoutLoginState(isAuth);
