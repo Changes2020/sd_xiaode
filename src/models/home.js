@@ -14,7 +14,6 @@ import { getItem } from '../utils/localStorage';
 
 export default {
   namespace: 'home',
-
   state: {
     paramsObj: {},
     fmilyTypeFilteKeyIDs: {
