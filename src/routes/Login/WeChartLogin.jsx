@@ -33,7 +33,8 @@ class WeChartLogin extends React.Component {
   };
 
   render() {
-    const isHasUserId = getAuthority();
+    const { isloading } = this.props;
+    // const isHasUserId = getAuthority();
     return (
       <div>
         {/* {!isHasUserId ? null : (
@@ -41,7 +42,7 @@ class WeChartLogin extends React.Component {
             <Redirect from="/user/wechart" to="/indexPage" />
           </Switch>
         )} */}
-        {!isHasUserId && <Loading />}
+        {isloading && <Loading />}
       </div>
     );
   }
