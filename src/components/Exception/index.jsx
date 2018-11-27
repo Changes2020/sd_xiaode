@@ -31,17 +31,18 @@ export default class Exception extends React.Component {
     }
   };
   render() {
-    const { type = null, img, style, desc = '' } = this.props;
+    const { type = null, img, imgStyle,contentStyle, desc = '' } = this.props;
     const pageType = type in config ? type : '403';
-    const clsString = classNames(styles.errorBox, style);
+    const clsString = classNames(styles.divImg, imgStyle);
+    const contentStyles = classNames(styles.content, contentStyle);
     const hasHaddleDesc = this.checkoutDesc(desc);
     return (
-      <div className={`${styles.errorBox} ${clsString}`}>
+      <div className={styles.errorBox}>
         <div
-          className={styles.divImg}
           style={{ backgroundImage: `url(${img || config[pageType].img})` }}
+          className={clsString}
         />
-        <div className={styles.content}>{hasHaddleDesc}</div>
+        <div className={contentStyles}>{hasHaddleDesc}</div>
       </div>
     );
   }

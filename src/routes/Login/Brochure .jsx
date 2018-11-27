@@ -4,7 +4,7 @@ import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
 import { setWechartAuth } from 'services/api';
-import UserIntroduceRoute from '../Static/Test/test';
+import UserIntroduceRoute from '../Static/Brochure/brochure';
 import IntroduceError403 from '../Exception/IntroduceError403';
 import config from '../../config';
 

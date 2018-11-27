@@ -8,20 +8,29 @@
 .conter{
    margin-top:2.6rem;
 }
+.content{
+  margin: 0.6rem auto !important;
+}
 .desc{
     list-style: none;
     margin: 0;
     padding: 0;
 }
 .authInfo{
-    height: 0.8rem;
-    line-height: 0.32rem;
+    height: 0.6rem;
+    line-height: 0.4rem;
     font-size: 0.32rem;
     color: #333;
     }
 .authItem{
-    height: 0.5rem;
-    line-height: 0.28rem;
-    font-size: 0.28rem;
-    color: #999;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  font-size: 0.28rem;
+  color: #999;
+}
+
+
+.imgContent{
+  width: 7.5rem !important;
+  height: 6.92rem !important;
 }

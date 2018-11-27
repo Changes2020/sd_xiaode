@@ -118,8 +118,8 @@ export const getRouterData = app => {
     '/static/formula': {
       component: dynamicWrapper(app, [], () => import('../routes/Static/Formula/Formula')),
     },
-    '/static/test': {
-      component: dynamicWrapper(app, [], () => import('../routes/Static/Test/test')),
+    '/static/brochure': {
+      component: dynamicWrapper(app, [], () => import('../routes/Static/Brochure/brochure')),
     },
     '/exception': {
       component: dynamicWrapper(app, [], () => import('../layout/Exception')),

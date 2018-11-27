@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './test.less';
+import styles from './brochure.less';
 import Top from '../../../assets/top.svg';
 import sunlinght1 from '../../../assets/sunlight1.png';
 import sunlinght2 from '../../../assets/sunlight2.png';
@@ -12,10 +12,9 @@ import sunlinght8 from '../../../assets/sunlight8.png';
 import sunlinght9 from '../../../assets/sunlight9.png';
 
 
-class Test extends Component {
+class Brochure extends Component {
   componentDidMount() {
     document.title='\u200E';
-    window.addEventListener('scroll', this.onScroll);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
@@ -71,4 +70,4 @@ class Test extends Component {
   }
 }
 
-export default Test;
+export default Brochure;
