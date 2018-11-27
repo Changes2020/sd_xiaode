@@ -15,6 +15,7 @@ import sunlinght9 from '../../../assets/sunlight9.png';
 class Brochure extends Component {
   componentDidMount() {
     document.title='\u200E';
+    window.addEventListener('scroll', this.onScroll);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
