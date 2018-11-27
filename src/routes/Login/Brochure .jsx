@@ -1,0 +1,51 @@
+import React from 'react';
+import { connect } from 'dva';
+import Loading from 'components/Loading/Loading';
+import { setItem } from 'utils/localStorage';
+import { getAuthority } from 'utils/authority';
+import { setWechartAuth } from 'services/api';
+import UserIntroduceRoute from '../Static/Brochure/brochure';
+import config from '../../config';
+
+const { DEBUGGER = false, userId } = config;
+
+class AppLogin extends React.Component {
+  UNSAFE_componentWillMount() {
+    if (DEBUGGER) {
+      setItem('userInfo', { userId });
+      setTimeout(() => {
+        this.checkoutHasAuth();
+      }, 10);
+    } else {
+      // 防止死循环
+      // if (NODE_ENV === 'dev') {
+      //   window.localStorage.removeItem('userInfo');
+      // }
+      this.checkoutHasAuth();
+    }
+  }
+
+  checkoutHasAuth = () => {
+    // 获取微信授权信息,如果获取失败,则需要跳转微信授权
+    const isHasUserId = getAuthority();
+    if (isHasUserId) {
+      // this.props.setRouteUrlParams('/');
+    } else {
+      setWechartAuth({ loginType: 'brochure' });
+    }
+  };
+
+  render() {
+    const isHasUserId = getAuthority();
+    return (
+      <div>
+        {!isHasUserId ? null : <UserIntroduceRoute />}
+        {!isHasUserId && <Loading />}
+      </div>
+    );
+  }
+}
+
+export default connect(({ login }) => ({
+  login,
+}))(AppLogin);

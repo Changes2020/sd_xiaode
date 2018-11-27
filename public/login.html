@@ -92,8 +92,8 @@
 </div>
 <script>
 var urlObj = {
-      pro: 'http://bi-m.ministudy.com/',
-      dev: 'http://172.16.117.64:8092/'
+      pro: 'http://bi-m.ministudy.com',
+      dev: 'http://172.16.117.64:8092'
     }
 
 function Login(params){
@@ -102,6 +102,8 @@ function Login(params){
   this.userType=params.userType||'';
   this.branch=params.branch||'';
   this.loginType=params.loginType||'';
+  this.successPath='/';        //成功回调地址
+  this.errorPath='';           //失败回调地址
 }
 Login.prototype.checkLoginType=function(){
   var type=this.loginType;
@@ -112,10 +114,20 @@ Login.prototype.checkLoginType=function(){
   case 'wechart':      // 企业微信端登录
   this.wechartLogin();
   break;
+  case 'brochure':      // 发光学院权限页面
+  this.userintroduce();
+  break;
   default:             // 默认企业微信端登录
   this.wechartLogin();
   break;
 }
+}
+//发光学院用户使用页面
+Login.prototype.userintroduce=function(){
+  var isAuth=this.userId&&this.userType==1;
+  this.successPath='/user/brochure';
+  this.errorPath='/exception/introduceError403';
+  this.checkoutLoginState(isAuth);
 }
 Login.prototype.appLogin=function(){
   var isLogin=this.params.isBiLogin==1||false;
@@ -130,26 +142,33 @@ Login.prototype.checkoutLoginState=function(bol){
   bol?this.success():this.error();
 }
 Login.prototype.success=function(){
-  var host=urlObj[this.branch];
   setItem('userInfo', this.params);
-  var redit_url = host || './';
-  var time=new Date().getTime();
-  window.location.href = redit_url + "?v=" + time;
+  this.toReditUrl(this.successPath);
 }
 Login.prototype.removeParams=function(){       //  清除掉url上参数
   var href = window.location.href;
     var nextUrl = href.replace(window.location.search, '');
     window.location.href = nextUrl;
 }
-Login.prototype.error=function(){
+Login.prototype.error=function(){  
+  if(this.errorPath){  // 当指定错误页面时跳到指定页面
+    this.toReditUrl(this.errorPath);
+    return;
+  }
   if(JSON.stringify(this.params) !== '{}'){
     this.removeParams();
   }
   document.querySelector('.content').style.display = 'table-cell';
 }
+Login.prototype.toReditUrl=function(pathname){
+  var newPathname=pathname||'';
+  var host=urlObj[this.branch];
+  var redit_url = host+newPathname;
+  var time=new Date().getTime();
+  window.location.href = redit_url + "?v=" + time;
+}
 //   操作区;
 var urlParams = getUrlParams()||{};
-console.log(getUrlParams())
   var login=new Login(urlParams);
   login.checkLoginType();
 

@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import Loading from 'components/Loading/Loading';
 import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
-import { getWeChart } from 'services/api';
+import { setWechartAuth } from 'services/api';
 import config from '../../config';
 
 const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
@@ -28,8 +28,7 @@ class WeChartLogin extends React.Component {
     if (isHasUserId) {
       this.props.setRouteUrlParams('/');
     } else {
-      const url = getWeChart();
-      window.location.href = url;
+      setWechartAuth({ loginType: 'wechart' });
     }
   };
 

@@ -9,6 +9,11 @@ const config = {
     title: '403',
     desc: '抱歉，请求超时',
   },
+  brochure: {
+    img: 'http://bi-m.ministudy.com/staticFile/bi_img/brochure.png',
+    title: '403',
+    desc: '抱歉，你无权访问该页面',
+  },
   403: {
     img: 'http://bi-m.ministudy.com/staticFile/bi_img/authorized.png',
     title: '403',

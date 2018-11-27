@@ -13,7 +13,7 @@ export default class Banner extends Component {
       <div className={styles.normal}>
         <Carousel dots={false} infinite selectedIndex={0}>
           {this.state.data.map(val => (
-            <Link key={val} to="/usercourse" className={styles.imgContainer}>
+            <Link key={val} to="/static/usercourse" className={styles.imgContainer}>
               <img src={val} alt="轮播图" className={styles.bannerImg} />
             </Link>
           ))}
