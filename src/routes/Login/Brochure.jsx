@@ -1,51 +1,25 @@
 import React from 'react';
 import { connect } from 'dva';
 import Loading from 'components/Loading/Loading';
-import { setItem } from 'utils/localStorage';
-import { getAuthority } from 'utils/authority';
-import { setWechartAuth } from 'services/api';
 import UserIntroduceRoute from '../Static/Brochure/brochure';
-import config from '../../config';
-
-const { DEBUGGER = false, userId } = config;
 
 class AppLogin extends React.Component {
-  UNSAFE_componentWillMount() {
-    if (DEBUGGER) {
-      setItem('userInfo', { userId });
-      setTimeout(() => {
-        this.checkoutHasAuth();
-      }, 10);
-    } else {
-      // 防止死循环
-      // if (NODE_ENV === 'dev') {
-      //   window.localStorage.removeItem('userInfo');
-      // }
-      this.checkoutHasAuth();
-    }
-  }
-
-  checkoutHasAuth = () => {
-    // 获取微信授权信息,如果获取失败,则需要跳转微信授权
-    const isHasUserId = getAuthority();
-    if (isHasUserId) {
-      // this.props.setRouteUrlParams('/');
-    } else {
-      setWechartAuth({ loginType: 'brochure' });
-    }
+  ceshi = () => {
+    window.localStorage.removeItem('userInfo');
   };
-
   render() {
-    const isHasUserId = getAuthority();
+    const { isLoading, login } = this.props;
+    const { isLogin } = login;
     return (
-      <div>
-        {!isHasUserId ? null : <UserIntroduceRoute />}
-        {!isHasUserId && <Loading />}
+      <div onClick={this.ceshi}>
+        {!isLogin ? null : <UserIntroduceRoute />}
+        {isLoading && <Loading />}
       </div>
     );
   }
 }
 
-export default connect(({ login }) => ({
+export default connect(({ login, loading }) => ({
   login,
+  isLoading: loading.effects['login/getUserInfo'],
 }))(AppLogin);
