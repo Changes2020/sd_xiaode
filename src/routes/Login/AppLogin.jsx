@@ -29,7 +29,7 @@ class AppLogin extends React.Component {
   };
 
   checkoutHasAuth = () => {
-    // 获取微信授权信息,如果获取失败,则需要跳转微信授权
+    // 获取授权信息,如果获取失败,则需要跳转微信授权
     const isHasUserId = getAuthority();
     if (isHasUserId) {
       // this.props.setRouteUrlParams('/');
