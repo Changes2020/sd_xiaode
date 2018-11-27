@@ -5,7 +5,6 @@ import { setItem } from 'utils/localStorage';
 import { getAuthority } from 'utils/authority';
 import { setWechartAuth } from 'services/api';
 import UserIntroduceRoute from '../Static/Brochure/brochure';
-import IntroduceError403 from '../Exception/IntroduceError403';
 import config from '../../config';
 
 const { DEBUGGER = false, userId } = config;
@@ -37,18 +36,16 @@ class AppLogin extends React.Component {
   };
 
   render() {
-    const { isloading } = this.props;
     const isHasUserId = getAuthority();
     return (
       <div>
-        {!isHasUserId ? <IntroduceError403 /> : <UserIntroduceRoute />}
-        {isloading && <Loading />}
+        {!isHasUserId ? null : <UserIntroduceRoute />}
+        {!isHasUserId && <Loading />}
       </div>
     );
   }
 }
 
-export default connect(({ loading, login }) => ({
+export default connect(({ login }) => ({
   login,
-  isloading: loading.global,
 }))(AppLogin);
