@@ -8,7 +8,7 @@ import UserIntroduceRoute from '../Static/Brochure/brochure';
 import IntroduceError403 from '../Exception/IntroduceError403';
 import config from '../../config';
 
-const { DEBUGGER = false, userId, NODE_ENV = 'pro' } = config;
+const { DEBUGGER = false, userId } = config;
 
 class AppLogin extends React.Component {
   UNSAFE_componentWillMount() {
@@ -18,9 +18,10 @@ class AppLogin extends React.Component {
         this.checkoutHasAuth();
       }, 10);
     } else {
-      if (NODE_ENV === 'dev') {
-        window.localStorage.removeItem('userInfo');
-      }
+      // 防止死循环
+      // if (NODE_ENV === 'dev') {
+      //   window.localStorage.removeItem('userInfo');
+      // }
       this.checkoutHasAuth();
     }
   }
