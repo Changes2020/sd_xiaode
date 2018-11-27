@@ -4,14 +4,11 @@ import Loading from 'components/Loading/Loading';
 import UserIntroduceRoute from '../Static/Brochure/brochure';
 
 class AppLogin extends React.Component {
-  ceshi = () => {
-    window.localStorage.removeItem('userInfo');
-  };
   render() {
     const { isLoading, login } = this.props;
     const { isLogin } = login;
     return (
-      <div onClick={this.ceshi}>
+      <div>
         {!isLogin ? null : <UserIntroduceRoute />}
         {isLoading && <Loading />}
       </div>
