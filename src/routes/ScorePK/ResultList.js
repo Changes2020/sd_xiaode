@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import ButtonGroupPro from '../../components/ButtonGroupPro/ButtonGroupPro';
+import { assignUrlParams } from '../../utils/routerUtils';
+import Filter from './_timeSelect';
+import styles from './ResultList.less';
+
 
 class ReaultList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      ds: {
-        data: [
-          { id: 1, name: '派学院', isFirst: false },
-          { id: 2, name: '狐逻', isFirst: false },
-          { id: 3, name: '泰罗', isFirst: true },
-          { id: 4, name: '皓博', isFirst: false },
-          { id: 5, name: '名称5', isFirst: false },
-          { id: 6, name: '名称6', isFirst: false },
-        ],
+    const { urlParams = {} } = props;
+    const initState = {
+      paramsObj: {
+        startTime:1543334400000, // 过滤开始时间
+        endTime:1543420799999, // 过滤结束时间
+        dateType: 3, // 1:周均,2:月均,3:自定义
+        userId: "guoyiru",
       },
-      ss: [{ id: 1, name: '派学院' }, { id: 6, name: '名称6' }],
     };
+    this.state = assignUrlParams(initState, urlParams);
   }
-  selectGroup = item => {
-    console.log(item);
-  };
+
   render() {
+    const { paramsObj} = this.state;
     return (
-      <div>
-        <ButtonGroupPro
-          dataSource={this.state.ds}
-          selectedIdList={this.state.ss}
-          dataReturnFun={this.selectGroup}
+      <div className={styles.normal}>
+        {/* *************** Filter *************** */}
+        <Filter
+          paramsObj={paramsObj}
+          fnGetData={obj => {
+            this.fnGetData(obj);
+          }}
         />
       </div>
     );
