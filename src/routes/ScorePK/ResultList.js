@@ -19,6 +19,10 @@ class ReaultList extends Component {
     this.state = assignUrlParams(initState, urlParams);
   }
 
+  fnGetData = (ops = {}) => {
+    console.log(ops)
+    };
+
   render() {
     const { paramsObj} = this.state;
     return (
