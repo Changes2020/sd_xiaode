@@ -1,4 +1,4 @@
-import { routerRedux } from 'dva/router';
+// import { routerRedux } from 'dva/router';
 import { getDisableTime, getUserInfo, getOrgMap } from 'services/api';
 import { setItem, getItem } from 'utils/localStorage';
 import Message from '../components/Message';
@@ -55,7 +55,7 @@ export default {
           Message.fail(timeResponse.msg);
         }
         /* ************** 跳转至首页 ************** */
-        yield put(routerRedux.push('/indexPage'));
+        // yield put(routerRedux.push('/indexPage'));
       } else {
         // yield put(routerRedux.push('/exception/403'));
       }
