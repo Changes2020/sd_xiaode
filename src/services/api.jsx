@@ -152,3 +152,12 @@ export async function addDownloadTask(params) {
     body: params,
   });
 }
+/*
+* 学分pk
+ */
+export async function getPKResult(params) {
+  return request(`${HOST}/avgScorePK/getPKResult`, {
+    method: 'POST',
+    body: params,
+  });
+}
