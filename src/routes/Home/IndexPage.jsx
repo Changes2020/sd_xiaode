@@ -12,6 +12,7 @@ import ChartContent from './_chartContent';
 import NoData from '../../components/NoData/NoData';
 import CeillingHead from './_ceillingHead';
 import ExportDemention from './_exportDemention';
+import ScorePKDialog from '../../container/ScorePKDialog';
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -184,6 +185,9 @@ class IndexPage extends React.Component {
             this.getDownloadInfo(data);
           }}
         />
+        {/* 学分px区域 */}
+        <ScorePKDialog />
+
         {/* **************处理loading************** */}
         {isloading && <Loading />}
       </div>
