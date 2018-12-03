@@ -1,9 +1,7 @@
 const path = require('path');
 export default {
   entry: 'src/index.js',
-  extraBabelPlugins: [
-    ['import', { libraryName: 'antd-mobile', style: 'css' }],
-  ],
+  extraBabelPlugins: [['import', { libraryName: 'antd-mobile', style: 'css' }]],
   env: {
     development: {
       extraBabelPlugins: ['dva-hmr'],
