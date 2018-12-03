@@ -98,7 +98,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['demention'], () => import('../routes/Demention/Demention')),
     },
     '/scoreresult': {
-      component: dynamicWrapper(app, ['demention'], () => import('../routes/ScorePK/ResultList')),
+      component: dynamicWrapper(app, ['scorePK'], () => import('../routes/ScorePK/ResultList')),
     },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
