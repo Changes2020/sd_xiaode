@@ -90,7 +90,9 @@ class ButtonGroupPro extends Component {
       ? classNames(styles.btnSelected, btnSelectedClass)
       : classNames(styles.newBtnSelectedClass, btnSelectedClass);
     return (
-      <div>{this.buttonListItem(dataSource, selectedIdList, newBtnClass, newBtnSelectedClass)}</div>
+      <div className={styles.wrap}>
+        {this.buttonListItem(dataSource, selectedIdList, newBtnClass, newBtnSelectedClass)}
+      </div>
     );
   }
 }
