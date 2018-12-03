@@ -28,28 +28,41 @@
 .pkWordCls {
   display: inline-block;
   position: relative;
-  margin: 0.14rem 0.2rem;
+  margin: 0.14rem 0.8rem 0.14rem 0.2rem;
   font-size: 0.3rem;
   color: #f8fafb;
   height: 0.7rem;
   line-height: 0.7rem;
 }
-
-.u_splitLine {
-  display: inline-block;
-  opacity: 0.6;
-  background: #f8fafb;
+.pkWordCls::after {
+  content: '';
+  position: absolute;
   width: 1px;
   height: 0.7rem;
-  margin: 0.14rem 0.3rem;
+  margin-left: 0.5rem;
+  opacity: 0.6;
+  background: #f8fafb;
 }
 
 .m_formulaButton {
+  display: inline-block;
   font-size: 0.2rem;
-  width: 2.2rem;
+  width: 1.9rem;
+  height: 0.7rem;
+  margin: 0.14rem auto;
   white-space: normal;
   .u_nameClass {
+    display: inline-block;
+    width: 1.9rem;
     color: #fff;
     text-align: center;
+    line-height: 0.35rem;
+  }
+  .u_avgClass {
+    display: inline-block;
+    width: 1.9rem;
+    color: #fff;
+    text-align: center;
+    line-height: 0.35rem;
   }
 }

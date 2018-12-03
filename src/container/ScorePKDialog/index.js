@@ -4,6 +4,7 @@ import Dialog from 'components/Dialog';
 import classNames from 'classnames';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Tab from './Tab';
+import OrgItem from './orgItem';
 import styles from './index.less';
 
 export default class ExportDemention extends React.Component {
@@ -53,16 +54,7 @@ export default class ExportDemention extends React.Component {
             <Tab groupType={groupType} onChange={this.changeTab} />
             {/* 组织结构区域 */}
             <div className={classNames(styles.buttonList, 'scroller')}>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
-              <div className={styles.ceshi}>1</div>
+              <OrgItem />
             </div>
             <div className={styles.footerButton}>
               <Button className={styles.nextStep} onClick={this.nextStep}>
