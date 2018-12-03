@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { assignUrlParams } from '../../utils/routerUtils';
-import Filter from './_timeSelect';
+import TimeSelect from './_timeSelect';
 import styles from './ResultList.less';
 
 
@@ -27,8 +27,7 @@ class ReaultList extends Component {
     const { paramsObj} = this.state;
     return (
       <div className={styles.normal}>
-        {/* *************** Filter *************** */}
-        <Filter
+        <TimeSelect
           paramsObj={paramsObj}
           fnGetData={obj => {
             this.fnGetData(obj);
