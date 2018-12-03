@@ -25,10 +25,10 @@ class ReaultList extends Component {
   componentDidMount() {
     const sendParams = {};
     // 掉接口
-    this.props.dispatch({
-      type: 'scorePK/getPKResult',
-      payload: sendParams,
-    });
+    // this.props.dispatch({
+    //   type: 'scorePK/getPKResult',
+    //   payload: sendParams,
+    // });
   }
   fnGetData = (ops = {}) => {
     console.log(ops);

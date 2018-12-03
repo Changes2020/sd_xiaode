@@ -16,7 +16,7 @@ export default class ScoreFile extends React.Component {
       <div className={styles.m_formulaButton}>
         <span className={styles.u_nameClass}>{paramsObj.orgName}</span>
         <br />
-        <span className={styles.u_nameClass}>{`${paramsObj.rank}/${paramsObj.allObj}`}</span>
+        <span className={styles.u_avgClass}>{`${paramsObj.rank}/${paramsObj.allObj}`}</span>
       </div>
     );
   };
@@ -24,13 +24,12 @@ export default class ScoreFile extends React.Component {
   render() {
     const { paramsObj = {} } = this.props;
     const arrLength = paramsObj.length;
-    // console.log(paramsObj,paramsObj[0].orgName)
-    // const url=
     return (
       <div className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}>
-        {/* {this.scoreRight(paramsObj[0])} */}
         <span className={styles.pkWordCls}>PK</span>
-        <div className={styles.u_splitLine} />
+        {this.scoreRight(paramsObj[0])}
+        {this.scoreRight(paramsObj[1])}
+        {this.scoreRight(paramsObj[2])}
       </div>
     );
   }
