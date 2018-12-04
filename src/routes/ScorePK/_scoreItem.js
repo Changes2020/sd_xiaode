@@ -6,19 +6,35 @@ class RenderItem extends React.Component {
     super(props);
     this.state = {};
   }
+  renderList = (data, index) => {
+    const liList = data.map(item => {
+      return (
+        <div
+          key={index}
+          className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
+        >
+          <span className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</span>
+        </div>
+      );
+    });
+    return <div className={styles.u_rightCss}>{liList}</div>;
+  };
 
   render() {
-    // const { rowData } = this.props;
+    const { paramsObj = [] } = this.props;
 
     return (
-      <div className={styles.container}>
-        <span className={styles.leftCss}>11</span>
-
-        <div className={styles.rightCss}>
-          <span className={styles.dataCss}>22</span>
-          <span className={styles.dataCss}>33</span>
-          <span className={styles.dataCss}>44</span>
-        </div>
+      <div className={styles.m_container}>
+        {paramsObj[0].childNode.map((item, index) => {
+          return (
+            <div key={item.id}>
+              <div>
+                <span className={styles.u_leftCss}>{item.dimensionName}</span>
+                {this.renderList(paramsObj, index)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   }

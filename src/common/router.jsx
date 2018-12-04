@@ -83,13 +83,15 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['global', 'index'], () => import('../layout/BaseLayout')),
     },
     '/indexPage': {
-      component: dynamicWrapper(app, ['home'], () => import('../routes/Home/IndexPage')),
+      component: dynamicWrapper(app, ['home', 'modalPK'], () => import('../routes/Home/IndexPage')),
     },
     '/chartlist': {
       component: dynamicWrapper(app, ['home'], () => import('../routes/Home/ChartList')),
     },
     '/details': {
-      component: dynamicWrapper(app, ['Details'], () => import('../routes/Details/Details')),
+      component: dynamicWrapper(app, ['Details', 'modalPK'], () =>
+        import('../routes/Details/Details')
+      ),
     },
     '/assistant': {
       component: dynamicWrapper(app, ['assistant'], () => import('../routes/Assistant/Assistant')),
@@ -98,7 +100,9 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['demention'], () => import('../routes/Demention/Demention')),
     },
     '/scoreresult': {
-      component: dynamicWrapper(app, ['scorePK'], () => import('../routes/ScorePK/ResultList')),
+      component: dynamicWrapper(app, ['scorePK', 'modalPK'], () =>
+        import('../routes/ScorePK/ResultList')
+      ),
     },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),

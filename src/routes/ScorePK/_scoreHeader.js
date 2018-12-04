@@ -7,17 +7,41 @@ class RenderHeader extends React.Component {
     this.state = {};
   }
 
+  // studyList = (paramsObj = []) => {
+  //   const list = Array.isArray(paramsObj) ? paramsObj : [];
+  //   const liList = list.map((item) => {
+  //     return (
+  //       <div key={styles.m_innerScore}>
+  //         <span className={styles.u_unitScore}>{item.avgScore}</span>
+  //       </div>
+  //     );
+  //   });
+  //   return (
+  //     <div className={styles.m_innerContent} style={{display:'inline-block'}}>
+  //       {liList}
+  //     </div>
+  //   );
+  // };
+
+  scoreList = (paramsObj = []) => {
+    const list = Array.isArray(paramsObj) ? paramsObj : [];
+    const liList = list.map(item => {
+      return (
+        <div key={item.key} className={styles.m_formulaButton2}>
+          <span className={styles.u_nameClass}>{item.avgScore}</span>
+        </div>
+      );
+    });
+    return <div style={{ display: 'inline-block' }}>{liList}</div>;
+  };
+
   render() {
-    // const { rowData } = this.props;
-
+    const { paramsObj = [] } = this.props;
     return (
-      <div className={styles.container}>
-        <span className={styles.leftCss}>正面均分</span>
-
-        <div className={styles.rightCss}>
-          <span className={styles.dataCss}>15.49</span>
-          <span className={styles.dataCss}>13.23</span>
-          <span className={styles.dataCss}>14.49</span>
+      <div>
+        <div className={styles.m_studyScore}>
+          <span className={styles.u_studyWord}>正面均分</span>
+          {this.scoreList(paramsObj)}
         </div>
       </div>
     );
