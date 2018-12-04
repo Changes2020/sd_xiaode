@@ -101,6 +101,7 @@ class ReaultList extends Component {
     const scoreDate1 = [
       { id: 2, orgName: '狐逻经管专科', rank: 12, allObj: 100, avgScore: 83.44 },
       { id: 3, orgName: '财富经管本科', rank: 24, allObj: 100, avgScore: 99.99 },
+      { id: 4, orgName: '财富经管本科', rank: 24, allObj: 100, avgScore: 99.99 },
     ];
     const scoreDate3 = [
       {
