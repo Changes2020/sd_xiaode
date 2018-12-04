@@ -9,12 +9,16 @@ class RenderItem extends React.Component {
 
   render() {
     // const { rowData } = this.props;
+
     return (
       <div className={styles.container}>
-        <span className={styles.familyName}>11</span>
-        <span className={styles.familyName}>22</span>
-        <span className={styles.familyName}>33</span>
-        <span className={styles.familyName}>44</span>
+        <span className={styles.leftCss}>11</span>
+
+        <div className={styles.rightCss}>
+          <span className={styles.dataCss}>22</span>
+          <span className={styles.dataCss}>33</span>
+          <span className={styles.dataCss}>44</span>
+        </div>
       </div>
     );
   }

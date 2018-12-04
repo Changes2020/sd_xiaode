@@ -27,14 +27,13 @@ class ReaultList extends Component {
     const paramsObj = {
       startTime, // 过滤开始时间
       endTime, // 过滤结束时间
+      groupType: 1,
       pkList: [
         {
-          groupType: 1,
           familyType: 0,
           objId: 108,
         },
         {
-          groupType: 1,
           familyType: 1,
           objId: 108,
         },
@@ -54,6 +53,7 @@ class ReaultList extends Component {
 
   render() {
     const { paramsObj } = this.state;
+    // const { dataList } = this.props.scorePK;
     const scoreDate = [
       { id: 1, orgName: '狐逻经管专科1·3组', rank: 2, allObj: 100, avgScore: 23.34 },
       { id: 2, orgName: '狐逻经管专科1·3组', rank: 12, allObj: 100, avgScore: 83.44 },
