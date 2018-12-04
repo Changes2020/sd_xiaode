@@ -54,7 +54,7 @@ class ButtonGroupPro extends Component {
     const liList = list.map((item, index) => {
       let isSelected = false;
       selectIds.forEach(sI => {
-        if (sI.id === item.id) {
+        if (sI === item.id) {
           isSelected = true;
         }
       });

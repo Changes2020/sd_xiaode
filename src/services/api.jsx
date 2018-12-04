@@ -161,3 +161,12 @@ export async function getPKResult(params) {
     body: params,
   });
 }
+/*
+* 学分pk modal数据
+ */
+export async function getPKObject(params) {
+  return request(`${HOST}/avgScorePK/getPkObject`, {
+    method: 'POST',
+    body: params,
+  });
+}
