@@ -3,10 +3,6 @@ import { connect } from 'dva';
 import { assignUrlParams } from '../../utils/routerUtils';
 import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
-import styles from './ResultList.less';
-
-import MultipHeaderList from '../../components/ListView/MultipHeaderList';
-import ScoreHeader from './_scoreHeader';
 import ScoreItem from './_scoreItem';
 
 class ReaultList extends Component {
@@ -42,7 +38,7 @@ class ReaultList extends Component {
       userId,
     };
 
-    // 掉接口
+    // 掉接口;
     this.props.dispatch({
       type: 'scorePK/getPKResult',
       payload: paramsObj,
@@ -64,8 +60,122 @@ class ReaultList extends Component {
       { id: 2, orgName: '狐逻经管专科', rank: 12, allObj: 100, avgScore: 83.44 },
       { id: 3, orgName: '财富经管本科', rank: 24, allObj: 100, avgScore: 99.99 },
     ];
+    const scoreDate3 = [
+      {
+        avgScore: 83.44,
+        childNode: [
+          {
+            id: 3,
+            parentId: 2,
+            dimensionName: '学术均分',
+            avgScore: 4.9638422704325285,
+            childNode: [
+              {
+                id: 32,
+                parentId: 3,
+                dimensionName: '预估分',
+                avgScore: 4.3,
+                childNode: null,
+              },
+              {
+                id: 4,
+                parentId: 3,
+                dimensionName: '直播',
+                avgScore: 0.2,
+                childNode: null,
+              },
+            ],
+          },
+          {
+            id: 8,
+            parentId: 2,
+            dimensionName: '运营均分',
+            avgScore: 0.3847728203029062,
+            childNode: [
+              {
+                id: 33,
+                parentId: 8,
+                dimensionName: '主帖',
+                avgScore: 0.23536635284486288,
+                childNode: null,
+              },
+              {
+                id: 34,
+                parentId: 8,
+                dimensionName: '跟帖',
+                avgScore: 0.1391731477691363,
+                childNode: null,
+              },
+              {
+                id: 35,
+                parentId: 8,
+                dimensionName: '优质帖',
+                avgScore: 0.010233319688907082,
+                childNode: null,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        avgScore: 99.99,
+        childNode: [
+          {
+            id: 3,
+            parentId: 2,
+            dimensionName: '学术均分',
+            avgScore: 2.9638422704325285,
+            childNode: [
+              {
+                id: 32,
+                parentId: 3,
+                dimensionName: '预估分',
+                avgScore: 1.22,
+                childNode: null,
+              },
+              {
+                id: 4,
+                parentId: 3,
+                dimensionName: '直播',
+                avgScore: 0,
+                childNode: null,
+              },
+            ],
+          },
+          {
+            id: 8,
+            parentId: 2,
+            dimensionName: '运营均分',
+            avgScore: 1.3847728203029062,
+            childNode: [
+              {
+                id: 33,
+                parentId: 8,
+                dimensionName: '主帖',
+                avgScore: 0.23536635284486288,
+                childNode: null,
+              },
+              {
+                id: 34,
+                parentId: 8,
+                dimensionName: '跟帖',
+                avgScore: 0.1391731477691363,
+                childNode: null,
+              },
+              {
+                id: 35,
+                parentId: 8,
+                dimensionName: '优质帖',
+                avgScore: 0.010233319688907082,
+                childNode: null,
+              },
+            ],
+          },
+        ],
+      },
+    ];
     return (
-      <div className={styles.normal}>
+      <div>
         <TimeSelect
           paramsObj={paramsObj}
           fnGetData={obj => {
@@ -74,11 +184,7 @@ class ReaultList extends Component {
         />
         <ScoreFile paramsObj={scoreDate} />
         <ScoreFile paramsObj={scoreDate1} />
-        <MultipHeaderList
-          dataList={{ name: 1 }}
-          customRenderHeader={rowData => <ScoreHeader rowData={rowData} />}
-          customRenderItem={rowData => <ScoreItem rowData={rowData} />}
-        />
+        <ScoreItem paramsObj={scoreDate3} />
       </div>
     );
   }
