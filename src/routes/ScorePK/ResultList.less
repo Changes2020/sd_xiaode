@@ -7,49 +7,110 @@
   position: relative;
   height: 1.06rem;
 }
-.pk3Score {
+.pk3Score{
   position: relative;
   width: 7.1rem;
-  height: 0.98rem;
-  margin: 0.3rem auto 0.1rem;
+  height: .98rem;
+  margin: .3rem auto 0.1rem;
   background: url(../../assets/bg3pk.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.pk2Score {
+.pk2Score{
   position: relative;
   width: 7.1rem;
-  height: 0.98rem;
-  margin: 0.3rem auto 0.1rem;
+  height: .98rem;
+  margin: .3rem auto 0.1rem;
   background: url(../../assets/bg2pk.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.pkWordCls {
+.pkWordCls{
   display: inline-block;
   position: relative;
-  margin: 0.14rem 0.2rem;
+  margin: 0 .8rem 0 .2rem;
   font-size: 0.3rem;
-  color: #f8fafb;
-  height: 0.7rem;
-  line-height: 0.7rem;
+  color: #F8FAFB;
+  height: .98rem;
+  line-height: .98rem;
+  vertical-align: super;
 }
-
-.u_splitLine {
-  display: inline-block;
+.pkWordCls::after{
+  content: "";
+  position: absolute;
+  width:1px;
+  height: 0.7rem;
+  margin-left: .5rem;
   opacity: 0.6;
   background: #f8fafb;
-  width: 1px;
-  height: 0.7rem;
-  margin: 0.14rem 0.3rem;
+  top: 0.1rem;
 }
 
+
+
 .m_formulaButton {
+  display: inline-block;
   font-size: 0.2rem;
-  width: 2.2rem;
+  width: 1.9rem;
+  height: 0.7rem;
+  margin: 0.14rem auto;
   white-space: normal;
-  .u_nameClass {
-    color: #fff;
-    text-align: center;
-  }
+  text-align: center;
+}
+
+.m_formulaButton2 {
+  display: inline-block;
+  font-size: 0.2rem;
+  width: 2.85rem;
+  height: 0.7rem;
+  margin: 0.14rem auto;
+  white-space: normal;
+  text-align: center;
+}
+.u_nameClass {
+  display: inline-block;
+  width: 1.9rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.35rem;
+}
+.m_studyScore {
+  width: 7.1rem;
+  background: #52C9C2;
+  border-radius: .04rem;
+  margin: 0.1rem auto;
+}
+.u_studyWord{
+  display: inline-block;
+  font-size: .22rem;
+  color: #FFF;
+  text-align: left;
+  width: 1.2rem;
+  height: .82rem;
+  line-height: .82rem;
+  margin-left: .2rem;
+}
+.m_innerContent{
+  display: inline-block;
+  width: 5.7rem;
+}
+.m_innerScore{
+  display: inline-block;
+  align-items: center;
+  vertical-align: middle;
+  width: 2.85rem;
+  text-align: center;
+}
+.m_innerScore1{
+  display: inline-block;
+  align-items: center;
+  vertical-align: middle;
+  width: 1.9rem;
+  text-align: center;
+}
+.u_unitScore{
+  width: .5rem;
+  font-size: .22rem;
+  color: #FFF;
+  text-align: right;
 }
