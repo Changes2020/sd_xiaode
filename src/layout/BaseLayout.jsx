@@ -24,7 +24,7 @@ class BaseLayout extends React.Component {
     const userInfo = getItem('userInfo').value;
     const { userId = null } = userInfo;
     this.props.dispatch({
-      type: 'index/getUserInfo',
+      type: 'index/getInitInfo',
       payload: { userId },
     });
   };
@@ -32,7 +32,7 @@ class BaseLayout extends React.Component {
     return isLoaginSuccess ? '/indexPage' : '/exception/403';
   };
   render() {
-    const { loading, routerData, match, isLogin } = this.props;
+    const { loading, routerData, match } = this.props;
     return (
       <div>
         {loading === false ? (
@@ -47,8 +47,7 @@ class BaseLayout extends React.Component {
                 redirectPath="/exception/403"
               />
             ))}
-            {/* <Redirect from="/" to="/indexPage" /> */}
-            <Redirect from="/" to={this.renderRedirectPath(isLogin)} />
+            <Redirect from="/" to="/indexPage" />
           </Switch>
         ) : (
           <Loading />
@@ -60,6 +59,6 @@ class BaseLayout extends React.Component {
 
 export default connect(({ index, loading }) => ({
   index,
-  loading: loading.effects['index/getUserInfo'],
+  loading: loading.effects['index/getInitInfo'],
   isLogin: index.isLogin,
 }))(BaseLayout);

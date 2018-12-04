@@ -104,7 +104,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
     },
     '/user/wechart': {
-      component: dynamicWrapper(app, [], () => import('../routes/Login/WeChartLogin')),
+      component: dynamicWrapper(app, ['login'], () => import('../routes/Login/WeChartLogin')),
     },
     '/user/applogin': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/Login/AppLogin')),
