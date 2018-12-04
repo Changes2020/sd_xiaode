@@ -57,7 +57,11 @@ class ReaultList extends Component {
     const scoreDate = [
       { id: 1, orgName: '狐逻经管专科1·3组', rank: 2, allObj: 100, avgScore: 23.34 },
       { id: 2, orgName: '狐逻经管专科1·3组', rank: 12, allObj: 100, avgScore: 83.44 },
-      { id: 3, orgName: '狐逻经管专科1·3组', rank: 24, allObj: 100, avgScore: 93.34 },
+      { id: 3, orgName: '狐逻经管专科1·3组', rank: 24, allObj: 100, avgScore: 99.99 },
+    ];
+    const scoreDate1 = [
+      { id: 2, orgName: '狐逻经管专科1·3组', rank: 12, allObj: 100, avgScore: 83.44 },
+      { id: 3, orgName: '狐逻经管专科1·3组', rank: 24, allObj: 100, avgScore: 99.99 },
     ];
     return (
       <div className={styles.normal}>
@@ -68,7 +72,7 @@ class ReaultList extends Component {
           }}
         />
         <ScoreFile paramsObj={scoreDate} />
-
+        <ScoreFile paramsObj={scoreDate1} />
         <MultipHeaderList
           dataList={{ name: 1 }}
           customRenderHeader={() => <div>111</div>}
