@@ -6,38 +6,31 @@ class RenderHeader extends React.Component {
     super(props);
     this.state = {};
   }
-  scoreList = (paramsObj = [],arrLength=1) => {
-    const list = Array.isArray(paramsObj) ? paramsObj : [];
-    const liList = list.map(item => {
-      return (
-        <div key={item.key} className={arrLength > 2 ?styles.m_formulaButton:styles.m_formulaButton2}>
-          <span className={styles.u_nameClass}>{item.avgScore}</span>
-        </div>
-      );
-    });
-    return (
-      <div style={{display:'inline-block',width:'5.7rem'}} >
-        {liList}
-      </div>
-    );
-  };
 
-  scoreList1 = (paramsObj = [],arrLength=1) => {
+  negative = (paramsObj = [],arrLength=1,type) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
     const liList = list.map((item) => {
       return (
         <div key={item.key} className={arrLength > 2 ?styles.m_formulaButton:styles.m_formulaButton2}>
-          <span className={styles.u_nameClass1}>{item.avgScore}</span>
+          <span className={type===1?styles.u_nameClass:styles.u_nameClass1}>{item.avgScore}</span>
         </div>
       );
     });
     return (
-      <div style={{display:'inline-block'}} >
+      <div className={styles.widthDiv} >
         {liList}
       </div>
     );
 
   };
+  contentDiv=(paramsObj,arrLength,type)=>{
+    return(
+      <div className={type===1?styles.m_studyScore:styles.m_studyScore1}>
+        <span className={type===1?styles.u_studyWord:styles.u_studyWord1}>{type===1?'正面均分':'负面均分'}</span>
+        {this.negative(paramsObj,arrLength,type)}
+      </div>
+    )
+  }
 
 
   render() {
@@ -46,17 +39,10 @@ class RenderHeader extends React.Component {
     return (
       <div>
         <div className={styles.heightDiv} />
-        <div className={styles.m_studyScore}>
-          <span className={styles.u_studyWord}>正面均分</span>
-          {this.scoreList(paramsObj,arrLength)}
-        </div>
-
+        {this.contentDiv(paramsObj,arrLength,1)}
 
         <div className={styles.heightDiv1} />
-        <div className={styles.m_studyScore1}>
-          <span className={styles.u_studyWord1}>负面均分</span>
-          {this.scoreList1(paramsObj,arrLength)}
-        </div>
+        {this.contentDiv(paramsObj,arrLength,2)}
       </div>
     );
   }
