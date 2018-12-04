@@ -20,7 +20,6 @@ export default class ScoreFile extends React.Component {
       </div>
     );
   };
-
   studyList = (paramsObj = [],arrLength=1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
     const liList = list.map((item) => {
@@ -39,9 +38,6 @@ export default class ScoreFile extends React.Component {
       </div>
     );
   };
-
-
-
   render() {
     const { paramsObj = {} } = this.props;
     const arrLength = paramsObj.length;
@@ -52,9 +48,7 @@ export default class ScoreFile extends React.Component {
           {this.scoreList(paramsObj,arrLength)}
         </div>
         {this.studyList(paramsObj,arrLength)}
-
       </div>
-
     );
   }
 }
