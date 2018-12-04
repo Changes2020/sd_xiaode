@@ -35,7 +35,7 @@ export function setWechartAuth(params = {}) {
 * 此接口用于客户端app获取授权
 */
 export function setAppUserAuth(params) {
-  return `${HOST}/appLogin/setAppUserAuth?${stringify(params)}`;
+  window.location.href = `${HOST}/appLogin/setAppUserAuth?${stringify(params)}`;
 }
 /*
 *此接口获取时间空间是指可选日期
