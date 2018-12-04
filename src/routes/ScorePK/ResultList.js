@@ -51,14 +51,55 @@ class ReaultList extends Component {
   fnGetData = (ops = {}) => {
     console.log(ops);
   };
+  dataStruct = (dataList = []) => {
+    // console.log(dataList.length)
+    const positive = [];
+    const negative= [];
+    const scoreDate =[];
+    if(!dataList||(Array.isArray(dataList) && dataList.length === 0)){
+      console.log('是空数组');
+    }else{
+      // console.log((dataList[0].dimensionPKResult.avgScore).toFixed(2))
+      dataList.map((item, index) => {
+        const scoreDateItem ={
+          key: index,
+          id: item.id,
+          orgName:item.orgName ,
+          allObj:item.allObj ,
+          rank: item.rank,
+          avgScore:(item.dimensionPKResult.avgScore).toFixed(2)
+        }
+        const positiveItem = {
+          key: index,
+          name: '正面均分',
+          value: item.dimensionPKResult.childNode[0].avgScore,
+          childNode:item.dimensionPKResult.childNode[0].childNode||[],
+        };
+        const negativeItem = {
+          key: index,
+          name: '负面均分',
+          value: item.dimensionPKResult.childNode[1].avgScore,
+          childNode:item.dimensionPKResult.childNode[1].childNode||[],
+        };
+        positive.push(positiveItem);
+        scoreDate.push(scoreDateItem);
+        negative.push(negativeItem);
+        return 0;
+      });
+    }
+
+
+    return {positive,negative,scoreDate};
+  };
 
   render() {
     const { paramsObj } = this.state;
-    // const { dataList } = this.props.scorePK;
+    const { dataList=[] } = this.props.scorePK;
+    const test = this.dataStruct(dataList)
+    // console.log(dataList,test)
     const scoreDate = [
-      { id: 1, orgName: '狐逻经管专科1·3组', rank: 2, allObj: 100, avgScore: 23.34 },
-      { id: 2, orgName: '狐逻经管专科1·3组', rank: 12, allObj: 100, avgScore: 83.44 },
-      { id: 3, orgName: '测试', rank: 24, allObj: 100, avgScore: 99.99 },
+      { key: 1, demensionName: '正面均分', avgScore: 23.34,childNode:[] },
+      { key: 2, demensionName: '正面均分', avgScore: 33.34,childNode:[] },
     ];
     const scoreDate1 = [
       { id: 2, orgName: '狐逻经管专科', rank: 12, allObj: 100, avgScore: 83.44 },
@@ -72,13 +113,11 @@ class ReaultList extends Component {
             this.fnGetData(obj);
           }}
         />
-        <ScoreFile paramsObj={scoreDate} />
+        <ScoreFile paramsObj={test.scoreDate} />
         <ScoreFile paramsObj={scoreDate1} />
-        <MultipHeaderList
-          dataList={{ name: 1 }}
-          customRenderHeader={rowData => <ScoreHeader rowData={rowData} />}
-          customRenderItem={rowData => <ScoreItem rowData={rowData} />}
-        />
+        <ScoreHeader paramsObj={scoreDate} />
+
+
       </div>
     );
   }
