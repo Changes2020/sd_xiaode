@@ -186,7 +186,7 @@ class IndexPage extends React.Component {
           }}
         />
         {/* 学分px区域 */}
-        <ScorePKDialog />
+        <ScorePKDialog {...this.props} />
 
         {/* **************处理loading************** */}
         {isloading && <Loading />}

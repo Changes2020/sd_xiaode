@@ -161,3 +161,25 @@ export async function getPKResult(params) {
     body: params,
   });
 }
+/*
+* 记录用户登录学分的次数
+ */
+export async function operateLog(params) {
+  const newParams = {
+    site: HOST,
+    operateType: 'AUTH',
+  };
+  return request(`${HOST}/operateLog/add`, {
+    method: 'POST',
+    body: { ...newParams, ...params },
+  });
+}
+/*
+* 学分pk modal数据
+ */
+export async function getPKObject(params) {
+  return request(`${HOST}/avgScorePK/getPkObject`, {
+    method: 'POST',
+    body: params,
+  });
+}

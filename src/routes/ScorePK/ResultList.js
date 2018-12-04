@@ -51,32 +51,32 @@ class ReaultList extends Component {
   dataStruct = (dataList = []) => {
     // console.log(dataList.length)
     const positive = [];
-    const negative= [];
-    const scoreDate =[];
-    if(!dataList||(Array.isArray(dataList) && dataList.length === 0)){
+    const negative = [];
+    const scoreDate = [];
+    if (!dataList || (Array.isArray(dataList) && dataList.length === 0)) {
       console.log('是空数组');
-    }else{
+    } else {
       // console.log((dataList[0].dimensionPKResult.avgScore).toFixed(2))
       dataList.map((item, index) => {
-        const scoreDateItem ={
+        const scoreDateItem = {
           key: index,
           id: item.id,
-          orgName:item.orgName ,
-          allObj:item.allObj ,
+          orgName: item.orgName,
+          allObj: item.allObj,
           rank: item.rank,
-          avgScore:(item.dimensionPKResult.avgScore).toFixed(2)
-        }
+          avgScore: item.dimensionPKResult.avgScore.toFixed(2),
+        };
         const positiveItem = {
           key: index,
           name: '正面均分',
           value: item.dimensionPKResult.childNode[0].avgScore,
-          childNode:item.dimensionPKResult.childNode[0].childNode||[],
+          childNode: item.dimensionPKResult.childNode[0].childNode || [],
         };
         const negativeItem = {
           key: index,
           name: '负面均分',
           value: item.dimensionPKResult.childNode[1].avgScore,
-          childNode:item.dimensionPKResult.childNode[1].childNode||[],
+          childNode: item.dimensionPKResult.childNode[1].childNode || [],
         };
         positive.push(positiveItem);
         scoreDate.push(scoreDateItem);
@@ -85,18 +85,17 @@ class ReaultList extends Component {
       });
     }
 
-
-    return {positive,negative,scoreDate};
+    return { positive, negative, scoreDate };
   };
 
   render() {
     const { paramsObj } = this.state;
-    const { dataList=[] } = this.props.scorePK;
-    const test = this.dataStruct(dataList)
+    const { dataList = [] } = this.props.scorePK;
+    const test = this.dataStruct(dataList);
     // console.log(dataList,test)
     const scoreDate = [
-      { key: 1, demensionName: '正面均分', avgScore: 23.34,childNode:[] },
-      { key: 2, demensionName: '正面均分', avgScore: 33.34,childNode:[] },
+      { key: 1, demensionName: '正面均分', avgScore: 23.34, childNode: [] },
+      { key: 2, demensionName: '正面均分', avgScore: 33.34, childNode: [] },
     ];
     const scoreDate1 = [
       { id: 2, orgName: '狐逻经管专科', rank: 12, allObj: 100, avgScore: 83.44 },
@@ -229,7 +228,6 @@ class ReaultList extends Component {
         <ScoreFile paramsObj={scoreDate1} />
         <ScoreHeader paramsObj={scoreDate} />
         <ScoreItem paramsObj={scoreDate3} />
-
       </div>
     );
   }

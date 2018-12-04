@@ -8,7 +8,7 @@ class RenderHeader extends React.Component {
   }
   scoreList = (paramsObj = [],arrLength=1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
-    const liList = list.map((item) => {
+    const liList = list.map(item => {
       return (
         <div key={item.key} className={arrLength > 2 ?styles.m_formulaButton:styles.m_formulaButton2}>
           <span className={styles.u_nameClass}>{item.avgScore}</span>
@@ -36,6 +36,7 @@ class RenderHeader extends React.Component {
         {liList}
       </div>
     );
+
   };
 
 
@@ -57,7 +58,6 @@ class RenderHeader extends React.Component {
           {this.scoreList1(paramsObj,arrLength)}
         </div>
       </div>
-
     );
   }
 }
