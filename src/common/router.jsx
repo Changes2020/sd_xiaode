@@ -81,7 +81,9 @@ const dynamicWrapper = (app, models, component) => {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['global', 'index'], () => import('../layout/BaseLayout')),
+      component: dynamicWrapper(app, ['global', 'index', 'login'], () =>
+        import('../layout/BaseLayout')
+      ),
     },
     '/indexPage': {
       component: dynamicWrapper(app, ['home', 'modalPK'], () => import('../routes/Home/IndexPage')),

@@ -131,6 +131,7 @@ class ExportDemention extends React.Component {
       return;
     }
 
+    this.saveLog();
     // 提交处理
     this.setState({
       dialogVisible: !this.state.dialogVisible,
@@ -143,6 +144,11 @@ class ExportDemention extends React.Component {
     }
   };
 
+  saveLog = () => {
+    this.props.dispatch({
+      type: 'login/saveLoginLog',
+    });
+  };
   showModel = () => {
     this.setState({
       dialogVisible: !this.state.dialogVisible,
@@ -186,6 +192,7 @@ class ExportDemention extends React.Component {
     );
   }
 }
-export default connect(({ modalPK }) => ({
+export default connect(({ modalPK, login }) => ({
   modalPK,
+  login,
 }))(ExportDemention);
