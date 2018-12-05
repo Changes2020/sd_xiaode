@@ -7,6 +7,7 @@ import { connect } from 'dva/index';
 import Tab from './Tab';
 import OrgItem from './orgItem';
 import styles from './index.less';
+import pk from '../../assets/PK.png';
 
 class ExportDemention extends React.Component {
   constructor(props) {
@@ -123,7 +124,7 @@ class ExportDemention extends React.Component {
   render() {
     const { dialogVisible, groupType, PKCondition } = this.state;
     return (
-      <div>
+      <React.Fragment>
         {dialogVisible ? (
           <Dialog
             visible={dialogVisible}
@@ -150,10 +151,10 @@ class ExportDemention extends React.Component {
           </Dialog>
         ) : (
           <span onClick={this.clickPK} className={styles.pkBtn}>
-            <img src={require('../../assets/PK.png')} className={styles.pkImg} alt="PK" />
+            <img src={pk} className={styles.pkImg} alt="PK" />
           </span>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

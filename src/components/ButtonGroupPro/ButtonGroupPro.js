@@ -13,6 +13,7 @@ import React, { Component } from 'react';
 import { Button } from 'antd-mobile';
 import classNames from 'classnames';
 import styles from './ButtonGroupPro.less';
+import first from '../../assets/numberOne.png';
 
 class ButtonGroupPro extends Component {
   constructor(props) {
@@ -58,9 +59,7 @@ class ButtonGroupPro extends Component {
           isSelected = true;
         }
       });
-      const numberOne = (
-        <img src={require('../../assets/numberOne.png')} className={styles.numberOne} alt="" />
-      );
+      const numberOne = <img src={first} className={styles.numberOne} alt="" />;
       return (
         <Button
           className={isSelected ? newBtnSelectedClass : newBtnClass}
