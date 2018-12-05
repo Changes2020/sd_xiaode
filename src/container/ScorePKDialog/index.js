@@ -113,6 +113,12 @@ class ExportDemention extends React.Component {
     this.props.setRouteUrlParams('/scoreresult', params);
   };
 
+  showModel = () => {
+    this.setState({
+      dialogVisible: !this.state.dialogVisible,
+    });
+  };
+
   render() {
     const { dialogVisible, groupType, PKCondition } = this.state;
     return (
