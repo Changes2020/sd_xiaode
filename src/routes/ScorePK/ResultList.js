@@ -13,20 +13,6 @@ import ScorePKDialog from '../../container/ScorePKDialog';
 const userInfo = getItem('userInfo').value || {};
 
 class ReaultList extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   const { urlParams = {} } = props;
-  //   const initState = {
-  //     paramsObj: {
-  //       startTime: 1535817600000, // 过滤开始时间
-  //       endTime: 1535817600999, // 过滤结束时间
-  //       dateType: 3, // 1:周均,2:月均,3:自定义
-  //       userId: 'xiejian',
-  //     },
-  //   };
-  //   this.state = assignUrlParams(initState, urlParams);
-  // }
-
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
@@ -44,16 +30,18 @@ class ReaultList extends Component {
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData(this.state.paramsObj);
   }
 
   // 请求接口的中间函数
   getData = (params = {}) => {
-    const {startTime,endTime,groupType,userId }= params || this.state.paramsObj;
+    const {startTime,endTime }= params || this.state.paramsObj;
+     const groupType=params.groupType || this.state.paramsObj.groupType;
+     const {userId}=this.state.paramsObj;
     const paramsObj = {
       startTime, // 过滤开始时间
       endTime, // 过滤结束时间
-      groupType,
+      groupType:Number(groupType),
       pkList: [
         {
           familyType: 0,
