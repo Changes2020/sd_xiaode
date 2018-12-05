@@ -6,41 +6,42 @@ import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
 import styles from './ResultList.less';
-// import { getItem } from '../../utils/localStorage';
-// import { defaultDateTime } from '../../utils/FormatDate';
+import { getItem } from '../../utils/localStorage';
+import { defaultDateTime } from '../../utils/FormatDate';
+import ScorePKDialog from '../../container/ScorePKDialog';
 
-// const userInfo = getItem('userInfo').value || {};
+const userInfo = getItem('userInfo').value || {};
 
 class ReaultList extends Component {
-  constructor(props) {
-    super(props);
-    const { urlParams = {} } = props;
-    const initState = {
-      paramsObj: {
-        startTime: 1535817600000, // 过滤开始时间
-        endTime: 1535817600999, // 过滤结束时间
-        dateType: 3, // 1:周均,2:月均,3:自定义
-        userId: 'xiejian',
-      },
-    };
-    this.state = assignUrlParams(initState, urlParams);
-  }
-
   // constructor(props) {
   //   super(props);
   //   const { urlParams = {} } = props;
-  //   const { startTime, endTime } = defaultDateTime();
   //   const initState = {
   //     paramsObj: {
-  //       startTime, // 过滤开始时间
-  //       endTime, // 过滤结束时间
-  //       groupType: 1, // 1:学院，2:家族，3:小组
+  //       startTime: 1535817600000, // 过滤开始时间
+  //       endTime: 1535817600999, // 过滤结束时间
   //       dateType: 3, // 1:周均,2:月均,3:自定义
-  //       userId: userInfo.userId,
+  //       userId: 'xiejian',
   //     },
   //   };
   //   this.state = assignUrlParams(initState, urlParams);
   // }
+
+  constructor(props) {
+    super(props);
+    const { urlParams = {} } = props;
+    const { startTime, endTime } = defaultDateTime();
+    const initState = {
+      paramsObj: {
+        startTime, // 过滤开始时间
+        endTime, // 过滤结束时间
+        groupType: 1, // 1:学院，2:家族，3:小组
+        dateType: 3, // 1:周均,2:月均,3:自定义
+        userId: userInfo.userId,
+      },
+    };
+    this.state = assignUrlParams(initState, urlParams);
+  }
 
   componentDidMount() {
     const { startTime, endTime, userId } = this.state.paramsObj;
@@ -141,6 +142,7 @@ class ReaultList extends Component {
 
     const { scoreDate =[]}  = itemList;
     const arrLength = scoreDate.length;
+    const bol=true;
     return (
       <div>
         <TimeSelect
@@ -165,6 +167,12 @@ class ReaultList extends Component {
         <ScoreHeader paramsObj={itemList.negative} type={2} />
         <ScoreItem paramsObj={itemList.negative} />
 
+
+
+        <div className="fixBox">
+          {/* 学分px区域 */}
+          <ScorePKDialog {...this.props} isResultPage={bol} />
+        </div>
       </div>
     );
   }
