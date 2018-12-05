@@ -12,7 +12,7 @@ class RenderHeader extends React.Component {
     const liList = list.map((item) => {
       return (
         <div key={item.key} className={arrLength > 2 ?styles.m_formulaButton:styles.m_formulaButton2}>
-          <span className={type===1?styles.u_nameClass:styles.u_nameClass1}>{item.avgScore}</span>
+          <span className={type===1?styles.u_nameClass:styles.u_nameClass1}>{(item.avgScore).toFixed(2)}</span>
         </div>
       );
     });
@@ -34,15 +34,12 @@ class RenderHeader extends React.Component {
 
 
   render() {
-    const { paramsObj=[] } = this.props;
+    const { paramsObj=[],type=1 } = this.props;
     const arrLength = paramsObj.length;
     return (
       <div>
-        <div className={styles.heightDiv} />
-        {this.contentDiv(paramsObj,arrLength,1)}
-
-        <div className={styles.heightDiv1} />
-        {this.contentDiv(paramsObj,arrLength,2)}
+        <div className={type===1?styles.heightDiv:styles.heightDiv1} />
+        {this.contentDiv(paramsObj,arrLength,type)}
       </div>
     );
   }
