@@ -22,19 +22,18 @@ class RenderItem extends React.Component {
 
   render() {
     const { paramsObj = [] } = this.props;
-
     return (
       <div className={styles.m_container}>
-        {paramsObj[0].childNode.map((item, index) => {
-          return (
-            <div key={item.id}>
-              <div>
-                <span className={styles.u_leftCss}>{item.dimensionName}</span>
-                {this.renderList(paramsObj, index)}
-              </div>
-            </div>
-          );
-        })}
+        {paramsObj.length > 0
+          ? paramsObj[0].childNode.map((item, index) => {
+              return (
+                <div key={item.id} className={styles.u_colCss}>
+                  <span className={styles.u_leftCss}>{item.dimensionName}</span>
+                  {this.renderList(paramsObj, index)}
+                </div>
+              );
+            })
+          : null}
       </div>
     );
   }
