@@ -44,11 +44,11 @@ class ReaultList extends Component {
   }
 
   componentDidMount() {
-    const { startTime, endTime, userId } = this.state.paramsObj;
+    const { startTime, endTime, userId ,groupType} = this.state.paramsObj;
     const paramsObj = {
       startTime, // 过滤开始时间
       endTime, // 过滤结束时间
-      groupType: 1,
+      groupType: groupType==='college'?1:groupType==='family'?2:3,
       pkList: [
         {
           familyType: 0,
