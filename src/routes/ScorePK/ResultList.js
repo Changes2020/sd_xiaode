@@ -49,59 +49,41 @@ class ReaultList extends Component {
     console.log(ops);
   };
   dataStruct = (dataList = []) => {
-    // console.log(dataList.length)
     const positive = [];
     const negative = [];
     const scoreDate = [];
     if (!dataList || (Array.isArray(dataList) && dataList.length === 0)) {
       console.log('是空数组');
     } else {
-      // console.log((dataList[0].dimensionPKResult.avgScore).toFixed(2))
       dataList.map((item, index) => {
         const scoreDateItem = {
           key: index,
           id: item.id,
-          orgName: item.orgName,
-          allObj: item.allObj,
-          rank: item.rank,
-          avgScore: item.dimensionPKResult.avgScore.toFixed(2),
+          orgName: item.orgName||'',
+          allObj: item.allObj||100,
+          rank: item.rank||100,
+          avgScore: item.dimensionPKResult.avgScore.toFixed(2)||0,
         };
-        const positiveItem = {
-          key: index,
-          name: '正面均分',
-          value: item.dimensionPKResult.childNode[0].avgScore,
-          childNode: item.dimensionPKResult.childNode[0].childNode || [],
-        };
-        const negativeItem = {
-          key: index,
-          name: '负面均分',
-          value: item.dimensionPKResult.childNode[1].avgScore,
-          childNode: item.dimensionPKResult.childNode[1].childNode || [],
-        };
-        positive.push(positiveItem);
+        const childrien=item.dimensionPKResult.childNode || [];
+        childrien.map((val) => {
+          if (val.dimensionName==='正面均分'){
+            positive.push(val)
+          }else{
+            negative.push(val);
+          }
+          return 0;
+        })
         scoreDate.push(scoreDateItem);
-        negative.push(negativeItem);
         return 0;
       });
     }
-
     return { positive, negative, scoreDate };
   };
 
   render() {
     const { paramsObj } = this.state;
     const { dataList = [] } = this.props.scorePK;
-    const test = this.dataStruct(dataList);
-    // console.log(dataList,test)
-    const scoreDate = [
-      { key: 1, demensionName: '正面均分', avgScore: 23.34, childNode: [] },
-      { key: 2, demensionName: '正面均分', avgScore: 33.34, childNode: [] },
-    ];
-    const scoreDate1 = [
-      { id: 2, orgName: '狐逻经管专科', rank: 12, allObj: 100, avgScore: 83.44 },
-      { id: 3, orgName: '财富经管本科', rank: 24, allObj: 100, avgScore: 99.99 },
-      { id: 4, orgName: '财富经管本科', rank: 24, allObj: 100, avgScore: 99.99 },
-    ];
+    const itemList = this.dataStruct(dataList);
     const scoreDate3 = [
       {
         avgScore: 83.44,
@@ -224,9 +206,10 @@ class ReaultList extends Component {
             this.fnGetData(obj);
           }}
         />
-        <ScoreFile paramsObj={test.scoreDate} />
-        <ScoreFile paramsObj={scoreDate1} />
-        <ScoreHeader paramsObj={scoreDate} />
+        <ScoreFile paramsObj={itemList.scoreDate} />
+        <ScoreHeader paramsObj={itemList.positive} type={1} />
+        <ScoreItem paramsObj={scoreDate3} />
+        <ScoreHeader paramsObj={itemList.negative} type={2} />
         <ScoreItem paramsObj={scoreDate3} />
       </div>
     );
