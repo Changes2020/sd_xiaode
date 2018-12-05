@@ -58,6 +58,7 @@ const dynamicWrapper = (app, models, component) => {
             lastUrlParams,
             setRouteUrlParams,
             setCurrentUrlParams,
+            getUrlParams,
           });
       });
     },

@@ -2,10 +2,15 @@ import { stringify } from 'qs';
 import { parse } from 'url';
 import store from '../index';
 
-export function getUrlParams(app) {
-  const { _history } = app;
-  const { location = {} } = _history;
-  return parse(location.search, true).query || {};
+export function getUrlParams(app = null) {
+  if (app) {
+    const { _history } = app;
+    const { location } = _history;
+    return parse(location.search, true).query || {};
+  } else {
+    const { location = {} } = this;
+    return parse(location.search, true).query || {};
+  }
 }
 export function getLastUrlParams(app) {
   const { _store } = app;
