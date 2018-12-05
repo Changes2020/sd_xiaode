@@ -121,8 +121,8 @@ class ExportDemention extends React.Component {
       dialogVisible: !this.state.dialogVisible,
     });
 
-    if (this.props.onClick) {
-      this.props.onClick(params);
+    if (this.props.openInResultPage) {
+      this.props.openInResultPage(params);
     } else {
       this.props.setRouteUrlParams('/scoreresult', params);
     }
