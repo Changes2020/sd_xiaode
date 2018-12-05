@@ -20,6 +20,25 @@ class ReaultList extends Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
+  // constructor(props) {
+  //   super(props);
+  //   const { urlParams = {} } = props;
+  //   const { startTime, endTime } = defaultDateTime();
+  //   const initState = {
+  //     paramsObj: {
+  //       startTime, // 过滤开始时间
+  //       endTime, // 过滤结束时间
+  //       groupType: 1, // 1:学院，2:家族，3:小组
+  //       dateType: 3, // 1:周均,2:月均,3:自定义
+  //       userId: userInfo.userId,
+  //     },
+  //   };
+  //   this.state = assignUrlParams(initState, urlParams);
+  // }
+
+
+
   componentDidMount() {
     const { startTime, endTime, userId } = this.state.paramsObj;
     const paramsObj = {
@@ -45,9 +64,22 @@ class ReaultList extends Component {
       payload: paramsObj,
     });
   }
+
   fnGetData = (ops = {}) => {
-    console.log(ops);
+    const { paramsObj } = this.state;
+    const sendParams = {
+      paramsObj: assignUrlParams(paramsObj, ops),
+    };
+    this.saveParams(sendParams);
   };
+
+  saveParams = sendParams => {
+    // 用于数据存储,以及添加url
+    const { paramsObj } = sendParams;
+    this.setState({ paramsObj });
+    this.props.setCurrentUrlParams(paramsObj);
+  };
+
   dataStruct = (dataList = []) => {
     const positive = [];
     const negative = [];
