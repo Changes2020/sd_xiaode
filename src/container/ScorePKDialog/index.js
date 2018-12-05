@@ -124,8 +124,8 @@ class ExportDemention extends React.Component {
     const conditionCheck = getItem('PKCondition').value;
     if (
       conditionCheck &&
-      conditionCheck[params.groupType] &&
-      conditionCheck[params.groupType].length < 2
+      conditionCheck[this.getGroupName(params.groupType)] &&
+      conditionCheck[this.getGroupName(params.groupType)].length < 2
     ) {
       Toast.info('至少选择2个对象', 2);
       return;
