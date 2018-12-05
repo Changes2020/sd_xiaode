@@ -6,6 +6,10 @@ import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
 import styles from './ResultList.less';
+// import { getItem } from '../../utils/localStorage';
+// import { defaultDateTime } from '../../utils/FormatDate';
+
+// const userInfo = getItem('userInfo').value || {};
 
 class ReaultList extends Component {
   constructor(props) {
@@ -38,8 +42,6 @@ class ReaultList extends Component {
   //   this.state = assignUrlParams(initState, urlParams);
   // }
 
-
-
   componentDidMount() {
     const { startTime, endTime, userId } = this.state.paramsObj;
     const paramsObj = {
@@ -58,7 +60,7 @@ class ReaultList extends Component {
       ],
       userId,
     };
-
+      console.log(paramsObj)
     // 掉接口;
     this.props.dispatch({
       type: 'scorePK/getPKResult',
