@@ -13,20 +13,6 @@ import ScorePKDialog from '../../container/ScorePKDialog';
 const userInfo = getItem('userInfo').value || {};
 
 class ReaultList extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   const { urlParams = {} } = props;
-  //   const initState = {
-  //     paramsObj: {
-  //       startTime: 1535817600000, // 过滤开始时间
-  //       endTime: 1535817600999, // 过滤结束时间
-  //       dateType: 3, // 1:周均,2:月均,3:自定义
-  //       userId: 'xiejian',
-  //     },
-  //   };
-  //   this.state = assignUrlParams(initState, urlParams);
-  // }
-
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
@@ -44,11 +30,18 @@ class ReaultList extends Component {
   }
 
   componentDidMount() {
-    const { startTime, endTime, userId ,groupType} = this.state.paramsObj;
+    this.getData(this.state.paramsObj);
+  }
+
+  // 请求接口的中间函数
+  getData = (params = {}) => {
+    const {startTime,endTime }= params || this.state.paramsObj;
+     const groupType=params.groupType || this.state.paramsObj.groupType;
+     const {userId}=this.state.paramsObj;
     const paramsObj = {
       startTime, // 过滤开始时间
       endTime, // 过滤结束时间
-      groupType: groupType==='college'?1:groupType==='family'?2:3,
+      groupType:Number(groupType),
       pkList: [
         {
           familyType: 0,
@@ -61,7 +54,11 @@ class ReaultList extends Component {
       ],
       userId,
     };
-    // 调接口;
+    this.getPKResultFetch(paramsObj);
+  };
+
+  // 请求model中的getPKResult方法
+  getPKResultFetch(paramsObj) {
     this.props.dispatch({
       type: 'scorePK/getPKResult',
       payload: paramsObj,
@@ -73,7 +70,12 @@ class ReaultList extends Component {
     const sendParams = {
       paramsObj: assignUrlParams(paramsObj, ops),
     };
+    this.getData(ops);
     this.saveParams(sendParams);
+  };
+
+  changeType = (ops = {}) => {
+    this.fnGetData(ops);
   };
 
   // 用于数据存储,以及添加url
@@ -142,7 +144,6 @@ class ReaultList extends Component {
 
     const { scoreDate =[]}  = itemList;
     const arrLength = scoreDate.length;
-    const bol=true;
     return (
       <div>
         {/* 时间选择区域 */}
@@ -171,7 +172,7 @@ class ReaultList extends Component {
         <ScoreItem paramsObj={itemList.negative} />
         {/* 学分px区域悬浮窗户 */}
         <div className="fixBox">
-          <ScorePKDialog {...this.props} isResultPage={bol} />
+          <ScorePKDialog {...this.props} openInResultPage={params => {this.changeType(params)}} />
         </div>
       </div>
     );
