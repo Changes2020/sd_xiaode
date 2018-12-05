@@ -98,12 +98,14 @@ class ExportDemention extends React.Component {
   };
 
   nextStep = () => {
+    // 获取提交条件
     const urlParams = this.props.getUrlParams();
     const params = {
       startTime: Number(urlParams.startTime),
       endTime: Number(urlParams.endTime),
       groupType: this.state.groupType,
     };
+    // 验证提交条件
     const conditionCheck = getItem('PKCondition').value;
     if (
       conditionCheck &&
@@ -113,10 +115,17 @@ class ExportDemention extends React.Component {
       Toast.info('至少选择2个对象', 2);
       return;
     }
+
+    // 提交处理
     this.setState({
       dialogVisible: !this.state.dialogVisible,
     });
-    this.props.setRouteUrlParams('/scoreresult', params);
+
+    if (this.props.onClick) {
+      this.props.onClick(params);
+    } else {
+      this.props.setRouteUrlParams('/scoreresult', params);
+    }
   };
 
   showModel = () => {
