@@ -61,8 +61,7 @@ class ReaultList extends Component {
       ],
       userId,
     };
-      console.log(paramsObj)
-    // 掉接口;
+    // 调接口;
     this.props.dispatch({
       type: 'scorePK/getPKResult',
       payload: paramsObj,
@@ -77,13 +76,14 @@ class ReaultList extends Component {
     this.saveParams(sendParams);
   };
 
+  // 用于数据存储,以及添加url
   saveParams = sendParams => {
-    // 用于数据存储,以及添加url
     const { paramsObj } = sendParams;
     this.setState({ paramsObj });
     this.props.setCurrentUrlParams(paramsObj);
   };
 
+  // 格式化数据
   dataStruct = (dataList = []) => {
     const positive = [];
     const negative = [];
@@ -116,7 +116,7 @@ class ReaultList extends Component {
     return { positive, negative, scoreDate };
   };
 
-
+// pk区域数据处理
   scoreList = (paramsObj = [],arrLength=1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
     const liList = list.map((item) => {
@@ -145,12 +145,14 @@ class ReaultList extends Component {
     const bol=true;
     return (
       <div>
+        {/* 时间选择区域 */}
         <TimeSelect
           paramsObj={paramsObj}
           fnGetData={obj => {
             this.fnGetData(obj);
           }}
         />
+        {/* 学分px区域吸顶 */}
         <div
           className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
           onClick={() => {
@@ -160,17 +162,15 @@ class ReaultList extends Component {
           <span className={styles.pkWordCls}>PK</span>
           {this.scoreList(scoreDate,arrLength)}
         </div>
+        {/* 学分均分区域 */}
         <ScoreFile paramsObj={scoreDate} />
-
+        {/* 正负面均分list */}
         <ScoreHeader paramsObj={itemList.positive} type={1} />
         <ScoreItem paramsObj={itemList.positive} />
         <ScoreHeader paramsObj={itemList.negative} type={2} />
         <ScoreItem paramsObj={itemList.negative} />
-
-
-
+        {/* 学分px区域悬浮窗户 */}
         <div className="fixBox">
-          {/* 学分px区域 */}
           <ScorePKDialog {...this.props} isResultPage={bol} />
         </div>
       </div>
