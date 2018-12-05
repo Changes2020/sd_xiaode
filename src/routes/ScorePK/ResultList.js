@@ -5,6 +5,7 @@ import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
+import styles from './ResultList.less';
 
 class ReaultList extends Component {
   constructor(props) {
@@ -112,10 +113,32 @@ class ReaultList extends Component {
     return { positive, negative, scoreDate };
   };
 
+
+  scoreList = (paramsObj = [],arrLength=1) => {
+    const list = Array.isArray(paramsObj) ? paramsObj : [];
+    const liList = list.map((item) => {
+      return (
+        <div key={item.id} className={arrLength > 2 ?styles.m_formulaButton:styles.m_formulaButton2}>
+          <span className={styles.u_nameClass}>{item.orgName}</span>
+          <br />
+          <span className={styles.u_nameClass}>{`${item.rank}/${item.allObj}`}</span>
+        </div>
+      );
+    });
+    return (
+      <div style={{display:'inline-block'}} >
+        {liList}
+      </div>
+    );
+  };
+
   render() {
     const { paramsObj } = this.state;
     const { dataList = [] } = this.props.scorePK;
     const itemList = this.dataStruct(dataList);
+
+    const { scoreDate =[]}  = itemList;
+    const arrLength = scoreDate.length;
     return (
       <div>
         <TimeSelect
@@ -124,11 +147,22 @@ class ReaultList extends Component {
             this.fnGetData(obj);
           }}
         />
-        <ScoreFile paramsObj={itemList.scoreDate} />
+        <div
+          className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
+          onClick={() => {
+            window.scroll(0,0);
+          }}
+        >
+          <span className={styles.pkWordCls}>PK</span>
+          {this.scoreList(scoreDate,arrLength)}
+        </div>
+        <ScoreFile paramsObj={scoreDate} />
+
         <ScoreHeader paramsObj={itemList.positive} type={1} />
         <ScoreItem paramsObj={itemList.positive} />
         <ScoreHeader paramsObj={itemList.negative} type={2} />
         <ScoreItem paramsObj={itemList.negative} />
+
       </div>
     );
   }
