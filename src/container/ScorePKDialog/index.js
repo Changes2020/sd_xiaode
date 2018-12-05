@@ -47,6 +47,20 @@ class ExportDemention extends React.Component {
       : groupType === '2' ? 'family' : groupType === '3' ? 'group' : 'college';
   };
 
+  checkTime = ({ startTime, endTime }) => {
+    // 判断时间变化，清空缓存
+    let PKTime = getItem('PKTime').value;
+    if (!PKTime || PKTime[0] !== startTime || PKTime[1] !== endTime) {
+      // 更新时间，初始化条件
+      PKTime = [startTime, endTime];
+      setItem('PKTime', PKTime);
+      setItem('PKCondition', { college: [], family: [], group: [] });
+      this.setState({
+        PKCondition: ExportDemention.getStorage(),
+      });
+    }
+  };
+
   changeTab = id => {
     const groupType = id;
     this.setState({ groupType });
@@ -62,6 +76,7 @@ class ExportDemention extends React.Component {
   clickPK = () => {
     const { dialogVisible } = this.props;
     const urlParams = this.props.getUrlParams();
+    this.checkTime(urlParams);
     this.setState({
       groupType: urlParams.groupType || 1,
       dialogVisible: !dialogVisible,
