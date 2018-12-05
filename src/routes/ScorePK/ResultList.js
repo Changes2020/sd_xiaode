@@ -5,6 +5,11 @@ import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
+import styles from './ResultList.less';
+// import { getItem } from '../../utils/localStorage';
+// import { defaultDateTime } from '../../utils/FormatDate';
+
+// const userInfo = getItem('userInfo').value || {};
 
 class ReaultList extends Component {
   constructor(props) {
@@ -20,6 +25,23 @@ class ReaultList extends Component {
     };
     this.state = assignUrlParams(initState, urlParams);
   }
+
+  // constructor(props) {
+  //   super(props);
+  //   const { urlParams = {} } = props;
+  //   const { startTime, endTime } = defaultDateTime();
+  //   const initState = {
+  //     paramsObj: {
+  //       startTime, // 过滤开始时间
+  //       endTime, // 过滤结束时间
+  //       groupType: 1, // 1:学院，2:家族，3:小组
+  //       dateType: 3, // 1:周均,2:月均,3:自定义
+  //       userId: userInfo.userId,
+  //     },
+  //   };
+  //   this.state = assignUrlParams(initState, urlParams);
+  // }
+
   componentDidMount() {
     const { startTime, endTime, userId } = this.state.paramsObj;
     const paramsObj = {
@@ -38,16 +60,29 @@ class ReaultList extends Component {
       ],
       userId,
     };
-
+      console.log(paramsObj)
     // 掉接口;
     this.props.dispatch({
       type: 'scorePK/getPKResult',
       payload: paramsObj,
     });
   }
+
   fnGetData = (ops = {}) => {
-    console.log(ops);
+    const { paramsObj } = this.state;
+    const sendParams = {
+      paramsObj: assignUrlParams(paramsObj, ops),
+    };
+    this.saveParams(sendParams);
   };
+
+  saveParams = sendParams => {
+    // 用于数据存储,以及添加url
+    const { paramsObj } = sendParams;
+    this.setState({ paramsObj });
+    this.props.setCurrentUrlParams(paramsObj);
+  };
+
   dataStruct = (dataList = []) => {
     const positive = [];
     const negative = [];
@@ -59,20 +94,20 @@ class ReaultList extends Component {
         const scoreDateItem = {
           key: index,
           id: item.id,
-          orgName: item.orgName||'',
-          allObj: item.allObj||100,
-          rank: item.rank||100,
-          avgScore: item.dimensionPKResult.avgScore.toFixed(2)||0,
+          orgName: item.orgName || '',
+          allObj: item.allObj || 100,
+          rank: item.rank || 100,
+          avgScore: item.dimensionPKResult.avgScore.toFixed(2) || 0,
         };
-        const childrien=item.dimensionPKResult.childNode || [];
-        childrien.map((val) => {
-          if (val.dimensionName==='正面均分'){
-            positive.push(val)
-          }else{
+        const childrien = item.dimensionPKResult.childNode || [];
+        childrien.map(val => {
+          if (val.dimensionName === '正面均分') {
+            positive.push(val);
+          } else {
             negative.push(val);
           }
           return 0;
-        })
+        });
         scoreDate.push(scoreDateItem);
         return 0;
       });
@@ -80,124 +115,32 @@ class ReaultList extends Component {
     return { positive, negative, scoreDate };
   };
 
+
+  scoreList = (paramsObj = [],arrLength=1) => {
+    const list = Array.isArray(paramsObj) ? paramsObj : [];
+    const liList = list.map((item) => {
+      return (
+        <div key={item.id} className={arrLength > 2 ?styles.m_formulaButton:styles.m_formulaButton2}>
+          <span className={styles.u_nameClass}>{item.orgName}</span>
+          <br />
+          <span className={styles.u_nameClass}>{`${item.rank}/${item.allObj}`}</span>
+        </div>
+      );
+    });
+    return (
+      <div style={{display:'inline-block'}} >
+        {liList}
+      </div>
+    );
+  };
+
   render() {
     const { paramsObj } = this.state;
     const { dataList = [] } = this.props.scorePK;
     const itemList = this.dataStruct(dataList);
-    const scoreDate3 = [
-      {
-        avgScore: 83.44,
-        childNode: [
-          {
-            id: 3,
-            parentId: 2,
-            dimensionName: '学术均分',
-            avgScore: 4.9638422704325285,
-            childNode: [
-              {
-                id: 32,
-                parentId: 3,
-                dimensionName: '预估分',
-                avgScore: 4.3,
-                childNode: null,
-              },
-              {
-                id: 4,
-                parentId: 3,
-                dimensionName: '直播',
-                avgScore: 0.2,
-                childNode: null,
-              },
-            ],
-          },
-          {
-            id: 8,
-            parentId: 2,
-            dimensionName: '运营均分',
-            avgScore: 0.3847728203029062,
-            childNode: [
-              {
-                id: 33,
-                parentId: 8,
-                dimensionName: '主帖',
-                avgScore: 0.23536635284486288,
-                childNode: null,
-              },
-              {
-                id: 34,
-                parentId: 8,
-                dimensionName: '跟帖',
-                avgScore: 0.1391731477691363,
-                childNode: null,
-              },
-              {
-                id: 35,
-                parentId: 8,
-                dimensionName: '优质帖',
-                avgScore: 0.010233319688907082,
-                childNode: null,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        avgScore: 99.99,
-        childNode: [
-          {
-            id: 3,
-            parentId: 2,
-            dimensionName: '学术均分',
-            avgScore: 2.9638422704325285,
-            childNode: [
-              {
-                id: 32,
-                parentId: 3,
-                dimensionName: '预估分',
-                avgScore: 1.22,
-                childNode: null,
-              },
-              {
-                id: 4,
-                parentId: 3,
-                dimensionName: '直播',
-                avgScore: 0,
-                childNode: null,
-              },
-            ],
-          },
-          {
-            id: 8,
-            parentId: 2,
-            dimensionName: '运营均分',
-            avgScore: 1.3847728203029062,
-            childNode: [
-              {
-                id: 33,
-                parentId: 8,
-                dimensionName: '主帖',
-                avgScore: 0.23536635284486288,
-                childNode: null,
-              },
-              {
-                id: 34,
-                parentId: 8,
-                dimensionName: '跟帖',
-                avgScore: 0.1391731477691363,
-                childNode: null,
-              },
-              {
-                id: 35,
-                parentId: 8,
-                dimensionName: '优质帖',
-                avgScore: 0.010233319688907082,
-                childNode: null,
-              },
-            ],
-          },
-        ],
-      },
-    ];
+
+    const { scoreDate =[]}  = itemList;
+    const arrLength = scoreDate.length;
     return (
       <div>
         <TimeSelect
@@ -206,11 +149,22 @@ class ReaultList extends Component {
             this.fnGetData(obj);
           }}
         />
-        <ScoreFile paramsObj={itemList.scoreDate} />
+        <div
+          className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
+          onClick={() => {
+            window.scroll(0,0);
+          }}
+        >
+          <span className={styles.pkWordCls}>PK</span>
+          {this.scoreList(scoreDate,arrLength)}
+        </div>
+        <ScoreFile paramsObj={scoreDate} />
+
         <ScoreHeader paramsObj={itemList.positive} type={1} />
-        <ScoreItem paramsObj={scoreDate3} />
+        <ScoreItem paramsObj={itemList.positive} />
         <ScoreHeader paramsObj={itemList.negative} type={2} />
-        <ScoreItem paramsObj={scoreDate3} />
+        <ScoreItem paramsObj={itemList.negative} />
+
       </div>
     );
   }
