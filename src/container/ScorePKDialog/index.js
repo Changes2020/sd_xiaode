@@ -58,7 +58,8 @@ class ExportDemention extends React.Component {
   };
 
   clickPK = () => {
-    const { urlParams, dialogVisible } = this.props;
+    const { dialogVisible } = this.props;
+    const urlParams = this.props.getUrlParams();
     this.setState({
       groupType: urlParams.groupType ? urlParams.groupType : 1,
       dialogVisible: !dialogVisible,
@@ -95,7 +96,7 @@ class ExportDemention extends React.Component {
   };
 
   nextStep = () => {
-    const { urlParams } = this.props;
+    const urlParams = this.props.getUrlParams();
     const params = {
       startTime: Number(urlParams.startTime),
       endTime: Number(urlParams.endTime),
