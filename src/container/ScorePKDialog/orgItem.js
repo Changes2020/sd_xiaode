@@ -16,21 +16,37 @@ export default class OrgItem extends PureComponent {
   };
 
   render() {
-    const data = [
-      { id: 1, name: '第一' },
-      { id: 2, name: '第一' },
-      { id: 3, name: '第一', isFirst: true },
-      { id: 4, name: '第一' },
-      { id: 5, name: '第一' },
-    ];
+    // 自考
+    const familyType0 = { data: [] };
+    // 壁垒
+    const familyType1 = { data: [] };
+
+    this.props.dataList.forEach(v => {
+      if (v.familyType === 0) {
+        familyType0.data.push(v);
+      }
+      if (v.familyType === 1) {
+        familyType1.data.push(v);
+      }
+    });
     return (
-      <div className={styles.itemContainer}>
-        <span className={styles.orgName}>拍学院</span>
-        <ButtonGroupPro
-          selectedIdList={this.props.selectIds}
-          dataSource={{ data }}
-          dataReturnFun={this.choseButton}
-        />
+      <div>
+        <div className={styles.itemContainer}>
+          <span className={styles.orgName}>自考</span>
+          <ButtonGroupPro
+            selectedIdList={this.props.selectIds}
+            dataSource={familyType0}
+            dataReturnFun={this.choseButton}
+          />
+        </div>
+        <div className={styles.itemContainer}>
+          <span className={styles.orgName}>壁垒</span>
+          <ButtonGroupPro
+            selectedIdList={this.props.selectIds}
+            dataSource={familyType1}
+            dataReturnFun={this.choseButton}
+          />
+        </div>
       </div>
     );
   }

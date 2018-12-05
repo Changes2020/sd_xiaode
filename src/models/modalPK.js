@@ -7,26 +7,38 @@ export default {
   namespace: 'modalPK',
   state: {
     dataList: [],
+    dataAll: [],
   },
   effects: {
     *getPKObject({ payload }, { call, put }) {
-      const dataList = yield call(getPKObject, { ...payload });
-      if (dataList.code === 2000) {
+      const params = { ...payload };
+      const { groupType } = params;
+      delete params.groupType;
+      const result = yield call(getPKObject, params);
+      if (result.code === 2000) {
+        const dataAll = result.data;
         yield put({
-          type: 'dealDatalist',
+          type: 'checkData',
           payload: {
-            dataList: dataList.data,
+            dataAll,
+            groupType,
           },
         });
       } else {
-        Message.fail(dataList.msg);
+        Message.fail(result.msg);
       }
     },
   },
 
   reducers: {
-    dealDatalist(state, { payload: { dataList } }) {
-      return { ...state, dataList };
+    checkData(state, { payload: { dataAll, groupType } }) {
+      const dataList = [];
+      dataAll.forEach(v => {
+        if (v.groupType === groupType) {
+          dataList.push(v);
+        }
+      });
+      return { ...state, dataList, dataAll };
     },
   },
   subscriptions: {},

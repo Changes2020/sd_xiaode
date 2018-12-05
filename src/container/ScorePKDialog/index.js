@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 import Dialog from 'components/Dialog';
 import classNames from 'classnames';
 import { setItem, getItem } from 'utils/localStorage';
@@ -12,7 +12,7 @@ class ExportDemention extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogVisible: true,
+      dialogVisible: false,
       groupType: 1,
       PKCondition: ExportDemention.getStorage(),
     };
@@ -34,24 +34,34 @@ class ExportDemention extends React.Component {
     return PKCondition;
   }
 
-  getGroupName({ groupType } = this.state) {
+  getGroupName = groupType => {
     /*
     * 根据group id, 获取group name
     * */
+    // eslint-disable-next-line no-param-reassign
+    groupType = groupType ? String(groupType) : '1';
     return groupType === '1'
       ? 'college'
       : groupType === '2' ? 'family' : groupType === '3' ? 'group' : 'college';
-  }
+  };
 
   changeTab = id => {
     const groupType = id;
     this.setState({ groupType });
+    this.props.dispatch({
+      type: 'modalPK/checkData',
+      payload: {
+        dataAll: this.props.modalPK.dataAll,
+        groupType: this.getGroupName(id),
+      },
+    });
   };
 
   clickPK = () => {
-    const { urlParams } = this.props;
+    const { urlParams, dialogVisible } = this.props;
     this.setState({
       groupType: urlParams.groupType ? urlParams.groupType : 1,
+      dialogVisible: !dialogVisible,
     });
     this.props.dispatch({
       type: 'modalPK/getPKObject',
@@ -59,22 +69,23 @@ class ExportDemention extends React.Component {
         startTime: Number(urlParams.startTime),
         endTime: Number(urlParams.endTime),
         creditType: 1,
+        groupType: this.getGroupName(urlParams.groupType ? urlParams.groupType : 1),
       },
     });
   };
 
   rendGroup = obj => {
     const PKCondition = ExportDemention.getStorage();
-    const currentGroupList = PKCondition[this.getGroupName()];
+    const currentGroupList = PKCondition[this.getGroupName(this.state.groupType)];
     const hasId = currentGroupList.some((v, i) => {
-      if (v === obj.id) {
+      if (v.orgId === obj.orgId && v.familyType === obj.familyType) {
         currentGroupList.splice(i, 1);
       }
-      return v === obj.id;
+      return v.orgId === obj.orgId && v.familyType === obj.familyType;
     });
 
     if (!hasId && currentGroupList.length < 3) {
-      currentGroupList.push(obj.id);
+      currentGroupList.push(obj);
     }
 
     setItem('PKCondition', PKCondition);
@@ -90,6 +101,15 @@ class ExportDemention extends React.Component {
       endTime: Number(urlParams.endTime),
       groupType: this.getGroupName(this.state.groupType),
     };
+    const conditionCheck = getItem('PKCondition').value;
+    if (
+      conditionCheck &&
+      conditionCheck[params.groupType] &&
+      conditionCheck[params.groupType].length < 2
+    ) {
+      Toast.info('至少选择2个对象', 2);
+      return;
+    }
     this.props.setRouteUrlParams('/scoreresult', params);
   };
 
@@ -97,7 +117,7 @@ class ExportDemention extends React.Component {
     const { dialogVisible, groupType, PKCondition } = this.state;
     return (
       <div>
-        {dialogVisible && (
+        {dialogVisible ? (
           <Dialog
             visible={dialogVisible}
             showModel={bol => this.showModel(bol)}
@@ -105,12 +125,15 @@ class ExportDemention extends React.Component {
             modelClass={styles.chosePKButton}
             cotainerClass={styles.flexContainer}
           >
-            <div onClick={this.clickPK}>PK</div>
             {/* tab区域 */}
             <Tab groupType={groupType} onChange={this.changeTab} />
             {/* 组织结构区域 */}
             <div className={classNames(styles.buttonList, 'scroller')}>
-              <OrgItem selectIds={PKCondition[this.getGroupName()]} onChange={this.rendGroup} />
+              <OrgItem
+                selectIds={PKCondition[this.getGroupName(groupType)]}
+                dataList={this.props.modalPK.dataList}
+                onChange={this.rendGroup}
+              />
             </div>
             <div className={styles.footerButton}>
               <Button className={styles.nextStep} onClick={this.nextStep}>
@@ -118,6 +141,10 @@ class ExportDemention extends React.Component {
               </Button>
             </div>
           </Dialog>
+        ) : (
+          <span onClick={this.clickPK} className={styles.pkBtn}>
+            <img src={require('../../assets/PK.png')} className={styles.pkImg} alt="PK" />
+          </span>
         )}
       </div>
     );
