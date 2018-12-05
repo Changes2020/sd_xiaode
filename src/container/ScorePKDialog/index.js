@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React from 'react';
 import { Button, Toast } from 'antd-mobile';
 import Dialog from 'components/Dialog';
@@ -62,7 +63,7 @@ class ExportDemention extends React.Component {
     const { dialogVisible } = this.props;
     const urlParams = this.props.getUrlParams();
     this.setState({
-      groupType: urlParams.groupType ? urlParams.groupType : 1,
+      groupType: urlParams.groupType || 1,
       dialogVisible: !dialogVisible,
     });
     this.props.dispatch({
@@ -71,7 +72,7 @@ class ExportDemention extends React.Component {
         startTime: Number(urlParams.startTime),
         endTime: Number(urlParams.endTime),
         creditType: 1,
-        groupType: this.getGroupName(urlParams.groupType ? urlParams.groupType : 1),
+        groupType: this.getGroupName(urlParams.groupType || 1),
       },
     });
   };
@@ -101,7 +102,7 @@ class ExportDemention extends React.Component {
     const params = {
       startTime: Number(urlParams.startTime),
       endTime: Number(urlParams.endTime),
-      groupType: this.getGroupName(this.state.groupType),
+      groupType: this.state.groupType,
     };
     const conditionCheck = getItem('PKCondition').value;
     if (
@@ -112,6 +113,9 @@ class ExportDemention extends React.Component {
       Toast.info('至少选择2个对象', 2);
       return;
     }
+    this.setState({
+      dialogVisible: !this.state.dialogVisible,
+    });
     this.props.setRouteUrlParams('/scoreresult', params);
   };
 
