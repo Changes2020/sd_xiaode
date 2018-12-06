@@ -29,7 +29,7 @@ class RenderItem extends React.Component {
           <span className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</span>
           <Icon
             type="right"
-            className={type === 1 ? styles.echartsIcon : styles.echartsIcon2}
+            className={type === 2 ? styles.echartsIcon : styles.echartsIcon2}
             size="lg"
             isShow={arrowShow}
             onClick={this.jump2Data.bind(this, arrowShow, type, item.childNode[index])}
@@ -40,7 +40,7 @@ class RenderItem extends React.Component {
     return <div className={styles.u_rightCss}>{liList}</div>;
   };
   render() {
-    const { paramsObj = [], arrowShow = false, type = 1 } = this.props;
+    const { paramsObj = [], arrowShow = false, type = 2 } = this.props;
 
     return (
       <div className={`${styles.m_container} ${styles.m_regContain}`}>
