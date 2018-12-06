@@ -191,7 +191,7 @@ class ReaultList extends Component {
         {isloading && <Loading />}
 
         <div
-          className={arrLength > 2 ? styles.fix3Score : styles.fix2Score}
+          className={`${styles.fixScore} ${arrLength > 2 ? styles.pk3Score : styles.pk2Score}`}
           id="dataToTop"
           onClick={() => {
             this.backToTop();
@@ -204,7 +204,7 @@ class ReaultList extends Component {
         {/* 学分px区域吸顶 */}
         {arrLength > 0 ? (
           <div
-            className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
+            className={`${styles.pkScore} ${arrLength > 2 ? styles.pk3Score : styles.pk2Score}`}
             onClick={() => {
               window.scroll(0, 0);
             }}
