@@ -54,7 +54,7 @@ class ReaultList extends Component {
     PKCondition[type].map(item => {
       const list = {
         familyType: item.familyType,
-        orgId: item.orgId,
+        objId: item.orgId,
       };
       return resetList.push(list);
     });

@@ -31,7 +31,7 @@ class RenderItem extends React.Component {
             type="right"
             className={type === 2 ? styles.echartsIcon : styles.echartsIcon2}
             size="lg"
-            isShow={arrowShow}
+            style={{ display: arrowShow ? 'inline' : 'none' }}
             onClick={this.jump2Data.bind(this, arrowShow, type, item.childNode[index])}
           />
         </div>
