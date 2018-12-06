@@ -13,6 +13,7 @@ import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
 import ScorePKDialog from '../../container/ScorePKDialog';
 import styles from './ResultList.less';
+import { scroll } from '../../utils/scroll';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -35,6 +36,19 @@ class ReaultList extends Component {
   }
   componentDidMount() {
     this.getData(this.state.paramsObj);
+
+    window.scroll(0, 0);
+    window.onscroll = function() {
+      const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
+      const backTop = document.getElementById('dataToTop'); // 吸顶模块
+      if (backTop !== null) {
+        backTop.style.display = t >= 118 ? 'block' : 'none';
+      }
+    };
+  }
+
+  componentWillUnmount() {
+    window.onscroll = '';
   }
   // 请求接口的中间函数
   getData = (params = {}) => {
@@ -149,6 +163,13 @@ class ReaultList extends Component {
     return <div style={{ display: 'inline-block' }}>{liList}</div>;
   };
 
+  // 点击吸顶栏 返回顶部
+  backToTop = () => {
+    const dataToTop = document.getElementById('dataToTop');
+    scroll(0, document.getElementById('selfDataCenter').offsetTop);
+    dataToTop.style.display = 'none';
+  };
+
   render() {
     const { paramsObj } = this.state;
     const { isloading, scorePK } = this.props;
@@ -158,7 +179,7 @@ class ReaultList extends Component {
     const { scoreDate = [] } = itemList;
     const arrLength = scoreDate.length;
     return (
-      <div className={styles.wrapContent}>
+      <div className={styles.wrapContent} id="selfDataCenter">
         {/* 时间选择区域 */}
         <TimeSelect
           paramsObj={paramsObj}
@@ -168,6 +189,18 @@ class ReaultList extends Component {
         />
 
         {isloading && <Loading />}
+
+        <div
+          className={arrLength > 2 ? styles.fix3Score : styles.fix2Score}
+          id="dataToTop"
+          onClick={() => {
+            this.backToTop();
+          }}
+        >
+          <span className={styles.pkWordCls}>PK</span>
+          {this.scoreList(scoreDate, arrLength)}
+        </div>
+
         {/* 学分px区域吸顶 */}
         {arrLength > 0 ? (
           <div
