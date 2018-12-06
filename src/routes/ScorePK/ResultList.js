@@ -44,21 +44,24 @@ class ReaultList extends Component {
     // 获取权限用户数据
     const { groupId, groupType } = userInfo;
     const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
+    const PKCondition = getItem('PKCondition').value || {};
+    const type = { 1: 'college', 2: 'family', 3: 'group' }[Number(pkType)];
+    const resetList=[];
+    PKCondition[type].map((item) => {
+      const list = {
+        familyType: item.familyType,
+        orgId: item.orgId,
+      };
+      resetList.push(list);
+      return 0;
+    })
+
     const sendParams = {
       paramsObj: {
         startTime, // 过滤开始时间
         endTime, // 过滤结束时间
         groupType: Number(pkType),
-        pkList: [
-          {
-            familyType: 0,
-            objId: 108,
-          },
-          {
-            familyType: 1,
-            objId: 108,
-          },
-        ],
+        pkList: resetList,
         userId,
       },
       dataOrg,
