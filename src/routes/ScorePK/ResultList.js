@@ -158,7 +158,7 @@ class ReaultList extends Component {
     const { scoreDate = [] } = itemList;
     const arrLength = scoreDate.length;
     return (
-      <div style={{ background: '#EDF0F3', width: '7.5rem', overflow: 'hidden' }}>
+      <div className={styles.wrapContent}>
         {/* 时间选择区域 */}
         <TimeSelect
           paramsObj={paramsObj}
