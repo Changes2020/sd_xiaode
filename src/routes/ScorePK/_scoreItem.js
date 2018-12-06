@@ -3,51 +3,8 @@ import ScoreDetail from './_scoreDetail';
 import styles from './_score.less';
 
 class RenderItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  // getFilterData = (paramsObj=[])=>{
-  //   let detailList = null;
-  //   if( paramsObj.length > 0) {
-  //     // // 整理传给子组件的数据
-  //     // paramsObj.map((item)=>{
-  //     //   item.childNode.map((val)=>{
-  //     //     this.idArr.push(val.id);
-  //     //   })
-  //     // });
-  //     //
-  //     // this.idArr = Array.from( new Set(this.idArr) );
-  //     detailList = this.idArr.map((i)=>{
-  //       paramsObj.map((item)=>{
-  //         item.childNode.map((val)=>{
-  //           if(val.id === i){
-  //             this.newData[i]=val;
-  //           }
-  //         })
-  //       });
-  //       return (
-  //         <ScoreDetail paramsObj={this.newArr} />
-  //       )
-  //     });
-  //     console.log(this.newData)
-  //     detailList = paramsObj[0].childNode.map((item, index) => {
-  //       // this.newData[index] = item;
-  //       // this.newArr.push(this.newData);
-  //       return (
-  //         <ScoreDetail paramsObj={this.newData} />
-  //       )
-  //     })
-  //   }
-  //   return <div>{detailList}</div>;
-  // };
-  // newArr = [];
-  newData = {};
-  // idArr = [];
-
   // 渲染二级数据
   renderList = (data, index) => {
-    console.log(data);
     const liList = data.map(item => {
       return (
         <div
@@ -72,7 +29,7 @@ class RenderItem extends React.Component {
                     <span className={styles.u_leftCss}>{item.dimensionName}</span>
                     {this.renderList(paramsObj, index)}
                   </div>
-                  <ScoreDetail paramsObj={paramsObj} />
+                  <ScoreDetail paramsObj={item.pkReault} arrowShow={item.originObj.arrowShow} />
                 </div>
               );
             })
