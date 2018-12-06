@@ -1,10 +1,10 @@
 import React from 'react';
 import { Icon } from 'antd-mobile';
+import { randomString } from '../../utils/radomUtils';
 import styles from './_score.less';
 
 class RenderItem extends React.Component {
   jump2Data = (arrowShow, type, data) => {
-    console.log();
     const { timeObj } = this.props;
     if (arrowShow && Number(data.avgScore) !== 0) {
       this.props.selfProps('/demention', {
@@ -25,12 +25,11 @@ class RenderItem extends React.Component {
   };
   // 渲染3级数据
   renderList = (data, index, arrowShow, type) => {
-    const i = `item2${index}`;
     const liList = data.map(item => {
       const isShow = Number(item.childNode[index].avgScore) !== 0 && arrowShow;
       return (
         <div
-          key={i}
+          key={randomString(5)}
           className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
         >
           <span className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</span>
@@ -53,9 +52,8 @@ class RenderItem extends React.Component {
       <div className={`${styles.m_container} ${styles.m_regContain}`}>
         {paramsObj.length > 0
           ? paramsObj[0].childNode.map((item, index) => {
-              const i = `item3${index}`;
               return (
-                <div key={i} className={`${styles.u_colCss} ${styles.u_regColCss}`}>
+                <div key={randomString(4)} className={`${styles.u_colCss} ${styles.u_regColCss}`}>
                   <span className={styles.u_leftCss}>{item.dimensionName}</span>
                   {this.renderList(paramsObj, index, arrowShow, type)}
                 </div>
