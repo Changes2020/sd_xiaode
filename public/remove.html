@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>remove</title>
+    <style>
+        button{
+            position: relative;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            width: 200px;
+            height: 200px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <button id="remove">remove</button>
+    <script>
+        document.getElementById('remove').onclick=function(){
+            if(window.confirm('你确定删除userInfo缓存?')){
+                window.localStorage.removeItem('userInfo');
+            }
+           
+        }
+    </script>
+</body>
+</html>
