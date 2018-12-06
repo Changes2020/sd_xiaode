@@ -15,10 +15,12 @@ const loginErrorUrlObj = {
   wechart: '/exception/403',
   app: '/exception/403',
 };
-function DebuggerCheckout() {
+
+function initGetUserId() {
   if (DEBUGGER) {
     setItem('userInfo', { userId: config.userId });
   }
+  return getAuthority();
 }
 export default {
   namespace: 'login',
@@ -31,25 +33,23 @@ export default {
     setup({ dispatch, history }) {
       const { pathname, search = '' } = history.location;
       const urlParams = parse(search, true).query || {};
-      DebuggerCheckout(); //  开发环境下清除缓存
-      const userId = getAuthority(); //  获取userId
       switch (pathname) {
         case '/user/brochure':
           dispatch({
             type: 'brochureLogin',
-            payload: { userId, pathname },
+            payload: { userId: initGetUserId(), pathname },
           });
           break;
         case '/user/wechart':
           dispatch({
             type: 'wechartLogin',
-            payload: { userId, pathname },
+            payload: { userId: initGetUserId(), pathname },
           });
           break;
         case '/user/applogin':
           dispatch({
             type: 'appLogin',
-            payload: { userId, pathname, urlParams },
+            payload: { userId: initGetUserId(), pathname, urlParams },
           });
           break;
         default:
