@@ -4,8 +4,9 @@ import styles from './_score.less';
 
 class RenderItem extends React.Component {
   jump2Data = (arrowShow, type, data) => {
+    console.log();
     const { timeObj } = this.props;
-    if (arrowShow) {
+    if (arrowShow && Number(data.avgScore) !== 0) {
       this.props.selfProps('/demention', {
         startTime: timeObj.startTime,
         endTime: timeObj.endTime,
@@ -26,6 +27,7 @@ class RenderItem extends React.Component {
   renderList = (data, index, arrowShow, type) => {
     const i = `item2${index}`;
     const liList = data.map(item => {
+      const isShow = Number(item.childNode[index].avgScore) !== 0 && arrowShow;
       return (
         <div
           key={i}
@@ -36,7 +38,7 @@ class RenderItem extends React.Component {
             type="right"
             className={type === 2 ? styles.echartsIcon : styles.echartsIcon2}
             size="lg"
-            style={{ display: arrowShow ? 'inline' : 'none' }}
+            style={{ display: isShow ? 'inline' : 'none' }}
             onClick={this.jump2Data.bind(this, arrowShow, type, item.childNode[index])}
           />
         </div>
