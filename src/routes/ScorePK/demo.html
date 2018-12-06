@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+</head>
+<body>
+    <script>
+function handdleReault(arr){
+    if(!arr||arr.length===0){
+        return;
+    }
+    let childrenArr=[];
+    arr.forEach(item=>{
+        item.children&&childrenArr.push(item.children);
+    })
+    const obj1=arr.find(item=>item)||{};
+    const children1=obj1.children||[];
+    obj1.pkReault=arr;
+    if(children1&&children1.length){
+    for(let i=0,len=children1.length;i<len;i++){
+        const resultArr=[];
+        for(let n=0,ls=childrenArr.length;n<ls;n++){
+            resultArr.push(childrenArr[n][i]);
+        }
+        handdleReault(resultArr);
+        }
+    }else{
+        handdleReault() ;
+    }
+}
+        </script>
+</body>
+</html>
