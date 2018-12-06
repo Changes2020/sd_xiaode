@@ -17,9 +17,9 @@ export default class OrgItem extends PureComponent {
 
   render() {
     // 自考
-    const familyType0 = { data: [] };
+    const familyType0 = { name: '', data: [] };
     // 壁垒
-    const familyType1 = { data: [] };
+    const familyType1 = { name: '', data: [] };
 
     this.props.dataList.forEach(v => {
       if (v.familyType === 0) {
@@ -28,11 +28,13 @@ export default class OrgItem extends PureComponent {
       if (v.familyType === 1) {
         familyType1.data.push(v);
       }
+      familyType0.name = '自考';
+      familyType1.name = '壁垒';
     });
     return (
       <div>
         <div className={styles.itemContainer}>
-          <span className={styles.orgName}>自考</span>
+          <span className={styles.orgName}>{familyType0.name}</span>
           <ButtonGroupPro
             selectedIdList={this.props.selectIds}
             dataSource={familyType0}
@@ -40,7 +42,7 @@ export default class OrgItem extends PureComponent {
           />
         </div>
         <div className={styles.itemContainer}>
-          <span className={styles.orgName}>壁垒</span>
+          <span className={styles.orgName}>{familyType1.name}</span>
           <ButtonGroupPro
             selectedIdList={this.props.selectIds}
             dataSource={familyType1}

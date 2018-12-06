@@ -9,6 +9,7 @@ import Tab from './Tab';
 import OrgItem from './orgItem';
 import styles from './index.less';
 import pk from '../../assets/PK.png';
+import Loading from '../../components/Loading/Loading';
 
 class ExportDemention extends React.Component {
   constructor(props) {
@@ -131,7 +132,6 @@ class ExportDemention extends React.Component {
       return;
     }
 
-    this.saveLog();
     // 提交处理
     this.setState({
       dialogVisible: !this.state.dialogVisible,
@@ -142,6 +142,8 @@ class ExportDemention extends React.Component {
     } else {
       this.props.setRouteUrlParams('/scoreresult', params);
     }
+    // 记录log
+    this.saveLog();
   };
 
   saveLog = () => {
@@ -157,6 +159,7 @@ class ExportDemention extends React.Component {
 
   render() {
     const { dialogVisible, groupType, PKCondition } = this.state;
+    const { isloading } = this.props;
     return (
       <React.Fragment>
         {dialogVisible ? (
@@ -182,6 +185,8 @@ class ExportDemention extends React.Component {
                 查看对比结果
               </Button>
             </div>
+            {/* **************处理loading************** */}
+            {isloading && <Loading />}
           </Dialog>
         ) : (
           <span onClick={this.clickPK} className={styles.pkBtn}>
@@ -192,7 +197,8 @@ class ExportDemention extends React.Component {
     );
   }
 }
-export default connect(({ modalPK, login }) => ({
+export default connect(({ modalPK, login, loading }) => ({
   modalPK,
   login,
+  isloading: loading.models.modalPK,
 }))(ExportDemention);
