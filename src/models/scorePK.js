@@ -61,7 +61,12 @@ export default {
       } else {
         dataList.forEach((item, index) => {
           arr.push(item.dimensionPKResult);
-          objArr.push({ id: item.id, orgName: item.orgName, familyType: item.familyType });
+          objArr.push({
+            id: item.id,
+            orgName: item.orgName,
+            familyType: item.familyType,
+            groupType: item.groupType,
+          });
           if (dataOrg.groupType === 'admin' || dataOrg.groupType === 'boss') {
             // admin和boss权限
             objArr[index].arrowShow = true;

@@ -137,7 +137,7 @@ class ReaultList extends Component {
   scoreList = (paramsObj = [], arrLength = 1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
     const liList = list.map((item, index) => {
-      const i = index + 1;
+      const i = `key${index}`;
       return (
         <div key={i} className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}>
           <span className={styles.u_nameClass}>{item.orgName}</span>
@@ -190,12 +190,14 @@ class ReaultList extends Component {
               paramsObj={itemList.positive}
               type={2}
               selfProps={(url, obj) => this.props.setRouteUrlParams(url, obj)}
+              timeObj={paramsObj}
             />
             <ScoreHeader paramsObj={itemList.negative} type={2} />
             <ScoreItem
               paramsObj={itemList.negative}
               type={10}
               selfProps={(url, obj) => this.props.setRouteUrlParams(url, obj)}
+              timeObj={paramsObj}
             />
           </div>
         ) : (

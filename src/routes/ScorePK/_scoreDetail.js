@@ -4,8 +4,12 @@ import styles from './_score.less';
 
 class RenderItem extends React.Component {
   jump2Data = (arrowShow, type, data) => {
+    const { timeObj } = this.props;
     if (arrowShow) {
       this.props.selfProps('/demention', {
+        startTime: timeObj.startTime,
+        endTime: timeObj.endTime,
+        groupType: data.originObj.groupType,
         familyType: data.originObj.familyType, // 0:自考，1:壁垒，2:孵化器
         titleName: data.originObj.orgName, // 学院名字
         groupId: data.originObj.id, // 学院id
@@ -20,10 +24,11 @@ class RenderItem extends React.Component {
   };
   // 渲染3级数据
   renderList = (data, index, arrowShow, type) => {
+    const i = `item2${index}`;
     const liList = data.map(item => {
       return (
         <div
-          key={index}
+          key={i}
           className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
         >
           <span className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</span>
@@ -46,7 +51,7 @@ class RenderItem extends React.Component {
       <div className={`${styles.m_container} ${styles.m_regContain}`}>
         {paramsObj.length > 0
           ? paramsObj[0].childNode.map((item, index) => {
-              const i = index + 1;
+              const i = `item3${index}`;
               return (
                 <div key={i} className={`${styles.u_colCss} ${styles.u_regColCss}`}>
                   <span className={styles.u_leftCss}>{item.dimensionName}</span>
