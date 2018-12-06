@@ -1,6 +1,7 @@
 import { getPKResult } from '../services/api';
 import Message from '../components/Message';
 
+// 格式化数据结构
 function handdleReault(arr, objArr) {
   if (!arr || arr.length === 0) {
     return;
@@ -51,14 +52,14 @@ export default {
       const groupType = { 1: 'college', 2: 'family', 3: 'group' }[Number(paramsObj.groupType)];
       const selfGroupData = dataOrg[groupType]; // 权限用户
 
-      const arr = [];
-      const objArr = [];
+      const arr = []; // 需要递归的数组
+      const objArr = []; // 最外层数据
       if (!dataList) {
         return null;
       } else {
         dataList.forEach((item, index) => {
           arr.push(item.dimensionPKResult);
-          objArr.push({ id: item.id, orgName: item.orgName });
+          objArr.push({ id: item.id, orgName: item.orgName, familyType: item.familyType });
           if (dataOrg.groupType === 'admin' || dataOrg.groupType === 'boss') {
             // admin和boss权限
             objArr[index].arrowShow = true;

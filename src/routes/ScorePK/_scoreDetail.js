@@ -5,7 +5,7 @@ import styles from './_score.less';
 class RenderItem extends React.Component {
   jump2Data = (arrowShow, type, data) => {
     if (arrowShow) {
-      this.props.setRouteUrlParams('/demention', {
+      this.props.selfProps('/demention', {
         familyType: data.originObj.familyType, // 0:自考，1:壁垒，2:孵化器
         titleName: data.originObj.orgName, // 学院名字
         groupId: data.originObj.id, // 学院id

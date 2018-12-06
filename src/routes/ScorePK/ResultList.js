@@ -182,9 +182,17 @@ class ReaultList extends Component {
             <ScoreFile paramsObj={scoreDate} />
             {/* 正负面均分list */}
             <ScoreHeader paramsObj={itemList.positive} type={1} />
-            <ScoreItem paramsObj={itemList.positive} type={2} />
+            <ScoreItem
+              paramsObj={itemList.positive}
+              type={2}
+              selfProps={(url, obj) => this.props.setRouteUrlParams(url, obj)}
+            />
             <ScoreHeader paramsObj={itemList.negative} type={2} />
-            <ScoreItem paramsObj={itemList.negative} type={10} />
+            <ScoreItem
+              paramsObj={itemList.negative}
+              type={10}
+              selfProps={(url, obj) => this.props.setRouteUrlParams(url, obj)}
+            />
           </div>
         ) : (
           <NoData showflag />
