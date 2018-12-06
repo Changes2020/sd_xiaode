@@ -5,6 +5,11 @@ import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
+import { dimensionAuthority } from '../../utils/dimensionAuthority';
+import { getItem } from '../../utils/localStorage';
+
+const userInfo = getItem('userInfo').value || {};
+const allOrgMap = getItem('allOrgMap').value || {};
 
 class ReaultList extends Component {
   constructor(props) {
@@ -22,27 +27,34 @@ class ReaultList extends Component {
   }
   componentDidMount() {
     const { startTime, endTime, userId } = this.state.paramsObj;
-    const paramsObj = {
-      startTime, // 过滤开始时间
-      endTime, // 过滤结束时间
-      groupType: 1,
-      pkList: [
-        {
-          familyType: 0,
-          objId: 108,
-        },
-        {
-          familyType: 1,
-          objId: 108,
-        },
-      ],
-      userId,
+
+    // 获取权限用户数据
+    const { groupId, groupType } = userInfo;
+    const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
+    const sendParams = {
+      paramsObj: {
+        startTime, // 过滤开始时间
+        endTime, // 过滤结束时间
+        groupType: 1,
+        pkList: [
+          {
+            familyType: 0,
+            objId: 108,
+          },
+          {
+            familyType: 1,
+            objId: 108,
+          },
+        ],
+        userId,
+      },
+      dataOrg,
     };
 
     // 掉接口;
     this.props.dispatch({
       type: 'scorePK/getPKResult',
-      payload: paramsObj,
+      payload: sendParams,
     });
   }
   fnGetData = (ops = {}) => {
