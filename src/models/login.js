@@ -4,7 +4,7 @@ import { routerRedux } from 'dva/router';
 import { parse } from 'url';
 import { setAppUserAuth, setWechartAuth, getUserInfo, operateLog } from 'services/api';
 import { getAuthority } from 'utils/authority';
-import { setItem } from 'utils/localStorage';
+import { setItem, getItem } from 'utils/localStorage';
 import typeDict from 'utils/typeDict';
 import Message from '../components/Message';
 import config from '../config';
@@ -119,19 +119,15 @@ export default {
       });
     },
     *saveLoginLog({ payload }, { call }) {
-      const {
-        userId = getAuthority(),
-        pathname = '/scoreresult',
-        loginType = 'pk',
-        operateContent = '',
-      } =
-        payload || {};
+      const { pathname = '/scoreresult', loginType = 'pk', operateContent = '' } = payload || {};
       if (loginType === 'brochure') {
         return;
       }
+      const userInfo = getItem('userInfo').value || {};
+      const { id } = userInfo;
       const response = yield call(operateLog, {
         url: pathname,
-        operator: userId,
+        operator: id,
         operateContent,
         operateCode: typeDict.operateCode[`${loginType}_login`],
       });
