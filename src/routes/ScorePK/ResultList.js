@@ -182,9 +182,9 @@ class ReaultList extends Component {
             <ScoreFile paramsObj={scoreDate} />
             {/* 正负面均分list */}
             <ScoreHeader paramsObj={itemList.positive} type={1} />
-            <ScoreItem paramsObj={itemList.positive} />
+            <ScoreItem paramsObj={itemList.positive} type={1} />
             <ScoreHeader paramsObj={itemList.negative} type={2} />
-            <ScoreItem paramsObj={itemList.negative} />
+            <ScoreItem paramsObj={itemList.negative} type={2} />
           </div>
         ):<NoData showflag />}
 

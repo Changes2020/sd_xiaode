@@ -18,7 +18,7 @@ class RenderItem extends React.Component {
     return <div className={styles.u_rightCss}>{liList}</div>;
   };
   render() {
-    const { paramsObj = [] } = this.props;
+    const { paramsObj = [],type=1 } = this.props;
     return (
       <div className={styles.m_container}>
         {paramsObj.length > 0
@@ -29,7 +29,7 @@ class RenderItem extends React.Component {
                     <span className={styles.u_leftCss}>{item.dimensionName}</span>
                     {this.renderList(paramsObj, index)}
                   </div>
-                  <ScoreDetail paramsObj={item.pkReault} arrowShow={item.originObj.arrowShow} />
+                  <ScoreDetail paramsObj={item.pkReault} arrowShow={item.originObj.arrowShow} type={type} />
                 </div>
               );
             })

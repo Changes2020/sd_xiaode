@@ -8,7 +8,7 @@ class RenderItem extends React.Component {
     this.state = {};
   }
   // 渲染3级数据
-  renderList = (data, index,bol) => {
+  renderList = (data, index,arrowShow,type) => {
     const liList = data.map(item => {
       return (
         <div
@@ -16,14 +16,14 @@ class RenderItem extends React.Component {
           className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
         >
           <span className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</span>
-          <Icon type="right" className={styles.echartsIcon} size="lg" isShow={bol} />
+          <Icon type="right" className={type===1?styles.echartsIcon:styles.echartsIcon2} size="lg" isShow={arrowShow} />
         </div>
       );
     });
     return <div className={styles.u_rightCss}>{liList}</div>;
   };
   render() {
-    const { paramsObj = [] ,bol=false} = this.props;
+    const { paramsObj = [] ,arrowShow=false,type=1} = this.props;
 
     return (
       <div className={`${styles.m_container} ${styles.m_regContain}`}>
@@ -32,7 +32,7 @@ class RenderItem extends React.Component {
               return (
                 <div key={item.id} className={`${styles.u_colCss} ${styles.u_regColCss}`}>
                   <span className={styles.u_leftCss}>{item.dimensionName}</span>
-                  {this.renderList(paramsObj, index,bol)}
+                  {this.renderList(paramsObj, index,arrowShow,type)}
                 </div>
               );
             })
