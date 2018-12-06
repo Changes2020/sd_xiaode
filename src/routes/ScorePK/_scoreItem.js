@@ -23,8 +23,9 @@ class RenderItem extends React.Component {
       <div className={styles.m_container}>
         {paramsObj.length > 0
           ? paramsObj[0].childNode.map((item, index) => {
+              const i = index + 1;
               return (
-                <div key={item.id} style={{ borderRadius: '0.04rem' }}>
+                <div key={i} style={{ borderRadius: '0.04rem' }}>
                   <div className={styles.u_colCss}>
                     <span className={styles.u_leftCss}>{item.dimensionName}</span>
                     {this.renderList(paramsObj, index)}

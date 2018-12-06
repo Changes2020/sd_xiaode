@@ -46,15 +46,15 @@ class ReaultList extends Component {
     const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
     const PKCondition = getItem('PKCondition').value || {};
     const type = { 1: 'college', 2: 'family', 3: 'group' }[Number(pkType)];
-    const resetList=[];
-    PKCondition[type].map((item) => {
+    const resetList = [];
+    PKCondition[type].map(item => {
       const list = {
         familyType: item.familyType,
         orgId: item.orgId,
       };
       resetList.push(list);
       return 0;
-    })
+    });
 
     const sendParams = {
       paramsObj: {
@@ -133,12 +133,10 @@ class ReaultList extends Component {
   // pk区域数据处理
   scoreList = (paramsObj = [], arrLength = 1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
-    const liList = list.map(item => {
+    const liList = list.map((item, index) => {
+      const i = index + 1;
       return (
-        <div
-          key={item.id}
-          className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}
-        >
+        <div key={i} className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}>
           <span className={styles.u_nameClass}>{item.orgName}</span>
           <br />
           <span className={styles.u_nameClass}>{`${item.rank}/${item.allObj}`}</span>
