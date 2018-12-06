@@ -119,7 +119,8 @@ export default {
       });
     },
     *saveLoginLog({ payload }, { call }) {
-      const { userId, pathname, loginType } = payload;
+      const { userId = getAuthority(), pathname = '/scoreresult', loginType = 'pk' } =
+        payload || {};
       if (loginType === 'brochure') {
         return;
       }

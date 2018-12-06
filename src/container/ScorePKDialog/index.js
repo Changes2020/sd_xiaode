@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React from 'react';
 import { Button, Toast } from 'antd-mobile';
 import Dialog from 'components/Dialog';
@@ -7,6 +8,7 @@ import { connect } from 'dva/index';
 import Tab from './Tab';
 import OrgItem from './orgItem';
 import styles from './index.less';
+import pk from '../../assets/PK.png';
 
 class ExportDemention extends React.Component {
   constructor(props) {
@@ -45,6 +47,20 @@ class ExportDemention extends React.Component {
       : groupType === '2' ? 'family' : groupType === '3' ? 'group' : 'college';
   };
 
+  checkTime = ({ startTime, endTime }) => {
+    // 判断时间变化，清空缓存
+    let PKTime = getItem('PKTime').value;
+    if (!PKTime || PKTime[0] !== startTime || PKTime[1] !== endTime) {
+      // 更新时间，初始化条件
+      PKTime = [startTime, endTime];
+      setItem('PKTime', PKTime);
+      setItem('PKCondition', { college: [], family: [], group: [] });
+      this.setState({
+        PKCondition: ExportDemention.getStorage(),
+      });
+    }
+  };
+
   changeTab = id => {
     const groupType = id;
     this.setState({ groupType });
@@ -60,8 +76,9 @@ class ExportDemention extends React.Component {
   clickPK = () => {
     const { dialogVisible } = this.props;
     const urlParams = this.props.getUrlParams();
+    this.checkTime(urlParams);
     this.setState({
-      groupType: urlParams.groupType ? urlParams.groupType : 1,
+      groupType: urlParams.groupType || 1,
       dialogVisible: !dialogVisible,
     });
     this.props.dispatch({
@@ -70,7 +87,7 @@ class ExportDemention extends React.Component {
         startTime: Number(urlParams.startTime),
         endTime: Number(urlParams.endTime),
         creditType: 1,
-        groupType: this.getGroupName(urlParams.groupType ? urlParams.groupType : 1),
+        groupType: this.getGroupName(urlParams.groupType || 1),
       },
     });
   };
@@ -96,24 +113,42 @@ class ExportDemention extends React.Component {
   };
 
   nextStep = () => {
+    // 获取提交条件
     const urlParams = this.props.getUrlParams();
     const params = {
       startTime: Number(urlParams.startTime),
       endTime: Number(urlParams.endTime),
-      groupType: this.getGroupName(this.state.groupType),
+      groupType: this.state.groupType,
     };
+    // 验证提交条件
     const conditionCheck = getItem('PKCondition').value;
     if (
       conditionCheck &&
-      conditionCheck[params.groupType] &&
-      conditionCheck[params.groupType].length < 2
+      conditionCheck[this.getGroupName(params.groupType)] &&
+      conditionCheck[this.getGroupName(params.groupType)].length < 2
     ) {
       Toast.info('至少选择2个对象', 2);
       return;
     }
-    this.props.setRouteUrlParams('/scoreresult', params);
+
+    this.saveLog();
+    // 提交处理
+    this.setState({
+      dialogVisible: !this.state.dialogVisible,
+    });
+
+    if (this.props.openInResultPage) {
+      this.props.openInResultPage(params);
+    } else {
+      this.props.setRouteUrlParams('/scoreresult', params);
+    }
   };
 
+  saveLog = () => {
+    this.props.dispatch({
+      type: 'login/saveLoginLog',
+    });
+  };
   showModel = () => {
     this.setState({
       dialogVisible: !this.state.dialogVisible,
@@ -123,7 +158,7 @@ class ExportDemention extends React.Component {
   render() {
     const { dialogVisible, groupType, PKCondition } = this.state;
     return (
-      <div>
+      <React.Fragment>
         {dialogVisible ? (
           <Dialog
             visible={dialogVisible}
@@ -150,13 +185,14 @@ class ExportDemention extends React.Component {
           </Dialog>
         ) : (
           <span onClick={this.clickPK} className={styles.pkBtn}>
-            <img src={require('../../assets/PK.png')} className={styles.pkImg} alt="PK" />
+            <img src={pk} className={styles.pkImg} alt="PK" />
           </span>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
-export default connect(({ modalPK }) => ({
+export default connect(({ modalPK, login }) => ({
   modalPK,
+  login,
 }))(ExportDemention);

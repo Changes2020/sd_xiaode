@@ -153,7 +153,7 @@ export default class ExportDemention extends React.Component {
       groupType === 'group' ||
       groupType === 'class';
     return (
-      <div>
+      <React.Fragment>
         <div className={styles.floatCotainer}>
           <p className={styles.topBtn} ref={this.createRef} onClick={this.toBackTop}>
             <img className={styles.imgTop} src={top} alt="回到顶部" />
@@ -222,7 +222,7 @@ export default class ExportDemention extends React.Component {
               </div>
             </Modal>
           )}
-      </div>
+      </React.Fragment>
     );
   }
 }

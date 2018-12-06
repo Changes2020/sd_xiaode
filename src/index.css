@@ -1,22 +1,32 @@
 /* 解决pc端浏览器警告 */
-html, body{
-  width:100%;
+html,
+body {
+  width: 100%;
   height: 100%;
-  background-color: #F4F4F6;
+  background-color: #f4f4f6;
   font-family: PingFangSC-Regular;
 }
 :global(#root) {
-  width:7.5rem;
-  margin:0 auto;
+  width: 7.5rem;
+  margin: 0 auto;
 }
-*{
-  margin:0;
+* {
+  margin: 0;
   padding: 0;
 }
-a{
-  color: #333
+a {
+  color: #333;
 }
-ul li{
+ul li {
   list-style: none;
 }
 
+/* -----------页面全局样式-----------  */
+/* 固定浮框按钮 */
+:global(.fixBox) {
+  background: transparent;
+  position: fixed;
+  right: 0.12rem;
+  bottom: 1.74rem;
+  z-index: 500;
+}

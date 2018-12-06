@@ -4,7 +4,7 @@ import createLoading from 'dva-loading';
 import './index.css';
 
 // 1. Initialize
-const app = dva({history: browserHistory()});
+const app = dva({ history: browserHistory() });
 
 // 2. Plugins
 app.use(createLoading());

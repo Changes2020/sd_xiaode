@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+</head>
+<body>
+    <script>
+
+
+
+
+        const objArr=[{id:108,name:'',isallow:true},{id:107},{id:106}]
+        const arr=[]
+function handdleReault(arr,objArr){
+    if(!arr||arr.length===0){
+        return;
+    }
+    let childrenArr=[];
+    arr.forEach(item=>{
+        item.children&&childrenArr.push(item.children);
+    })
+    const obj1=arr.find(item=>item)||{};
+    const children1=obj1.children||[];
+    obj1.pkReault=arr;
+    if(children1&&children1.length){
+    for(let i=0,len=children1.length;i<len;i++){
+        const resultArr=[];
+        for(let n=0,ls=childrenArr.length;n<ls;n++){
+            childrenArr[n][i]['originObj']=objArr[n];
+            resultArr.push(childrenArr[n][i]);
+        }
+        handdleReault(resultArr,objArr);
+        }
+    }else{
+        handdleReault() ;
+    }
+}
+        </script>
+</body>
+</html>
