@@ -52,25 +52,28 @@ export default {
       const selfGroupData = dataOrg[groupType]; // 权限用户
 
       const arr = [];
+      const objArr = [];
       if (!dataList) {
         return null;
       } else {
-        dataList.forEach(item => {
+        dataList.forEach((item, index) => {
           arr.push(item.dimensionPKResult);
+          objArr.push({ id: item.id, orgName: item.orgName });
           if (dataOrg.groupType === 'admin' || dataOrg.groupType === 'boss') {
             // admin和boss权限
+            objArr[index].arrowShow = true;
           } else {
             for (let i = 0, len = selfGroupData.length; i < len; i += 1) {
               // 做授权
               if (selfGroupData[i].groupId === item.id) {
+                objArr[index].arrowShow = true;
                 break;
               }
             }
           }
         });
       }
-      console.log(dataList);
-      handdleReault(arr, dataList);
+      handdleReault(arr, objArr);
       return { ...state, ...action.payload };
     },
   },
