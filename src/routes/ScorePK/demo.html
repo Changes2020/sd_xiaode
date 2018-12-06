@@ -7,7 +7,13 @@
 </head>
 <body>
     <script>
-function handdleReault(arr){
+
+
+
+
+        const objArr=[{id:108,name:'',isallow:true},{id:107},{id:106}]
+        const arr=[]
+function handdleReault(arr,objArr){
     if(!arr||arr.length===0){
         return;
     }
@@ -22,9 +28,10 @@ function handdleReault(arr){
     for(let i=0,len=children1.length;i<len;i++){
         const resultArr=[];
         for(let n=0,ls=childrenArr.length;n<ls;n++){
+            childrenArr[n][i]['originObj']=objArr[n];
             resultArr.push(childrenArr[n][i]);
         }
-        handdleReault(resultArr);
+        handdleReault(resultArr,objArr);
         }
     }else{
         handdleReault() ;
