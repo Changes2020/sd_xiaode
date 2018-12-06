@@ -1,5 +1,6 @@
 import { getPKResult } from '../services/api';
 import Message from '../components/Message';
+import Dict from '../utils/typeDict';
 
 // 格式化数据结构
 function handdleReault(arr, objArr) {
@@ -46,10 +47,11 @@ export default {
 
   reducers: {
     save(state, action) {
+      const { groupTypeDict } = Dict; // 枚举类型
       const { dataOrg, paramsObj } = action.payload;
       const dataList = action.payload.dataList || {};
       // 判断可查看权限
-      const groupType = { 1: 'college', 2: 'family', 3: 'group' }[Number(paramsObj.groupType)];
+      const groupType = groupTypeDict[Number(paramsObj.groupType)];
       const selfGroupData = dataOrg[groupType]; // 权限用户
 
       const arr = []; // 需要递归的数组

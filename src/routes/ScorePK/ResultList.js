@@ -3,9 +3,10 @@ import { connect } from 'dva';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { defaultDateTime } from '../../utils/FormatDate';
 import { dimensionAuthority } from '../../utils/dimensionAuthority';
+import { getItem } from '../../utils/localStorage';
+import Dict from '../../utils/typeDict';
 import Loading from '../../components/Loading/Loading';
 import NoData from '../../components/NoData/NoData.js';
-import { getItem } from '../../utils/localStorage';
 import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
@@ -37,23 +38,25 @@ class ReaultList extends Component {
   }
   // 请求接口的中间函数
   getData = (params = {}) => {
-    // const { startTime, endTime, userId } = this.state.paramsObj;
+    const { groupTypeDict } = Dict;
     const { startTime, endTime } = params || this.state.paramsObj;
     const pkType = params.groupType || this.state.paramsObj.groupType;
     const { userId } = this.state.paramsObj;
+
     // 获取权限用户数据
     const { groupId, groupType } = userInfo;
     const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
+
+    // 获取pk对象
     const PKCondition = getItem('PKCondition').value || {};
-    const type = { 1: 'college', 2: 'family', 3: 'group' }[Number(pkType)];
+    const type = groupTypeDict[Number(pkType)];
     const resetList = [];
     PKCondition[type].map(item => {
       const list = {
         familyType: item.familyType,
         orgId: item.orgId,
       };
-      resetList.push(list);
-      return 0;
+      return resetList.push(list);
     });
 
     const sendParams = {
