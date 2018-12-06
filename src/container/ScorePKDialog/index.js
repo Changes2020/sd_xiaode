@@ -149,6 +149,9 @@ class ExportDemention extends React.Component {
   saveLog = () => {
     this.props.dispatch({
       type: 'login/saveLoginLog',
+      payload: {
+        operateContent: this.getGroupName(this.state.groupType),
+      },
     });
   };
   showModel = () => {

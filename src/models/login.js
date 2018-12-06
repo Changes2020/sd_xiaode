@@ -119,7 +119,12 @@ export default {
       });
     },
     *saveLoginLog({ payload }, { call }) {
-      const { userId = getAuthority(), pathname = '/scoreresult', loginType = 'pk' } =
+      const {
+        userId = getAuthority(),
+        pathname = '/scoreresult',
+        loginType = 'pk',
+        operateContent = '',
+      } =
         payload || {};
       if (loginType === 'brochure') {
         return;
@@ -127,6 +132,7 @@ export default {
       const response = yield call(operateLog, {
         url: pathname,
         operator: userId,
+        operateContent,
         operateCode: typeDict.operateCode[`${loginType}_login`],
       });
       if (response.code !== 2000) {
