@@ -1,5 +1,6 @@
 import React from 'react';
 import ScoreDetail from './_scoreDetail';
+import { randomString } from '../../utils/radomUtils';
 import styles from './_score.less';
 
 class RenderItem extends React.Component {
@@ -8,7 +9,7 @@ class RenderItem extends React.Component {
     const liList = data.map(item => {
       return (
         <div
-          key={index}
+          key={randomString(3)}
           className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
         >
           <div className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</div>
@@ -18,18 +19,24 @@ class RenderItem extends React.Component {
     return <div className={styles.u_rightCss}>{liList}</div>;
   };
   render() {
-    const { paramsObj = [],type=2 } = this.props;
+    const { paramsObj = [], type = 2, selfProps, timeObj } = this.props;
     return (
       <div className={styles.m_container}>
         {paramsObj.length > 0
           ? paramsObj[0].childNode.map((item, index) => {
               return (
-                <div key={item.id} style={{borderRadius:'0.04rem'}}>
+                <div key={randomString(4)} style={{ borderRadius: '0.04rem' }}>
                   <div className={styles.u_colCss}>
                     <span className={styles.u_leftCss}>{item.dimensionName}</span>
                     {this.renderList(paramsObj, index)}
                   </div>
-                  <ScoreDetail paramsObj={item.pkReault} arrowShow={item.originObj.arrowShow} type={type} />
+                  <ScoreDetail
+                    paramsObj={item.pkReault}
+                    arrowShow={item.originObj.arrowShow}
+                    type={type}
+                    selfProps={selfProps}
+                    timeObj={timeObj}
+                  />
                 </div>
               );
             })

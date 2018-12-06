@@ -3,15 +3,17 @@ import { connect } from 'dva';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { defaultDateTime } from '../../utils/FormatDate';
 import { dimensionAuthority } from '../../utils/dimensionAuthority';
+import { getItem } from '../../utils/localStorage';
+import Dict from '../../utils/typeDict';
 import Loading from '../../components/Loading/Loading';
 import NoData from '../../components/NoData/NoData.js';
-import { getItem } from '../../utils/localStorage';
 import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
 import ScoreItem from './_scoreItem';
 import ScoreHeader from './_scoreHeader';
 import ScorePKDialog from '../../container/ScorePKDialog';
 import styles from './ResultList.less';
+import { scroll } from '../../utils/scroll';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -34,31 +36,49 @@ class ReaultList extends Component {
   }
   componentDidMount() {
     this.getData(this.state.paramsObj);
+
+    window.scroll(0, 0);
+    window.onscroll = function() {
+      const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
+      const backTop = document.getElementById('dataToTop'); // 吸顶模块
+      if (backTop !== null) {
+        backTop.style.display = t >= 118 ? 'block' : 'none';
+      }
+    };
+  }
+
+  componentWillUnmount() {
+    window.onscroll = '';
   }
   // 请求接口的中间函数
   getData = (params = {}) => {
-    // const { startTime, endTime, userId } = this.state.paramsObj;
+    const { groupTypeDict } = Dict;
     const { startTime, endTime } = params || this.state.paramsObj;
     const pkType = params.groupType || this.state.paramsObj.groupType;
     const { userId } = this.state.paramsObj;
+
     // 获取权限用户数据
     const { groupId, groupType } = userInfo;
     const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
+
+    // 获取pk对象
+    const PKCondition = getItem('PKCondition').value || {};
+    const type = groupTypeDict[Number(pkType)];
+    const resetList = [];
+    PKCondition[type].map(item => {
+      const list = {
+        familyType: item.familyType,
+        objId: item.orgId,
+      };
+      return resetList.push(list);
+    });
+
     const sendParams = {
       paramsObj: {
         startTime, // 过滤开始时间
         endTime, // 过滤结束时间
         groupType: Number(pkType),
-        pkList: [
-          {
-            familyType: 0,
-            objId: 108,
-          },
-          {
-            familyType: 1,
-            objId: 108,
-          },
-        ],
+        pkList: resetList,
         userId,
       },
       dataOrg,
@@ -130,12 +150,10 @@ class ReaultList extends Component {
   // pk区域数据处理
   scoreList = (paramsObj = [], arrLength = 1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
-    const liList = list.map(item => {
+    const liList = list.map((item, index) => {
+      const i = `key${index}`;
       return (
-        <div
-          key={item.id}
-          className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}
-        >
+        <div key={i} className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}>
           <span className={styles.u_nameClass}>{item.orgName}</span>
           <br />
           <span className={styles.u_nameClass}>{`${item.rank}/${item.allObj}`}</span>
@@ -145,16 +163,23 @@ class ReaultList extends Component {
     return <div style={{ display: 'inline-block' }}>{liList}</div>;
   };
 
+  // 点击吸顶栏 返回顶部
+  backToTop = () => {
+    const dataToTop = document.getElementById('dataToTop');
+    scroll(0, document.getElementById('selfDataCenter').offsetTop);
+    dataToTop.style.display = 'none';
+  };
+
   render() {
     const { paramsObj } = this.state;
-    const {isloading,scorePK}=this.props
+    const { isloading, scorePK } = this.props;
     const { dataList = [] } = scorePK;
     const itemList = this.dataStruct(dataList);
 
     const { scoreDate = [] } = itemList;
     const arrLength = scoreDate.length;
     return (
-      <div style={{background:"#EDF0F3",width:'7.5rem',overflow:'hidden'}}>
+      <div className={styles.wrapContent} id="selfDataCenter">
         {/* 时间选择区域 */}
         <TimeSelect
           paramsObj={paramsObj}
@@ -164,6 +189,18 @@ class ReaultList extends Component {
         />
 
         {isloading && <Loading />}
+
+        <div
+          className={arrLength > 2 ? styles.fix3Score : styles.fix2Score}
+          id="dataToTop"
+          onClick={() => {
+            this.backToTop();
+          }}
+        >
+          <span className={styles.pkWordCls}>PK</span>
+          {this.scoreList(scoreDate, arrLength)}
+        </div>
+
         {/* 学分px区域吸顶 */}
         {arrLength > 0 ? (
           <div
@@ -175,18 +212,30 @@ class ReaultList extends Component {
             <span className={styles.pkWordCls}>PK</span>
             {this.scoreList(scoreDate, arrLength)}
           </div>
-        ):null }
+        ) : null}
         {/* 学分均分区域 */}
         {arrLength > 0 ? (
           <div>
             <ScoreFile paramsObj={scoreDate} />
             {/* 正负面均分list */}
             <ScoreHeader paramsObj={itemList.positive} type={1} />
-            <ScoreItem paramsObj={itemList.positive} type={2} />
+            <ScoreItem
+              paramsObj={itemList.positive}
+              type={2}
+              selfProps={(url, obj) => this.props.setRouteUrlParams(url, obj)}
+              timeObj={paramsObj}
+            />
             <ScoreHeader paramsObj={itemList.negative} type={2} />
-            <ScoreItem paramsObj={itemList.negative} type={10} />
+            <ScoreItem
+              paramsObj={itemList.negative}
+              type={10}
+              selfProps={(url, obj) => this.props.setRouteUrlParams(url, obj)}
+              timeObj={paramsObj}
+            />
           </div>
-        ):<NoData showflag />}
+        ) : (
+          <NoData showflag />
+        )}
 
         {/* 学分px区域悬浮窗户 */}
         <div className="fixBox">
@@ -197,7 +246,7 @@ class ReaultList extends Component {
             }}
           />
         </div>
-        <div style={{height:'0.4rem',width:'7.5rem'}} />
+        <div style={{ height: '0.4rem', width: '7.5rem' }} />
       </div>
     );
   }
