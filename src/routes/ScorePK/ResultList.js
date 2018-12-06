@@ -3,6 +3,8 @@ import { connect } from 'dva';
 import { assignUrlParams } from '../../utils/routerUtils';
 import { defaultDateTime } from '../../utils/FormatDate';
 import { dimensionAuthority } from '../../utils/dimensionAuthority';
+import Loading from '../../components/Loading/Loading';
+import NoData from '../../components/NoData/NoData.js';
 import { getItem } from '../../utils/localStorage';
 import TimeSelect from './_timeSelect';
 import ScoreFile from './_scoreFile';
@@ -145,13 +147,14 @@ class ReaultList extends Component {
 
   render() {
     const { paramsObj } = this.state;
-    const { dataList = [] } = this.props.scorePK;
+    const {isloading,scorePK}=this.props
+    const { dataList = [] } = scorePK;
     const itemList = this.dataStruct(dataList);
 
     const { scoreDate = [] } = itemList;
     const arrLength = scoreDate.length;
     return (
-      <div>
+      <div style={{background:"#EDF0F3"}}>
         {/* 时间选择区域 */}
         <TimeSelect
           paramsObj={paramsObj}
@@ -159,23 +162,32 @@ class ReaultList extends Component {
             this.fnGetData(obj);
           }}
         />
+
+        {isloading && <Loading />}
         {/* 学分px区域吸顶 */}
-        <div
-          className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
-          onClick={() => {
-            window.scroll(0, 0);
-          }}
-        >
-          <span className={styles.pkWordCls}>PK</span>
-          {this.scoreList(scoreDate, arrLength)}
-        </div>
+        {arrLength > 0 ? (
+          <div
+            className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
+            onClick={() => {
+              window.scroll(0, 0);
+            }}
+          >
+            <span className={styles.pkWordCls}>PK</span>
+            {this.scoreList(scoreDate, arrLength)}
+          </div>
+        ):null }
         {/* 学分均分区域 */}
-        <ScoreFile paramsObj={scoreDate} />
-        {/* 正负面均分list */}
-        <ScoreHeader paramsObj={itemList.positive} type={1} />
-        <ScoreItem paramsObj={itemList.positive} />
-        <ScoreHeader paramsObj={itemList.negative} type={2} />
-        <ScoreItem paramsObj={itemList.negative} />
+        {arrLength > 0 ? (
+          <div>
+            <ScoreFile paramsObj={scoreDate} />
+            {/* 正负面均分list */}
+            <ScoreHeader paramsObj={itemList.positive} type={1} />
+            <ScoreItem paramsObj={itemList.positive} type={1} />
+            <ScoreHeader paramsObj={itemList.negative} type={2} />
+            <ScoreItem paramsObj={itemList.negative} type={2} />
+          </div>
+        ):<NoData showflag />}
+
         {/* 学分px区域悬浮窗户 */}
         <div className="fixBox">
           <ScorePKDialog
@@ -191,5 +203,5 @@ class ReaultList extends Component {
 }
 export default connect(({ scorePK, loading }) => ({
   scorePK,
-  isloading: loading.models.Details,
+  isloading: loading.models.scorePK,
 }))(ReaultList);
