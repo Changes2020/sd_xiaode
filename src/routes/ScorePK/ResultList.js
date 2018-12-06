@@ -154,7 +154,7 @@ class ReaultList extends Component {
     const { scoreDate = [] } = itemList;
     const arrLength = scoreDate.length;
     return (
-      <div style={{background:"#EDF0F3"}}>
+      <div style={{background:"#EDF0F3",width:'7.5rem',overflow:'hidden'}}>
         {/* 时间选择区域 */}
         <TimeSelect
           paramsObj={paramsObj}
@@ -182,9 +182,9 @@ class ReaultList extends Component {
             <ScoreFile paramsObj={scoreDate} />
             {/* 正负面均分list */}
             <ScoreHeader paramsObj={itemList.positive} type={1} />
-            <ScoreItem paramsObj={itemList.positive} type={1} />
+            <ScoreItem paramsObj={itemList.positive} type={2} />
             <ScoreHeader paramsObj={itemList.negative} type={2} />
-            <ScoreItem paramsObj={itemList.negative} type={2} />
+            <ScoreItem paramsObj={itemList.negative} type={10} />
           </div>
         ):<NoData showflag />}
 
@@ -197,6 +197,7 @@ class ReaultList extends Component {
             }}
           />
         </div>
+        <div style={{height:'0.4rem',width:'7.5rem'}} />
       </div>
     );
   }

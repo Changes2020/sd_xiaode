@@ -16,14 +16,14 @@ class RenderItem extends React.Component {
           className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
         >
           <span className={styles.u_unitScore}>{item.childNode[index].avgScore.toFixed(2)}</span>
-          <Icon type="right" className={type===1?styles.echartsIcon:styles.echartsIcon2} size="lg" isShow={arrowShow} />
+          <Icon type="right" className={type===2?styles.echartsIcon:styles.echartsIcon2} size="lg" isShow={arrowShow} />
         </div>
       );
     });
     return <div className={styles.u_rightCss}>{liList}</div>;
   };
   render() {
-    const { paramsObj = [] ,arrowShow=false,type=1} = this.props;
+    const { paramsObj = [] ,arrowShow=false,type=2} = this.props;
 
     return (
       <div className={`${styles.m_container} ${styles.m_regContain}`}>
