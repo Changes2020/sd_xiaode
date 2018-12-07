@@ -43,7 +43,7 @@ class ReaultList extends Component {
       const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
       const backTop = document.getElementById('dataToTop'); // 吸顶模块
       if (backTop !== null) {
-        backTop.style.display = t >= 118 ? 'block' : 'none';
+        backTop.style.display = t >= 92 ? 'block' : 'none';
       }
     };
 
