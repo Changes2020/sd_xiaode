@@ -23,6 +23,24 @@
   width: 7.1rem;
   height: 0.98rem;
 }
+.topWordCls{
+  margin: 0 0 0 0.2rem;
+  font-size: 0.3rem;
+  color: #f8fafb;
+  width: 1.2rem;
+  display: inline-block;
+  vertical-align: super;
+}
+.topWordCls::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 0.7rem;
+  margin-left: 0.5rem;
+  opacity: 0.6;
+  background: #f8fafb;
+  top: 0.14rem;
+}
 
 .pkScore{
   display: flex;
@@ -44,9 +62,10 @@
   background-size: 100% 100%;
 }
 .pkWordCls {
-  margin: 0 0.8rem 0 0.2rem;
+  margin: 0 0 0 0.2rem;
   font-size: 0.3rem;
   color: #f8fafb;
+  width: 1.2rem;
 }
 .pkWordCls::after {
   content: '';
