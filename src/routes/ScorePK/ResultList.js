@@ -212,7 +212,7 @@ class ReaultList extends Component {
             this.backToTop();
           }}
         >
-          <span className={styles.pkWordCls}>PK</span>
+          <span className={styles.topWordCls}>PK</span>
           {this.scoreList(scoreDate, arrLength)}
         </div>
 
