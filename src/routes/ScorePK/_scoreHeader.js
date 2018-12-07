@@ -1,4 +1,5 @@
 import React from 'react';
+import { randomString } from '../../utils/radomUtils';
 import styles from './_score.less';
 
 class RenderHeader extends React.Component {
@@ -9,10 +10,12 @@ class RenderHeader extends React.Component {
 
   negative = (paramsObj = [], arrLength = 1, type) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
-    const liList = list.map((item, index) => {
-      const i = `header${index}`;
+    const liList = list.map(item => {
       return (
-        <div key={i} className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}>
+        <div
+          key={randomString(1)}
+          className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}
+        >
           <span className={type === 1 ? styles.u_nameClass : styles.u_nameClass1}>
             {item.avgScore.toFixed(2)}
           </span>

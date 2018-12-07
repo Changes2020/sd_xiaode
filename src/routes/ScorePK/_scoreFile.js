@@ -1,4 +1,5 @@
 import React from 'react';
+import { randomString } from '../../utils/radomUtils';
 import styles from './ResultList.less';
 
 export default class ScoreFile extends React.Component {
@@ -6,7 +7,10 @@ export default class ScoreFile extends React.Component {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
     const liList = list.map(item => {
       return (
-        <div key={item.id} className={arrLength > 2 ? styles.m_innerScore1 : styles.m_innerScore}>
+        <div
+          key={randomString(2)}
+          className={arrLength > 2 ? styles.m_innerScore1 : styles.m_innerScore}
+        >
           <span className={styles.u_unitScore}>{item.avgScore}</span>
         </div>
       );

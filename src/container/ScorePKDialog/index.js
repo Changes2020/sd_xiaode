@@ -120,6 +120,7 @@ class ExportDemention extends React.Component {
       startTime: Number(urlParams.startTime),
       endTime: Number(urlParams.endTime),
       groupType: this.state.groupType,
+      dateType: urlParams.dateType,
     };
     // 验证提交条件
     const conditionCheck = getItem('PKCondition').value;

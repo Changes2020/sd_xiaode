@@ -14,6 +14,8 @@ import ScoreHeader from './_scoreHeader';
 import ScorePKDialog from '../../container/ScorePKDialog';
 import styles from './ResultList.less';
 import { scroll } from '../../utils/scroll';
+import top from '../../assets/top.svg';
+import count from '../../assets/count.svg';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -42,14 +44,27 @@ class ReaultList extends Component {
       const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
       const backTop = document.getElementById('dataToTop'); // 吸顶模块
       if (backTop !== null) {
-        backTop.style.display = t >= 118 ? 'block' : 'none';
+        backTop.style.display = t >= 92 ? 'block' : 'none';
       }
     };
+
+    window.addEventListener('scroll', this.onScroll);
   }
+
+
 
   componentWillUnmount() {
     window.onscroll = '';
+    window.removeEventListener('scroll', this.onScroll);
   }
+
+  onScroll = () => {
+    const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
+    const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
+    if (backTop !== null) {
+      backTop.style.display = t >= 200 ? 'block' : 'none';
+    }
+  };
   // 请求接口的中间函数
   getData = (params = {}) => {
     const { groupTypeDict } = Dict;
@@ -191,20 +206,20 @@ class ReaultList extends Component {
         {isloading && <Loading />}
 
         <div
-          className={arrLength > 2 ? styles.fix3Score : styles.fix2Score}
+          className={`${styles.fixScore} ${arrLength > 2 ? styles.pk3Score : styles.pk2Score}`}
           id="dataToTop"
           onClick={() => {
             this.backToTop();
           }}
         >
-          <span className={styles.pkWordCls}>PK</span>
+          <span className={styles.topWordCls}>PK</span>
           {this.scoreList(scoreDate, arrLength)}
         </div>
 
         {/* 学分px区域吸顶 */}
         {arrLength > 0 ? (
           <div
-            className={arrLength > 2 ? styles.pk3Score : styles.pk2Score}
+            className={`${styles.pkScore} ${arrLength > 2 ? styles.pk3Score : styles.pk2Score}`}
             onClick={() => {
               window.scroll(0, 0);
             }}
@@ -246,6 +261,26 @@ class ReaultList extends Component {
             }}
           />
         </div>
+        {/* *************** 回到顶部 *************** */}
+        <div
+          className={`${styles.floatIcon} ${styles.goTopCls}`}
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          id="backTopBtn"
+        >
+          <img src={top} className={styles.imgTop} alt="回到顶部" />
+        </div>
+
+        <div
+          className={styles.countCls}
+          onClick={() => {
+            this.props.setRouteUrlParams('/static/formula');
+          }}
+        >
+          <img src={count} className={styles.imgCount} alt="学分算法说明" />
+        </div>
+
         <div style={{ height: '0.4rem', width: '7.5rem' }} />
       </div>
     );

@@ -5,6 +5,7 @@
 
 .wrapContent{
   background: #EDF0F3;
+  position: relative;
 }
 
 .filterCntainer {
@@ -13,55 +14,58 @@
   overflow: hidden;
 }
 
-.fix3Score{
+.fixScore{
   display: none;
   position: fixed;
   z-index: 200;
+  left:0.2rem;
   top: 0;
-  right:0.2rem;
   width: 7.1rem;
   height: 0.98rem;
-  background: url(../../assets/bg3pk.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
 }
-.fix2Score{
-  display: none;
-  position: fixed;
-  z-index: 200;
-  top: 0;
-  width: 7.1rem;
-  height: 0.98rem;
-  background: url(../../assets/bg2pk.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+.topWordCls{
+  margin: 0 0 0 0.2rem;
+  font-size: 0.3rem;
+  color: #f8fafb;
+  width: 1.2rem;
+  display: inline-block;
+  vertical-align: super;
+}
+.topWordCls::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 0.7rem;
+  margin-left: 0.5rem;
+  opacity: 0.6;
+  background: #f8fafb;
+  top: 0.14rem;
 }
 
-.pk3Score {
+.pkScore{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
   width: 7.1rem;
   height: 0.98rem;
   margin: 0.3rem auto 0.1rem;
+}
+.pk3Score {
   background: url(../../assets/bg3pk.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 .pk2Score {
-  width: 7.1rem;
-  height: 0.98rem;
-  margin: 0.3rem auto 0.1rem;
   background: url(../../assets/bg2pk.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 .pkWordCls {
-  display: inline-block;
-  position: relative;
-  margin: 0 0.8rem 0 0.2rem;
+  margin: 0 0 0 0.2rem;
   font-size: 0.3rem;
   color: #f8fafb;
-  height: 0.98rem;
-  line-height: 0.98rem;
-  vertical-align: super;
+  width: 1.2rem;
 }
 .pkWordCls::after {
   content: '';
@@ -71,7 +75,7 @@
   margin-left: 0.5rem;
   opacity: 0.6;
   background: #f8fafb;
-  top: 0.1rem;
+  top: 0.14rem;
 }
 
 .m_formulaButton {
@@ -140,4 +144,48 @@
   font-size: 0.22rem;
   color: #fff;
   text-align: right;
+}
+
+/*浮动按钮*/
+.floatIcon {
+  position: fixed;
+  width: 0.74rem;
+  height: 0.74rem;
+  opacity: 0.8;
+  box-shadow: 0 0 10px 2px rgba(202, 202, 202, 0.5);
+  border-radius: 3px;
+  text-align: center;
+  line-height: 0.96rem;
+  background: #fff;
+  right: 0.12rem;
+  bottom: .84rem;
+  z-index: 4;
+  .imgTop {
+    width: 0.51rem;
+    height: 0.45rem;
+  }
+}
+.goTopCls {
+  display: none;
+}
+
+.countCls {
+  width: 0.74rem;
+  height: 0.74rem;
+  position: fixed;
+  right: 0.12rem;
+  opacity: 0.8;
+  background: #fff;
+  -webkit-box-shadow: 0 0 10px 2px rgba(202, 202, 202, 0.5);
+  box-shadow: 0 0 10px 2px rgba(202, 202, 202, 0.5);
+  border-radius: 3px;
+  text-align: center;
+  line-height: 0.96rem;
+  bottom: 2.82rem;
+  z-index: 4;
+  .imgCount {
+    width: 0.44rem;
+    height: 0.44rem;
+    cursor: pointer;
+  }
 }
