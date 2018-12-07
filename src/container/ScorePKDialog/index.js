@@ -151,6 +151,7 @@ class ExportDemention extends React.Component {
       type: 'login/saveLoginLog',
       payload: {
         operateContent: this.getGroupName(this.state.groupType),
+        operateType: 'CLICK',
       },
     });
   };
