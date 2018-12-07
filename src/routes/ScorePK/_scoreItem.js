@@ -32,7 +32,6 @@ class RenderItem extends React.Component {
                   </div>
                   <ScoreDetail
                     paramsObj={item.pkReault}
-                    arrowShow={item.originObj.arrowShow}
                     type={type}
                     selfProps={selfProps}
                     timeObj={timeObj}
