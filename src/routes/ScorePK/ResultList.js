@@ -15,6 +15,7 @@ import ScorePKDialog from '../../container/ScorePKDialog';
 import styles from './ResultList.less';
 import { scroll } from '../../utils/scroll';
 import top from '../../assets/top.svg';
+import count from '../../assets/count.svg';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -265,14 +266,20 @@ class ReaultList extends Component {
           className={`${styles.floatIcon} ${styles.goTopCls}`}
           onClick={() => {
             window.scrollTo(0, 0);
-            // const currentY = document.documentElement.scrollTop || document.body.scrollTop;
-            // scroll(currentY, 0);
           }}
           id="backTopBtn"
         >
           <img src={top} className={styles.imgTop} alt="回到顶部" />
         </div>
 
+        <div
+          className={styles.countCls}
+          onClick={() => {
+            this.props.setRouteUrlParams('/static/formula');
+          }}
+        >
+          <img src={count} className={styles.imgCount} alt="学分算法说明" />
+        </div>
 
         <div style={{ height: '0.4rem', width: '7.5rem' }} />
       </div>
