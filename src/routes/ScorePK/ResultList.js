@@ -16,6 +16,7 @@ import styles from './ResultList.less';
 import { scroll } from '../../utils/scroll';
 import top from '../../assets/top.svg';
 import count from '../../assets/count.svg';
+import { randomString } from '../../utils/radomUtils';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -165,10 +166,9 @@ class ReaultList extends Component {
   // pk区域数据处理
   scoreList = (paramsObj = [], arrLength = 1) => {
     const list = Array.isArray(paramsObj) ? paramsObj : [];
-    const liList = list.map((item, index) => {
-      const i = `key${index}`;
+    const liList = list.map((item) => {
       return (
-        <div key={i} className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}>
+        <div key={randomString(5)} className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}>
           <span className={styles.u_nameClass}>{item.orgName}</span>
           <br />
           <span className={styles.u_nameClass}>{`${item.rank}/${item.allObj}`}</span>

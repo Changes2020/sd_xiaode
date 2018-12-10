@@ -13,11 +13,11 @@ class RenderHeader extends React.Component {
     const liList = list.map(item => {
       return (
         <div
-          key={randomString(1)}
+          key={randomString(5)}
           className={arrLength > 2 ? styles.m_formulaButton : styles.m_formulaButton2}
         >
           <span className={type === 1 ? styles.u_nameClass : styles.u_nameClass1}>
-            {item.avgScore.toFixed(2)}
+            {(item.avgScore).toFixed(2)}
           </span>
         </div>
       );
