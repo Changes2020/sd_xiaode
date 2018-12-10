@@ -8,7 +8,7 @@ export default class ScoreFile extends React.Component {
     const liList = list.map(item => {
       return (
         <div
-          key={randomString(2)}
+          key={randomString(5)}
           className={arrLength > 2 ? styles.m_innerScore1 : styles.m_innerScore}
         >
           <span className={styles.u_unitScore}>{item.avgScore}</span>

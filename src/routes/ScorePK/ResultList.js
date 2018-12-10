@@ -39,20 +39,9 @@ class ReaultList extends Component {
   }
   componentDidMount() {
     this.getData(this.state.paramsObj);
-
     window.scroll(0, 0);
-    window.onscroll = function() {
-      const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
-      const backTop = document.getElementById('dataToTop'); // 吸顶模块
-      if (backTop !== null) {
-        backTop.style.display = t >= 92 ? 'block' : 'none';
-      }
-    };
-
     window.addEventListener('scroll', this.onScroll);
   }
-
-
 
   componentWillUnmount() {
     window.onscroll = '';
@@ -62,8 +51,12 @@ class ReaultList extends Component {
   onScroll = () => {
     const t = document.documentElement.scrollTop || document.body.scrollTop; // 滚动条滚动时，到顶部的距离
     const backTop = document.getElementById('backTopBtn'); // 返回顶部模块
+    const backTop1 = document.getElementById('dataToTop');
     if (backTop !== null) {
       backTop.style.display = t >= 200 ? 'block' : 'none';
+    }
+    if (backTop1 !== null) {
+      backTop1.style.display = t >= 92 ? 'block' : 'none';
     }
   };
   // 请求接口的中间函数
