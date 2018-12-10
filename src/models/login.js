@@ -130,6 +130,7 @@ export default {
         operator: id,
         operateContent,
         operateCode: typeDict.operateCode[`${loginType}_login`],
+        operateType: payload.operateType || 'AUTH',
       });
       if (response.code !== 2000) {
         Message.fail(response.msg);
