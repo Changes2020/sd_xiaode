@@ -1,5 +1,4 @@
 import React from 'react';
-import { Icon } from 'antd-mobile';
 import { randomString } from '../../utils/radomUtils';
 import styles from './_score.less';
 import greenIcon from '../../assets/green.png';
@@ -39,7 +38,7 @@ class RenderItem extends React.Component {
           <img
             alt="img"
             className={styles.arrowR}
-            src={type === 2 ? greenIcon :yellowIcon}
+            src={type === 2 ? greenIcon : yellowIcon}
             style={{ display: isShow ? 'inline' : 'none' }}
             onClick={this.jump2Data.bind(this, isShow, type, newItem)}
           />
@@ -52,7 +51,7 @@ class RenderItem extends React.Component {
     const { paramsObj = [], type = 2 } = this.props;
 
     return (
-      <div className={`${styles.m_container} ${styles.m_regContain}`}>
+      <div>
         {paramsObj.length > 0
           ? paramsObj[0].childNode.map((item, index) => {
               return (
@@ -63,7 +62,6 @@ class RenderItem extends React.Component {
               );
             })
           : null}
-        <div className={styles.heiDiv} />
       </div>
     );
   }
