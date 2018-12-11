@@ -58,6 +58,7 @@ const dynamicWrapper = (app, models, component) => {
             lastUrlParams,
             setRouteUrlParams,
             setCurrentUrlParams,
+            getUrlParams,
           });
       });
     },
@@ -80,16 +81,20 @@ const dynamicWrapper = (app, models, component) => {
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['global', 'index'], () => import('../layout/BaseLayout')),
+      component: dynamicWrapper(app, ['global', 'index', 'login'], () =>
+        import('../layout/BaseLayout')
+      ),
     },
     '/indexPage': {
-      component: dynamicWrapper(app, ['home'], () => import('../routes/Home/IndexPage')),
+      component: dynamicWrapper(app, ['home', 'modalPK'], () => import('../routes/Home/IndexPage')),
     },
     '/chartlist': {
       component: dynamicWrapper(app, ['home'], () => import('../routes/Home/ChartList')),
     },
     '/details': {
-      component: dynamicWrapper(app, ['Details'], () => import('../routes/Details/Details')),
+      component: dynamicWrapper(app, ['Details', 'modalPK'], () =>
+        import('../routes/Details/Details')
+      ),
     },
     '/assistant': {
       component: dynamicWrapper(app, ['assistant'], () => import('../routes/Assistant/Assistant')),
@@ -97,11 +102,16 @@ export const getRouterData = app => {
     '/demention': {
       component: dynamicWrapper(app, ['demention'], () => import('../routes/Demention/Demention')),
     },
+    '/scoreresult': {
+      component: dynamicWrapper(app, ['scorePK', 'modalPK'], () =>
+        import('../routes/ScorePK/ResultList')
+      ),
+    },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
     },
     '/user/wechart': {
-      component: dynamicWrapper(app, [], () => import('../routes/Login/WeChartLogin')),
+      component: dynamicWrapper(app, ['login'], () => import('../routes/Login/WeChartLogin')),
     },
     '/user/applogin': {
       component: dynamicWrapper(app, ['login'], () => import('../routes/Login/AppLogin')),

@@ -13,6 +13,7 @@ import { SortChanseData } from '../../utils/sortChineseWord';
 import Loading from '../../components/Loading/Loading';
 import { defaultDateTime } from '../../utils/FormatDate';
 import styles from './Details.less';
+import ScorePKDialog from '../../container/ScorePKDialog';
 
 const userInfo = getItem('userInfo').value || {};
 const allOrgMap = getItem('allOrgMap').value || {};
@@ -211,28 +212,6 @@ class CreditDetails extends React.Component {
         ) : (
           <NoData showflag />
         )}
-        {/* *************** 回到顶部 *************** */}
-        <div
-          className={`${styles.floatIcon} ${styles.goTopCls}`}
-          onClick={() => {
-            window.scrollTo(0, 0);
-            // const currentY = document.documentElement.scrollTop || document.body.scrollTop;
-            // scroll(currentY, 0);
-          }}
-          id="backTopBtn"
-        >
-          <img src={top} className={styles.imgTop} alt="回到顶部" />
-        </div>
-
-        {/* *************** 搜索按钮 *************** */}
-        <div
-          className={`${styles.floatIcon} ${styles.searchCls}`}
-          onClick={() => {
-            this.searchFn();
-          }}
-        >
-          <img src={search} className={styles.imgSearch} alt="搜索" />
-        </div>
 
         {/* *************** 搜索模态框 *************** */}
         <CreditDialog
@@ -244,6 +223,37 @@ class CreditDetails extends React.Component {
             this.showModel(v);
           }}
         />
+
+        {/*
+        * *fix 小button浮动框区域
+        * 按顺序放置，内部按正常盒子模型处理，统一margin-bottom:0.1rem
+        * */}
+        <div className="fixBox">
+          {/* 学分px区域 */}
+          <ScorePKDialog {...this.props} />
+          {/* *************** 回到顶部 *************** */}
+          <div
+            className={`${styles.floatIcon} ${styles.goTopCls}`}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              // const currentY = document.documentElement.scrollTop || document.body.scrollTop;
+              // scroll(currentY, 0);
+            }}
+            id="backTopBtn"
+          >
+            <img src={top} className={styles.imgTop} alt="回到顶部" />
+          </div>
+
+          {/* *************** 搜索按钮 *************** */}
+          <div
+            className={`${styles.floatIcon} ${styles.searchCls}`}
+            onClick={() => {
+              this.searchFn();
+            }}
+          >
+            <img src={search} className={styles.imgSearch} alt="搜索" />
+          </div>
+        </div>
 
         {/* 处理loading */}
         {isloading && <Loading />}

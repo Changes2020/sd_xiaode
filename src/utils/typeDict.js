@@ -32,5 +32,11 @@ export default {
     barrier: 1,
     incubator: 2,
   },
+  operateCode: {
+    //  用于储存后端log日志用;
+    app_login: '0003',
+    wechart_login: '0002',
+    pk_login: '0001',
+  },
   dicName: ['selfExam', 'barrier', 'incubator'], // 学分详情搜索弹框用到
 };

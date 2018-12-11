@@ -12,6 +12,7 @@ import ChartContent from './_chartContent';
 import NoData from '../../components/NoData/NoData';
 import CeillingHead from './_ceillingHead';
 import ExportDemention from './_exportDemention';
+import ScorePKDialog from '../../container/ScorePKDialog';
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -176,14 +177,24 @@ class IndexPage extends React.Component {
           )}
           {isNoData && <NoData showflag />}
         </div>
-        {/* ***************导出数据置顶按钮************ */}
-        <ExportDemention
-          isDownLoadSuccess={isDownLoadSuccess}
-          paramsObj={paramsObj}
-          getDownloadInfo={data => {
-            this.getDownloadInfo(data);
-          }}
-        />
+        {/*
+        * *fix 小button浮动框区域
+        * 按顺序放置，内部按正常盒子模型处理，统一margin-bottom:0.1rem
+        * */}
+        <div className="fixBox">
+          {/* 学分px区域 */}
+          <ScorePKDialog {...this.props} />
+
+          {/* ***************导出数据置顶按钮************ */}
+          <ExportDemention
+            isDownLoadSuccess={isDownLoadSuccess}
+            paramsObj={paramsObj}
+            getDownloadInfo={data => {
+              this.getDownloadInfo(data);
+            }}
+          />
+        </div>
+
         {/* **************处理loading************** */}
         {isloading && <Loading />}
       </div>

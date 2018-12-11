@@ -35,7 +35,7 @@ export function setWechartAuth(params = {}) {
 * 此接口用于客户端app获取授权
 */
 export function setAppUserAuth(params) {
-  return `${HOST}/appLogin/setAppUserAuth?${stringify(params)}`;
+  window.location.href = `${HOST}/appLogin/setAppUserAuth?${stringify(params)}`;
 }
 /*
 *此接口获取时间空间是指可选日期
@@ -148,6 +148,37 @@ export async function getCreditDetail(params) {
  */
 export async function addDownloadTask(params) {
   return request(`${HOST}/positiveAction/addDownloadTask`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+* 学分pk
+ */
+export async function getPKResult(params) {
+  return request(`${HOST}/avgScorePK/getPKResult`, {
+    method: 'POST',
+    body: params,
+  });
+}
+/*
+* 记录用户登录学分的次数
+ */
+export async function operateLog(params) {
+  const newParams = {
+    site: HOST,
+    operateType: 'AUTH',
+  };
+  return request(`${HOST}/operateLog/add`, {
+    method: 'POST',
+    body: { ...newParams, ...params },
+  });
+}
+/*
+* 学分pk modal数据
+ */
+export async function getPKObject(params) {
+  return request(`${HOST}/avgScorePK/getPkObject`, {
     method: 'POST',
     body: params,
   });

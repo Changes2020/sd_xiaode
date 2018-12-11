@@ -132,10 +132,14 @@ Login.prototype.userintroduce=function(){
 Login.prototype.appLogin=function(){
   var isLogin=this.params.isBiLogin==1||false;
   var isAuth=this.userId&&this.userType==1&&isLogin;
+  this.successPath='/user/applogin';
+  this.errorPath='/exception/403';
   this.checkoutLoginState(isAuth);
 }
 Login.prototype.wechartLogin=function(){
   var isAuth=this.userId&&this.userType==1;
+  this.successPath='/user/wechart';
+  this.errorPath='/exception/403';
   this.checkoutLoginState(isAuth);
 }
 Login.prototype.checkoutLoginState=function(bol){

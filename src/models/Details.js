@@ -1,6 +1,7 @@
 import { getCreditDetail } from '../services/api';
 import { isRequestRelative } from '../utils/FormatDate';
 import { detailRelativeData } from '../utils/dealWithRelative';
+import Dict from '../utils/typeDict';
 import Message from '../components/Message';
 
 export default {
@@ -78,11 +79,12 @@ export default {
       return { ...state, ...action.payload };
     },
     dealDatalist(state, action) {
+      const { groupTypeDict } = Dict;
       const { dataOrg, paramsObj, lineHeight } = action.payload;
       const dataList = action.payload.dataList || {};
 
       // 判断可查看权限
-      const groupType = { 1: 'college', 2: 'family', 3: 'group' }[paramsObj.groupType];
+      const groupType = groupTypeDict[paramsObj.groupType];
       const selfGroupData = dataOrg[groupType]; // 权限用户
       const lineHeightData = lineHeight[groupType]; // 获取高亮数据
 
