@@ -25,7 +25,14 @@ class RenderItem extends React.Component {
         {paramsObj.length > 0
           ? paramsObj[0].childNode.map((item, index) => {
               return (
-                <div key={randomString(5)} style={{ borderRadius: '0.04rem' }}>
+                <div
+                  key={randomString(5)}
+                  style={{
+                    borderRadius: '0.04rem',
+                    backgroundColor: '#fff',
+                    marginBottom: '.08rem',
+                  }}
+                >
                   <div className={styles.u_colCss}>
                     <span className={styles.u_leftCss}>{item.dimensionName}</span>
                     {this.renderList(paramsObj, index)}
