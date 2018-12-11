@@ -1,5 +1,4 @@
 import React from 'react';
-import { Icon } from 'antd-mobile';
 import { randomString } from '../../utils/radomUtils';
 import styles from './_score.less';
 import greenIcon from '../../assets/green.png';
