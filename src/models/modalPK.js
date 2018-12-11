@@ -16,7 +16,7 @@ export default {
       delete params.groupType;
       const result = yield call(getPKObject, params);
       if (result.code === 2000) {
-        const dataAll = result.data;
+        const dataAll = Array.isArray(result.data) ? result.data : [];
         yield put({
           type: 'checkData',
           payload: {
