@@ -2,6 +2,8 @@ import React from 'react';
 import { Icon } from 'antd-mobile';
 import { randomString } from '../../utils/radomUtils';
 import styles from './_score.less';
+import greenIcon from '../../assets/green.png';
+import yellowIcon from '../../assets/yellow.png';
 
 class RenderItem extends React.Component {
   jump2Data = (arrowShow, type, data) => {
@@ -34,10 +36,10 @@ class RenderItem extends React.Component {
           className={`${styles.dataCss} ${data.length > 2 ? styles.width_3 : styles.width_2}`}
         >
           <span className={styles.u_unitScore}>{newItem.avgScore.toFixed(2)}</span>
-          <Icon
-            type="right"
-            className={type === 2 ? styles.echartsIcon : styles.echartsIcon2}
-            size="lg"
+          <img
+            alt="img"
+            className={styles.arrowR}
+            src={type === 2 ? greenIcon :yellowIcon}
             style={{ display: isShow ? 'inline' : 'none' }}
             onClick={this.jump2Data.bind(this, isShow, type, newItem)}
           />
