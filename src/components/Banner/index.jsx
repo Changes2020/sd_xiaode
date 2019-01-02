@@ -3,6 +3,7 @@ import { Link } from 'dva/router';
 import { Carousel } from 'antd-mobile';
 import styles from './index.less';
 import MaskImg from '../../assets/banner1.png';
+import perCenterImg from '../../assets/perCenter.svg';
 
 export default class Banner extends Component {
   state = {
@@ -18,6 +19,9 @@ export default class Banner extends Component {
             </Link>
           ))}
         </Carousel>
+        <Link className={styles.perCenterImg} to="/user/percent">
+          <img src={perCenterImg} alt="个人中心" />
+        </Link>
       </div>
     );
   }

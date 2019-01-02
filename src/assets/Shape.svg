@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="个人中心--copy" transform="translate(-60.000000, -266.000000)" fill="#52C9C2" fill-rule="nonzero">
+            <g id="Group-5" transform="translate(60.000000, 255.000000)">
+                <path d="M17.1851552,39 L10.8148448,39 C4.77234542,39 0,39 0,36.4425833 L0,35.9309808 C0,31.1380413 4.85215237,27.2392514 10.8148448,27.2392514 L17.1849726,27.2392514 C23.147665,27.2392514 28,31.1380413 28,35.9309808 L28,36.4425833 C27.9989043,39 22.9865902,39 17.1851552,39 Z M13.596504,25.7009358 C9.460064,25.7009358 6.09650404,22.4033294 6.09650404,18.3499125 C6.09650404,14.2966543 9.46022355,11 13.596504,11 C17.7327845,11 21.096504,14.2966543 21.096504,18.3499125 C21.096504,22.4033294 17.7319867,25.7009358 13.596504,25.7009358 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

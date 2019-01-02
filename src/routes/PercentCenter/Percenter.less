@@ -1,0 +1,84 @@
+.m_percentWrap {
+  .u_header {
+    position: relative;
+    margin-bottom: 0.29rem;
+    height: 3.31rem;
+    .bgCls {
+      width: 100%;
+    }
+    .infoCls {
+      position: absolute;
+      top: 0.8rem;
+      width: 6.9rem;
+      height: 2.54rem;
+      box-sizing: border-box;
+      margin-left: 0.3rem;
+      background: #fff;
+      box-shadow: 0 0 16px 0 rgba(224, 224, 224, 0.3);
+      border-radius: 8px;
+      padding: 0.47rem 0.26rem 0.46rem 0.3rem;
+      .hdIcon {
+        width: 0.28rem;
+        height: 0.28rem;
+        margin-right: 0.19rem;
+        vertical-align: middle;
+      }
+      .userInfo {
+        position: relative;
+        font-size: 0.36rem;
+        line-height: 0.5rem;
+        .addressCls {
+          position: absolute;
+          right: 0;
+          top: 0;
+          font-size: 0.28rem;
+        }
+      }
+      .classInfo {
+        font-size: 0.28rem;
+        margin: 0.15rem 0 0.16rem;
+        line-height: 0.4rem;
+      }
+      .collegeInfo {
+        font-size: 0.28rem;
+        color: #6d6d75;
+        line-height: 0.4rem;
+      }
+    }
+  }
+  .ulCls {
+    margin: 0 0.2rem 0.2rem;
+    background-color: #fff;
+    .liCls {
+      position: relative;
+      width: 6.9rem;
+      height: 0.98rem;
+      line-height: 0.98rem;
+      margin: 0 auto;
+      font-size: 0.3rem;
+      color: #333;
+      .iconImg {
+        vertical-align: text-top;
+        width: 0.46rem;
+        height: 0.46rem;
+        margin-right: 0.2rem;
+      }
+      .arrowRight {
+        position: absolute;
+        right: 0;
+        top: 0.21rem;
+        color: #52c9c2;
+        height: 0.5rem;
+      }
+    }
+    .liCls:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #eee;
+    }
+  }
+}
