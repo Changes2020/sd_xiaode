@@ -1,3 +1,6 @@
+// localstorage后期处理一对多用户的时候会用到
+export const CURRENT_USER_INFO = 'userInfo';
+
 export default {
   dateTypeDict: {
     1: '周均数据',
@@ -40,3 +43,18 @@ export default {
   },
   dicName: ['selfExam', 'barrier', 'incubator'], // 学分详情搜索弹框用到
 };
+
+// 前端角色类型,level含义是组织结构的层级，1代表选择到学院，2表示选择学院+家族，3代表选择三级，0代表不可选择,isPerformance代表绩效权限
+export const FRONT_ROLE_TYPE_LIST = [
+  { id: 'college', name: '院长或副院长' },
+  { id: 'family', name: '家族长' },
+  { id: 'group', name: '运营长' },
+  { id: 'class', name: '班主任' },
+  { id: 'admin', name: '管理员' },
+  { id: 'boss', name: '管理层' },
+  { id: 'others', name: '无绩效岗位' },
+  { id: 'csmanager', name: '客诉经理' },
+  { id: 'cssupervisor', name: '客诉主管' },
+  { id: 'csleader', name: '客诉组长' },
+  { id: 'csofficer', name: '客诉专员' },
+];
