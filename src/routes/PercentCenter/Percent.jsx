@@ -64,7 +64,7 @@ class Percent extends React.Component {
               <img src={shapeIcon} alt="name" className={styles.hdIcon} />
               <span>{!name ? userId : name}</span>
               <div className={styles.addressCls}>
-                <img src={adressIcon} alt="name" className={styles.hdIcon} />
+                <img src={adressIcon} alt="name" className={styles.addresIcon} />
                 <span>北京</span>
               </div>
             </div>
