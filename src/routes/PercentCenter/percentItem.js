@@ -13,7 +13,7 @@ class PercentItem extends React.Component {
         {datasource.map(item => (
           <li
             key={item.id}
-            className={styles.liCls}
+            className={`scaleBorder ${styles.liCls}`}
             onClick={() => this.gotoNextPAge(item.pathName)}
           >
             <img src={item.icon} alt="icon" className={styles.iconImg} />
