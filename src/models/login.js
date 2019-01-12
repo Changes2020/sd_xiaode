@@ -2,7 +2,13 @@
 
 import { routerRedux } from 'dva/router';
 import { parse } from 'url';
-import { setAppUserAuth, setWechartAuth, getUserInfo, operateLog } from 'services/api';
+import {
+  setAppUserAuth,
+  setWechartAuth,
+  getUserInfo,
+  operateLog,
+  getUserInfoCity,
+} from 'services/api';
 import { getAuthority } from 'utils/authority';
 import { setItem, getItem } from 'utils/localStorage';
 import typeDict from 'utils/typeDict';
@@ -28,6 +34,7 @@ export default {
   state: {
     isLogin: false,
     userInfo: null,
+    city: null,
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -141,6 +148,17 @@ export default {
       if (response.code !== 2000) {
         Message.fail(response.msg);
         yield put(routerRedux.push('/exception/403'));
+      }
+    },
+    *getUserInfoCity({ payload }, { call, put }) {
+      const { userId, id } = payload;
+      const response = yield call(getUserInfoCity, { userId: id });
+      if (response && response.code === 2000) {
+        setItem('layered_user', { userId, ...response.data }, 1);
+        yield put({
+          type: 'saveUser',
+          payload: { city: response.data.city },
+        });
       }
     },
   },

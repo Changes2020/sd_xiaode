@@ -18,13 +18,13 @@ export default {
       id: 2,
       icon: score2,
       name: '学分使用教程',
-      pathName: '21',
+      pathName: 'http://bi-m.ministudy.com/static/usercourse',
     },
     {
       id: 3,
       icon: score3,
       name: '学分算法说明',
-      pathName: '31',
+      pathName: 'http://bi-m.ministudy.com/static/formula?1',
     },
   ],
   XIAODE_PERFORMANCE: [
@@ -38,7 +38,7 @@ export default {
       id: 5,
       icon: performance2,
       name: '绩效使用教程',
-      pathName: '21',
+      pathName: 'http://test-api.bd.ministudy.com/static/usercourse',
     },
     //   {
     //     id: 6,

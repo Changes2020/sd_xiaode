@@ -4,7 +4,7 @@ import styles from './Percenter.less';
 
 class PercentItem extends React.Component {
   gotoNextPAge = path => {
-    console.log(path);
+    window.location.href = path;
   };
   render() {
     const { datasource } = this.props;

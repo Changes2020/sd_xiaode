@@ -120,7 +120,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['login'], () => import('../routes/Login/Brochure')),
     },
     '/user/percent': {
-      component: dynamicWrapper(app, [], () => import('../routes/PercentCenter/Percent')),
+      component: dynamicWrapper(app, ['login'], () => import('../routes/PercentCenter/Percent')),
     },
     '/static': {
       component: dynamicWrapper(app, [], () => import('../layout/StaticLayout')),

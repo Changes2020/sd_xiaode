@@ -183,3 +183,12 @@ export async function getPKObject(params) {
     body: params,
   });
 }
+/*
+*此接口用于获取用户城市
+* @params{userId}
+*/
+export async function getUserInfoCity(params) {
+  return request(`${HOST}/user/getBasicInfo?${stringify(params)}`, {
+    method: 'GET',
+  });
+}

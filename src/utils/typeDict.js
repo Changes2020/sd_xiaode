@@ -1,5 +1,7 @@
 // localstorage后期处理一对多用户的时候会用到
 export const CURRENT_USER_INFO = 'userInfo';
+export const ALL_ORG_MAP = 'allOrgMap';
+export const LOCAL_STORAGE_USER = 'layered_user';
 
 export default {
   dateTypeDict: {
