@@ -52,7 +52,7 @@ export default {
       id: 7,
       icon: light1,
       name: '发光学院',
-      pathName: '11',
+      pathName: 'http://localhost:8000/indexPage',
     },
   ],
 };

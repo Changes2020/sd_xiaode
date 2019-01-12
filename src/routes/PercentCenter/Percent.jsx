@@ -109,5 +109,5 @@ class Percent extends React.Component {
 }
 export default connect(({ login, loading }) => ({
   login,
-  isloading: loading.models.login,
+  isloading: loading.effects['login/getUserInfoCity'],
 }))(Percent);
