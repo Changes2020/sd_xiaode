@@ -1,3 +1,4 @@
+/* tip：class用户转成group */
 import React from 'react';
 import { connect } from 'dva';
 import Loading from '../../components/Loading/Loading';
@@ -7,6 +8,7 @@ import itemList from '../../utils/personalJson';
 import Detail from './percentItem';
 import styles from './Percenter.less';
 import lightBg from '../../assets/lightBG.png';
+import lightBg1 from '../../assets/LightBG1.png';
 import adressIcon from '../../assets/address.svg';
 import shapeIcon from '../../assets/Shape.svg';
 import classIcon from '../../assets/class.svg';
@@ -39,12 +41,13 @@ class Percent extends React.Component {
   getOrgName = () => {
     const { groupId, groupType } = userInfo;
     const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
+    const _groupType = groupType === 'class' ? 'group' : groupType;
 
-    const orgDetail = groupType === 'boss' || groupType === 'admin' ? '' : dataOrg[groupType][0];
+    const orgDetail = _groupType === 'boss' || _groupType === 'admin' ? '' : dataOrg[_groupType][0];
 
     let newName = '';
 
-    switch (groupType) {
+    switch (_groupType) {
       case 'boss':
         break;
       case 'admin':
@@ -69,11 +72,12 @@ class Percent extends React.Component {
     const { name, userId } = userInfo;
     const { city } = this.props.login;
     const isShowName = this.getOrgName(); // boss和admin权限不展示组织信息
+    const indexBg = isShowName ? lightBg : lightBg1;
 
     return (
       <div className={styles.m_percentWrap}>
         <div className={styles.u_header}>
-          <img src={lightBg} alt="BG" className={styles.bgCls} />
+          <img src={indexBg} alt="BG" className={styles.bgCls} />
           <div className={styles.infoCls}>
             <div className={styles.userInfo}>
               <img src={shapeIcon} alt="name" className={styles.hdIcon} />
