@@ -33,6 +33,7 @@ export default {
     isLogin: false,
     userInfo: null,
     city: null,
+    orgData: '',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -161,7 +162,7 @@ export default {
         setItem('layered_user', { userId, ...response.data }, 1);
         yield put({
           type: 'saveUser',
-          payload: { city: response.data.city },
+          payload: { city: response.data.city, orgData: response.data.org },
         });
       }
     },

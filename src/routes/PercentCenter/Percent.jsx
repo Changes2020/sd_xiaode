@@ -2,8 +2,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import Loading from '../../components/Loading/Loading';
-import { CURRENT_USER_INFO, FRONT_ROLE_TYPE_LIST, ALL_ORG_MAP } from '../../utils/typeDict';
-import { dimensionAuthority } from '../../utils/dimensionAuthority';
+import { CURRENT_USER_INFO, FRONT_ROLE_TYPE_LIST } from '../../utils/typeDict';
 import itemList from '../../utils/personalJson';
 import Detail from './percentItem';
 import styles from './Percenter.less';
@@ -16,7 +15,6 @@ import collegeIcon from '../../assets/college.svg';
 import { getItem } from '../../utils/localStorage';
 
 const userInfo = getItem(CURRENT_USER_INFO).value || {};
-const allOrgMap = getItem(ALL_ORG_MAP).value || {};
 
 class Percent extends React.Component {
   constructor(props) {
@@ -38,39 +36,12 @@ class Percent extends React.Component {
     });
     return roleName;
   };
-  getOrgName = () => {
-    const { groupId, groupType } = userInfo;
-    const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
-    const _groupType = groupType === 'class' ? 'group' : groupType;
-    const orgDetail =
-      _groupType === 'boss' || _groupType === 'admin' ? '' : dataOrg[_groupType][0] || {};
-    let newName = '';
 
-    switch (_groupType) {
-      case 'boss':
-        break;
-      case 'admin':
-        break;
-      case 'college':
-        newName = `${orgDetail.collegeName}`;
-        break;
-      case 'family':
-        newName = `${orgDetail.collegeName} / ${orgDetail.familyName} `;
-        break;
-      case 'class':
-      case 'group':
-        newName = `${orgDetail.collegeName} / ${orgDetail.familyName} / ${orgDetail.groupName}`;
-        break;
-      default:
-        console.warn('传递用户权限有误');
-    }
-    return newName;
-  };
   render() {
     // 获取权限用户数据
     const { name, userId } = userInfo;
-    const { city } = this.props.login;
-    const isShowName = this.getOrgName(); // boss和admin权限不展示组织信息
+    const { city, orgData } = this.props.login;
+    const isShowName = orgData.split('|').join('/'); // boss和admin权限不展示组织信息
     const indexBg = isShowName ? lightBg : lightBg1;
 
     return (
