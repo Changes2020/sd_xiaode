@@ -152,7 +152,7 @@ export default {
     },
     *getUserInfoCity({ payload }, { call, put }) {
       const { userId, id } = payload;
-      const response = yield call(getUserInfoCity, { userId: id });
+      const response = yield call(getUserInfoCity, { id });
       if (response && response.code === 2000) {
         setItem('layered_user', { userId, ...response.data }, 1);
         yield put({
