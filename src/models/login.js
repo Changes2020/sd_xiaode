@@ -11,7 +11,7 @@ import {
 } from 'services/api';
 import { getAuthority } from 'utils/authority';
 import { setItem, getItem } from 'utils/localStorage';
-import typeDict from 'utils/typeDict';
+import typeDict, { CURRENT_USER_INFO } from 'utils/typeDict';
 import Message from '../components/Message';
 import config from '../config';
 
@@ -21,6 +21,9 @@ const loginErrorUrlObj = {
   wechart: '/exception/403',
   app: '/exception/403',
 };
+/*
+   global USER_ID
+*/
 
 function initGetUserId() {
   if (DEBUGGER) {
@@ -40,6 +43,12 @@ export default {
     setup({ dispatch, history }) {
       const { pathname, search = '' } = history.location;
       const urlParams = parse(search, true).query || {};
+      /*  *****用于测试环境箱将 userId 写入缓存,便于测试**** */
+      if (USER_ID) {
+        const userInfo = { userId: USER_ID };
+        setItem(CURRENT_USER_INFO, userInfo, 0.5);
+      }
+      /* ********************************************* */
       switch (pathname) {
         case '/user/brochure':
           dispatch({

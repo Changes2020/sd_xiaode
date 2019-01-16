@@ -1,3 +1,4 @@
+import { PAGE_HOST } from './typeDict';
 // import score1 from '../assets/score1.png';
 import score2 from '../assets/score2.png';
 import score3 from '../assets/score3.png';
@@ -5,7 +6,9 @@ import score3 from '../assets/score3.png';
 import performance2 from '../assets/performance2.png';
 // import performance3 from '../assets/performance3.png';
 import light1 from '../assets/light1.png';
-
+/*
+global API_TYPE
+*/
 export default {
   XIAODE_SCORE: [
     // {
@@ -52,7 +55,7 @@ export default {
       id: 7,
       icon: light1,
       name: '发光学院',
-      pathName: 'http://localhost:8000/indexPage',
+      pathName: `${PAGE_HOST[API_TYPE]}/class/user/login/selfsystem`, // /class/user/login/:type
     },
   ],
 };

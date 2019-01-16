@@ -3,6 +3,12 @@ export const CURRENT_USER_INFO = 'userInfo';
 export const ALL_ORG_MAP = 'allOrgMap';
 export const LOCAL_STORAGE_USER = 'layered_user';
 
+// page url
+export const PAGE_HOST = {
+  development: 'http://172.16.117.64:8092',
+  production: 'http://bi-m.ministudy.com',
+};
+
 export default {
   dateTypeDict: {
     1: '周均数据',
