@@ -23,6 +23,7 @@ function RouterConfig({ history, app }) {
         <Route path="/exception" render={props => <Exception {...props} />} />
         <Route path="/user" render={props => <UserLayout {...props} />} />
         <Route path="/static" render={props => <StaticLayout {...props} />} />
+        <Route path="/class" render={props => <StaticLayout {...props} />} />
         <AuthorizedRoute
           path="/"
           render={props => <BaseLayout {...props} />}

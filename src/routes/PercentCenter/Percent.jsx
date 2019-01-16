@@ -42,9 +42,8 @@ class Percent extends React.Component {
     const { groupId, groupType } = userInfo;
     const dataOrg = dimensionAuthority(allOrgMap, groupId, groupType); // 获取授权数据
     const _groupType = groupType === 'class' ? 'group' : groupType;
-
-    const orgDetail = _groupType === 'boss' || _groupType === 'admin' ? '' : dataOrg[_groupType][0];
-
+    const orgDetail =
+      _groupType === 'boss' || _groupType === 'admin' ? '' : dataOrg[_groupType][0] || {};
     let newName = '';
 
     switch (_groupType) {

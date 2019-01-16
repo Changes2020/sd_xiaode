@@ -38,12 +38,6 @@ export default {
     setup({ dispatch, history }) {
       const { pathname, search = '' } = history.location;
       const urlParams = parse(search, true).query || {};
-      /*  *****用于测试环境箱将 userId 写入缓存,便于测试**** */
-      if (USER_ID) {
-        const userInfo = { userId: USER_ID };
-        setItem(CURRENT_USER_INFO, userInfo, 0.5);
-      }
-      /* ********************************************* */
       switch (pathname) {
         case '/user/brochure':
           dispatch({
@@ -52,6 +46,12 @@ export default {
           });
           break;
         case '/user/wechart':
+          /*  *****用于测试环境箱将 userId 写入缓存,便于测试**** */
+          if (USER_ID) {
+            const userInfo = { userId: USER_ID };
+            setItem(CURRENT_USER_INFO, userInfo, 0.5);
+          }
+          /* ********************************************* */
           dispatch({
             type: 'wechartLogin',
             payload: { userId: initGetUserId(), pathname },
