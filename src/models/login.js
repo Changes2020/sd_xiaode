@@ -13,9 +13,7 @@ import { getAuthority } from 'utils/authority';
 import { setItem, getItem } from 'utils/localStorage';
 import typeDict, { CURRENT_USER_INFO } from 'utils/typeDict';
 import Message from '../components/Message';
-import config from '../config';
 
-const { DEBUGGER = false } = config;
 const loginErrorUrlObj = {
   brochure: '/exception/introduceError403',
   wechart: '/exception/403',
@@ -26,9 +24,6 @@ const loginErrorUrlObj = {
 */
 
 function initGetUserId() {
-  if (DEBUGGER) {
-    setItem('userInfo', { userId: config.userId });
-  }
   return getAuthority();
 }
 export default {
