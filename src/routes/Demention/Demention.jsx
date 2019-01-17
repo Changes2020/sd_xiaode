@@ -294,6 +294,7 @@ class Demention extends React.Component {
       : null;
     const columnsData = detailListData ? (detailListData.data ? detailListData.data : []) : [];
     const listNum = !detailListData ? 0 : !detailListData.data ? 0 : detailListData.data.total;
+    const id = this.props.demention.dementionId
     return (
       <div className={styles.normal} id="selfDataCenter">
         {/* 页面吸顶元素 */}
@@ -320,7 +321,7 @@ class Demention extends React.Component {
               dataReturnFun={item => {
                 this.fnClickGroupButton(item);
               }}
-              id={this.props.demention.dementionId}
+              id={id}
               isSelectFirst
               btnClass={styles.btnStyle}
               btnSelectedClass={styles.btnSelected}
@@ -328,9 +329,27 @@ class Demention extends React.Component {
           </div>
         )}
         {/* 详情数据和趋势图tab切换导航 */}
-        {!tableList ? null : tabContainer(this.state, this.detailCLickTab.bind(this))}
+        {!tableList||id===32||id===12 ? null : tabContainer(this.state, this.detailCLickTab.bind(this))}
         {/* 详情数据和趋势图组件 */}
-        {!tableList ? null : this.state.switchtype === 1 ? (
+        {!tableList||id===32||id===12 ? (
+          <div className={styles.tableDiv}>
+            {!tableList || tableList.length === 0 ? (
+              <NoData showflag />
+            ) : (
+              <div>
+                <p className={styles.tableTitle}>
+                  <span style={{ paddingLeft: '0.24rem' }}>{this.state.buttonName}详情数据</span>
+                </p>
+                <MultipHeaderList
+                  dataList={tableList}
+                  customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+                  customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+                />
+                <div className={styles.divheight} />
+              </div>
+            )}
+          </div>
+        ) : this.state.switchtype === 1 ? (
           <div className={styles.tableDiv}>
             {!tableList || tableList.length === 0 ? (
               <NoData showflag />
