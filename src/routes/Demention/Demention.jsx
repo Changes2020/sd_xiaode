@@ -4,6 +4,8 @@ import { assignUrlParams } from 'utils/routerUtils';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import CustomRenderHeader from '../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../components/TableItem/TableItem';
+import DetailTableItem from '../../components/TableItem/DetailTableItem';
+
 import styles from './Demention.less';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import SelfTab from '../../components/SelfTab/SelfTab';
@@ -343,7 +345,7 @@ class Demention extends React.Component {
                 <MultipHeaderList
                   dataList={tableList}
                   customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
-                  customRenderItem={rowData => <CustomRenderItem rowData={rowData} />}
+                  customRenderItem={rowData => <DetailTableItem rowData={rowData} />}
                 />
                 <div className={styles.divheight} />
               </div>
