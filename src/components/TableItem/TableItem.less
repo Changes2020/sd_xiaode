@@ -1,4 +1,5 @@
 .normal {
+  position: relative;
   width: 6.6rem;
   margin: 0 auto;
   border-top-left-radius: 0.04rem;
@@ -35,68 +36,74 @@
       color: #52c9c2;
     }
   }
+}
 
-
-
-  .m_dialogWrap {
-    position: absolute;
-    top: 1.7rem;
-    width: 5.8rem !important;
-    :global(.am-modal-content) {
-      overflow: visible !important;
-    }
-    :global(.am-modal-body) {
-      padding: 0 !important;
-      overflow: inherit;
-    }
+.m_dialogWrap {
+  position: absolute;
+  top: 1.7rem;
+  width: 5.8rem !important;
+  :global(.am-modal-content) {
+    overflow: visible !important;
   }
-
-  .m_titleInfo {
-    display: flex;
-    margin: 0.1rem 0 0.4rem;
-    color: #333;
-    .dialogContent {
-      width: 3rem;
-      text-align: left;
-      .dialogTitle {
-        max-height: 0.86rem;
-        overflow: hidden;
-        font-size: 0.3rem;
-      }
-      .dialogType {
-        margin: 0.08rem 0;
-        font-size: 0.24rem;
-      }
-    }
+  :global(.am-modal-body) {
+    padding: 0 !important;
+    overflow: inherit;
   }
+}
 
-  .m_richWrap {
-    position: relative;
-    box-sizing: border-box;
-    padding: 0.3rem 0.33rem 0.8rem;
-    height: 4.84rem;
-    font-size: 0.24rem;
-    color: #333;
-    background: #f8fafb;
-    border-radius: 0.14rem;
+.m_titleInfo {
+  display: flex;
+  margin: 0.2rem 0;
+  color: #333;
+  .dialogContent {
+    width: 100%;
     text-align: left;
-    z-index: 1;
-
-    .limitHeight {
-      max-height: 3.74rem;
-      .richText {
-        line-height: 0.42rem;
-        white-space: pre-wrap;
-      }
+    .dialogTitle {
+      max-height: 0.86rem;
+      overflow: hidden;
+      font-size: 0.3rem;
+      text-align: center;
+    }
+    .dialogType {
+      margin: 0.08rem 0 0.08rem 0.12rem;
+      font-size: 0.24rem;
     }
   }
-  .dialogCloseBtn {
-    position: absolute;
-    left: 2.58rem;
-    bottom: -1rem;
-    width: 0.64rem;
-    height: 0.64rem;
-    color: #fff;
+
+}
+
+.m_richWrap {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.2rem 0.1rem;
+  height: 4.4rem;
+  font-size: 0.24rem;
+  color: #333;
+  background: #f8fafb;
+  border-radius: 0.14rem;
+  text-align: left;
+  z-index: 1;
+
+  .limitHeight {
+    max-height: 3.74rem;
+    .richText {
+      line-height: 0.42rem;
+      white-space: pre-wrap;
+    }
+    .richPre{
+       padding: 0 0.3rem;
+      line-height: 0.42rem;
+      white-space: pre-wrap;
+    }
   }
 
+}
+
+.dialogCloseBtn {
+  position: absolute;
+  left: 2.5rem;
+  bottom: -0.9rem;
+  width: 0.64rem;
+  height: 0.64rem;
+  color: #52c9c2;
 }
