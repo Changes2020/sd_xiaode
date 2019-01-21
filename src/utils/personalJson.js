@@ -1,4 +1,4 @@
-import { PAGE_HOST } from './typeDict';
+import { LIGHT_PAGE_HOST } from './typeDict';
 // import score1 from '../assets/score1.png';
 import score2 from '../assets/score2.png';
 import score3 from '../assets/score3.png';
@@ -55,7 +55,7 @@ export default {
       id: 7,
       icon: light1,
       name: '发光学院',
-      pathName: `${PAGE_HOST[API_TYPE]}/class/user/login/selfsystem`, // /class/user/login/:type
+      pathName: `${LIGHT_PAGE_HOST[API_TYPE]}/user/login/selfsystem`, // /class/user/login/:type
     },
   ],
 };

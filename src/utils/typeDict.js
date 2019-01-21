@@ -4,6 +4,10 @@ export const ALL_ORG_MAP = 'allOrgMap';
 export const LOCAL_STORAGE_USER = 'layered_user';
 
 // page url
+export const LIGHT_PAGE_HOST = {
+  development: 'http://172.16.117.64:8095',
+  production: 'http://bi-admin.ministudy.com',
+};
 export const PAGE_HOST = {
   development: 'http://172.16.117.64:8092',
   production: 'http://bi-m.ministudy.com',
