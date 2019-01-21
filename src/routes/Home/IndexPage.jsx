@@ -18,7 +18,9 @@ class IndexPage extends React.Component {
   constructor(props) {
     super(props);
     const { urlParams = {} } = props;
-    const { startTime, endTime } = defaultDateTime();
+
+    const { startTime, endTime } = defaultDateTime() || {};
+
     const initState = {
       paramsObj: {
         startTime, // 过滤开始时间

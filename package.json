@@ -1,8 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "start": "roadhog server",
-    "build": "roadhog build",
+    "test": "cross-env API_TYPE=development USER_ID=wangkai02 roadhog server",
+    "start": "cross-env API_TYPE=development roadhog server",
+    "start:pro": "cross-env API_TYPE=production roadhog server",
+    "build": "cross-env API_TYPE=production roadhog build",
+    "build:dev": "cross-env API_TYPE=development roadhog build",
     "precommit": "npm run lint-staged",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
     "lint": "eslint --ext .js src mock tests && npm run lint:style",

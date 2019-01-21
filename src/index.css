@@ -30,3 +30,15 @@ ul li {
   bottom: 1.74rem;
   z-index: 500;
 }
+/* 下划线0.5px */
+:global(.scaleBorder:not(:last-child)::after) {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -50%;
+  width: 200%;
+  right: 0;
+  height: 1px;
+  background: #eee;
+  transform: scale(0.5);
+}

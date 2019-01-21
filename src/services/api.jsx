@@ -1,34 +1,27 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
-import config from '../config';
+// import config from '../config';
 
-const { NODE_ENV = 'pro' } = config;
-const hostObj = {
-  pro: 'http://bi-m.ministudy.com/apis',
-  dev: 'http://172.16.117.65:8082',
-};
-const HOST = hostObj[NODE_ENV];
-
-// /*
-// *此接口为获取微信授权接口(微信企业号)
-// */
-// export function getWeChart() {
-//   const weChartUrlObj = {
-//     dev: 'http://172.16.117.65:8087/authorize/RedirectToWechat?branch=dev',
-//     pro: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat?branch=pro',
-//   };
-//   return weChartUrlObj[NODE_ENV];
-// }
+// const { NODE_ENV = 'pro' } = config;
+// const hostObj = {
+//   pro: 'http://bi-m.ministudy.com/apis',
+//   dev: 'http://172.16.117.65:8082',
+// };
+// const HOST = hostObj[NODE_ENV];
+/*
+global HOST API_TYPE
+*/
 /*
 *此接口为用于微信授权接口调用
 */
 export function setWechartAuth(params = {}) {
   const wechartHost = {
-    pro: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat',
-    dev: 'http://172.16.117.65:8087/authorize/RedirectToWechat',
+    production: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat',
+    development: 'http://172.16.117.65:8087/authorize/RedirectToWechat',
   };
-  const newParams = { branch: NODE_ENV, ...params };
-  window.location.href = `${wechartHost[NODE_ENV]}?${stringify(newParams)}`;
+  const branch = API_TYPE === 'development' ? 'dev' : 'pro';
+  const newParams = { branch, ...params };
+  window.location.href = `${wechartHost[API_TYPE]}?${stringify(newParams)}`;
 }
 
 /*
@@ -181,5 +174,14 @@ export async function getPKObject(params) {
   return request(`${HOST}/avgScorePK/getPkObject`, {
     method: 'POST',
     body: params,
+  });
+}
+/*
+*此接口用于获取用户城市
+* @params{userId}
+*/
+export async function getUserInfoCity(params) {
+  return request(`${HOST}/user/getBasicInfo?${stringify(params)}`, {
+    method: 'GET',
   });
 }

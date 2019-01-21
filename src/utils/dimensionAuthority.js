@@ -76,6 +76,9 @@ export function getSameAllGroup(allOrg, groupId, groupType) {
           name: item.collegeName,
           groupId: item.collegeId,
           familyType: item.familyType,
+          collegeName: item.collegeName,
+          familyName: item.familyName,
+          groupName: item.groupName,
         });
       }
       if (item.familyId && item.familyId !== null) {
@@ -84,6 +87,9 @@ export function getSameAllGroup(allOrg, groupId, groupType) {
           name: item.familyName,
           groupId: item.familyId,
           familyType: item.familyType,
+          collegeName: item.collegeName,
+          familyName: item.familyName,
+          groupName: item.groupName,
         });
       }
       if (item.groupId && item.groupId !== null) {
@@ -92,6 +98,9 @@ export function getSameAllGroup(allOrg, groupId, groupType) {
           name: item.groupName,
           groupId: item.groupId,
           familyType: item.familyType,
+          collegeName: item.collegeName,
+          familyName: item.familyName,
+          groupName: item.groupName,
         });
       }
     }

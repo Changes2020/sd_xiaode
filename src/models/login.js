@@ -2,24 +2,28 @@
 
 import { routerRedux } from 'dva/router';
 import { parse } from 'url';
-import { setAppUserAuth, setWechartAuth, getUserInfo, operateLog } from 'services/api';
+import {
+  setAppUserAuth,
+  setWechartAuth,
+  getUserInfo,
+  operateLog,
+  getUserInfoCity,
+} from 'services/api';
 import { getAuthority } from 'utils/authority';
 import { setItem, getItem } from 'utils/localStorage';
-import typeDict from 'utils/typeDict';
+import typeDict, { CURRENT_USER_INFO } from 'utils/typeDict';
 import Message from '../components/Message';
-import config from '../config';
 
-const { DEBUGGER = false } = config;
 const loginErrorUrlObj = {
   brochure: '/exception/introduceError403',
   wechart: '/exception/403',
   app: '/exception/403',
 };
+/*
+   global USER_ID
+*/
 
 function initGetUserId() {
-  if (DEBUGGER) {
-    setItem('userInfo', { userId: config.userId });
-  }
   return getAuthority();
 }
 export default {
@@ -28,6 +32,8 @@ export default {
   state: {
     isLogin: false,
     userInfo: null,
+    city: null,
+    orgData: '',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -41,6 +47,12 @@ export default {
           });
           break;
         case '/user/wechart':
+          /*  *****用于测试环境箱将 userId 写入缓存,便于测试**** */
+          if (USER_ID) {
+            const userInfo = { userId: USER_ID };
+            setItem(CURRENT_USER_INFO, userInfo, 0.5);
+          }
+          /* ********************************************* */
           dispatch({
             type: 'wechartLogin',
             payload: { userId: initGetUserId(), pathname },
@@ -141,6 +153,17 @@ export default {
       if (response.code !== 2000) {
         Message.fail(response.msg);
         yield put(routerRedux.push('/exception/403'));
+      }
+    },
+    *getUserInfoCity({ payload }, { call, put }) {
+      const { userId, id } = payload;
+      const response = yield call(getUserInfoCity, { id });
+      if (response && response.code === 2000) {
+        setItem('layered_user', { userId, ...response.data }, 1);
+        yield put({
+          type: 'saveUser',
+          payload: { city: response.data.city, orgData: response.data.org },
+        });
       }
     },
   },

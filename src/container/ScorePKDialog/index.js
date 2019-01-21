@@ -164,7 +164,8 @@ class ExportDemention extends React.Component {
 
   render() {
     const { dialogVisible, groupType, PKCondition } = this.state;
-    const { isloading } = this.props;
+    const { isloading, modalPK } = this.props;
+    const dataList = Array.isArray(modalPK.dataList) ? modalPK.dataList : [];
     return (
       <React.Fragment>
         {dialogVisible ? (
@@ -181,7 +182,7 @@ class ExportDemention extends React.Component {
             <div className={classNames(styles.buttonList, 'scroller')}>
               <OrgItem
                 selectIds={PKCondition[this.getGroupName(groupType)]}
-                dataList={this.props.modalPK.dataList}
+                dataList={dataList}
                 onChange={this.rendGroup}
               />
             </div>
