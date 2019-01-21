@@ -41,7 +41,7 @@ class Percent extends React.Component {
     // 获取权限用户数据
     const { name, userId } = userInfo;
     const { city, orgData } = this.props.login;
-    const isShowName = orgData.split('|').join('/'); // boss和admin权限不展示组织信息
+    const isShowName = orgData ? orgData.split('|').join('/') : null; // boss和admin权限不展示组织信息
     const indexBg = isShowName ? lightBg : lightBg1;
 
     return (
