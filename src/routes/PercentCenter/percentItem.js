@@ -4,10 +4,9 @@ import styles from './Percenter.less';
 import { getItem } from '../../utils/localStorage';
 import { LOCAL_STORAGE_USER } from '../../utils/typeDict';
 
-const layered_user = getItem(LOCAL_STORAGE_USER).value || {};
-
 class PercentItem extends React.Component {
   gotoNextPAge = path => {
+    const layered_user = getItem(LOCAL_STORAGE_USER).value || {};
     window.location.href = `${path}?id=${layered_user.id}&userId=${layered_user.userId}`;
   };
   render() {
