@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'antd-mobile';
 import styles from './TableItem.less';
+import modelstyles from './DetailTableItem.less';
 import SelfDialog from '../Dialog/selfDialog';
 
 class DetailTableItem extends React.Component {
@@ -19,14 +20,7 @@ class DetailTableItem extends React.Component {
         avgScore:titleTwo,
         updateReason:"dsflahu sdia; sihf 大夫和高 i； 啥地方哈；我爱护对方 i；哦啊啥地方但是发哈is 回复；" +
         "阿富汗滴哦；哈地方i 啊还是短发 i 哦阿哈地方 i 哦啊哈地方i 啊啥地方 i 阿松都是顶级护发大夫过来的glass发挥了空间啥都感觉圣诞节开高速路口党纪国法圣诞节发个" +
-        "接口地方噶考虑到噶看到过苦嘟嘟后付款阿里地方顶级护发空间发动机哈阿卡大家发哈剪短发可好阿地方哈阿技术的开" +
-        "阿富汗滴哦；哈地方i 啊还是短发 i 哦阿哈地方 i 哦啊哈地方i 啊啥地方 i 阿松都是顶级护发大夫过来的glass发挥了空间啥都感觉圣诞节开高速路口党纪国法圣诞节发个" +
-        "接口地方噶考虑到噶看到过苦嘟嘟后付款阿里地方顶级护发空间发动机哈阿卡大家发哈剪短发可好阿地方哈阿技术的开" +
-        "阿富汗滴哦；哈地方i 啊还是短发 i 哦阿哈地方 i 哦啊哈地方i 啊啥地方 i 阿松都是顶级护发大夫过来的glass发挥了空间啥都感觉圣诞节开高速路口党纪国法圣诞节发个" +
-        "接口地方噶考虑到噶看到过苦嘟嘟后付款阿里地方顶级护发空间发动机哈阿卡大家发哈剪短发可好阿地方哈阿技术的开" +
-        "阿富汗滴哦；哈地方i 啊还是短发 i 哦阿哈地方 i 哦啊哈地方i 啊啥地方 i 阿松都是顶级护发大夫过来的glass发挥了空间啥都感觉圣诞节开高速路口党纪国法圣诞节发个" +
-        "接口地方噶考虑到噶看到过苦嘟嘟后付款阿里地方顶级护发空间发动机哈阿卡大家发哈剪短发可好阿地方哈阿技术的开" +
-        "发好独家开发好阿的开发计划阿减肥口号撒酒疯技术开发好阿姐电话发积分兑换卡绝代风华解放后绝代风华上课大家发哈jkh",
+        "接口地方噶考虑到噶看到过苦嘟嘟后付款阿里地方顶级护发空间发动机哈阿卡大家发哈剪短发可好阿地方哈阿技术的开" ,
       }
 
     });
@@ -51,29 +45,29 @@ class DetailTableItem extends React.Component {
         </div>
 
         {/* modal */}
-        <SelfDialog visible={isShowModal} className={styles.m_dialogWrap}>
-          <dl className={styles.m_titleInfo}>
-            <dt className={styles.dialogContent}>
-              <p className={styles.dialogTitle}>{name}</p>
-              <p className={styles.dialogType}>
+        <SelfDialog visible={isShowModal} className='m_dialogWrap'>
+          <dl className={modelstyles.m_titleInfo}>
+            <dt className={modelstyles.dialogContent}>
+              <p className={modelstyles.dialogTitle}>{name}</p>
+              <p className={modelstyles.dialogType}>
                 学分日期: <span>{dialogData.scoreDate}</span>
               </p>
-              <p className={styles.dialogType}>
+              <p className={modelstyles.dialogType}>
                 均分: <span>{dialogData.avgScore}</span>
               </p>
             </dt>
           </dl>
-          <div className={styles.m_richWrap}>
+          <div className={modelstyles.m_richWrap}>
             <div className="scroller" style={{ overflowY: 'scroll' }}>
-              <div className={styles.limitHeight}>
-                <p className={styles.richText}>调整原因:</p>
-                <pre className={styles.richPre}>{dialogData.updateReason}</pre>
+              <div className={modelstyles.limitHeight}>
+                <p className={modelstyles.richText}>调整原因:</p>
+                <pre className={modelstyles.richText}>{dialogData.updateReason}</pre>
                 <br />
               </div>
             </div>
             <Icon
               type="cross-circle"
-              className={styles.dialogCloseBtn}
+              className={modelstyles.dialogCloseBtn}
               onClick={() => {
                 this.showModel(false);
               }}
