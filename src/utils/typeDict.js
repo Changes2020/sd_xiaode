@@ -13,7 +13,7 @@ export default {
   dateTypeDict: {
     1: '周均数据',
     // 2: '月均数据',
-    3: '自定义数据',
+    3: '自定义时间',
   },
   creditTypeDict: {
     1: '学分均分',
