@@ -1,0 +1,72 @@
+.m_dialogWrap {
+  position: absolute;
+  width: 5.8rem !important;
+}
+:global(.m_dialogWrap .am-modal-content) {
+  overflow: visible !important;
+}
+:global(.m_dialogWrap .am-modal-content .am-modal-body) {
+  padding: 0 !important;
+  overflow: inherit;
+}
+
+:global(.m_dialogWrap.am-modal-transparent .am-modal-content .am-modal-body) {
+  padding: 0 !important;
+}
+
+:global(.m_dialogWrap.am-modal-transparent .am-modal-content) {
+  padding-bottom: 0 !important;
+}
+
+.m_titleInfo {
+  display: flex;
+  margin: 0.1rem 0 0.4rem;
+  color: #333;
+  .dialogContent {
+    width: 100%;
+    text-align: left;
+    .dialogTitle {
+      max-height: 0.86rem;
+      overflow: hidden;
+      font-size: 0.3rem;
+      text-align: center;
+    }
+    .dialogType {
+      margin: 0.08rem 0.3rem;
+      font-size: 0.24rem;
+    }
+    .dialogDate {
+      font-size: 0.22rem;
+      color: #6d6d75;
+    }
+  }
+}
+
+.m_richWrap {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.3rem 0.33rem 0.8rem;
+  height: 4.84rem;
+  font-size: 0.24rem;
+  color: #333;
+  background: #f8fafb;
+  border-radius: 0.14rem;
+  text-align: left;
+  z-index: 1;
+
+  .limitHeight {
+    max-height: 3.74rem;
+    .richText {
+      line-height: 0.42rem;
+      white-space: pre-wrap;
+    }
+  }
+}
+.dialogCloseBtn {
+  position: absolute;
+  left: 2.4rem;
+  bottom: -1.5rem;
+  width: 0.64rem;
+  height: 0.64rem;
+  color: #fff;
+}
