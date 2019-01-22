@@ -4,11 +4,14 @@ import styles from './Percenter.less';
 import { getItem } from '../../utils/localStorage';
 import { LOCAL_STORAGE_USER } from '../../utils/typeDict';
 
-const layered_user = getItem(LOCAL_STORAGE_USER).value || {};
-
 class PercentItem extends React.Component {
-  gotoNextPAge = path => {
-    window.location.href = `${path}?id=${layered_user.id}&userId=${layered_user.userId}`;
+  gotoNextPAge = (path, id) => {
+    const layered_user = getItem(LOCAL_STORAGE_USER).value || {};
+    if (id === 7) {
+      window.location.href = `${path}?id=${layered_user.id}&userId=${layered_user.userId}`;
+    } else {
+      window.location.href = path;
+    }
   };
   render() {
     const { datasource } = this.props;
@@ -18,7 +21,7 @@ class PercentItem extends React.Component {
           <li
             key={item.id}
             className={`scaleBorder ${styles.liCls}`}
-            onClick={() => this.gotoNextPAge(item.pathName)}
+            onClick={() => this.gotoNextPAge(item.pathName, item.id)}
           >
             <img src={item.icon} alt="icon" className={styles.iconImg} />
             {item.name}
