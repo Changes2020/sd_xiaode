@@ -16,7 +16,7 @@ class DetailTableItem extends React.Component {
     this.setState({
       isShowModal: true,
       dialogData: {
-        scoreDate: titleOne,
+        scoreDate: titleOne.replace(/-/g,'.'),
         avgScore: titleTwo,
         updateReason:
           'dsflahu sdia; sihf 大夫和高 i； 啥地方哈；我爱护对方 i；哦啊啥地方但是发哈is 回复；' +
