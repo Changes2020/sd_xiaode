@@ -330,11 +330,11 @@ class Demention extends React.Component {
             />
           </div>
         )}
-        {/* 详情数据和趋势图tab切换导航 */}
+        {/* 详情数据和趋势图tab切换导航 id为49或51调增调减时不需要tab组件 */}
         {!tableList || id === 49 || id === 51
           ? null
           : tabContainer(this.state, this.detailCLickTab.bind(this))}
-        {/* 详情数据和趋势图组件 */}
+        {/* 详情数据和趋势图组件 id为49或51调增调减时只需要详情table不要趋势图 */}
         {!tableList || id === 49 || id === 51 ? (
           <div className={styles.tableDiv}>
             {!tableList || tableList.length === 0 ? (
