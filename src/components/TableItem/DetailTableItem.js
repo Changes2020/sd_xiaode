@@ -12,16 +12,13 @@ class DetailTableItem extends React.Component {
       dialogData: {},
     };
   }
-  checkDetal = (titleOne, titleTwo) => {
+  checkDetal = (titleOne, titleTwo,titleFour) => {
     this.setState({
       isShowModal: true,
       dialogData: {
         scoreDate: titleOne.replace(/-/g,'.'),
         avgScore: titleTwo,
-        updateReason:
-          'dsflahu sdia; sihf 大夫和高 i； 啥地方哈；我爱护对方 i；哦啊啥地方但是发哈is 回复；' +
-          '阿富汗滴哦；哈地方i 啊还是短发 i 哦阿哈地方 i 哦啊哈地方i 啊啥地方 i 阿松都是顶级护发大夫过来的glass发挥了空间啥都感觉圣诞节开高速路口党纪国法圣诞节发个' +
-          '接口地方噶考虑到噶看到过苦嘟嘟后付款阿里地方顶级护发空间发动机哈阿卡大家发哈剪短发可好阿地方哈阿技术的开',
+        updateReason:titleFour,
       },
     });
   };
@@ -43,7 +40,7 @@ class DetailTableItem extends React.Component {
           <div className={styles.preValCls}>{rowData.titleThree}</div>
           <div
             className={styles.checkButton}
-            onClick={() => this.checkDetal(rowData.titleOne, rowData.titleTwo, rowData.titleThree)}
+            onClick={() => this.checkDetal(rowData.titleOne, rowData.titleTwo, rowData.titleFour)}
           >
             查看
           </div>
@@ -55,10 +52,10 @@ class DetailTableItem extends React.Component {
             <dt className={modelstyles.dialogContent}>
               <p className={modelstyles.dialogTitle}>{name}</p>
               <p className={modelstyles.dialogType}>
-                学分日期: <span>{dialogData.scoreDate}</span>
+                学分日期: <span className={modelstyles.wordCls}>{dialogData.scoreDate}</span>
               </p>
               <p className={modelstyles.dialogType}>
-                均分: <span>{dialogData.avgScore}</span>
+                均分: <span className={modelstyles.wordCls}>{dialogData.avgScore}</span>
               </p>
             </dt>
           </dl>
