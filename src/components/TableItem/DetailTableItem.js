@@ -12,7 +12,7 @@ class DetailTableItem extends React.Component {
       dialogData: {},
     };
   }
-  checkDetal = (titleOne='2019-01-25', titleTwo,titleFour) => {
+  checkDetal = (titleOne='', titleTwo,titleFour) => {
     this.setState({
       isShowModal: true,
       dialogData: {
