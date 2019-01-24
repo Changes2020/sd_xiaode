@@ -54,7 +54,7 @@ export default {
     {
       id: 7,
       icon: light1,
-      name: '发光学院',
+      name: '能力认证',
       pathName: `${LIGHT_PAGE_HOST[API_TYPE]}/user/login/selfsystem`, // /class/user/login/:type
     },
   ],
