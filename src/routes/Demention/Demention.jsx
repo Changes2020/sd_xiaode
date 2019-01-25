@@ -221,6 +221,7 @@ class Demention extends React.Component {
   // 点击button触发的请求chart和table接口函数
   fnClickGroupButton(item) {
     const dementionId = item.id;
+
     const buttonName = item.name;
     const { switchtype } = this.state;
     if (item.id !== this.props.demention.dementionId) {
@@ -231,7 +232,8 @@ class Demention extends React.Component {
         startTime: this.state.startTime,
         endTime: this.state.endTime,
       };
-      if (switchtype === 1) {
+      // 当button选中的是调增调减时候，只请求table的数据，这时候要忽略选中的switchtype
+      if (switchtype === 1 ||dementionId===49 || dementionId===51 ) {
         this.dataTable(dementionId, Params);
       } else {
         this.dataChart(dementionId, Params);
