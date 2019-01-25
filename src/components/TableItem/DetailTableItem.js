@@ -12,13 +12,13 @@ class DetailTableItem extends React.Component {
       dialogData: {},
     };
   }
-  checkDetal = (titleOne='', titleTwo,titleFour) => {
+  checkDetal = (titleOne='', titleTwo,checkDetail) => {
     this.setState({
       isShowModal: true,
       dialogData: {
         scoreDate: titleOne.replace(/-/g,'.'),
         avgScore: titleTwo,
-        updateReason:titleFour,
+        updateReason:checkDetail,
       },
     });
   };
@@ -40,7 +40,7 @@ class DetailTableItem extends React.Component {
           <div className={styles.preValCls}>{rowData.titleThree}</div>
           <div
             className={styles.checkButton}
-            onClick={() => this.checkDetal(rowData.titleOne, rowData.titleTwo, rowData.titleFour)}
+            onClick={() => this.checkDetal(rowData.titleOne, rowData.titleTwo, rowData.checkDetail)}
           >
             查看
           </div>

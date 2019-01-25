@@ -267,6 +267,7 @@ class Demention extends React.Component {
           titleTwo: this.formatTableDatda(item.valTwo),
           titleThree: this.formatTableDatda(item.valThree),
           titleFour: this.formatTableDatda(item.valFour),
+          checkDetail:item.valFour ,
         };
         data.push(rowdata);
         return 0;
