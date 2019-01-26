@@ -42,7 +42,9 @@ class SecDetails extends Component {
         </div>
 
         <div className={styles.countCss}>
-          {data.rawValue > 99999 ? '99999+' : Math.round(data.rawValue)}
+          {data.id === 12 || data.id === 13
+            ? data.rawValue
+            : data.rawValue > 99999 ? '99999+' : Math.round(data.rawValue)}
           {data.unit}
         </div>
 

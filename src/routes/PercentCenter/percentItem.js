@@ -5,9 +5,13 @@ import { getItem } from '../../utils/localStorage';
 import { LOCAL_STORAGE_USER } from '../../utils/typeDict';
 
 class PercentItem extends React.Component {
-  gotoNextPAge = path => {
+  gotoNextPAge = (path, id) => {
     const layered_user = getItem(LOCAL_STORAGE_USER).value || {};
-    window.location.href = `${path}?id=${layered_user.id}&userId=${layered_user.userId}`;
+    if (id === 7) {
+      window.location.href = `${path}?id=${layered_user.id}&userId=${layered_user.userId}`;
+    } else {
+      window.location.href = path;
+    }
   };
   render() {
     const { datasource } = this.props;
@@ -17,7 +21,7 @@ class PercentItem extends React.Component {
           <li
             key={item.id}
             className={`scaleBorder ${styles.liCls}`}
-            onClick={() => this.gotoNextPAge(item.pathName)}
+            onClick={() => this.gotoNextPAge(item.pathName, item.id)}
           >
             <img src={item.icon} alt="icon" className={styles.iconImg} />
             {item.name}

@@ -4,6 +4,8 @@ import { assignUrlParams } from 'utils/routerUtils';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import CustomRenderHeader from '../../components/TableItem/TableHeader';
 import CustomRenderItem from '../../components/TableItem/TableItem';
+import DetailTableItem from '../../components/TableItem/DetailTableItem';
+
 import styles from './Demention.less';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import SelfTab from '../../components/SelfTab/SelfTab';
@@ -219,6 +221,7 @@ class Demention extends React.Component {
   // 点击button触发的请求chart和table接口函数
   fnClickGroupButton(item) {
     const dementionId = item.id;
+
     const buttonName = item.name;
     const { switchtype } = this.state;
     if (item.id !== this.props.demention.dementionId) {
@@ -229,7 +232,8 @@ class Demention extends React.Component {
         startTime: this.state.startTime,
         endTime: this.state.endTime,
       };
-      if (switchtype === 1) {
+      // 当button选中的是调增调减时候，只请求table的数据，这时候要忽略选中的switchtype
+      if (switchtype === 1 || dementionId === 49 || dementionId === 51) {
         this.dataTable(dementionId, Params);
       } else {
         this.dataChart(dementionId, Params);
@@ -265,6 +269,7 @@ class Demention extends React.Component {
           titleTwo: this.formatTableDatda(item.valTwo),
           titleThree: this.formatTableDatda(item.valThree),
           titleFour: this.formatTableDatda(item.valFour),
+          checkDetail: item.valFour,
         };
         data.push(rowdata);
         return 0;
@@ -294,6 +299,7 @@ class Demention extends React.Component {
       : null;
     const columnsData = detailListData ? (detailListData.data ? detailListData.data : []) : [];
     const listNum = !detailListData ? 0 : !detailListData.data ? 0 : detailListData.data.total;
+    const id = this.props.demention.dementionId;
     return (
       <div className={styles.normal} id="selfDataCenter">
         {/* 页面吸顶元素 */}
@@ -320,17 +326,39 @@ class Demention extends React.Component {
               dataReturnFun={item => {
                 this.fnClickGroupButton(item);
               }}
-              id={this.props.demention.dementionId}
+              id={id}
               isSelectFirst
               btnClass={styles.btnStyle}
               btnSelectedClass={styles.btnSelected}
             />
           </div>
         )}
-        {/* 详情数据和趋势图tab切换导航 */}
-        {!tableList ? null : tabContainer(this.state, this.detailCLickTab.bind(this))}
-        {/* 详情数据和趋势图组件 */}
-        {!tableList ? null : this.state.switchtype === 1 ? (
+        {/* 详情数据和趋势图tab切换导航 id为49或51调增调减时不需要tab组件 */}
+        {!tableList || id === 49 || id === 51
+          ? null
+          : tabContainer(this.state, this.detailCLickTab.bind(this))}
+        {/* 详情数据和趋势图组件 id为49或51调增调减时只需要详情table不要趋势图 */}
+        {!tableList || id === 49 || id === 51 ? (
+          <div className={styles.tableDiv}>
+            {!tableList || tableList.length === 0 ? (
+              <NoData showflag />
+            ) : (
+              <div>
+                <p className={styles.tableTitle}>
+                  <span style={{ paddingLeft: '0.24rem' }}>{this.state.buttonName}详情数据</span>
+                </p>
+                <MultipHeaderList
+                  dataList={tableList}
+                  customRenderHeader={() => <CustomRenderHeader columnsData={columnsData} />}
+                  customRenderItem={rowData => (
+                    <DetailTableItem rowData={rowData} name={this.state.buttonName} />
+                  )}
+                />
+                <div className={styles.divheight} />
+              </div>
+            )}
+          </div>
+        ) : this.state.switchtype === 1 ? (
           <div className={styles.tableDiv}>
             {!tableList || tableList.length === 0 ? (
               <NoData showflag />

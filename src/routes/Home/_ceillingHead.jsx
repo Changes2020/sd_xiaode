@@ -35,7 +35,7 @@ export default class Ceilling extends React.Component {
           ? '周均数据'
           : Number(paramsObj.dateType) === 2
             ? '月均数据'
-            : Number(paramsObj.dateType) === 3 ? '自定义数据' : 'date error'}
+            : Number(paramsObj.dateType) === 3 ? '自定义时间' : 'date error'}
         {paramsObj.creditType === 1
           ? ' | 学分均分 | '
           : paramsObj.creditType === 2 ? ' | 正面均分 | ' : ' | 负面均分 | '}
