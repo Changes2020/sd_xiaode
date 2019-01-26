@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "cross-env API_TYPE=development USER_ID=wangkai02 roadhog server",
+    "test": "cross-env API_TYPE=development USER_ID=xiejian roadhog server",
     "start": "cross-env API_TYPE=development roadhog server",
     "start:pro": "cross-env API_TYPE=production roadhog server",
     "build": "cross-env API_TYPE=production roadhog build",
