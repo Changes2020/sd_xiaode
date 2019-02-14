@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 export function SortChanseData(data, key = 'name') {
   const newArr = data.sort((a, b) => {
-    if (!a[key].localeCompare) {
+    if (a[key].localeCompare) {
       const num = a[key].localeCompare(b[key]);
       const aa = num > 0 ? 1 : num < 0 ? -1 : 0;
       return aa;
