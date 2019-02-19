@@ -185,3 +185,13 @@ export async function getUserInfoCity(params) {
     method: 'GET',
   });
 }
+/*
+*此接口数据中文排序
+* @params{array,keyname}
+*/
+export async function pinyinComparator(params) {
+  return request(`${HOST}/common/pinyinComparator`, {
+    method: 'POST',
+    body: params,
+  });
+}
