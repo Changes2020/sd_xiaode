@@ -23,6 +23,7 @@
     "dva-loading": "^2.0.1",
     "echarts": "^4.0.4",
     "less": "2.7.2",
+    "memoize-one": "^5.0.0",
     "moment": "^2.22.2",
     "path-to-regexp": "^2.2.1",
     "qs": "^6.5.0",

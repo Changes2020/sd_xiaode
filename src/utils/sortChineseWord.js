@@ -1,22 +1,8 @@
 /* eslint-disable no-unused-expressions */
-export function SortChanseData(data, key = 'name') {
-  console.log('排序');
-  const newArr = data.sort((a, b) => {
-    if (a[key].localeCompare) {
-      const num = a[key].localeCompare(b[key]);
-      const aa = num > 0 ? 1 : num < 0 ? -1 : 0;
-      return aa;
-    } else {
-      return b - a;
-    }
+// 此排序已做优化,应在拿到数据源后,调取排序接口,并增加拼音排序字段,在此进行业务排序
+export function SortChanseData(data, key = 'pinyinSortNum') {
+  const result = data.sort((a, b) => {
+    return a[key] - b[key];
   });
-  let result = [];
-  for (let i = 0; i < newArr.length; i += 1) {
-    if (String(newArr[i][key]).length > 0) {
-      result = newArr.slice(i);
-      result = result.concat(newArr.slice(0, i));
-      break;
-    }
-  }
   return result;
 }

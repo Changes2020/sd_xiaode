@@ -1,8 +1,19 @@
-import { getCreditDetail } from '../services/api';
+import { getCreditDetail, pinyinComparator } from '../services/api';
 import { isRequestRelative } from '../utils/FormatDate';
 import { detailRelativeData } from '../utils/dealWithRelative';
 import Dict from '../utils/typeDict';
 import Message from '../components/Message';
+import { SortChanseData } from '../utils/sortChineseWord';
+
+const isEquraParams = (obj1, obj2) => {
+  return (
+    obj1.id === obj2.id &&
+    obj1.familyType === obj2.familyType &&
+    obj1.collegeId === obj2.collegeId &&
+    obj1.familyId === obj2.familyId &&
+    obj1.groupId === obj2.groupId
+  );
+};
 
 export default {
   namespace: 'Details',
@@ -16,6 +27,7 @@ export default {
     dateType: null,
     groupData: {},
     checkIds: [],
+    sortData: {}, //  将数据进行排序之后的总数据
   },
   effects: {
     *fetch({ payload }, { call, put }) {
@@ -41,6 +53,7 @@ export default {
         Message.fail(dataList.msg);
       }
     },
+
     *getHighData({ payload }, { put }) {
       const { highGroupId } = payload;
       yield put({ type: 'saveData', payload: { highGroupId } });
@@ -48,6 +61,45 @@ export default {
     *getModelStatus({ payload }, { put }) {
       const { modelflag, groupData, dateType } = payload;
       yield put({ type: 'saveData', payload: { modelflag, groupData, dateType } });
+    },
+    *pinyinComparator({ payload }, { call, put }) {
+      const { dataListObj, groupType } = payload;
+      const originSortData = [];
+      const sortData = {};
+      // 合并请求
+      Object.keys(dataListObj).forEach(item => {
+        const arr = Array.isArray(dataListObj[item]) ? dataListObj[item] : [];
+        sortData[item] = dataListObj[item];
+        const newArr = arr.map(list => ({
+          familyType: list.familyType,
+          collegeId: list.collegeId,
+          familyId: list.familyId,
+          groupId: list.groupId,
+          id: list.id,
+          name: list.name,
+        }));
+        originSortData.push(...newArr);
+      });
+      const response = yield call(pinyinComparator, { data: originSortData, keys: 'name' });
+      if (response.code === 2000) {
+        const sortDataList = Array.isArray(response.data)
+          ? response.data.map((list, index) => ({ ...list, pinyinSortNum: index }))
+          : [];
+        Object.keys(dataListObj).forEach(item => {
+          sortData[item] = [];
+          const groupArr = dataListObj[item];
+          groupArr.forEach(jj => {
+            sortData[item].push({
+              pinyinSortNum: sortDataList.find(node => isEquraParams(node, jj)).pinyinSortNum,
+              category: jj.name,
+              groupId: `${jj.familyType}${jj.id}`,
+              tabKey: groupType,
+            });
+          });
+          sortData[item] = SortChanseData(sortData[item]); // 排序
+        });
+      }
+      yield put({ type: 'saveSortData', payload: { sortData } });
     },
   },
 
@@ -149,6 +201,9 @@ export default {
       }
 
       return { ...state, ...action.payload };
+    },
+    saveSortData(state, { payload }) {
+      return { ...state, ...payload };
     },
   },
   subscriptions: {},

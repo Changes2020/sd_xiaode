@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import memoizeOne from 'memoize-one';
 import ButtonGroupPro from 'components/ButtonGroupPro/ButtonGroupPro';
 import styles from './index.less';
 import { SortChanseData } from '../../utils/sortChineseWord';
@@ -23,7 +24,8 @@ export default class OrgItem extends PureComponent {
       onChange(obj);
     }
   };
-  handleDataLiat = (data = []) => {
+
+  handleDataLiat = memoizeOne((data = []) => {
     // 自考
     const familyType0 = { name: '自考', data: [] };
     // 壁垒
@@ -37,11 +39,11 @@ export default class OrgItem extends PureComponent {
           familyType1.data.push(v);
         }
       });
-      familyType0.data = SortChanseData(familyType0.data, 'orgName'); // 排序
-      familyType1.data = SortChanseData(familyType1.data, 'orgName'); // 排序
+      familyType0.data = SortChanseData(familyType0.data); // 排序
+      familyType1.data = SortChanseData(familyType1.data); // 排序
     }
     return { familyType0, familyType1 };
-  };
+  });
 
   render() {
     const { dataListObj } = this.state;
