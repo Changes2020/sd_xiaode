@@ -9,7 +9,6 @@ import search from '../../assets/search.svg';
 import NoData from '../../components/NoData/NoData';
 import MultipHeaderList from '../../components/ListView/MultipHeaderList';
 import CreditDialog from './_creditDialog';
-import { SortChanseData } from '../../utils/sortChineseWord';
 import Loading from '../../components/Loading/Loading';
 import { defaultDateTime } from '../../utils/FormatDate';
 import styles from './Details.less';
@@ -25,7 +24,7 @@ let isRequest = null;
 class CreditDetails extends React.Component {
   constructor(props) {
     super(props);
-    const { urlParams = {} } = props;
+    const { urlParams = {}, Details } = props;
     const { routerHash } = urlParams;
     const { startTime, endTime } = defaultDateTime();
 
@@ -41,7 +40,7 @@ class CreditDetails extends React.Component {
         userId: userInfo.userId,
       },
       modelflag: false,
-      groupData: {},
+      groupData: Details.sortData || {},
       isShowDetail: false,
     };
     this.state = assignUrlParams(initState, urlParams);
@@ -65,6 +64,11 @@ class CreditDetails extends React.Component {
         paramsObj,
         nextParamsObj,
       };
+    }
+    if (JSON.stringify(nexprops.Details.sortData) !== JSON.stringify(this.props.Details.sortData)) {
+      this.setState({
+        groupData: nexprops.Details.sortData,
+      });
     }
   }
   componentWillUnmount() {
@@ -103,23 +107,10 @@ class CreditDetails extends React.Component {
   searchFn = () => {
     this.showModel(true);
     const { dataList } = this.props.Details;
-    const groupData = {};
-    if (dataList) {
-      Object.keys(dataList).forEach(item => {
-        groupData[item] = [];
-        dataList[item].forEach(jj => {
-          groupData[item].push({
-            category: jj.name,
-            groupId: `${jj.familyType}${jj.id}`,
-            tabKey: this.state.paramsObj.groupType,
-          });
-        });
-        groupData[item] = SortChanseData(groupData[item], 'category'); // 排序
-      });
-      this.setState({
-        groupData,
-      });
-    }
+    this.props.dispatch({
+      type: 'Details/pinyinComparator',
+      payload: { dataListObj: dataList, groupType: this.state.paramsObj.groupType },
+    });
   };
   showModel(v) {
     // 判断模态框显隐
@@ -162,7 +153,7 @@ class CreditDetails extends React.Component {
 
   render() {
     const { paramsObj, modelflag, groupData } = this.state;
-    const { isloading, Details = {} } = this.props;
+    const { isloading, Details = {}, isSorting } = this.props;
     const { dataList } = Details;
     const params = {
       0: { groupName: 'selfExam', arr: 'activeCS' },
@@ -214,15 +205,17 @@ class CreditDetails extends React.Component {
         )}
 
         {/* *************** 搜索模态框 *************** */}
-        <CreditDialog
-          listData={groupData}
-          tabkey={paramsObj.groupType}
-          dataList={dataList}
-          modelflag={modelflag}
-          showModel={v => {
-            this.showModel(v);
-          }}
-        />
+        {isSorting ? null : (
+          <CreditDialog
+            listData={groupData}
+            tabkey={paramsObj.groupType}
+            dataList={dataList}
+            modelflag={modelflag}
+            showModel={v => {
+              this.showModel(v);
+            }}
+          />
+        )}
 
         {/*
         * *fix 小button浮动框区域
@@ -264,4 +257,5 @@ class CreditDetails extends React.Component {
 export default connect(({ Details, loading }) => ({
   Details,
   isloading: loading.models.Details,
+  isSorting: loading.effects['Details/pinyinComparator'],
 }))(CreditDetails);
