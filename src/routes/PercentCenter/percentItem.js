@@ -8,7 +8,10 @@ class PercentItem extends React.Component {
   gotoNextPAge = (path, id) => {
     const layered_user = getItem(LOCAL_STORAGE_USER).value || {};
     if (id === 7) {
-      window.location.href = `${path}?id=${layered_user.id}&userId=${layered_user.userId}`;
+      const time = new Date().valueOf();
+      window.location.href = `${path}?id=${layered_user.id}&userId=${
+        layered_user.userId
+      }&v=${time}`;
     } else {
       window.location.href = path;
     }
