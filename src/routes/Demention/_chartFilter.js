@@ -122,13 +122,13 @@ export default class ChartFilter extends React.Component {
   };
 
   render() {
-    const { buttonData = [], trendData = null,dementionId=1 } = this.props;
+    const { buttonData = [], trendData = null, dementionId = 1 } = this.props;
     const { data = null } = trendData;
-    const dataNew={data,dementionId}
+    const dataNew = { data, dementionId };
     return (
       <TrendChart
         dataSource={!buttonData ? [] : this.chartDataFun(buttonData, trendData)}
-        data={dataNew}  // 通过该参数判断是否刷新图表组件
+        data={dataNew} // 通过该参数判断是否刷新图表组件
         width="7.1rem"
         height="6rem"
       />

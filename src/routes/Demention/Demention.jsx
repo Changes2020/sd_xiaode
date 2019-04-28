@@ -233,7 +233,7 @@ class Demention extends React.Component {
         endTime: this.state.endTime,
       };
       // 当button选中的是调增调减时候，只请求table的数据，这时候要忽略选中的switchtype
-      if (switchtype === 1 ||dementionId===49 || dementionId===51 ) {
+      if (switchtype === 1 || dementionId === 49 || dementionId === 51) {
         this.dataTable(dementionId, Params);
       } else {
         this.dataChart(dementionId, Params);
@@ -269,7 +269,7 @@ class Demention extends React.Component {
           titleTwo: this.formatTableDatda(item.valTwo),
           titleThree: this.formatTableDatda(item.valThree),
           titleFour: this.formatTableDatda(item.valFour),
-          checkDetail:item.valFour ,
+          checkDetail: item.valFour,
         };
         data.push(rowdata);
         return 0;
