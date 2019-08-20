@@ -14,6 +14,7 @@ global HOST API_TYPE
 /*
 *此接口为用于微信授权接口调用
 */
+
 export function setWechartAuth(params = {}) {
   const wechartHost = {
     production: 'http://bi-wechat.ministudy.com/authorize/RedirectToWechat',

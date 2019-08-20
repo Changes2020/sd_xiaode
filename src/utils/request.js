@@ -52,7 +52,6 @@ export default function request(url, options) {
   const userInfo = getItem('userInfo') || {};
   const value = userInfo.value || {};
   const { userId = '' } = value;
-
   const newOptions = { ...defaultOptions, ...options };
   // 此区域待优化
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
