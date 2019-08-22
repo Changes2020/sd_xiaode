@@ -17,7 +17,7 @@
     <script type="text/javascript" src='http://bd.ministudy.com/trace/trace_sdk.js'></script>
       <script>
           const userInfo = localStorage.getItem('userInfo');
-          const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.userId:null;
+          const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
           xd('config',{userId,site:2,project:'score'});
       </script>
 </body>
