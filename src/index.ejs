@@ -9,16 +9,20 @@
     <!-- 此脚本用于预加载图片 -->
     <script>function reloadImage(url,callback){var img=new Image();callback&&img.addEventListener("load",callback,false);img.src=url}var reloadImages=["http://bi-m.ministudy.com/staticFile/load.gif"];for(var i=0;i<reloadImages.length;i++){var callback=i===reloadImages.length-1?imageLoaded:null;reloadImage(reloadImages[i],callback)}function imageLoaded(){};</script>
     <!-- 此脚本用于rem配置 -->
-    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange" in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750);n<320&&(n=320);t.style.fontSize=n/d+"px"};if(!window.Promise){document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+">"+"<"+"/"+"script>")}e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);var s=document.createElement("script");s.src='https://nmui.oss-cn-beijing.aliyuncs.com/xaDjY4K3YSM?v='+Date.now();document.getElementsByTagName("head")[0].appendChild(s);</script>
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange" in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750);n<320&&(n=320);t.style.fontSize=n/d+"px"};if(!window.Promise){document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+">"+"<"+"/"+"script>")}e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
     <!-- 此脚本用于微信浏览器上拉刷新的回弹效果 -->
 </head>
 <body>
     <div id="root"></div>
-    <script type="text/javascript" src='http://bd.ministudy.com/trace/trace_sdk.js'></script>
+     <script type="text/javascript" src='https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js'></script>
+    <script>
+    var vConsole = new VConsole();
+    </script>
+    <script type="text/javascript" src='http://bd.ministudy.com/trace/trace_sdk.js?v=1.4'></script>
       <script>
-          const userInfo = localStorage.getItem('userInfo');
-          const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
-          xd('config',{userId,site:2,project:'score'});
+            const userInfo = localStorage.getItem('userInfo');
+            const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
+            xd('config',{userId,site:2,project:'score'});
       </script>
 </body>
 </html>
