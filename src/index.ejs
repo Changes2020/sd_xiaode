@@ -14,11 +14,14 @@
 </head>
 <body>
     <div id="root"></div>
-    <script type="text/javascript" src='http://bd.ministudy.com/trace/trace_sdk.js?v=1.4'></script>
+     <script type="text/javascript" src="http://bd.ministudy.com/trace/trace_sdk.js?v=1.0"></script>
       <script>
-            const userInfo = localStorage.getItem('userInfo');
-            const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
-            xd('config',{userId,site:2,project:'score'});
+            function getUserId(){
+              const userInfo = localStorage.getItem('userInfo');
+              const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
+              return userId;
+            }
+            xd('config',{getUserId,site:2,project:'score'});
       </script>
 </body>
 </html>
