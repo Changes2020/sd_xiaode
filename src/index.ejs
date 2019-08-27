@@ -18,11 +18,16 @@
     <script>
     var vConsole = new VConsole();
     </script>
-    <script type="text/javascript" src='http://bd.ministudy.com/trace/trace_sdk.js?v=1.4'></script>
-      <script>
-            const userInfo = localStorage.getItem('userInfo');
-            const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
-            xd('config',{userId,site:2,project:'score'});
-      </script>
+
+    <script type="text/javascript" src="http://172.16.117.64:9999/trace/trace_sdk.js?v=1.0"></script>
+     <script>
+           function getUserId(){
+             const userInfo = localStorage.getItem('userInfo');
+             const userId = JSON.parse(userInfo)?JSON.parse(userInfo).value.id:null;
+             return userId;
+           }
+           xd('config',{getUserId,site:2,project:'score'});
+     </script>
+
 </body>
 </html>
